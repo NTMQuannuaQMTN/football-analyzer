@@ -1,0 +1,234 @@
+"""Match catalog for the lobby: which matches exist, their status, and a whole-match summary.
+
+  real tracking   data/dfl_<match>_h1.json + _h2.json (backend/reconstruction/dfl_match.py), one match, two halves
+  computer vision data/cv_*.json (cv/build_match.py), a clip of a broadcast
+  synthetic       the scripted simulator (a test match with exact ground truth; not meant to look like real football)
+LIVE: one recorded real match (LIVE_MATCH, DFL tracking) is replayed as a live feed: its clock runs in real time from
+LIVE_STARTED_MIN minutes before the server started, through the 1st half into the 2nd. Labelled as a replay.
+"""
+import glob
+import json
+import os
+import time
+import xml.etree.ElementTree as ET
+from functools import lru_cache
+from pathlib import Path
+
+from backend.pipeline import get_intel
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "data"
+LIVE_SEED = 7  # synthetic test match
+LIVE_MATCH = os.getenv("LIVE_MATCH", "dfl-J03WOY")  # Fortuna Düsseldorf vs F.C. Hansa Rostock (2. Bundesliga)
+LIVE_SPEED = 1.0
+LIVE_NOTE = "Simulated live feed: a recorded real match (DFL tracking data) replayed in real time"
+LIVE_STARTED_MIN = float(os.getenv("LIVE_STARTED_MIN", "20"))
+_SERVER_START = time.time()
+PART_LABEL = {"h1": "1st half", "h2": "2nd half", "clip": "Clip", "full": "Full match"}
+
+
+@lru_cache(maxsize=32)
+def _file_meta(path: str, mtime: float) -> dict:
+    d = json.load(open(path))
+    return {"meta": d["meta"], "goals": [e for e in d["events"] if e["event_type"] == "GOAL"]}
+
+
+def file_meta(path) -> dict:
+    return _file_meta(str(path), os.path.getmtime(path))
+
+
+def _dfl_info(mid: str) -> dict:
+    f = glob.glob(str(DATA / "dfl" / f"DFL_02_01_matchinformation_*_{mid}.xml"))
+    if not f:
+        return {}
+    g = ET.parse(f[0]).getroot().find(".//General")
+    return {"date": (g.get("KickoffTime") or "")[:10], "season": g.get("Season"), "matchday": g.get("MatchDay"),
+            "result": g.get("Result"), "competition": g.get("CompetitionName")}
+
+
+@lru_cache(maxsize=1)
+def _catalog_static() -> tuple:
+    out = []
+    halves = {}
+    for p in sorted(glob.glob(str(DATA / "dfl_*_h[12].json"))):
+        key, half = Path(p).stem.rsplit("_", 1)
+        halves.setdefault(key, {})[half] = p
+    for key, parts in halves.items():
+        mid = "DFL-MAT-" + key.split("_", 1)[1]
+        info = _dfl_info(mid)
+        out.append({"id": key.replace("_", "-"), "kind": "tracking", "label": "Real tracking · DFL open data",
+                    "parts": {h: parts[h] for h in sorted(parts)}, "info": info})
+    for p in sorted(glob.glob(str(DATA / "cv_*.json"))):
+        if "backup" in p:
+            continue
+        out.append({"id": "cv-" + Path(p).stem[3:].replace("_", "-")[:60], "kind": "computer_vision",
+                    "label": "Computer vision · SoccerNet broadcast clip", "parts": {"clip": p}, "info": {}})
+    out.append({"id": f"sim-{LIVE_SEED}", "kind": "synthetic", "label": "Synthetic test match · scripted simulator",
+                "parts": {"full": None}, "info": {"competition": "Synthetic test league"}})
+    return tuple(out)
+
+
+def entry(mid):
+    return next((m for m in _catalog_static() if m["id"] == mid), None)
+
+
+def intel(mid=None, part=None):
+    """MatchIntelligence for one part of a catalogued match (None: the server's default match)."""
+    if mid is None:
+        return get_intel()
+    m = entry(mid)
+    if m is None:
+        raise KeyError(mid)
+    part = part or next(iter(m["parts"]))
+    if part not in m["parts"]:
+        raise KeyError(f"{mid}/{part}")
+    return get_intel(LIVE_SEED, m["parts"][part])
+
+
+def live_clock(mid):
+    """Seconds of the live match played so far, across its parts (None if this match is not live)."""
+    if mid != LIVE_MATCH or entry(mid) is None:
+        return None
+    return (time.time() - _SERVER_START) * LIVE_SPEED + LIVE_STARTED_MIN * 60
+
+
+def _part_spans(mid):
+    """[(part, start, duration)] with parts played back to back."""
+    m = entry(mid)
+    spans, start = [], 0.0
+    for h, p in m["parts"].items():
+        d = float(file_meta(p)["meta"]["duration"]) if p else float(intel(mid, h).m.duration)
+        spans.append((h, start, d))
+        start += d
+    return spans
+
+
+def part_until(mid, part):
+    """Seconds of `part` played so far (None: not started); the part's full duration if the match is not live."""
+    t = live_clock(mid)
+    for h, start, d in _part_spans(mid):
+        if h == part:
+            if t is None:
+                return d
+            return None if t < start else min(t - start, d)
+    raise KeyError(part)
+
+
+def live_info(mid, part=None):
+    t = live_clock(mid)
+    if t is None:
+        return None
+    spans = _part_spans(mid)
+    current = next((h for h, s, d in spans if t < s + d), spans[-1][0])
+    part = part or current
+    until = part_until(mid, part)
+    _, s, d = next(x for x in spans if x[0] == part)
+    return {"t_now": round(until or 0.0, 1), "speed": LIVE_SPEED, "started": until is not None,
+            "finished": t >= s + d, "match_finished": t >= spans[-1][1] + spans[-1][2], "part": current, "note": LIVE_NOTE}
+
+
+def _teams(meta):
+    return {k: {"name": v["name"], "short": v.get("short") or v["name"][:3].upper(), "color": v["color"]} for k, v in meta["teams"].items()}
+
+
+def lobby():
+    """Cards for the lobby. Cheap: reads file metadata only (the live match is analysed at server start)."""
+    cards = []
+    for m in _catalog_static():
+        if m["kind"] == "synthetic":
+            I = intel(m["id"])
+            cards.append({"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(I.m.meta),
+                          "score": I.m.score_at(I.m.duration), "status": "finished", "competition": m["info"].get("competition"),
+                          "date": None, "parts": [{"id": "full", "label": PART_LABEL["full"]}],
+                          "note": "Scripted, rule-based match used to test tactic detection against exact ground truth; not real football"})
+            continue
+        li = live_info(m["id"])
+        if li and not li["match_finished"]:
+            I = intel(m["id"], li["part"])
+            until = li["t_now"]
+            cards.append({"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(I.m.meta),
+                          "score": I.m.score_at(until), "status": "live",
+                          "minute": int((until + (I.m.meta.get("clock_offset") or 0)) // 60) + 1,
+                          "competition": m["info"].get("competition"), "date": m["info"].get("date"),
+                          "season": m["info"].get("season"), "matchday": m["info"].get("matchday"),
+                          "parts": [{"id": h, "label": PART_LABEL.get(h, h)} for h in m["parts"]], "note": li["note"],
+                          "live_part": li["part"]})
+            continue
+        metas = {h: file_meta(p) for h, p in m["parts"].items()}
+        first = next(iter(metas.values()))["meta"]
+        last_key = list(metas)[-1]
+        last = metas[last_key]
+        score = dict(last["meta"].get("initial_score") or {"A": 0, "B": 0})
+        for g in last["goals"]:
+            score[g["team_id"]] += 1
+        src = first.get("source", {})
+        card = {"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(first), "score": score,
+                "status": "finished", "competition": m["info"].get("competition") or src.get("competition"),
+                "date": m["info"].get("date"), "season": m["info"].get("season"), "matchday": m["info"].get("matchday"),
+                "parts": [{"id": h, "label": PART_LABEL.get(h, h)} for h in m["parts"]]}
+        if m["kind"] == "computer_vision":
+            game = src.get("game", "")
+            card["date"] = game.split("/")[-1][:10] if "/" in game else None
+            league, season = (game.split("/") + ["", ""])[:2]
+            card["competition"] = "SoccerNet · " + {"england_epl": "England"}.get(league, league or "broadcast") + (f" {season[:5]}{season[-2:]}" if season else "")
+            s, e = src.get("start", 0), src.get("end", 0)
+            card["note"] = f"{int(s // 60)}:{int(s % 60):02d}–{int(e // 60)}:{int(e % 60):02d} of half {src.get('half', 1)}; score is for this clip"
+        elif m["kind"] == "tracking" and len(m["parts"]) < 2:
+            card["note"] = "Only one half available"
+        cards.append(card)
+    live = [c for c in cards if c["status"] == "live"]
+    past = sorted((c for c in cards if c["status"] != "live"), key=lambda c: c.get("date") or "", reverse=True)
+    return live + past  # live first, then newest past match first
+
+
+def match_summary(mid):
+    """Whole-match analysis: every part summarised, then combined (stats summed, possession by time on the ball)."""
+    m = entry(mid)
+    if m is None:
+        raise KeyError(mid)
+    live = live_clock(mid) is not None
+    parts = []
+    for h in m["parts"]:
+        until = part_until(mid, h) if live else None
+        if live and until is None:
+            continue  # this half has not started yet
+        I = intel(mid, h)
+        parts.append({"id": h, "label": PART_LABEL.get(h, h), **I.summary(until)})
+    I0 = intel(mid, next(iter(m["parts"])))
+    combined = {}
+    for tm in ("A", "B"):
+        c = {}
+        for k in ("goals", "shots", "shots_on_target", "passes", "passes_completed", "tackles_won", "fouls", "corners",
+                  "offsides", "yellow_cards", "red_cards", "possession_seconds"):
+            c[k] = sum(p["teams"][tm][k] for p in parts)
+        c["xg"] = round(sum(p["teams"][tm]["xg"] for p in parts), 2)
+        c["pass_accuracy"] = round(c["passes_completed"] / max(1, c["passes"]), 3)
+        dists = [p["teams"][tm]["distance_km"] for p in parts]
+        c["distance_km"] = round(sum(dists), 1) if all(d is not None for d in dists) else None
+        presses = [p["teams"][tm]["press_index"] for p in parts if p["teams"][tm]["press_index"] is not None]
+        c["press_index"] = round(sum(presses) / len(presses), 1) if presses else None
+        combined[tm] = c
+    tot = combined["A"]["possession_seconds"] + combined["B"]["possession_seconds"]
+    for tm in ("A", "B"):
+        combined[tm]["possession"] = round(combined[tm]["possession_seconds"] / max(1, tot), 3)
+    # players across parts
+    pl = {}
+    for p in parts:
+        for x in p["players"]:
+            y = pl.setdefault(x["id"], {**x, "passes": 0, "completed": 0, "tackles": 0, "shots": 0, "goals": 0,
+                                         "assists": 0, "xg": 0.0, "distance_km": None, "top_speed_kmh": None})
+            for k in ("passes", "completed", "tackles", "shots", "goals", "assists"):
+                y[k] += x[k]
+            y["xg"] = round(y["xg"] + (x["xg"] or 0), 2)
+            if x["distance_km"] is not None:
+                y["distance_km"] = round((y["distance_km"] or 0) + x["distance_km"], 2)
+                y["top_speed_kmh"] = max(y["top_speed_kmh"] or 0, x["top_speed_kmh"] or 0)
+    last = parts[-1]
+    meta = I0.m.meta
+    lob = next(c for c in lobby() if c["id"] == mid)
+    return {"id": mid, "kind": m["kind"], "label": m["label"], "status": lob["status"], "minute": lob.get("minute"),
+            "teams": _teams(meta), "score": lob["score"], "competition": lob.get("competition"), "date": lob.get("date"),
+            "season": lob.get("season"), "matchday": lob.get("matchday"), "note": lob.get("note"),
+            "parts": [{k: v for k, v in p.items() if k not in ("players",)} for p in parts],
+            "team_stats": combined, "players": sorted(pl.values(), key=lambda x: -(x["goals"] * 10 + x["completed"])),
+            "live": live_info(mid) if lob["status"] == "live" else None, "until": last["until"]}

@@ -1,0 +1,126 @@
+{
+ "matches": 10,
+ "fold": 0,
+ "results": {
+  "broadcast": {
+   "formation_live": {
+    "n": 420584,
+    "mae_m": 5.12,
+    "rmse_m": 6.82,
+    "within_5m": 0.624,
+    "within_10m": 0.883
+   },
+   "ml_live": {
+    "n": 420584,
+    "mae_m": 5.25,
+    "rmse_m": 6.78,
+    "within_5m": 0.577,
+    "within_10m": 0.872
+   },
+   "formation_replay": {
+    "n": 420584,
+    "mae_m": 4.02,
+    "rmse_m": 5.24,
+    "within_5m": 0.718,
+    "within_10m": 0.945
+   },
+   "ml_replay": {
+    "n": 420584,
+    "mae_m": 4.11,
+    "rmse_m": 5.32,
+    "within_5m": 0.687,
+    "within_10m": 0.94
+   }
+  },
+  "k=14": {
+   "formation_live": {
+    "n": 423670,
+    "mae_m": 4.13,
+    "rmse_m": 4.91,
+    "within_5m": 0.698,
+    "within_10m": 0.968
+   },
+   "ml_live": {
+    "n": 423670,
+    "mae_m": 5.13,
+    "rmse_m": 6.33,
+    "within_5m": 0.581,
+    "within_10m": 0.893
+   },
+   "formation_replay": {
+    "n": 423670,
+    "mae_m": 3.47,
+    "rmse_m": 4.18,
+    "within_5m": 0.788,
+    "within_10m": 0.985
+   },
+   "ml_replay": {
+    "n": 423670,
+    "mae_m": 4.31,
+    "rmse_m": 5.37,
+    "within_5m": 0.675,
+    "within_10m": 0.936
+   }
+  },
+  "k=10": {
+   "formation_live": {
+    "n": 639710,
+    "mae_m": 4.98,
+    "rmse_m": 6.09,
+    "within_5m": 0.601,
+    "within_10m": 0.922
+   },
+   "ml_live": {
+    "n": 639710,
+    "mae_m": 5.69,
+    "rmse_m": 6.94,
+    "within_5m": 0.515,
+    "within_10m": 0.865
+   },
+   "formation_replay": {
+    "n": 639710,
+    "mae_m": 4.01,
+    "rmse_m": 4.97,
+    "within_5m": 0.719,
+    "within_10m": 0.963
+   },
+   "ml_replay": {
+    "n": 639710,
+    "mae_m": 4.6,
+    "rmse_m": 5.67,
+    "within_5m": 0.635,
+    "within_10m": 0.929
+   }
+  },
+  "k=6": {
+   "formation_live": {
+    "n": 855750,
+    "mae_m": 6.89,
+    "rmse_m": 9.66,
+    "within_5m": 0.473,
+    "within_10m": 0.836
+   },
+   "ml_live": {
+    "n": 855750,
+    "mae_m": 6.77,
+    "rmse_m": 8.21,
+    "within_5m": 0.424,
+    "within_10m": 0.792
+   },
+   "formation_replay": {
+    "n": 855750,
+    "mae_m": 5.33,
+    "rmse_m": 6.97,
+    "within_5m": 0.586,
+    "within_10m": 0.901
+   },
+   "ml_replay": {
+    "n": 855750,
+    "mae_m": 5.46,
+    "rmse_m": 6.66,
+    "within_5m": 0.536,
+    "within_10m": 0.883
+   }
+  }
+ }
+}

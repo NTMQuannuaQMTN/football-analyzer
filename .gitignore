@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+frontend/node_modules/
+frontend/.next/
+data/*.json
+cv/out/
+cv/weights/
+data/soccernet/
+data/cv_*.json
+data/sn_gsr/
+data/metrica/
+data/dfl/
+data/skillcorner/
+data/eval/*.npz
+cv/weights/*.pt
+
+# regenerable caches (features, parsed tracking) - large; rebuilt by the scripts
+data/eval/real/*.npz
+**/*.npz
+frontend/.env*
+.env
+runs/
+*.pt

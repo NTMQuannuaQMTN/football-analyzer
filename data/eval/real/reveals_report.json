@@ -1,0 +1,26 @@
+{
+ "matches": "held-out only (estimator never trained on them)",
+ "n": 21775,
+ "mean_error_m": 9.36,
+ "median_error_m": 7.78,
+ "within_5m": 0.296,
+ "within_10m": 0.635,
+ "inside_80pct_radius": 0.796,
+ "by_hidden_s": {
+  "5-10s": {
+   "n": 6314,
+   "median_error_m": 5.98,
+   "inside_80pct_radius": 0.81
+  },
+  "10-30s": {
+   "n": 8440,
+   "median_error_m": 8.08,
+   "inside_80pct_radius": 0.802
+  },
+  "30-s": {
+   "n": 7021,
+   "median_error_m": 9.44,
+   "inside_80pct_radius": 0.775
+  }
+ }
+}

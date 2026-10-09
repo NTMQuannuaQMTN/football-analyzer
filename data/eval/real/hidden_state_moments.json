@@ -1,0 +1,19 @@
+{
+ "moments": 125,
+ "avg_observed_players": 2.2,
+ "def_line_m": {
+  "camera_only": 11.56,
+  "available": "72/125",
+  "reconstructed": 3.18
+ },
+ "width_m": {
+  "camera_only": 15.6,
+  "available": "72/125",
+  "reconstructed": 6.75
+ },
+ "near_ball": {
+  "camera_only": 0.46,
+  "available": "72/125",
+  "reconstructed": 0.36
+ }
+}

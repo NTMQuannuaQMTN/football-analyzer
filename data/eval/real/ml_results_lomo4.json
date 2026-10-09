@@ -1,0 +1,1070 @@
+{
+ "fold": 4,
+ "train": [
+  "DFL-MAT-J03WMX",
+  "DFL-MAT-J03WN1",
+  "DFL-MAT-J03WOH",
+  "DFL-MAT-J03WOY",
+  "DFL-MAT-J03WR9"
+ ],
+ "val": "DFL-MAT-J03WQQ",
+ "test_match": "DFL-MAT-J03WPY",
+ "val_curve_mae_m": {
+  "live": [
+   7.183,
+   7.062,
+   6.959,
+   6.954,
+   6.766,
+   6.847,
+   6.875,
+   6.773,
+   6.778,
+   6.794,
+   6.784,
+   6.813
+  ],
+  "replay": [
+   6.18,
+   6.019,
+   5.831,
+   5.942,
+   5.835,
+   5.747,
+   5.74,
+   5.691,
+   5.703,
+   5.731,
+   5.715,
+   5.707
+  ]
+ },
+ "results": {
+  "sc_camera": {
+   "last_position": {
+    "n": 94194,
+    "mae_m": 15.48,
+    "rmse_m": 20.61,
+    "within_5m": 0.255,
+    "within_10m": 0.441
+   },
+   "constant_velocity": {
+    "n": 94194,
+    "mae_m": 15.19,
+    "rmse_m": 20.59,
+    "within_5m": 0.282,
+    "within_10m": 0.459
+   },
+   "formation_live": {
+    "n": 94799,
+    "mae_m": 13.41,
+    "rmse_m": 17.72,
+    "within_5m": 0.271,
+    "within_10m": 0.5
+   },
+   "ml_live": {
+    "n": 94799,
+    "mae_m": 8.36,
+    "rmse_m": 11.12,
+    "within_5m": 0.411,
+    "within_10m": 0.693,
+    "radius_coverage_80": 0.797
+   },
+   "formation_replay": {
+    "n": 94799,
+    "mae_m": 9.78,
+    "rmse_m": 13.24,
+    "within_5m": 0.374,
+    "within_10m": 0.644
+   },
+   "ml_replay": {
+    "n": 94799,
+    "mae_m": 7.01,
+    "rmse_m": 9.7,
+    "within_5m": 0.505,
+    "within_10m": 0.766,
+    "radius_coverage_80": 0.798
+   }
+  },
+  "k=18": {
+   "last_position": {
+    "n": 23260,
+    "mae_m": 9.79,
+    "rmse_m": 13.03,
+    "within_5m": 0.364,
+    "within_10m": 0.612
+   },
+   "constant_velocity": {
+    "n": 23260,
+    "mae_m": 9.01,
+    "rmse_m": 12.5,
+    "within_5m": 0.423,
+    "within_10m": 0.658
+   },
+   "formation_live": {
+    "n": 23400,
+    "mae_m": 7.42,
+    "rmse_m": 10.27,
+    "within_5m": 0.473,
+    "within_10m": 0.79
+   },
+   "ml_live": {
+    "n": 23400,
+    "mae_m": 4.26,
+    "rmse_m": 6.63,
+    "within_5m": 0.748,
+    "within_10m": 0.918,
+    "radius_coverage_80": 0.799
+   },
+   "formation_replay": {
+    "n": 23400,
+    "mae_m": 6.51,
+    "rmse_m": 9.39,
+    "within_5m": 0.554,
+    "within_10m": 0.836
+   },
+   "ml_replay": {
+    "n": 23400,
+    "mae_m": 3.43,
+    "rmse_m": 5.58,
+    "within_5m": 0.825,
+    "within_10m": 0.95,
+    "radius_coverage_80": 0.795
+   }
+  },
+  "k=16": {
+   "last_position": {
+    "n": 34926,
+    "mae_m": 11.12,
+    "rmse_m": 14.74,
+    "within_5m": 0.319,
+    "within_10m": 0.559
+   },
+   "constant_velocity": {
+    "n": 34926,
+    "mae_m": 10.21,
+    "rmse_m": 13.99,
+    "within_5m": 0.364,
+    "within_10m": 0.607
+   },
+   "formation_live": {
+    "n": 35100,
+    "mae_m": 7.55,
+    "rmse_m": 10.17,
+    "within_5m": 0.438,
+    "within_10m": 0.776
+   },
+   "ml_live": {
+    "n": 35100,
+    "mae_m": 4.66,
+    "rmse_m": 7.05,
+    "within_5m": 0.701,
+    "within_10m": 0.907,
+    "radius_coverage_80": 0.8
+   },
+   "formation_replay": {
+    "n": 35100,
+    "mae_m": 6.41,
+    "rmse_m": 8.97,
+    "within_5m": 0.54,
+    "within_10m": 0.839
+   },
+   "ml_replay": {
+    "n": 35100,
+    "mae_m": 3.74,
+    "rmse_m": 5.9,
+    "within_5m": 0.794,
+    "within_10m": 0.943,
+    "radius_coverage_80": 0.797
+   }
+  },
+  "k=14": {
+   "last_position": {
+    "n": 46501,
+    "mae_m": 12.4,
+    "rmse_m": 16.1,
+    "within_5m": 0.282,
+    "within_10m": 0.512
+   },
+   "constant_velocity": {
+    "n": 46501,
+    "mae_m": 11.57,
+    "rmse_m": 15.41,
+    "within_5m": 0.32,
+    "within_10m": 0.545
+   },
+   "formation_live": {
+    "n": 46800,
+    "mae_m": 8.04,
+    "rmse_m": 10.51,
+    "within_5m": 0.391,
+    "within_10m": 0.735
+   },
+   "ml_live": {
+    "n": 46800,
+    "mae_m": 5.14,
+    "rmse_m": 7.44,
+    "within_5m": 0.645,
+    "within_10m": 0.887,
+    "radius_coverage_80": 0.798
+   },
+   "formation_replay": {
+    "n": 46800,
+    "mae_m": 6.71,
+    "rmse_m": 9.03,
+    "within_5m": 0.497,
+    "within_10m": 0.812
+   },
+   "ml_replay": {
+    "n": 46800,
+    "mae_m": 4.18,
+    "rmse_m": 6.17,
+    "within_5m": 0.735,
+    "within_10m": 0.928,
+    "radius_coverage_80": 0.793
+   }
+  },
+  "k=12": {
+   "last_position": {
+    "n": 58133,
+    "mae_m": 13.57,
+    "rmse_m": 17.4,
+    "within_5m": 0.242,
+    "within_10m": 0.472
+   },
+   "constant_velocity": {
+    "n": 58133,
+    "mae_m": 12.68,
+    "rmse_m": 16.68,
+    "within_5m": 0.287,
+    "within_10m": 0.507
+   },
+   "formation_live": {
+    "n": 58500,
+    "mae_m": 8.51,
+    "rmse_m": 10.88,
+    "within_5m": 0.352,
+    "within_10m": 0.696
+   },
+   "ml_live": {
+    "n": 58500,
+    "mae_m": 5.52,
+    "rmse_m": 7.76,
+    "within_5m": 0.597,
+    "within_10m": 0.869,
+    "radius_coverage_80": 0.805
+   },
+   "formation_replay": {
+    "n": 58500,
+    "mae_m": 7.06,
+    "rmse_m": 9.28,
+    "within_5m": 0.456,
+    "within_10m": 0.789
+   },
+   "ml_replay": {
+    "n": 58500,
+    "mae_m": 4.58,
+    "rmse_m": 6.58,
+    "within_5m": 0.687,
+    "within_10m": 0.917,
+    "radius_coverage_80": 0.796
+   }
+  },
+  "k=10": {
+   "last_position": {
+    "n": 69728,
+    "mae_m": 15.04,
+    "rmse_m": 19.08,
+    "within_5m": 0.21,
+    "within_10m": 0.42
+   },
+   "constant_velocity": {
+    "n": 69728,
+    "mae_m": 14.34,
+    "rmse_m": 18.59,
+    "within_5m": 0.248,
+    "within_10m": 0.447
+   },
+   "formation_live": {
+    "n": 70200,
+    "mae_m": 9.28,
+    "rmse_m": 11.68,
+    "within_5m": 0.317,
+    "within_10m": 0.638
+   },
+   "ml_live": {
+    "n": 70200,
+    "mae_m": 6.11,
+    "rmse_m": 8.36,
+    "within_5m": 0.544,
+    "within_10m": 0.831,
+    "radius_coverage_80": 0.801
+   },
+   "formation_replay": {
+    "n": 70200,
+    "mae_m": 7.62,
+    "rmse_m": 9.81,
+    "within_5m": 0.412,
+    "within_10m": 0.748
+   },
+   "ml_replay": {
+    "n": 70200,
+    "mae_m": 5.05,
+    "rmse_m": 7.04,
+    "within_5m": 0.633,
+    "within_10m": 0.892,
+    "radius_coverage_80": 0.799
+   }
+  },
+  "k=8": {
+   "last_position": {
+    "n": 80872,
+    "mae_m": 16.54,
+    "rmse_m": 20.86,
+    "within_5m": 0.179,
+    "within_10m": 0.379
+   },
+   "constant_velocity": {
+    "n": 80872,
+    "mae_m": 15.99,
+    "rmse_m": 20.55,
+    "within_5m": 0.217,
+    "within_10m": 0.405
+   },
+   "formation_live": {
+    "n": 81900,
+    "mae_m": 10.15,
+    "rmse_m": 12.63,
+    "within_5m": 0.28,
+    "within_10m": 0.589
+   },
+   "ml_live": {
+    "n": 81900,
+    "mae_m": 6.68,
+    "rmse_m": 8.89,
+    "within_5m": 0.492,
+    "within_10m": 0.8,
+    "radius_coverage_80": 0.798
+   },
+   "formation_replay": {
+    "n": 81900,
+    "mae_m": 8.42,
+    "rmse_m": 10.69,
+    "within_5m": 0.363,
+    "within_10m": 0.695
+   },
+   "ml_replay": {
+    "n": 81900,
+    "mae_m": 5.68,
+    "rmse_m": 7.74,
+    "within_5m": 0.573,
+    "within_10m": 0.857,
+    "radius_coverage_80": 0.792
+   }
+  },
+  "k=6": {
+   "last_position": {
+    "n": 92369,
+    "mae_m": 18.15,
+    "rmse_m": 22.66,
+    "within_5m": 0.153,
+    "within_10m": 0.334
+   },
+   "constant_velocity": {
+    "n": 92369,
+    "mae_m": 17.78,
+    "rmse_m": 22.66,
+    "within_5m": 0.188,
+    "within_10m": 0.362
+   },
+   "formation_live": {
+    "n": 93600,
+    "mae_m": 12.18,
+    "rmse_m": 15.49,
+    "within_5m": 0.233,
+    "within_10m": 0.514
+   },
+   "ml_live": {
+    "n": 93600,
+    "mae_m": 7.62,
+    "rmse_m": 9.99,
+    "within_5m": 0.423,
+    "within_10m": 0.744,
+    "radius_coverage_80": 0.787
+   },
+   "formation_replay": {
+    "n": 93600,
+    "mae_m": 9.96,
+    "rmse_m": 12.63,
+    "within_5m": 0.304,
+    "within_10m": 0.609
+   },
+   "ml_replay": {
+    "n": 93600,
+    "mae_m": 6.65,
+    "rmse_m": 8.88,
+    "within_5m": 0.493,
+    "within_10m": 0.8,
+    "radius_coverage_80": 0.782
+   }
+  },
+  "rand=10": {
+   "last_position": {
+    "n": 70145,
+    "mae_m": 3.59,
+    "rmse_m": 5.39,
+    "within_5m": 0.776,
+    "within_10m": 0.931
+   },
+   "constant_velocity": {
+    "n": 70145,
+    "mae_m": 3.06,
+    "rmse_m": 4.88,
+    "within_5m": 0.818,
+    "within_10m": 0.945
+   },
+   "formation_live": {
+    "n": 70200,
+    "mae_m": 3.67,
+    "rmse_m": 5.05,
+    "within_5m": 0.779,
+    "within_10m": 0.948
+   },
+   "ml_live": {
+    "n": 70200,
+    "mae_m": 2.7,
+    "rmse_m": 3.87,
+    "within_5m": 0.867,
+    "within_10m": 0.973,
+    "radius_coverage_80": 0.792
+   },
+   "formation_replay": {
+    "n": 70200,
+    "mae_m": 2.34,
+    "rmse_m": 3.2,
+    "within_5m": 0.909,
+    "within_10m": 0.99
+   },
+   "ml_replay": {
+    "n": 70200,
+    "mae_m": 1.46,
+    "rmse_m": 2.06,
+    "within_5m": 0.97,
+    "within_10m": 0.996,
+    "radius_coverage_80": 0.864
+   }
+  }
+ },
+ "test_breakdown_sc_camera": {
+  "ml_live": [
+   {
+    "by_role": {
+     "AM": {
+      "n": 3839,
+      "mae_m": 7.94,
+      "rmse_m": 10.15,
+      "within_5m": 0.41,
+      "within_10m": 0.694
+     },
+     "CB": {
+      "n": 8358,
+      "mae_m": 7.25,
+      "rmse_m": 9.54,
+      "within_5m": 0.45,
+      "within_10m": 0.76
+     },
+     "DM": {
+      "n": 5738,
+      "mae_m": 7.95,
+      "rmse_m": 10.77,
+      "within_5m": 0.431,
+      "within_10m": 0.72
+     },
+     "FB": {
+      "n": 8542,
+      "mae_m": 8.54,
+      "rmse_m": 11.02,
+      "within_5m": 0.38,
+      "within_10m": 0.678
+     },
+     "GK": {
+      "n": 4743,
+      "mae_m": 5.1,
+      "rmse_m": 6.93,
+      "within_5m": 0.646,
+      "within_10m": 0.878
+     },
+     "ST": {
+      "n": 6008,
+      "mae_m": 7.97,
+      "rmse_m": 10.16,
+      "within_5m": 0.393,
+      "within_10m": 0.701
+     },
+     "WM": {
+      "n": 8132,
+      "mae_m": 8.61,
+      "rmse_m": 10.97,
+      "within_5m": 0.366,
+      "within_10m": 0.668
+     }
+    },
+    "by_state": {
+     "in_possession": {
+      "n": 22422,
+      "mae_m": 8.41,
+      "rmse_m": 10.89,
+      "within_5m": 0.384,
+      "within_10m": 0.682
+     },
+     "out_of_possession": {
+      "n": 22938,
+      "mae_m": 7.11,
+      "rmse_m": 9.4,
+      "within_5m": 0.473,
+      "within_10m": 0.76
+     },
+     "ball_dead": {
+      "n": 15360,
+      "mae_m": 8.29,
+      "rmse_m": 10.92,
+      "within_5m": 0.406,
+      "within_10m": 0.681
+     },
+     "ball_in_own_third": {
+      "n": 9327,
+      "mae_m": 7.54,
+      "rmse_m": 9.92,
+      "within_5m": 0.443,
+      "within_10m": 0.733
+     },
+     "ball_in_middle_third": {
+      "n": 19795,
+      "mae_m": 7.45,
+      "rmse_m": 9.81,
+      "within_5m": 0.442,
+      "within_10m": 0.739
+     },
+     "ball_in_attacking_third": {
+      "n": 12586,
+      "mae_m": 7.93,
+      "rmse_m": 10.28,
+      "within_5m": 0.417,
+      "within_10m": 0.712
+     }
+    }
+   },
+   {
+    "by_role": {
+     "AM": {
+      "n": 4212,
+      "mae_m": 8.63,
+      "rmse_m": 11.02,
+      "within_5m": 0.391,
+      "within_10m": 0.654
+     },
+     "CB": {
+      "n": 9261,
+      "mae_m": 8.33,
+      "rmse_m": 11.26,
+      "within_5m": 0.407,
+      "within_10m": 0.716
+     },
+     "DM": {
+      "n": 5054,
+      "mae_m": 8.72,
+      "rmse_m": 11.33,
+      "within_5m": 0.383,
+      "within_10m": 0.655
+     },
+     "FB": {
+      "n": 9497,
+      "mae_m": 10.15,
+      "rmse_m": 13.68,
+      "within_5m": 0.355,
+      "within_10m": 0.612
+     },
+     "GK": {
+      "n": 5168,
+      "mae_m": 5.59,
+      "rmse_m": 7.71,
+      "within_5m": 0.591,
+      "within_10m": 0.853
+     },
+     "ST": {
+      "n": 8063,
+      "mae_m": 9.17,
+      "rmse_m": 11.93,
+      "within_5m": 0.368,
+      "within_10m": 0.638
+     },
+     "W": {
+      "n": 819,
+      "mae_m": 11.91,
+      "rmse_m": 15.03,
+      "within_5m": 0.272,
+      "within_10m": 0.505
+     },
+     "WM": {
+      "n": 7365,
+      "mae_m": 10.1,
+      "rmse_m": 13.22,
+      "within_5m": 0.345,
+      "within_10m": 0.604
+     }
+    },
+    "by_state": {
+     "in_possession": {
+      "n": 24476,
+      "mae_m": 9.31,
+      "rmse_m": 12.29,
+      "within_5m": 0.365,
+      "within_10m": 0.643
+     },
+     "out_of_possession": {
+      "n": 24963,
+      "mae_m": 8.54,
+      "rmse_m": 11.57,
+      "within_5m": 0.424,
+      "within_10m": 0.688
+     },
+     "ball_dead": {
+      "n": 27981,
+      "mae_m": 9.45,
+      "rmse_m": 12.63,
+      "within_5m": 0.374,
+      "within_10m": 0.638
+     },
+     "ball_in_own_third": {
+      "n": 10701,
+      "mae_m": 8.3,
+      "rmse_m": 11.12,
+      "within_5m": 0.429,
+      "within_10m": 0.691
+     },
+     "ball_in_middle_third": {
+      "n": 14698,
+      "mae_m": 7.65,
+      "rmse_m": 10.46,
+      "within_5m": 0.461,
+      "within_10m": 0.737
+     },
+     "ball_in_attacking_third": {
+      "n": 17354,
+      "mae_m": 9.97,
+      "rmse_m": 13.03,
+      "within_5m": 0.332,
+      "within_10m": 0.615
+     }
+    }
+   }
+  ],
+  "formation_replay": [
+   {
+    "by_role": {
+     "AM": {
+      "n": 3839,
+      "mae_m": 9.79,
+      "rmse_m": 13.92,
+      "within_5m": 0.402,
+      "within_10m": 0.678
+     },
+     "CB": {
+      "n": 8358,
+      "mae_m": 9.07,
+      "rmse_m": 12.67,
+      "within_5m": 0.418,
+      "within_10m": 0.684
+     },
+     "DM": {
+      "n": 5738,
+      "mae_m": 10.5,
+      "rmse_m": 14.99,
+      "within_5m": 0.41,
+      "within_10m": 0.646
+     },
+     "FB": {
+      "n": 8542,
+      "mae_m": 10.28,
+      "rmse_m": 13.46,
+      "within_5m": 0.335,
+      "within_10m": 0.6
+     },
+     "GK": {
+      "n": 4743,
+      "mae_m": 8.84,
+      "rmse_m": 11.49,
+      "within_5m": 0.336,
+      "within_10m": 0.731
+     },
+     "ST": {
+      "n": 6008,
+      "mae_m": 9.66,
+      "rmse_m": 13.29,
+      "within_5m": 0.385,
+      "within_10m": 0.647
+     },
+     "WM": {
+      "n": 8132,
+      "mae_m": 9.97,
+      "rmse_m": 13.73,
+      "within_5m": 0.387,
+      "within_10m": 0.642
+     }
+    },
+    "by_state": {
+     "in_possession": {
+      "n": 22422,
+      "mae_m": 10.86,
+      "rmse_m": 14.78,
+      "within_5m": 0.346,
+      "within_10m": 0.609
+     },
+     "out_of_possession": {
+      "n": 22938,
+      "mae_m": 8.67,
+      "rmse_m": 11.9,
+      "within_5m": 0.416,
+      "within_10m": 0.701
+     },
+     "ball_dead": {
+      "n": 15360,
+      "mae_m": 9.68,
+      "rmse_m": 13.49,
+      "within_5m": 0.398,
+      "within_10m": 0.667
+     },
+     "ball_in_own_third": {
+      "n": 9327,
+      "mae_m": 9.32,
+      "rmse_m": 13.35,
+      "within_5m": 0.429,
+      "within_10m": 0.69
+     },
+     "ball_in_middle_third": {
+      "n": 19795,
+      "mae_m": 9.53,
+      "rmse_m": 13.25,
+      "within_5m": 0.394,
+      "within_10m": 0.668
+     },
+     "ball_in_attacking_third": {
+      "n": 12586,
+      "mae_m": 10.51,
+      "rmse_m": 14.03,
+      "within_5m": 0.344,
+      "within_10m": 0.614
+     }
+    }
+   },
+   {
+    "by_role": {
+     "AM": {
+      "n": 4212,
+      "mae_m": 9.23,
+      "rmse_m": 13.06,
+      "within_5m": 0.415,
+      "within_10m": 0.68
+     },
+     "CB": {
+      "n": 9261,
+      "mae_m": 9.15,
+      "rmse_m": 12.18,
+      "within_5m": 0.391,
+      "within_10m": 0.649
+     },
+     "DM": {
+      "n": 5054,
+      "mae_m": 9.2,
+      "rmse_m": 12.09,
+      "within_5m": 0.382,
+      "within_10m": 0.651
+     },
+     "FB": {
+      "n": 9497,
+      "mae_m": 10.18,
+      "rmse_m": 13.68,
+      "within_5m": 0.358,
+      "within_10m": 0.615
+     },
+     "GK": {
+      "n": 5168,
+      "mae_m": 10.27,
+      "rmse_m": 13.2,
+      "within_5m": 0.309,
+      "within_10m": 0.64
+     },
+     "ST": {
+      "n": 8063,
+      "mae_m": 9.77,
+      "rmse_m": 12.89,
+      "within_5m": 0.359,
+      "within_10m": 0.633
+     },
+     "W": {
+      "n": 819,
+      "mae_m": 11.29,
+      "rmse_m": 15.08,
+      "within_5m": 0.342,
+      "within_10m": 0.558
+     },
+     "WM": {
+      "n": 7365,
+      "mae_m": 10.44,
+      "rmse_m": 13.94,
+      "within_5m": 0.365,
+      "within_10m": 0.597
+     }
+    },
+    "by_state": {
+     "in_possession": {
+      "n": 24476,
+      "mae_m": 10.29,
+      "rmse_m": 13.62,
+      "within_5m": 0.347,
+      "within_10m": 0.608
+     },
+     "out_of_possession": {
+      "n": 24963,
+      "mae_m": 9.33,
+      "rmse_m": 12.54,
+      "within_5m": 0.387,
+      "within_10m": 0.657
+     },
+     "ball_dead": {
+      "n": 27981,
+      "mae_m": 9.83,
+      "rmse_m": 13.06,
+      "within_5m": 0.358,
+      "within_10m": 0.626
+     },
+     "ball_in_own_third": {
+      "n": 10701,
+      "mae_m": 9.06,
+      "rmse_m": 12.23,
+      "within_5m": 0.409,
+      "within_10m": 0.664
+     },
+     "ball_in_middle_third": {
+      "n": 14698,
+      "mae_m": 8.79,
+      "rmse_m": 11.96,
+      "within_5m": 0.427,
+      "within_10m": 0.687
+     },
+     "ball_in_attacking_third": {
+      "n": 17354,
+      "mae_m": 11.15,
+      "rmse_m": 14.6,
+      "within_5m": 0.302,
+      "within_10m": 0.57
+     }
+    }
+   }
+  ],
+  "ml_replay": [
+   {
+    "by_role": {
+     "AM": {
+      "n": 3839,
+      "mae_m": 6.92,
+      "rmse_m": 9.33,
+      "within_5m": 0.506,
+      "within_10m": 0.742
+     },
+     "CB": {
+      "n": 8358,
+      "mae_m": 6.05,
+      "rmse_m": 8.09,
+      "within_5m": 0.529,
+      "within_10m": 0.824
+     },
+     "DM": {
+      "n": 5738,
+      "mae_m": 6.76,
+      "rmse_m": 9.6,
+      "within_5m": 0.52,
+      "within_10m": 0.78
+     },
+     "FB": {
+      "n": 8542,
+      "mae_m": 7.18,
+      "rmse_m": 9.38,
+      "within_5m": 0.457,
+      "within_10m": 0.754
+     },
+     "GK": {
+      "n": 4743,
+      "mae_m": 4.94,
+      "rmse_m": 6.96,
+      "within_5m": 0.682,
+      "within_10m": 0.888
+     },
+     "ST": {
+      "n": 6008,
+      "mae_m": 7.04,
+      "rmse_m": 9.41,
+      "within_5m": 0.491,
+      "within_10m": 0.747
+     },
+     "WM": {
+      "n": 8132,
+      "mae_m": 7.46,
+      "rmse_m": 10.08,
+      "within_5m": 0.454,
+      "within_10m": 0.753
+     }
+    },
+    "by_state": {
+     "in_possession": {
+      "n": 22422,
+      "mae_m": 7.24,
+      "rmse_m": 9.78,
+      "within_5m": 0.475,
+      "within_10m": 0.747
+     },
+     "out_of_possession": {
+      "n": 22938,
+      "mae_m": 6.16,
+      "rmse_m": 8.36,
+      "within_5m": 0.543,
+      "within_10m": 0.816
+     },
+     "ball_dead": {
+      "n": 15360,
+      "mae_m": 6.86,
+      "rmse_m": 9.52,
+      "within_5m": 0.511,
+      "within_10m": 0.765
+     },
+     "ball_in_own_third": {
+      "n": 9327,
+      "mae_m": 6.41,
+      "rmse_m": 8.74,
+      "within_5m": 0.536,
+      "within_10m": 0.794
+     },
+     "ball_in_middle_third": {
+      "n": 19795,
+      "mae_m": 6.5,
+      "rmse_m": 8.88,
+      "within_5m": 0.521,
+      "within_10m": 0.795
+     },
+     "ball_in_attacking_third": {
+      "n": 12586,
+      "mae_m": 7.0,
+      "rmse_m": 9.42,
+      "within_5m": 0.487,
+      "within_10m": 0.769
+     }
+    }
+   },
+   {
+    "by_role": {
+     "AM": {
+      "n": 4212,
+      "mae_m": 7.01,
+      "rmse_m": 9.74,
+      "within_5m": 0.521,
+      "within_10m": 0.744
+     },
+     "CB": {
+      "n": 9261,
+      "mae_m": 6.71,
+      "rmse_m": 9.42,
+      "within_5m": 0.523,
+      "within_10m": 0.796
+     },
+     "DM": {
+      "n": 5054,
+      "mae_m": 7.56,
+      "rmse_m": 10.3,
+      "within_5m": 0.462,
+      "within_10m": 0.729
+     },
+     "FB": {
+      "n": 9497,
+      "mae_m": 8.16,
+      "rmse_m": 11.62,
+      "within_5m": 0.471,
+      "within_10m": 0.713
+     },
+     "GK": {
+      "n": 5168,
+      "mae_m": 5.34,
+      "rmse_m": 7.45,
+      "within_5m": 0.622,
+      "within_10m": 0.865
+     },
+     "ST": {
+      "n": 8063,
+      "mae_m": 7.28,
+      "rmse_m": 10.02,
+      "within_5m": 0.486,
+      "within_10m": 0.749
+     },
+     "W": {
+      "n": 819,
+      "mae_m": 9.03,
+      "rmse_m": 12.01,
+      "within_5m": 0.413,
+      "within_10m": 0.637
+     },
+     "WM": {
+      "n": 7365,
+      "mae_m": 8.07,
+      "rmse_m": 11.14,
+      "within_5m": 0.46,
+      "within_10m": 0.701
+     }
+    },
+    "by_state": {
+     "in_possession": {
+      "n": 24476,
+      "mae_m": 7.42,
+      "rmse_m": 10.26,
+      "within_5m": 0.489,
+      "within_10m": 0.742
+     },
+     "out_of_possession": {
+      "n": 24963,
+      "mae_m": 7.16,
+      "rmse_m": 10.19,
+      "within_5m": 0.511,
+      "within_10m": 0.762
+     },
+     "ball_dead": {
+      "n": 27981,
+      "mae_m": 7.46,
+      "rmse_m": 10.6,
+      "within_5m": 0.497,
+      "within_10m": 0.744
+     },
+     "ball_in_own_third": {
+      "n": 10701,
+      "mae_m": 6.86,
+      "rmse_m": 9.68,
+      "within_5m": 0.531,
+      "within_10m": 0.766
+     },
+     "ball_in_middle_third": {
+      "n": 14698,
+      "mae_m": 6.4,
+      "rmse_m": 9.14,
+      "within_5m": 0.556,
+      "within_10m": 0.8
+     },
+     "ball_in_attacking_third": {
+      "n": 17354,
+      "mae_m": 8.36,
+      "rmse_m": 11.45,
+      "within_5m": 0.427,
+      "within_10m": 0.701
+     }
+    }
+   }
+  ]
+ },
+ "seconds": 325
+}

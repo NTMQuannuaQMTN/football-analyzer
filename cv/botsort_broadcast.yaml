@@ -1,0 +1,13 @@
+# BoT-SORT tuned for panning broadcast cameras at 5 fps
+tracker_type: botsort
+track_high_thresh: 0.3
+track_low_thresh: 0.1
+new_track_thresh: 0.35
+track_buffer: 25        # 5 s at 5 fps
+match_thresh: 0.85
+fuse_score: True
+gmc_method: sparseOptFlow   # compensates camera pan/zoom
+proximity_thresh: 0.5
+appearance_thresh: 0.8
+with_reid: False
+model: auto

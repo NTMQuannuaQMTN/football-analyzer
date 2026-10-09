@@ -1,0 +1,5 @@
+huggingface_hub
+ultralytics
+opencv-python
+SoccerNet
+lap

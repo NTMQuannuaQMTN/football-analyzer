@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html, body { background: #060a13; color: #e2e8f0; }
+
+@keyframes pulse-ring { 0% { opacity: 1; } 50% { opacity: 0.35; } 100% { opacity: 1; } }
+.pulse-ring { animation: pulse-ring 1.2s ease-in-out infinite; }

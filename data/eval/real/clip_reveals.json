@@ -1,0 +1,50 @@
+{
+ "clip": "england_epl/2016-2017/2016-08-14 - 18-00 Arsenal 3 - 4 Liverpool",
+ "reappearances": 344,
+ "min_hidden_s": 5,
+ "caveat": "actual = CV detection at reappearance; identities role-based (~35% exact)",
+ "methods": {
+  "last_position": {
+   "n": 341,
+   "median_error_m": 23.58,
+   "mean_error_m": 25.62,
+   "within_10m": 0.141
+  },
+  "team_shape_live": {
+   "n": 344,
+   "median_error_m": 17.79,
+   "mean_error_m": 21.83,
+   "within_10m": 0.212
+  },
+  "learned_f0": {
+   "n": 344,
+   "median_error_m": 16.63,
+   "mean_error_m": 20.02,
+   "within_10m": 0.206,
+   "inside_80pct_radius": 0.419
+  },
+  "learned_final_v3": {
+   "n": 344,
+   "median_error_m": 18.82,
+   "mean_error_m": 20.79,
+   "within_10m": 0.192,
+   "inside_80pct_radius": 0.372
+  }
+ },
+ "video_calibration": {
+  "learned_f0": {
+   "radius_scale": 3.11,
+   "fit_n": 164,
+   "test_n": 180,
+   "test_coverage_before": 0.45,
+   "test_coverage_after": 0.978
+  },
+  "learned_final_v3": {
+   "radius_scale": 2.67,
+   "fit_n": 164,
+   "test_n": 180,
+   "test_coverage_before": 0.417,
+   "test_coverage_after": 0.922
+  }
+ }
+}
