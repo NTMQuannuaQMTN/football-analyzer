@@ -1,6 +1,8 @@
 import type { Frame, MatchEvent, MatchMeta, Moment, PlayerProfile, Story, Timeline } from "./types";
 
-export const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// Deployed (Vercel services): the backend is public under /api on the same domain. Local ./run.sh sets
+// NEXT_PUBLIC_API_URL=http://localhost:8000 (FastAPI also answers without the /api prefix).
+export const API = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 
 // which match / part the /match/... calls are about (set by the studio); empty = the server's default match
 let scopeQS = "";

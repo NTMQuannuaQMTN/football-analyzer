@@ -26,4 +26,4 @@ done
 API=$!
 trap 'kill $API 2>/dev/null || true' EXIT
 echo "Building match intelligence${MATCH_FILE:+ from $MATCH_FILE}..."
-(cd frontend && npm run dev -- --port 3000)
+(cd frontend && NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL:-http://localhost:8000}" npm run dev -- --port 3000)

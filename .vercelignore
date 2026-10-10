@@ -1,0 +1,16 @@
+# raw datasets, training caches and local tooling: never uploaded (the app reads data/*.json match files only)
+.venv/
+frontend/node_modules/
+frontend/.next/
+data/dfl/
+data/skillcorner/
+data/soccernet/
+data/sn_gsr/
+data/metrica/
+data/eval/real/*.npz
+data/cv_*backup*.json
+cv/out/
+cv/weights/
+runs/
+tests/
+docs/

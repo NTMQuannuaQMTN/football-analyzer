@@ -16,9 +16,29 @@ from backend import catalog
 from backend.models.schemas import Event, Moment
 from backend.pipeline import MatchIntelligence, get_intel
 
+API_PREFIX = "/api"  # public mount path on Vercel (vercel.json rewrites /api/* to this service)
+
+
+class StripApiPrefix:
+    """Serve every route both at /<route> (local: uvicorn on :8000) and /api/<route> (Vercel services routing,
+    which forwards the original /api/... path)."""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] in ("http", "websocket"):
+            path = scope.get("path", "")
+            if path == API_PREFIX or path.startswith(API_PREFIX + "/"):
+                scope = dict(scope, path=path[len(API_PREFIX):] or "/",
+                             raw_path=(path[len(API_PREFIX):] or "/").encode())
+        await self.app(scope, receive, send)
+
+
 app = FastAPI(title="Synthetic Match Insights Engine", version="0.2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(StripApiPrefix)
 
 
 @app.on_event("startup")
