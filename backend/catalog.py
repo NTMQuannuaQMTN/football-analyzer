@@ -11,10 +11,12 @@ import json
 import os
 import time
 import xml.etree.ElementTree as ET
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
 from backend.pipeline import get_intel
+from simulator.match_generator import generate_match
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -27,7 +29,31 @@ _SERVER_START = time.time()
 PART_LABEL = {"h1": "1st half", "h2": "2nd half", "clip": "Clip", "full": "Full match"}
 
 
-@lru_cache(maxsize=32)
+def video_details(meta):
+    """Use exported provenance; a provider match ID is not an ISO date."""
+    src = meta.get("source", {})
+    game = src.get("game", "")
+    match_date = None
+    for value in (meta.get("date"), src.get("date"), game.split("/")[-1][:10]):
+        try:
+            match_date = date.fromisoformat(value).isoformat()
+            break
+        except (TypeError, ValueError):
+            continue
+    provider = src.get("provider") or ("SoccerNet" if game.startswith("england_epl/") else "Broadcast")
+    competition = src.get("competition") or ("Premier League" if game.startswith("england_epl/") else None)
+    return {"date": match_date, "competition": competition,
+            "label": 'Experimental reconstruction · EPL' if src.get('experimental') else f"Computer vision · {provider}"}
+
+
+@lru_cache(maxsize=4)
+def _synthetic_meta(seed):
+    """A lobby card needs simulator facts, not two reconstruction passes."""
+    raw = generate_match(seed)
+    return raw["meta"]
+
+
+@lru_cache(maxsize=128)
 def _file_meta(path: str, mtime: float) -> dict:
     d = json.load(open(path))
     return {"meta": d["meta"], "goals": [e for e in d["events"] if e["event_type"] == "GOAL"]}
@@ -54,15 +80,19 @@ def _catalog_static() -> tuple:
         key, half = Path(p).stem.rsplit("_", 1)
         halves.setdefault(key, {})[half] = p
     for key, parts in halves.items():
-        mid = "DFL-MAT-" + key.split("_", 1)[1]
+        meta=file_meta(parts[next(iter(parts))])['meta']
+        mid = meta.get('source',{}).get('match_id') or "DFL-MAT-" + key.split("_", 1)[1]
         info = _dfl_info(mid)
-        out.append({"id": key.replace("_", "-"), "kind": "tracking", "label": "Real tracking · DFL open data",
+        label='Experimental reconstruction · DFL' if meta.get('source',{}).get('experimental') else 'Real tracking · DFL open data'
+        out.append({"id": key.replace("_", "-"), "kind": "tracking", "label": label,
                     "parts": {h: parts[h] for h in sorted(parts)}, "info": info})
     for p in sorted(glob.glob(str(DATA / "cv_*.json"))):
         if "backup" in p:
             continue
+        details = video_details(file_meta(p)["meta"])
+        if file_meta(p)['meta'].get('source',{}).get('experimental'):details['label']='Experimental reconstruction · EPL'
         out.append({"id": "cv-" + Path(p).stem[3:].replace("_", "-")[:60], "kind": "computer_vision",
-                    "label": "Computer vision · SoccerNet broadcast clip", "parts": {"clip": p}, "info": {}})
+                    "label": details["label"], "parts": {"clip": p}, "info": details})
     out.append({"id": f"sim-{LIVE_SEED}", "kind": "synthetic", "label": "Synthetic test match · scripted simulator",
                 "parts": {"full": None}, "info": {"competition": "Synthetic test league"}})
     return tuple(out)
@@ -136,9 +166,9 @@ def lobby():
     cards = []
     for m in _catalog_static():
         if m["kind"] == "synthetic":
-            I = intel(m["id"])
-            cards.append({"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(I.m.meta),
-                          "score": I.m.score_at(I.m.duration), "status": "finished", "competition": m["info"].get("competition"),
+            meta = _synthetic_meta(LIVE_SEED)
+            cards.append({"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(meta),
+                          "score": dict(meta["final_score"]), "score_known": True, "status": "finished", "competition": m["info"].get("competition"),
                           "date": None, "parts": [{"id": "full", "label": PART_LABEL["full"]}],
                           "note": "Scripted, rule-based match used to test tactic detection against exact ground truth; not real football"})
             continue
@@ -163,16 +193,15 @@ def lobby():
             score[g["team_id"]] += 1
         src = first.get("source", {})
         card = {"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(first), "score": score,
+                "score_known": first.get("score_known", True),
                 "status": "finished", "competition": m["info"].get("competition") or src.get("competition"),
                 "date": m["info"].get("date"), "season": m["info"].get("season"), "matchday": m["info"].get("matchday"),
                 "parts": [{"id": h, "label": PART_LABEL.get(h, h)} for h in m["parts"]]}
         if m["kind"] == "computer_vision":
-            game = src.get("game", "")
-            card["date"] = game.split("/")[-1][:10] if "/" in game else None
-            league, season = (game.split("/") + ["", ""])[:2]
-            card["competition"] = "SoccerNet · " + {"england_epl": "England"}.get(league, league or "broadcast") + (f" {season[:5]}{season[-2:]}" if season else "")
+            card.update(video_details(first))
             s, e = src.get("start", 0), src.get("end", 0)
-            card["note"] = f"{int(s // 60)}:{int(s % 60):02d}–{int(e // 60)}:{int(e % 60):02d} of half {src.get('half', 1)}; score is for this clip"
+            score_note = "score is for this clip" if card["score_known"] else "score N/A"
+            card["note"] = f"{int(s // 60)}:{int(s % 60):02d}–{int(e // 60)}:{int(e % 60):02d} of half {src.get('half', 1)}; {score_note}"
         elif m["kind"] == "tracking" and len(m["parts"]) < 2:
             card["note"] = "Only one half available"
         cards.append(card)
@@ -227,7 +256,7 @@ def match_summary(mid):
     meta = I0.m.meta
     lob = next(c for c in lobby() if c["id"] == mid)
     return {"id": mid, "kind": m["kind"], "label": m["label"], "status": lob["status"], "minute": lob.get("minute"),
-            "teams": _teams(meta), "score": lob["score"], "competition": lob.get("competition"), "date": lob.get("date"),
+            "teams": _teams(meta), "score": lob["score"], "score_known": lob.get("score_known", True), "competition": lob.get("competition"), "date": lob.get("date"),
             "season": lob.get("season"), "matchday": lob.get("matchday"), "note": lob.get("note"),
             "parts": [{k: v for k, v in p.items() if k not in ("players",)} for p in parts],
             "team_stats": combined, "players": sorted(pl.values(), key=lambda x: -(x["goals"] * 10 + x["completed"])),

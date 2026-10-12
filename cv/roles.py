@@ -122,9 +122,12 @@ class RoleEstimator:
     GATE = 60.0  # place every visible detection (exact positions); identity may still be approximate
     CONTINUITY = 25.0
 
-    def __init__(self, team: str, roles):
+    def __init__(self, team: str, roles,association='legacy'):
         self.team = team
         self.roles = roles
+        if association not in ('legacy','stable_track'):raise ValueError('Unknown role association')
+        self.association=association
+        self.last_assignments={}
         self.model, self.coef = load_model()
         self.last = [None] * len(roles)       # (pos_own, t, ball_own)
         self.slot_of = [None] * len(roles)    # stitched track slot last matched to each role
@@ -183,6 +186,7 @@ class RoleEstimator:
             w = min(1.0, dt / 20)
             pred[i] = (1 - 0.5 * w) * pred[i] + 0.5 * w * (self.block + anchors[i])
         observed = np.zeros(len(self.roles), dtype=bool)
+        self.last_assignments={}
         if own:
             C = np.zeros((len(own), len(self.roles)))
             for a, (sid, p) in enumerate(own):
@@ -204,14 +208,20 @@ class RoleEstimator:
                     if r["role"] != "GK" and p[0] < 6:
                         c += 15
                     C[a, i] = c
-            rows, cols = linear_sum_assignment(C)
-            for a, i in zip(rows, cols):
-                if C[a, i] <= self.GATE:
-                    sid, p = own[a]
-                    pred[i] = p
-                    observed[i] = True
-                    self.last[i] = (p, t, b)
-                    self.slot_of[i] = sid
+            from cv.role_association import assign
+            overrides={sid:int(h) for sid,h in hints.items() if isinstance(h,(int,np.integer))}
+            pairs=assign(C,[sid for sid,_ in own],self.slot_of,self.GATE,self.association=='stable_track',overrides)
+            for a, i in pairs:
+                sid, p = own[a]
+                # An explicit identity correction must remove the old alias.
+                if self.association=='stable_track':
+                    for old in range(len(self.slot_of)):
+                        if old!=i and self.slot_of[old]==sid:self.slot_of[old]=None
+                pred[i] = p
+                observed[i] = True
+                self.last[i] = (p, t, b)
+                self.slot_of[i] = sid
+                self.last_assignments[sid]=i
         self.est = pred
         world = np.array([to_own(self.team, p) for p in pred])  # rotation is its own inverse
         return world, observed

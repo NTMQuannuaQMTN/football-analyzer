@@ -16,7 +16,11 @@ import numpy as np
 
 from cv.detect_track import OUT
 from cv.roles import RoleEstimator, lineup, occupant, smooth_gaps
-from cv.soccernet import L, W, labels
+from cv.soccernet import L, W, game_dir, labels
+from cv.event_identity import labelled_scorer
+from cv.touch_cues import apply_touch_cues
+from cv.temporal_samples import sample_seconds
+from cv.track_namespace import qualify_rows
 
 ROOT = Path(__file__).resolve().parents[1]
 OWN_DIST = 2.5        # m: nearest player within this distance owns the ball
@@ -253,10 +257,19 @@ def unscale(c):
     return np.array([c[0] / LSCALE, c[1], c[2]])
 
 
-def build(run_dir: Path, a_team: str):
+def build(run_dir: Path, a_team: str, output_path=None, recon_fold=None, recon_weights=None, sampling='legacy_mean',association='legacy',track_namespace='shot'):
+    # argparse supplies numeric folds as strings; inference otherwise interprets
+    # "0" as a literal checkpoint tag and silently falls back to smoothing.
+    if recon_fold is not None and str(recon_fold).isdecimal():
+        recon_fold=f'f{int(recon_fold)}'
     run = json.load(open(run_dir / "run.json"))
     game, half, start, end = run["game"], run["half"], run["start"], run["end"]
+    caption = json.loads((game_dir(game) / "Labels-caption.json").read_text())
     rows = [json.loads(l) for l in open(run_dir / "detections.jsonl")]
+    namespace_basis=run.get('track_id_namespace','legacy reset-local IDs')
+    if track_namespace=='shot' and namespace_basis!='shot-qualified-v1':
+        rows=qualify_rows(rows)
+        namespace_basis='shot-qualified-v1'
     D = int(end - start)
 
     # ---- tracks (players + keepers; referees are already removed by the fine-tuned detector)
@@ -278,8 +291,9 @@ def build(run_dir: Path, a_team: str):
     if len(tracks) < 6:
         raise SystemExit("Too few player tracks — check the window has live main-camera play.")
 
-    # ---- teams. Validated on SoccerNet-GSR ground truth: 2 clusters over *outfield* detections, then a
-    # majority vote along each track = 99.6% track accuracy (vs 79% with referees/keepers mixed in).
+    # ---- teams. Two shirt-colour clusters and track-majority voting.
+    # Generic person models also include referees/keepers: their contamination
+    # and unverified side assignment must be evaluated for the current run.
     X = [(i, d) for i, d in enumerate(dets_all) if d[4] is not None and d[1] in tracks and not is_gk[d[1]]]
     feats = np.array([d[4] for _, d in X])
     lab, C = kmeans(feats, 2)
@@ -344,16 +358,18 @@ def build(run_dir: Path, a_team: str):
         best["last"] = (t1, x1, y1)
 
     # ---- 1 Hz positions per stitched slot (anonymous; identities come from the role estimator)
-    slot_series, slot_gk = {}, {}
+    slot_series, slot_gk, slot_source_t = {}, {}, {}
     for team in "AB":
         for i, sl in enumerate(slots[team]):
-            per = defaultdict(list)
+            samples = []
             for k in sl["tracks"]:
                 for t, x, y, _ in tracks[k]:
                     if 0 <= t < D + 1:
-                        per[int(t)].append((x, y))
+                        samples.append((t,x,y))
+            per,source_times=sample_seconds(samples,D,sampling)
             if len(per) >= 2:
-                slot_series[(team, i)] = {sec: np.mean(v, axis=0) for sec, v in per.items()}
+                slot_series[(team, i)] = per
+                slot_source_t[(team,i)] = source_times
                 slot_gk[(team, i)] = sum(is_gk[k] * len(tracks[k]) for k in sl["tracks"]) > 0.5 * sum(len(tracks[k]) for k in sl["tracks"])
 
     # ---- ball: best detection per second, short gaps interpolated
@@ -362,6 +378,10 @@ def build(run_dir: Path, a_team: str):
     for s_, pts in bt.items():
         if 0 <= s_ <= D:
             bsec[s_] = (float(np.mean([p[0] for p in pts])), float(np.mean([p[1] for p in pts])), max(p[2] for p in pts))
+    if sampling=='nearest':
+        positions,times=sample_seconds([(t,x,y) for t,x,y,_ in ball_pts],D,sampling)
+        confidence_at={t:c for t,_,_,c in ball_pts}
+        bsec={sec:(float(p[0]),float(p[1]),confidence_at[times[sec]]) for sec,p in positions.items()}
     ball, known = [], []
     last = (L / 2, W / 2)
     ks = sorted(bsec)
@@ -397,7 +417,7 @@ def build(run_dir: Path, a_team: str):
     roles_by_team, role_of_slot, team_state = {}, {}, {}
     for team in "AB":
         roles, tactic = lineup(game, home_away[team])
-        est = RoleEstimator(team, roles)
+        est = RoleEstimator(team, roles,association)
         n_lines = len(tactic.split("-")) - 1
         n = len(roles)
         fwd = np.zeros((D + 1, n, 2))
@@ -427,7 +447,8 @@ def build(run_dir: Path, a_team: str):
 
     def assemble(pins):
         """Hidden players: learned replay model (trained on DFL real tracking, cv/weights/hidden_replay_f0.pt)
-        when available, else offline smoothing. Observations = matched detections + ball-touch pins."""
+        when available, else offline smoothing. Only matched detections are observations;
+        touches are soft estimated cues and never overwrite measured player feet."""
         from backend.reconstruction.inference import ml_available, reconstruct_ml
         full_, obs_, conf_, rad_, plist, order_ = {}, {}, {}, {}, [], []
         teams_rows = [(team, k) for team in "AB" for k in range(len(team_state[team][0]))]
@@ -438,11 +459,8 @@ def build(run_dir: Path, a_team: str):
             roles, fwd, seen, _ = team_state[team]
             xy[seen[:, k], c] = fwd[seen[:, k], k]
             vis_all[:, c] = seen[:, k]
-        for (tm, k, sec), p in pins.items():
-            c = teams_rows.index((tm, k))
-            xy[sec, c] = p
-            vis_all[sec, c] = True
-        use_ml = ml_available()
+        cue_rows={(sec,teams_rows.index((tm,k))):p for (tm,k,sec),p in pins.items()}
+        use_ml = ml_available(recon_fold,recon_weights)
         if use_ml:
             from types import SimpleNamespace
             order_c = [f"{tm}:{k}" for tm, k in teams_rows]
@@ -455,15 +473,17 @@ def build(run_dir: Path, a_team: str):
             tarr = np.array([tm for tm, _ in teams_rows])
             from backend.reconstruction.inference import VIDEO_RADIUS_SCALE
             rec = reconstruct_ml(mm, vis_all, "replay", np.ones_like(vis_all), role_d, anchors, tarr, rc,
-                                 radius_scale=VIDEO_RADIUS_SCALE)  # tracking-calibrated radius is ~3x too tight on video
+                                 radius_scale=VIDEO_RADIUS_SCALE,fold=recon_fold,weights_dir=recon_weights)
             from backend.reconstruction.postprocess import limit_speed  # estimates never outrun a sprint
-            est, cf, rd = limit_speed(rec.pos, vis_all, np.ones_like(vis_all), causal=False), rec.conf, rec.rad
+            est, cf, rd = limit_speed(apply_touch_cues(rec.pos,vis_all,cue_rows), vis_all, np.ones_like(vis_all), causal=False), rec.conf, rec.rad
         for c, (team, k) in enumerate(teams_rows):
             roles, fwd, seen, n_lines = team_state[team]
             if use_ml:
                 sm = est[:, c]
             else:
                 sm = smooth_gaps(np.where(vis_all[:, c:c + 1], xy[:, c], fwd[:, k]), vis_all[:, c])
+                cues={(sec,0):p for (sec,column),p in cue_rows.items() if column==c}
+                sm=apply_touch_cues(sm[:,None,:],vis_all[:,c:c+1],cues)[:,0]
             r = roles[k]
             for sec in range(D + 1):
                 pl = occupant(r, clock0 + sec)
@@ -519,6 +539,13 @@ def build(run_dir: Path, a_team: str):
         if k is not None:
             pins[(team, k, sec)] = (x, y)
     full, observed, players, order = assemble(pins)
+    from backend.reconstruction.replay_bridge import bridge
+    bridge_input=np.array([[full[pid].get(s,[np.nan,np.nan]) for pid in order] for s in range(D+1)])
+    bridge_visible=np.array([[s in observed[pid] for pid in order] for s in range(D+1)])
+    bridge_positions,bridge_report=bridge(bridge_input,bridge_visible)
+    for s in range(D+1):
+        for j,pid in enumerate(order):
+            if not bridge_visible[s,j] and np.isfinite(bridge_positions[s,j]).all():full[pid][s]=bridge_positions[s,j]
 
     # ball path from football logic: at the feet of whoever has it, or travelling between touches;
     # in the net after a goal until the labelled kick-off; dead (stationary) between out-of-play and restart
@@ -579,7 +606,7 @@ def build(run_dir: Path, a_team: str):
     simple = {"Foul": "FOUL", "Corner": "CORNER", "Throw-in": "THROW_IN", "Offside": "OFFSIDE",
               "Direct free-kick": "FREE_KICK", "Indirect free-kick": "FREE_KICK", "Clearance": "CLEARANCE",
               "Ball out of play": "BALL_OUT", "Yellow card": "CARD", "Red card": "CARD", "Yellow->red card": "CARD",
-              "Penalty": "PENALTY", "Kick-off": "KICK_OFF", "Substitution": "SUBSTITUTION_LABEL"}
+              "Penalty": "PENALTY", "Goal kick": "GOAL_KICK", "Kick-off": "KICK_OFF", "Substitution": "SUBSTITUTION_LABEL"}
 
     def shooter(team, s):
         recent = [tc for tc in touches if tc[2] == team and tc[1] and s - 2.5 <= tc[0] <= s + 0.5]
@@ -591,14 +618,19 @@ def build(run_dir: Path, a_team: str):
              for pid in order if pid[0] == team and (p := full[pid].get(s)) is not None]
         return min(c)[1] if c else None
 
-    def goal_events(team, s, bx, by, loc_ok=True):
+    def goal_events(team, s, bx, by, loc_ok=True, goal_second=None):
         nonlocal score
-        pid = shooter(team, s)
+        goal_second = s if goal_second is None else goal_second
+        factual = labelled_scorer(caption, home_away[team], half, start+goal_second)
+        pid = f"{team}{factual['shirt_number']}" if factual else None
+        scorer = {"scorer_verified": factual is not None,
+                  "scorer_name": factual.get("long_name",factual["name"]) if factual else None,
+                  "identity_source": "Labels-caption.json lineup goal facts" if factual else "unknown"}
         x_g, dist = xg(team, bx, by)
         score = {**score, team: score[team] + 1}
         emit(s, "SHOT", team, pid, bx, by, xg=x_g, outcome="goal", on_target=True, distance=dist,
-             location_known=loc_ok, source="soccernet_label")
-        emit(s, "GOAL", team, pid, bx, by, assist_id=None, xg=x_g, score=dict(score), source="soccernet_label")
+             location_known=loc_ok, source="soccernet_label", **scorer)
+        emit(goal_second, "GOAL", team, pid, bx, by, assist_id=None, xg=x_g, score=dict(score), source="soccernet_label", **scorer)
 
     def ball_near(s):
         """Nearest actually-detected ball within +-3 s (shots often happen during camera cuts)."""
@@ -617,7 +649,7 @@ def build(run_dir: Path, a_team: str):
             goal = next((i for i, g in enumerate(goals) if g["team"] == a["team"] and 0 <= g["t"] - a["t"] <= 3 and i not in used_goals), None)
             if goal is not None:
                 used_goals.add(goal)
-                goal_events(team, s, bx, by, known_loc)
+                goal_events(team, a["t"]-start, bx, by, known_loc, goal_second=goals[goal]["t"]-start)
             else:
                 x_g, dist = xg(team, bx, by)
                 outcome = "saved" if a["label"] == "Shots on target" else "off_target"
@@ -627,7 +659,7 @@ def build(run_dir: Path, a_team: str):
             i = goals.index(a)
             if i not in used_goals:
                 used_goals.add(i)
-                goal_events(team, s, bx, by, known_loc)
+                goal_events(team, s, bx, by, known_loc, goal_second=a["t"]-start)
         elif a["label"] in simple:
             emit(s, simple[a["label"]], team, None, bx, by, label=a["label"], source="soccernet_label")
     events.sort(key=lambda e: e["timestamp"])
@@ -640,17 +672,35 @@ def build(run_dir: Path, a_team: str):
                       "color": display_color(unscale(C[[j for j, tt in cl_team.items() if tt == t][0]])),
                       "kit_color": lab_to_hex(unscale(C[[j for j, tt in cl_team.items() if tt == t][0]]))} for t in "AB"},
         "player_order": order, "final_score": score, "initial_score": score0,
+        "date": game.split("/")[-1].split(" - ")[0], "score_known": True,
         "clock_offset": (45 * 60 if half == 2 else 0) + start,
         "source": {"type": "computer_vision", "game": game, "half": half, "start": start, "end": end,
                    "model": run["model"], "fps": run["fps"],
+                   "sampling":sampling,"observation_timing":"Nearest measured sample within 0.25 s; source timestamps retained" if sampling=='nearest' else "Mean over [second, second+1); mean source time retained",
+                   "role_association":association,
+                   "track_id_namespace":namespace_basis,
+                   "tracker_configuration":run.get('tracker',run.get('tracker_path','cv/botsort_broadcast.yaml')),
+                   "measurement_kind":run.get('measurement','tracker-filtered box foot'),
+                   "calibration_offset_s":run.get('calibration_offset_s',0.),
+                   "calibration_sampling":run.get('calibration_sampling','retrospective nearest 2Hz CCBV'),
+                   "camera_run":str(run_dir.resolve()) if run.get('camera_H_coordinates')=='normalised_0_to_1_image_to_pitch_metres' else None,
                    "coverage": round(float(np.mean([any(bool(o) for o in f["obs"]) for f in frames])), 3),
                    "observed_share": round(n_obs / max(1, n_all), 3),
                    "identity": "role-based from official lineup (Labels-caption.json)",
-                   "offscreen_model": ("cv/weights/hidden_replay_final_v3.pt (all 7 DFL matches, video radius x2.67)" if assemble.used_ml
+                   "identity_verified":False,"mode":"replay","retrospective":True,"replay_bridge":bridge_report,
+                   "reconstruction_fold":recon_fold,"reconstruction_weights":str(recon_weights) if recon_weights else None,
+                   "uncertainty_basis":"tracking calibration transferred to video; identity and calibration error remain unverified",
+                   "offscreen_model": (f"{recon_weights or 'cv/weights'}/hidden_replay_{recon_fold or 'final_v3'}.pt (tracking-domain model; video radius transferred)" if assemble.used_ml
                                        else "smoothing (no learned model found)")},
     }
     out = {"meta": meta, "players": players, "events": events, "frames": frames}
-    path = ROOT / "data" / f"cv_{run_dir.name}.json"
+    source_lookup={}
+    for (team,slot,sec),role in role_of_slot.items():
+        source_lookup[(sec,pid_of_role(team,role,sec))]=slot_source_t.get((team,slot),{}).get(sec)
+    for frame in frames:
+        frame['observed_t']=[source_lookup.get((frame['t'],pid)) if frame['obs'][j] else None for j,pid in enumerate(order)]
+    path = Path(output_path) if output_path else ROOT / "data" / f"cv_{run_dir.name}.json"
+    path.parent.mkdir(parents=True,exist_ok=True)
     json.dump(out, open(path, "w"))
     try:  # camera view per second + prediction -> reality tests (cv/clip_extras.py)
         from cv.clip_extras import add_extras
@@ -668,6 +718,12 @@ if __name__ == "__main__":
     ap.add_argument("run_dir", nargs="?", help="cv/out/<slug> (default: most recent)")
     ap.add_argument("--a-team", choices=["home", "away"], default="home",
                     help="which side defends the LEFT goal in this half (check the printed colours)")
+    ap.add_argument("--out", help="isolated candidate match file; preserves active exports")
+    ap.add_argument("--recon-fold",help="candidate checkpoint tag, e.g. selected")
+    ap.add_argument("--recon-weights",help="isolated candidate checkpoint directory")
+    ap.add_argument('--sampling',choices=['legacy_mean','nearest'],default='legacy_mean')
+    ap.add_argument('--association',choices=['legacy','stable_track'],default='legacy',help='Stable anonymous track aliases; does not verify shirt identity')
+    ap.add_argument('--track-namespace',choices=['shot','legacy'],default='shot',help='Separate reset-local IDs across camera gaps using cached flags; legacy reproduces the former unsafe grouping')
     a = ap.parse_args()
     rd = Path(a.run_dir) if a.run_dir else max(OUT.glob("*/run.json"), key=lambda p: p.stat().st_mtime).parent
-    build(rd, a.a_team)
+    build(rd, a.a_team, a.out, a.recon_fold, a.recon_weights,a.sampling,a.association,a.track_namespace)

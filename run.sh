@@ -12,9 +12,8 @@ if [ -n "$MATCH_FILE" ] && [ ! -f "$MATCH_FILE" ]; then
   echo "MATCH_FILE not found: $MATCH_FILE"; echo "Available:"; ls data/cv_*.json data/dfl_*.json 2>/dev/null || echo "  (none — run cv.build_match first)"; exit 1
 fi
 
-# stop a previous run of this project (API / UI) still holding the ports
-pkill -f "uvicorn backend.api.main" 2>/dev/null || true
-pkill -f "next dev" 2>/dev/null || true
+# Stop only verified listeners belonging to this checkout. Refuse foreign ports.
+.venv/bin/python scripts/dev_server_guard.py --root "$PWD" --stop
 for port in 8000 3000; do
   for _ in $(seq 1 20); do lsof -nP -iTCP:$port -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 0.25; done
   if lsof -nP -iTCP:$port -sTCP:LISTEN >/dev/null 2>&1; then

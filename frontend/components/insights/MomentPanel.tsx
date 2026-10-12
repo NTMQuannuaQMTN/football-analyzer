@@ -1,5 +1,5 @@
 "use client";
-import { memo, useState } from "react";
+import { memo } from "react";
 import type { MatchMeta, Moment } from "@/lib/types";
 import { fmtClock } from "@/lib/api";
 import WhatIf from "./WhatIf";
@@ -88,17 +88,19 @@ function HiddenStateBlock({ m, meta }: { m: Moment; meta: MatchMeta }) {
   );
 }
 
-function AnalystView({ m, meta }: { m: Moment; meta: MatchMeta }) {
-  const [showJson, setShowJson] = useState(false);
+function AnalystView({ m, meta, hideWhatIf }: { m: Moment; meta: MatchMeta; hideWhatIf?: boolean }) {
   const deltas = Object.entries(m.deltas ?? {}).filter(([k]) => DELTA_LABEL[k]);
+  const reasoning = m.position_reasoning;
+  const shapeEffect = reasoning?.has_supported_change === true;
   return (
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-bold leading-tight">{m.title}</h2>
-        <p className="text-sm text-slate-300 mt-1">{m.narrative.why_it_matters}</p>
+        <p className="text-sm text-slate-300 mt-1">{shapeEffect ? reasoning.mechanism : m.narrative.why_it_matters}</p>
+        {shapeEffect && <p className="text-xs text-amber-200 mt-1">{reasoning.tradeoff}</p>}
         <div className="flex gap-4 mt-2 text-xs text-slate-400">
           <span>Importance <b className="text-white font-mono">{Math.round(m.importance * 100)}</b></span>
-          <span>Confidence <b className="text-white font-mono">{Math.round(m.confidence * 100)}%</b></span>
+          <span title="Heuristic evidence score; video calibration and identities are unverified">Evidence strength <b className="text-white font-mono">{meta.source?.type === "computer_vision" ? "N/A" : `${Math.round(m.confidence * 100)}/100`}</b></span>
           {m.coverage && m.coverage.inferred_avg > 0.05 && (
             <span title="Average players of this team on camera vs estimated during the moment">
               Coverage <b className="text-white font-mono">{m.coverage.observed_avg.toFixed(0)}/{(m.coverage.observed_avg + m.coverage.inferred_avg).toFixed(0)}</b> observed
@@ -111,7 +113,9 @@ function AnalystView({ m, meta }: { m: Moment; meta: MatchMeta }) {
       <HiddenStateBlock m={m} meta={meta} />
 
       {deltas.length > 0 && (
-        <div className="grid grid-cols-2 gap-1.5">
+        <details className="text-sm">
+          <summary className="cursor-pointer text-slate-400">Explore measured changes</summary>
+        <div className="grid grid-cols-2 gap-1.5 mt-2">
           {deltas.map(([k, v]) => {
             const [label, unit] = DELTA_LABEL[k];
             return (
@@ -124,6 +128,7 @@ function AnalystView({ m, meta }: { m: Moment; meta: MatchMeta }) {
             );
           })}
         </div>
+        </details>
       )}
 
       <div>
@@ -149,32 +154,42 @@ function AnalystView({ m, meta }: { m: Moment; meta: MatchMeta }) {
                 <span className="text-slate-300"> — {e.detail}</span>
                 <span className="text-slate-500 font-mono text-[11px]"> @{fmtClock(e.timestamp + (meta.clock_offset ?? 0))}</span>
                 {e.basis && e.basis !== "observed events" && (
-                  <span className={`ml-1 text-[10px] px-1 rounded ${e.basis === "coverage" ? "bg-sky-500/20 text-sky-200" : "bg-amber-500/20 text-amber-200"}`}>{e.basis === "coverage" ? "visibility" : "uses inferred positions"}</span>
+                  <span title={e.basis} className={`ml-1 text-[10px] px-1 rounded ${e.basis === "coverage" ? "bg-sky-500/20 text-sky-200" : "bg-amber-500/20 text-amber-200"}`}>{e.basis === "coverage" ? "visibility" : e.basis.startsWith("video-derived") ? "unverified position estimate" : e.basis.startsWith("recorded event feed") ? "event record / estimated metrics" : "uses estimated positions"}</span>
                 )}
               </span>
             </li>
           ))}
         </ol>
-        <div className="text-[11px] text-slate-500 mt-1">Every figure is computed by the analytics engine from tracking + event data.</div>
+        <div className="text-[11px] text-slate-500 mt-1">{meta.source?.type === "computer_vision" ? "Geometry and xG are model estimates. Event records and positional estimates have separate evidence labels." : "Every figure is computed by the analytics engine from tracking + event data."}</div>
       </div>
 
-      {m.counterfactual && <WhatIf cf={m.counterfactual} meta={meta} />}
+      {!hideWhatIf && m.counterfactual && <WhatIf cf={m.counterfactual} meta={meta} />}
 
-      <div>
-        <button onClick={() => setShowJson((s) => !s)} className="text-[11px] uppercase tracking-widest text-slate-400 hover:text-white">
-          {showJson ? "▾" : "▸"} Machine-readable insight (overlay JSON)
-        </button>
-        {showJson && (
-          <pre className="mt-1 text-[10px] leading-tight bg-black/50 rounded p-2 max-h-64 overflow-auto text-slate-300">
-            {JSON.stringify({ id: m.id, timestamp: m.timestamp, type: m.type, team: m.team, importance: m.importance, confidence: m.confidence, title: m.title, before: m.before, after: m.after, evidence: m.evidence, outcome: m.outcome, chain: m.chain, narrative: m.narrative, links: m.links }, null, 1)}
-          </pre>
-        )}
-      </div>
+      {reasoning && <details className="text-sm rounded border border-white/10 p-2">
+        <summary className="cursor-pointer text-slate-300">Explore positional reasoning</summary>
+        <dl className="mt-2 space-y-2">
+          {([
+            ["Observation", reasoning.observation], ["Interpretation", reasoning.interpretation],
+            ["Mechanism", reasoning.mechanism], ["Recorded outcome", reasoning.observed_outcome],
+            ["Trade-off", reasoning.tradeoff], ["Confidence", reasoning.confidence],
+            ["Other explanations", reasoning.alternatives],
+          ] as const).map(([label, text]) => <div key={label}><dt className="font-semibold">{label}</dt><dd className="text-slate-400">{text}</dd></div>)}
+        </dl>
+        {reasoning.position_evidence.metrics && <table className="w-full mt-3 text-xs">
+          <caption className="text-left text-slate-400">Position estimates at the moment · metres</caption>
+          <thead><tr><th className="text-left">Measurement</th><th>Value</th><th>Sensitivity range</th></tr></thead>
+          <tbody>{Object.entries(reasoning.position_evidence.metrics).map(([key, value]) => {
+            const range = reasoning.position_evidence.sensitivity_bounds_m?.[key];
+            return <tr key={key}><td>{key.replace(/_m$/, "").replaceAll("_", " ")}</td><td className="text-center">{value}</td><td className="text-center">{range ? `${range[0]}–${range[1]}` : "N/A"}</td></tr>;
+          })}</tbody>
+        </table>}
+        <p className="text-[11px] text-slate-500 mt-2">Replay analysis. Mechanisms are hypotheses. Sensitivity ranges are not joint confidence intervals.</p>
+      </details>}
     </div>
   );
 }
 
-function FanView({ m, meta }: { m: Moment; meta: MatchMeta }) {
+function FanView({ m, meta, hideWhatIf }: { m: Moment; meta: MatchMeta; hideWhatIf?: boolean }) {
   const stats = m.narrative.fan_stats ?? [];
   return (
     <div className="space-y-4">
@@ -197,20 +212,20 @@ function FanView({ m, meta }: { m: Moment; meta: MatchMeta }) {
         <div className="px-2 py-1.5 bg-lime-300 text-black">{m.minute_label}</div>
         <div className="px-3 py-1.5 bg-slate-900 border border-white/10 flex-1">{m.narrative.broadcast.lower_third}</div>
       </div>
-      {m.counterfactual && <WhatIf cf={m.counterfactual} meta={meta} compact />}
+      {!hideWhatIf && m.counterfactual && <WhatIf cf={m.counterfactual} meta={meta} compact />}
     </div>
   );
 }
 
-function MomentPanel({ moment, meta, mode, live }: { moment: Moment | null; meta: MatchMeta; mode: "analyst" | "fan"; live: boolean }) {
-  if (!moment) return <div className="text-slate-400 text-sm">No key moments yet. The engine is watching…</div>;
+function MomentPanel({ moment, meta, mode, live, hideWhatIf = false }: { moment: Moment | null; meta: MatchMeta; mode: "analyst" | "fan"; live: boolean; hideWhatIf?: boolean }) {
+  if (!moment) return <div className="text-slate-400 text-sm">No tactical explanation for this time. Check Match events for recorded incidents and set pieces.</div>;
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest">
         {live ? <span className="text-rose-400 font-bold">● Latest insight</span> : <span className="text-lime-300 font-bold">▶ Selected moment</span>}
       </div>
       <Badge m={moment} meta={meta} />
-      {mode === "analyst" ? <AnalystView m={moment} meta={meta} /> : <FanView m={moment} meta={meta} />}
+      {mode === "analyst" ? <AnalystView m={moment} meta={meta} hideWhatIf={hideWhatIf} /> : <FanView m={moment} meta={meta} hideWhatIf={hideWhatIf} />}
     </div>
   );
 }

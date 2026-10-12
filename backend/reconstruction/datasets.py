@@ -57,13 +57,35 @@ def _match_info(mid):
     return info
 
 
+def dfl_cache_path(mid,hz_out):
+    if isinstance(hz_out,bool) or not isinstance(hz_out,(int,np.integer)) or hz_out<=0 or HZ%hz_out:
+        raise ValueError('DFL sampling must be an integer divisor of 25 Hz: 1, 5 or 25')
+    return CACHE / (f'dfl_{mid}.npz' if hz_out==1 else f'dfl_{mid}_{hz_out}hz.npz')
+
+
+def initial_home_orientation(pos,team,roles):
+    """Known full-tracking setup at the first retained frame; never use a future half mean."""
+    keep=(np.asarray(team)=='A')&(np.asarray(roles)=='GK')
+    values=np.asarray(pos)[0,keep,0];values=values[np.isfinite(values)]
+    if not len(values):raise ValueError('Initial home goalkeeper unavailable; an explicit attack direction is required')
+    return bool(values.mean()>L/2)
+
+
 def parse_dfl(mid, hz_out=1):
-    """Stream the 25 Hz TRACAB XML, keep hz_out samples per second. Cached as npz per match."""
-    cache = CACHE / f"dfl_{mid}.npz"
+    """Stream 25 Hz XML at 1/5/25 Hz; use a separate cache for each rate.
+
+    Timestamps are relative to the first retained source frame, not verified
+    match kickoff or broadcast clock. Existing reconstruction models use 1 Hz.
+    """
+    cache = dfl_cache_path(mid,hz_out)
     if cache.exists():
         d = np.load(cache, allow_pickle=True)
-        return d["info"].item(), list(d["segments"])
+        info=d['info'].item();segments=list(d['segments'])
+        recorded=info.get('sampling_hz',1)
+        if recorded!=hz_out:raise ValueError('DFL cache sampling rate does not match the requested rate')
+        return info,segments
     info = _match_info(mid)
+    info['sampling_hz']=hz_out
     f = glob.glob(str(DFL_DIR / f"DFL_04_03_positions_raw_observed_*_{mid}.xml"))[0]
     step = HZ // hz_out
     data = {}  # (section, person) -> {N: (x, y)}
@@ -98,14 +120,15 @@ def parse_dfl(mid, hz_out=1):
         bxy = np.stack([b[:, 0] + L / 2, b[:, 1] + W / 2], 1)
         # orient: home team attacks +x in every segment (rotate 180 degrees if needed)
         team = np.array([info["players"][p]["team"] for p in pids])
-        gk = [j for j, p in enumerate(pids) if info["players"][p]["role"] == "GK" and info["players"][p]["team"] == "A"]
-        hx = np.nanmean(pos[:, gk, 0]) if gk and np.isfinite(pos[:, gk, 0]).any() else np.nanmean(pos[:, team == "A", 0])
-        if hx > L / 2:
+        roles=np.array([info['players'][p]['role'] for p in pids])
+        if initial_home_orientation(pos,team,roles):
             pos = np.stack([L - pos[..., 0], W - pos[..., 1]], -1)
             bxy = np.stack([L - bxy[:, 0], W - bxy[:, 1]], 1)
         poss = np.where(b[:, 2] == 1, 0, np.where(b[:, 2] == 2, 1, -1))
         segments.append({"section": sect, "pos": pos, "ball": bxy, "poss": poss, "alive": b[:, 3] == 1,
-                         "pids": pids, "team": team, "role": np.array([info["players"][p]["role"] for p in pids])})
+                         "pids": pids, "team": team, "role": roles,
+                         'sampling_hz':hz_out,'timestamps_s':(ns-ns[0])/HZ,
+                         'orientation_basis':'Home goalkeeper at the first retained frame; known full-tracking setup, not inferred broadcast identity'})
     CACHE.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(cache, info=np.array(info, dtype=object), segments=np.array(segments, dtype=object))
     return info, segments
@@ -118,16 +141,23 @@ def rows(info, seg, vis=None, camera="broadcast_sim", every=1):
             x, y = seg["pos"][t, j]
             if np.isnan(x):
                 continue
-            yield {"match_id": info["match_id"], "segment": seg["section"], "timestamp": float(t), "player_id": pid,
+            timestamp=float(seg['timestamps_s'][t]) if 'timestamps_s' in seg else float(t)/seg.get('sampling_hz',1)
+            yield {"match_id": info["match_id"], "segment": seg["section"], "timestamp": timestamp, "player_id": pid,
                    "team_id": seg["team"][j], "role": seg["role"][j], "x": round(float(x), 2), "y": round(float(y), 2),
                    "visible": bool(vis[t, j]) if vis is not None else True, "camera": camera if vis is not None else "full_pitch"}
 
 
 # ----------------------------------------------------------------------------- SkillCorner camera footprints
+def skillcorner_camera_cache_path(hz_out):
+    if isinstance(hz_out,bool) or not isinstance(hz_out,(int,np.integer)) or hz_out<=0 or 10%hz_out:
+        raise ValueError('SkillCorner sampling must be an integer divisor of 10 Hz: 1, 2, 5 or 10')
+    return CACHE / ('skillcorner_cameras.npz' if hz_out==1 else f'skillcorner_cameras_{hz_out}hz.npz')
+
+
 def skillcorner_cameras(hz_out=1):
     """Per SkillCorner match-period: 1 Hz arrays of camera footprint corners (T,4,2), ball (T,2),
     detected-player count, and detection rate inside the footprint. Coordinates converted to 0..105 x 0..68."""
-    cache = CACHE / "skillcorner_cameras.npz"
+    cache = skillcorner_camera_cache_path(hz_out)
     if cache.exists():
         return list(np.load(cache, allow_pickle=True)["cams"])
     cams = []
@@ -177,6 +207,33 @@ def skillcorner_cameras(hz_out=1):
     CACHE.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(cache, cams=np.array(cams, dtype=object))
     return cams
+
+
+def reconstruction_input_fingerprints(matches,masks):
+    """Hash the parsed data actually consumed; raw-source provenance is separate.
+
+    Existing caches may predate raw-file provenance. This prevents feature-cache
+    reuse after those consumed arrays change; it does not certify raw/cache agreement.
+    """
+    import hashlib
+    paths=[]
+    for match in matches:
+        parse_dfl(match)
+        paths.append(dfl_cache_path(match,1))
+    if 'sc_camera' in masks:
+        skillcorner_cameras()
+        paths.append(skillcorner_camera_cache_path(1))
+    result={}
+    for path in sorted(set(paths)):
+        before=path.stat()
+        digest=hashlib.sha256()
+        with path.open('rb') as stream:
+            for block in iter(lambda:stream.read(1024*1024),b''):digest.update(block)
+        after=path.stat()
+        if (before.st_size,before.st_mtime_ns)!=(after.st_size,after.st_mtime_ns):
+            raise RuntimeError('Reconstruction input changed while hashing; retry after the writer finishes')
+        result[path.name]=digest.hexdigest()
+    return result
 
 
 def point_in_quad(P, q):

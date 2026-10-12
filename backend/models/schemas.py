@@ -7,7 +7,7 @@ EventType = Literal["PASS", "SHOT", "TACKLE", "PRESSURE", "POSSESSION_CHANGE", "
                     "SUBSTITUTION", "RED_CARD", "KICK_OFF", "PLAYER_POSITION",
                     # labelled real-match events (SoccerNet)
                     "FOUL", "CORNER", "THROW_IN", "OFFSIDE", "FREE_KICK", "CLEARANCE", "BALL_OUT",
-                    "CARD", "PENALTY", "SUBSTITUTION_LABEL", "TOUCH"]
+                    "CARD", "PENALTY", "GOAL_KICK", "SUBSTITUTION_LABEL", "TOUCH"]
 MomentType = Literal["TACTICAL_TURNING_POINT", "PRESSURE_BREAK", "COUNTERATTACK", "FORMATION_SHIFT",
                      "RED_CARD_IMPACT", "SUBSTITUTION_IMPACT", "GOAL_BUILD_UP"]
 
@@ -30,6 +30,7 @@ class Evidence(BaseModel):
     unit: str
     timestamp: float
     source: str = "analytics"
+    basis: Optional[str] = None
 
 
 class ChainStep(BaseModel):

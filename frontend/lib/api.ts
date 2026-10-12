@@ -51,7 +51,7 @@ export const loadEvaluation = () => get<any>("/evaluation");
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadPlayerState = (pid: string, t: number, mode: string) => get<any>(`/match/players/${pid}/state?t=${Math.floor(t)}&mode=${mode}`);
 
-export const loadPlayer = (pid: string, t: number) => get<PlayerProfile>(`/match/players/${pid}?t=${Math.floor(t)}`);
+export const loadPlayer = (pid: string, t: number, mode: string = "default") => get<PlayerProfile>(`/match/players/${pid}?t=${Math.floor(t)}&mode=${mode}`);
 
 export const fmtClock = (t: number) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
 
@@ -63,6 +63,7 @@ export interface LobbyCard {
   label: string;
   teams: Record<"A" | "B", TeamInfo>;
   score: Record<"A" | "B", number>;
+  score_known?: boolean;
   status: "live" | "finished";
   minute?: number;
   competition?: string | null;

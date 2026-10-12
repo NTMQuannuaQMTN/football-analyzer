@@ -20,41 +20,66 @@ IMG_W, IMG_H = 1280, 720
 
 
 def footprint(H, nx=32, ny=18):
-    """Polygon (list of [x, y] m) of the visible pitch area: a grid of image points projected to metres, kept where
-    it lands on/near the pitch (points above the horizon are dropped), outlined by its convex hull."""
-    from scipy.spatial import ConvexHull
-    gx, gy = np.meshgrid(np.linspace(0, IMG_W, nx), np.linspace(0, IMG_H, ny))
-    img = np.stack([gx.ravel(), gy.ravel()], 1)
-    hp = np.hstack([img, np.ones((len(img), 1))]) @ H.T
-    ok = hp[:, 2] > 1e-6
-    pts = hp[ok, :2] / hp[ok, 2:3]
-    pts = pts[(pts[:, 0] > -8) & (pts[:, 0] < L + 8) & (pts[:, 1] > -8) & (pts[:, 1] < W + 8)]
-    if len(pts) < 8:
-        return None
     try:
-        hull = pts[ConvexHull(pts).vertices]
-    except Exception:
+        inverse = np.linalg.inv(H)
+        ref = np.asarray(H) @ [IMG_W/2, IMG_H-1, 1]
+        if abs(ref[2]) < 1e-10:
+            return None
+        ref = ref/ref[2]
+        if (inverse @ ref)[2] < 0:
+            inverse = -inverse
+    except np.linalg.LinAlgError:
         return None
-    hull = np.stack([np.clip(hull[:, 0], -2, L + 2), np.clip(hull[:, 1], -2, W + 2)], 1)
-    return [[round(float(x), 1), round(float(y), 1)] for x, y in hull]
+    # Exact intersection of pitch and image frustum. Grid hulls underestimated
+    # edge coverage and depended on the arbitrary sign of homogeneous H.
+    polygon = np.array([[0.,0.],[L,0.],[L,W],[0.,W]])
+    r0,r1,r2 = inverse
+    for plane in (r2,r0,IMG_W*r2-r0,r1,IMG_H*r2-r1):
+        if len(polygon)<3:
+            return None
+        result=[]
+        for a,b in zip(polygon,np.roll(polygon,-1,axis=0)):
+            da,db = plane @ [*a,1],plane @ [*b,1]
+            if da>=0:
+                result.append(a)
+            if (da>=0)!=(db>=0):
+                result.append(a+(b-a)*da/(da-db))
+        polygon=np.asarray(result)
+    return polygon.tolist() if len(polygon)>=3 else None
+
+
+def cached_camera_matrices(run_dir):
+    from pathlib import Path
+    root=Path(run_dir);meta=json.loads((root/'run.json').read_text())
+    if meta.get('camera_H_coordinates')!='normalised_0_to_1_image_to_pitch_metres':
+        raise ValueError('Candidate camera units must be explicit')
+    result={}
+    for line in (root/'detections.jsonl').open():
+        row=json.loads(line);h=row.get('H');t=round(float(row['t']),6)
+        if t in result:raise ValueError('Duplicate candidate camera timestamp')
+        result[t]=None if h is None else np.asarray(h,float)@np.diag([1/IMG_W,1/IMG_H,1.])
+    return result
 
 
 def add_extras(path):
     from backend.reconstruction.inference import VIDEO_RADIUS_SCALE, reconstruct_ml
     from cv.clip_eval import coarse_roles, load, reveals
-    from cv.soccernet import Calibration
+    from cv.soccernet import Calibration, on_main_camera
     d = json.load(open(path))
     src = d["meta"]["source"]
     calib = Calibration(src["game"], src["half"])
+    candidate=cached_camera_matrices(src['camera_run']) if src.get('camera_run') else None
     n_cam = 0
     for t, f in enumerate(d["frames"]):
-        H = calib.at(src["start"] + t)
+        H = candidate.get(round(src['start']+t,6)) if candidate is not None else calib.at(src["start"] + t+src.get('calibration_offset_s',0.)) if on_main_camera(src["game"],src["half"],src["start"]+t) else None
         poly = footprint(H) if H is not None else None
         if poly:
             f["cam"] = poly
+            f['camera_basis']='Candidate camera used for measurement projection; unverified' if candidate is not None else 'Estimated CCBV footprint; calibration and alignment unverified'
             n_cam += 1
         else:
             f.pop("cam", None)
+            f.pop('camera_basis',None)
     # prediction -> reality on video
     _, m, vis, on = load(path)
     rv = reveals(vis, on)
@@ -65,7 +90,8 @@ def add_extras(path):
     cr = coarse_roles(d["players"])
     rc = np.array([cr[o] for o in m.order])
     role = {o: ("GK" if cr[o] == "GK" else "CM") for o in m.order}
-    rec = reconstruct_ml(m, masked, "live", on, role, None, teams, rc, radius_scale=VIDEO_RADIUS_SCALE)
+    rec = reconstruct_ml(m, masked, "live", on, role, None, teams, rc, radius_scale=VIDEO_RADIUS_SCALE,
+                         fold=src.get("reconstruction_fold"), weights_dir=src.get("reconstruction_weights"))
     out = []
     for t, j, h in rv:
         pred, act = rec.pos[t, j], m.xy[t, j]
@@ -80,10 +106,10 @@ def add_extras(path):
     d["reveals"] = out
     if out:
         e = np.array([r["error_m"] for r in out])
-        src["error_vs_truth"] = {"reveals": {
+        src["error_vs_cv_proxy"] = {"reveals": {
             "n": len(out), "mean_error_m": round(float(e.mean()), 2), "median_error_m": round(float(np.median(e)), 2),
             "inside_80pct_radius": round(float(np.mean([r["inside_radius"] for r in out])), 3), "by_hidden_s": {},
-            "note": "actual = CV detection at reappearance (role-based identity); radius widened x%.2f for video" % VIDEO_RADIUS_SCALE}}
+            "note": "Reference is a role-assigned CV detection, NOT ground truth. This is a causal-feature reappearance consistency diagnostic on retrospectively processed inputs, not validated live video accuracy. Radius multiplier %.2f is transferred from an older model and is unvalidated for this candidate." % VIDEO_RADIUS_SCALE}}
     json.dump(d, open(path, "w"))
     print(f"clip extras: camera footprint in {n_cam}/{len(d['frames'])} s, {len(out)} reappearance tests")
     return d

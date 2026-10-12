@@ -56,15 +56,31 @@ def labels(game: str, half: int):
     return d, sorted(out, key=lambda a: a["t"])
 
 
-def main_camera_segments(game: str, half: int):
-    """[(start, end)] seconds where the live main camera is on screen (no replays / close-ups)."""
+def camera_segments(game: str, half: int):
+    """Shot labels apply BEFORE each boundary (last frame before abrupt cuts).
+
+    SoccerNet-v2 camera annotations name the shot that has been shown. Treating
+    them as starts shifts replays into live play. The unlabelled final tail is
+    intentionally not assigned the preceding shot's label.
+    """
     d = json.load(open(game_dir(game) / "Labels-cameras.json"))
     ann = sorted([a for a in d["annotations"] if a["gameTime"].startswith(f"{half} ")], key=_ms)
+    start = 0.0
+    out = []
+    for a in ann:
+        end = _ms(a)
+        if end > start:
+            out.append((start, end, a))
+        start = max(start,end)
+    return out
+
+
+def main_camera_segments(game: str, half: int):
+    """[(start, end)] seconds of annotated real-time main-camera play."""
     segs = []
-    for i, a in enumerate(ann):
-        end = _ms(ann[i + 1]) if i + 1 < len(ann) else 1e9
+    for start, end, a in camera_segments(game, half):
         if a["label"].startswith("Main camera") and a.get("replay", "real-time") == "real-time":
-            segs.append((_ms(a), end))
+            segs.append((start, end))
     return segs
 
 
@@ -86,9 +102,20 @@ class Calibration:
                 self.H.append(None)
             self.conf.append(float(p[0].get("confidence", 1.0)))
         self.min_conf = min_conf
+        self.main_segments = segments_cached(game, half)
 
-    def at(self, t: float):
-        i = int(round(t * CALIB_FPS))
+    def at(self, t: float,causal=False,allow_cross_shot=False):
+        if not np.isfinite(t):return None
+        # Default remains the historical retrospective nearest sample.
+        # A caller explicitly requesting causal sampling must use the past.
+        i = int(np.floor(t * CALIB_FPS)) if causal else int(round(t * CALIB_FPS))
+        # The closest timestamp can be a replay/close-up at a shot boundary.
+        # Such a camera cannot project measurements from the current shot.
+        # Explicit legacy sampling is retained for reproducible audits only.
+        if not allow_cross_shot and hasattr(self, 'main_segments'):
+            interval = next(((a, b) for a, b in self.main_segments if a <= t < b), None)
+            if interval is None or not interval[0] <= i / CALIB_FPS < interval[1]:
+                return None
         if 0 <= i < len(self.H) and self.H[i] is not None and self.conf[i] >= self.min_conf:
             return self.H[i]
         return None

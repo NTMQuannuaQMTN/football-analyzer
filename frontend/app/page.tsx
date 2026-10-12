@@ -24,14 +24,14 @@ function MatchCard({ c }: { c: LobbyCard }) {
         )}
         <span>·</span>
         <span className="truncate">{c.competition}{c.matchday ? ` · Matchday ${c.matchday}` : ""}</span>
-        <span className="ml-auto font-mono whitespace-nowrap">{c.date}</span>
+        <span className="ml-auto font-mono whitespace-nowrap">{c.date ?? "N/A"}</span>
       </div>
       <div className="mt-3 space-y-2">
         {(["A", "B"] as const).map((tm) => (
           <div key={tm} className="flex items-center gap-3">
             <span className="w-3 h-3 rounded-sm shrink-0" style={{ background: c.teams[tm].color }} />
             <span className="flex-1 font-semibold text-lg truncate">{c.teams[tm].name}</span>
-            <span className={`font-mono text-2xl font-bold ${c.score[tm] > c.score[tm === "A" ? "B" : "A"] ? "text-white" : "text-slate-400"}`}>{c.score[tm]}</span>
+            <span className={`font-mono text-2xl font-bold ${c.score_known !== false && c.score[tm] > c.score[tm === "A" ? "B" : "A"] ? "text-white" : "text-slate-400"}`}>{c.score_known === false ? "?" : c.score[tm]}</span>
           </div>
         ))}
       </div>
@@ -79,8 +79,8 @@ export default function Lobby() {
         )}
         {cards && (
           <p className="text-[11px] text-slate-600 max-w-3xl">
-            Real tracking: DFL / IDSSE open data (Bassek et al., Sci Data 2025, CC BY 4.0). Computer vision clips: SoccerNet (research use).
-            The live match is a synthetic match replayed in real time.
+            Real tracking: DFL / IDSSE open data (CC BY 4.0). Broadcast-derived data: existing SoccerNet assets and SkillCorner partial tracking (MIT).
+            The live feed replays a recorded match. Broadcast estimates do not provide independent hidden-player ground truth.
           </p>
         )}
       </div>

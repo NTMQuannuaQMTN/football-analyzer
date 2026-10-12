@@ -211,17 +211,35 @@ def assign_lines(pts, name, prev=None):
     return out
 
 
-def lines_per_second(frames, order, is_gk, timeline):
+def lines_per_second(frames, order, is_gk, timeline, causal=False):
     """Per frame and team: line index of every player (-1 = goalkeeper / off / unknown), from the formation of
     that minute fitted to the current positions."""
     out = []
     prev = {"A": (None, None), "B": (None, None)}
+    causal_names = {"A": {}, "B": {}}
     for t, f in enumerate(frames):
         row = [-1] * len(order)
         for team in ("A", "B"):
             tl = timeline[team]
             name = tl[min(t // 60, len(tl) - 1)].get("formation") if tl else None
             js = [j for j, pid in enumerate(order) if pid.startswith(team) and not is_gk[j] and f["xy"][j] is not None]
+            if causal:
+                minute = t // 60
+                if minute not in causal_names[team]:
+                    # Fit from the preceding minute through its current start
+                    # snapshot. Never read the retrospective/truth timeline.
+                    a = max(0, minute*60-60); b = minute*60+1
+                    history = np.asarray([[fr['xy'][j] if fr['xy'][j] is not None else [np.nan,np.nan]
+                                           for j in js] for fr in frames[a:b]],float)
+                    if len(js)>=8 and history.size:
+                        if team == 'B':
+                            history = np.array([L,W])-history
+                        with np.errstate(all='ignore'):
+                            relative = np.nanmean(history-np.nanmean(history,axis=1,keepdims=True),axis=0)
+                        causal_names[team][minute] = fit_formation(relative) if np.isfinite(relative).all() else '?'
+                    else:
+                        causal_names[team][minute] = '?'
+                name = causal_names[team][minute]
             if not name or name == "?" or not js:
                 continue
             p = np.array([f["xy"][j] for j in js], dtype=float)

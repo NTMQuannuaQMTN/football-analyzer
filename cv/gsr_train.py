@@ -113,7 +113,8 @@ def export_jersey(stride=15):
 
 class DigitNet:
     """ResNet18 trunk with digit heads: n_digits (1/2), tens (0-9), units (0-9).
-    Sharing digits across numbers forces the model to read, not to recognise players."""
+    Digit sharing does not prevent kit/player shortcuts. Training has no
+    per-crop legibility labels, so a score is not proof of reading a number."""
 
     @staticmethod
     def build():
@@ -188,19 +189,26 @@ def predict_jersey(model, X, device, bs=512):
 def eval_jersey(model, part, device, conf=0.5, min_votes=2):
     d = np.load(JERSEY_DIR / f"{part}.npz")
     P = predict_jersey(model, d["X"], device)
-    crop_acc = float(np.mean(P.argmax(1) == d["y"]))
+    return jersey_metrics(P, d['y'], d['track'], conf, min_votes)
+
+
+def jersey_metrics(P, y, tracks, conf=0.5, min_votes=2):
+    """Reuse identical predictions when auditing several voting thresholds."""
+    crop_acc = float(np.mean(P.argmax(1) == y))
     votes = defaultdict(lambda: np.zeros(100))
     nvotes = defaultdict(int)
     truth = {}
-    for p, t, yy in zip(P, d["track"], d["y"]):
+    for p, t, yy in zip(P, tracks, y):
         truth[t] = yy
-        if p.max() >= conf:  # only legible crops vote
+        if p.max() >= conf:  # high-scoring crops; confidence does not establish legibility
             votes[t] += np.log(p + 1e-6)
             nvotes[t] += 1
     decided = [t for t in truth if nvotes[t] >= min_votes]
     prec = float(np.mean([votes[t].argmax() == truth[t] for t in decided])) if decided else 0.0
     return {"crop_accuracy": round(crop_acc, 3), "track_precision": round(prec, 3),
-            "track_coverage": round(len(decided) / max(1, len(truth)), 3), "tracklets": len(truth)}
+            "track_coverage": round(len(decided) / max(1, len(truth)), 3), "tracklets": len(truth),
+            "decided_tracks":len(decided), "correct_tracks":int(sum(votes[t].argmax()==truth[t] for t in decided)),
+            "crop_count":len(y)}
 
 
 def train_jersey(epochs, device):

@@ -26,14 +26,15 @@ def default_fold():
     return PRODUCTION if all((WEIGHTS / f"hidden_{m}_{PRODUCTION}.pt").exists() for m in ("live", "replay")) else 0
 
 
-def load_ml(mode, fold=None):
+def load_ml(mode, fold=None, weights_dir=None):
     fold = default_fold() if fold is None else fold
-    key = (mode, fold)
+    root = Path(weights_dir) if weights_dir is not None else WEIGHTS
+    key = (mode, fold, str(root.resolve()))
     if key not in _models:
         import torch
         from backend.reconstruction.ml import make_model
         name = fold if isinstance(fold, str) else f"f{fold}"  # e.g. 0 -> f0, "lomo3" (leave-one-match-out fold)
-        ck = torch.load(WEIGHTS / f"hidden_{mode}_{name}.pt", weights_only=False)
+        ck = torch.load(root / f"hidden_{mode}_{name}.pt", weights_only=False)
         net = make_model(ck["n_in"])
         net.load_state_dict(ck["state"])
         net.eval()
@@ -41,17 +42,18 @@ def load_ml(mode, fold=None):
     return _models[key]
 
 
-def ml_available(fold=None):
+def ml_available(fold=None, weights_dir=None):
     fold = default_fold() if fold is None else fold
     name = fold if isinstance(fold, str) else f"f{fold}"
-    return all((WEIGHTS / f"hidden_{m}_{name}.pt").exists() for m in ("live", "replay"))
+    root = Path(weights_dir) if weights_dir is not None else WEIGHTS
+    return all((root / f"hidden_{m}_{name}.pt").exists() for m in ("live", "replay"))
 
 
-def reconstruct_ml(m, vis, mode, on, role, anchors, teams, roles_coarse, alive=None, fold=None, radius_scale=1.0):
+def reconstruct_ml(m, vis, mode, on, role, anchors, teams, roles_coarse, alive=None, fold=None, radius_scale=1.0, weights_dir=None):
     """Formation prior + learned correction + empirically calibrated uncertainty."""
     from backend.reconstruction.ml import apply_calibration, features, predict
     rec = reconstruct(m, vis, mode, {}, on=on, role=role, anchors=anchors)
-    net, cal, fv = load_ml(mode, fold)
+    net, cal, fv = load_ml(mode, fold, weights_dir)
     X, idx = features(np.where(vis[..., None], m.xy, np.nan), vis, on, teams, roles_coarse, m.ball, m.poss,
                       alive if alive is not None else np.ones(m.T, bool), rec.pos, mode, version=fv)
     if len(idx):

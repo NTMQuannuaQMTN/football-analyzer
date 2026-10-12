@@ -9,6 +9,8 @@ export interface Player {
 }
 
 export interface MatchMeta {
+  date?: string | null;
+  score_known?: boolean;
   seed: number;
   duration: number;
   teams: Record<TeamId, { name: string; short: string; color: string }>;
@@ -21,7 +23,7 @@ export interface MatchMeta {
   live?: { t_now: number; speed: number; finished: boolean; started?: boolean; part?: string; note: string } | null;
   parts?: { id: string; label: string }[] | null;
   vod_available?: boolean; // ground-truth match that also carries the camera-only estimate (Replay / Live)
-  source?: { type: string; game: string; half: number; start: number; end: number; model: string; coverage: number; observed_share?: number; dataset?: string };
+  source?: { type: string; game: string; half: number; start: number; end: number; model: string; coverage: number; observed_share?: number; dataset?: string; provider?: string; camera?: string };
   players: Player[];
   goals: MatchEvent[];
   key_events: MatchEvent[];
@@ -35,8 +37,11 @@ export interface Frame {
   xy: ([number, number] | null)[];
   cam?: [number, number][]; // camera footprint on the pitch (camera views of real-tracking matches)
   ds?: string; // dead ball: what restarts play ("Throw-in", "Corner", ...); absent while the ball is in play
+  ds_basis?: "annotation_interval" | "estimated_ball_state";
+  ds_restart_t?: number; // future annotated restart, retrospective display only
   sl?: number[]; // each player's line in the current formation (0 = back line), -1 = goalkeeper / none
-  obs?: (boolean | null)[]; // CV matches: false = position estimated (player off screen)
+  obs?: (boolean | null)[]; // false = estimated; does not prove the player is outside the view
+  observed_t?: (number | null)[]; // Actual source measurement times, relative to clip start
   bs?: string; // CV matches: ball source (carried, in_flight, dead_ball, goal, kick_off, near_player, raw)
   conf?: (number | null)[]; // reconstruction: P(error <= 5 m) for inferred players
   rad?: (number | null)[]; // reconstruction: calibrated uncertainty radius (m), 0 when observed
@@ -75,7 +80,7 @@ export interface Coverage {
   observed_avg: number;
   inferred_avg: number;
   observed_share: number;
-  inferred_mean_confidence: number;
+  inferred_mean_confidence: number | null;
   reliability: number;
 }
 
@@ -101,6 +106,17 @@ export interface HiddenState {
 }
 
 export interface Moment {
+  position_reasoning?: {
+    has_supported_change?: boolean;
+    observation: string; interpretation: string; mechanism: string;
+    observed_outcome: string; tradeoff: string; confidence: string;
+    alternatives: string; retrospective: boolean;
+    position_evidence: {
+      status: string; metrics: Record<string, number> | null;
+      sensitivity_bounds_m?: Record<string, [number, number]> | null;
+      observed_outfield?: number; inferred_outfield?: number; uncertainty?: string;
+    };
+  };
   hidden_state?: HiddenState;
   id: string;
   type: string;
@@ -174,6 +190,7 @@ export type Timeline = Record<TeamId, MinuteRow[]>;
 export interface PlayerProfile {
   player: Player;
   until: number;
+  mode: string;
   movement: { distance_km: number; top_speed_kmh: number; sprint_seconds: number };
   stats: Record<string, number>;
   moments: { id: string; title: string; minute_label: string }[];

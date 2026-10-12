@@ -5,7 +5,7 @@ import { loadEvaluation } from "@/lib/api";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const LEVEL_LABEL: Record<string, string> = { "k=18": "18 / 22", "k=14": "14 / 22", "k=10": "10 / 22", "k=6": "6 / 22", broadcast: "Broadcast cam" };
 
-const MASKS: [string, string][] = [["sc_camera", "Real broadcast cam"], ["k=18", "18 / 22"], ["k=14", "14 / 22"], ["k=10", "10 / 22"], ["k=6", "6 / 22"]];
+const MASKS: [string, string][] = [["sc_camera", "Transferred camera mask"], ["k=18", "18 / 22"], ["k=14", "14 / 22"], ["k=10", "10 / 22"], ["k=6", "6 / 22"]];
 
 function RealFootball({ rep }: { rep: any }) {
   const lomo = rep.real_lomo?.k7r_v3 ?? rep.real_lomo?.v2 ?? rep.real_lomo?.v1;
@@ -64,7 +64,7 @@ function RealFootball({ rep }: { rep: any }) {
               ))}
             </tbody>
           </table>
-          <div className="text-[10px] text-slate-500 mt-1">Actual = the CV detection when the player reappears; identities are role-based (~35% exact), so errors are much larger than on tracking data. Differences between learned models here are within noise.</div>
+          <div className="text-[10px] text-slate-500 mt-1">Reference = a projected CV detection at reappearance, with role-assigned identity. Neither identity nor camera projection is independent ground truth. These are consistency proxies, not verified hidden-player accuracy.</div>
         </div>
       )}
       {tac && (
@@ -100,7 +100,7 @@ function RealFootball({ rep }: { rep: any }) {
 
 function AccuracyPanel() {
   const [rep, setRep] = useState<any>(null);
-  useEffect(() => { loadEvaluation().then(setRep).catch(() => setRep({ error: "unavailable" })); }, []);
+  useEffect(() => { loadEvaluation().then(setRep).catch(() => setRep({ error: "N/A" })); }, []);
   if (!rep) return <div className="text-sm text-slate-400 animate-pulse">Loading evaluation…</div>;
   if (rep.error) return <div className="text-sm text-slate-400">{rep.error}</div>;
   const multi = rep.multi;
@@ -110,11 +110,12 @@ function AccuracyPanel() {
   const keys = Object.keys(tac.full_ground_truth);
   return (
     <div className="space-y-4 text-sm">
+      <p className="text-xs text-amber-200/90">Stored benchmark results for their evaluated datasets and models. These do not measure accuracy for the match currently shown. DFL tests use full reference tracking with simulated visibility; they do not establish EPL video accuracy.</p>
       <RealFootball rep={rep} />
       <div>
-        <div className="text-[11px] uppercase tracking-widest text-slate-400">Proof against synthetic ground truth</div>
+        <div className="text-[11px] uppercase tracking-widest text-slate-400">Simulator evaluation</div>
         <p className="text-slate-300 mt-1">
-          Players are hidden exactly as a camera would hide them, then reconstructed and compared with where the simulator says they really were.
+          Simulated camera masks hide selected players, then reconstructed positions are compared with the simulator&apos;s complete reference positions.
           Seed {rep.eval_seed}; uncertainty calibrated on a different match (seed {rep.calibration_seed}).
         </p>
       </div>
@@ -129,7 +130,7 @@ function AccuracyPanel() {
             <tbody className="font-mono">
               {Object.entries(f.results).map(([mk, r]: [string, any]) => (
                 <tr key={mk} className="border-t border-white/5">
-                  <td className="font-sans py-0.5">{mk === "sc_camera" ? "Real broadcast cam" : mk.replace("k=", "").replace("rand=", "rand ") + (mk.startsWith("k=") ? " / 22" : "")}</td>
+                  <td className="font-sans py-0.5">{mk === "sc_camera" ? "Transferred camera mask" : mk.replace("k=", "").replace("rand=", "rand ") + (mk.startsWith("k=") ? " / 22" : "")}</td>
                   <td className="text-right pl-1 text-slate-500">{r.last_position.mae_m}</td>
                   <td className="text-right pl-1 text-slate-500">{r.constant_velocity.mae_m}</td>
                   <td className="text-right pl-1">{r.formation_live.mae_m}/{r.formation_replay.mae_m}</td>
@@ -205,7 +206,7 @@ function AccuracyPanel() {
             )))}
           </tbody>
         </table>
-        <div className="text-[10px] text-slate-500 mt-1">Counterattacks are detected from the ball and events (always observed), so visibility doesn&apos;t change them.</div>
+        <div className="text-[10px] text-slate-500 mt-1">This synthetic benchmark keeps ball and events fixed across visibility masks. Counterattack results here do not test broadcast ball-detection errors.</div>
       </div>
     </div>
   );

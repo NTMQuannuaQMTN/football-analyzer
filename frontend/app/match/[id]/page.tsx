@@ -58,7 +58,7 @@ function HighlightCard({ h, s, part, partLabel }: { h: Highlight; s: MatchSummar
           {open && <ul className="mt-1 text-xs text-slate-400 list-disc pl-5 space-y-0.5">{h.bullets.map((b, i) => <li key={i}>{b}</li>)}</ul>}
         </>
       )}
-      <div className="mt-2 text-[10px] text-slate-500">importance {Math.round(h.importance * 100)} · confidence {Math.round(h.confidence * 100)}%</div>
+      <div className="mt-2 text-[10px] text-slate-500" title="Importance and evidence scores are heuristic rankings, not calibrated probabilities of accuracy">importance {Math.round(h.importance * 100)} · evidence strength {s.kind === "computer_vision" ? "N/A" : `${Math.round(h.confidence * 100)}/100`}</div>
     </div>
   );
 }
@@ -134,7 +134,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             {live ? <span className="flex items-center gap-1.5 font-black tracking-widest text-rose-400"><span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />LIVE {s.minute}&apos;</span>
               : <span className="font-bold tracking-widest text-slate-300">{s.kind === "computer_vision" ? "CLIP" : "FULL TIME"}</span>}
             <span>·</span><span>{s.competition}{s.matchday ? ` · Matchday ${s.matchday}` : ""}{s.season ? ` · ${s.season}` : ""}</span>
-            <span className="ml-auto font-mono">{s.date}</span>
+            <span className="ml-auto font-mono">{s.date ?? "N/A"}</span>
           </div>
           <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-start gap-6">
             {(["A", "B"] as Team[]).map((tm, i) => (
@@ -151,7 +151,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
               </div>
             ))}
             <div className="order-2 text-center">
-              <div className="font-mono text-5xl font-black">{s.score.A} – {s.score.B}</div>
+              <div className="font-mono text-5xl font-black">{s.score_known === false ? "? - ?" : `${s.score.A} – ${s.score.B}`}</div>
               <div className="mt-3 flex gap-2 justify-center flex-wrap">
                 <Link href={`/match/${s.id}/studio${firstPart ? `?part=${firstPart}` : ""}`} className="px-3 py-1.5 rounded bg-lime-300 text-black font-bold text-sm hover:bg-lime-200">
                   {live ? "● Watch live in studio" : "Open match studio"}
@@ -179,6 +179,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
             </div>
           </div>
           <div className="space-y-3">
+            {s.kind === "computer_vision" && <p className="text-xs text-amber-200/90">Recorded match events and reconstructed sequences have different evidence. Build-up descriptions depend on unverified player positions and identities.</p>}
             {shown.length === 0 && <div className="text-sm text-slate-500">No {filter.toLowerCase()} moments{live ? " yet" : ""}.</div>}
             {shown.map(({ h, part, partLabel }) => <HighlightCard key={`${part}-${h.id}`} h={h} s={s} part={part} partLabel={partLabel} />)}
           </div>
@@ -192,6 +193,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
               <span className="flex-1 text-center uppercase tracking-widest text-slate-400">Team stats</span>
               <span style={{ color: colors[1] }}>{s.teams.B.short}</span>
             </div>
+            {s.kind === "computer_vision" && <p className="text-[11px] leading-relaxed text-amber-200/90">Recorded events are mixed with model estimates. Possession, passes, pressure and player totals depend on unverified reconstruction; these are not official match statistics.</p>}
             <StatRow label="Possession" a={ts.A.possession} b={ts.B.possession} fmt={pct} colors={colors} />
             <StatRow label="Shots" a={ts.A.shots} b={ts.B.shots} colors={colors} />
             <StatRow label="On target" a={ts.A.shots_on_target} b={ts.B.shots_on_target} colors={colors} />
@@ -208,6 +210,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
 
           <div className="rounded-lg border border-white/10 bg-[#0b1222] p-4">
             <div className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">Shape</div>
+            {s.kind === "computer_vision" && <p className="text-[11px] text-amber-200/90 mb-2">Estimated from reconstructed positions; calibration and identities are unverified.</p>}
             {s.parts.map((p) => (
               <div key={p.id} className="mb-3 last:mb-0">
                 {s.parts.length > 1 && <div className="text-[11px] text-slate-500 mb-1">{p.label}</div>}
@@ -238,6 +241,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
 
           <div className="rounded-lg border border-white/10 bg-[#0b1222] p-4">
             <div className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">Top players</div>
+            {s.kind === "computer_vision" && <p className="text-[11px] leading-relaxed text-amber-200/90 mb-2">Names follow unverified role assignments. Individual totals can belong to a different visible player.</p>}
             <Leaders players={s.players} s={s} />
           </div>
 

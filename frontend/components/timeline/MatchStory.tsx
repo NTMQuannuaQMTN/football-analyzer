@@ -1,6 +1,8 @@
 "use client";
 import { memo } from "react";
-import type { MatchMeta, Moment, Story, Timeline } from "@/lib/types";
+import type { MatchEvent, MatchMeta, Moment, Story, Timeline } from "@/lib/types";
+import { eventLabel, SET_PIECE_TYPES } from "@/lib/matchEvents";
+import { fmtClock } from "@/lib/api";
 
 const SHORT: Record<string, string> = {
   TACTICAL_TURNING_POINT: "SHIFT", FORMATION_SHIFT: "SHAPE", GOAL_BUILD_UP: "GOAL", PRESSURE_BREAK: "BREAK",
@@ -11,6 +13,7 @@ const CHAPTER: Record<string, string> = { HIGH_PRESS: "High press", LOW_BLOCK: "
 interface Props {
   story: Story;
   moments: Moment[];
+  events: MatchEvent[];
   timeline: Timeline;
   meta: MatchMeta;
   t: number;
@@ -32,7 +35,7 @@ function smoothPath(pts: [number, number][]) {
   return d;
 }
 
-function MatchStory({ story, moments, timeline, meta, t, selectedId, onSelect, onSeek }: Props) {
+function MatchStory({ story, moments, events, timeline, meta, t, selectedId, onSelect, onSeek }: Props) {
   const D = meta.duration;
   const pct = (t: number) => `${(100 * t) / D}%`;
   const tickStep = D > 1800 ? 15 : D > 600 ? 5 : 1;
@@ -71,7 +74,7 @@ function MatchStory({ story, moments, timeline, meta, t, selectedId, onSelect, o
     <div className="h-full flex flex-col px-4 pt-2 pb-1">
       <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-slate-400">
         <span className="text-white font-bold">Match story</span>
-        <span>tactical chapters · pressing momentum · key moments · causal links</span>
+        <span>tactical chapters · key moments · ◆ set pieces</span>
         <span className="ml-auto flex gap-3 normal-case tracking-normal">
           {(["A", "B"] as const).map((t) => (
             <span key={t} className="flex items-center gap-1"><span className="w-3 h-0.5 inline-block" style={{ background: meta.teams[t].color }} />{meta.teams[t].short} press intensity</span>
@@ -121,6 +124,12 @@ function MatchStory({ story, moments, timeline, meta, t, selectedId, onSelect, o
         <div className="absolute top-0 bottom-0 w-px bg-lime-300/80 pointer-events-none" style={{ left: pct(Math.min(D, Math.max(0, t))) }} />
 
         {/* moments */}
+        {events.filter(e => SET_PIECE_TYPES.has(e.event_type)).map(event => (
+          <button key={`event-${event.id}`} type="button" aria-label={`Jump to ${eventLabel(event)} at ${fmtClock(event.timestamp + (meta.clock_offset ?? 0))}`}
+            title={`${fmtClock(event.timestamp + (meta.clock_offset ?? 0))} ${eventLabel(event)} · ${event.team_id ? meta.teams[event.team_id].short : "N/A"} · recorded event; outcome not inferred`}
+            onClick={e => { e.stopPropagation(); onSeek(event.timestamp); }}
+            className="absolute top-[95px] -translate-x-1/2 text-amber-300 text-sm hover:scale-125" style={{ left: pct(event.timestamp) }}>◆</button>
+        ))}
         {moments.map((m) => {
           const size = 8 + m.importance * 8;
           const isSel = m.id === selectedId;

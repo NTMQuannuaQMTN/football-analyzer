@@ -19,5 +19,6 @@ data/eval/real/*.npz
 **/*.npz
 frontend/.env*
 .env
+data/reset_backups/
 runs/
 *.pt

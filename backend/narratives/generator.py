@@ -106,9 +106,11 @@ class DeterministicNarrativeGenerator(NarrativeGenerator):
         cov = mo.get("coverage") or {}
         vis_note = None
         if cov.get("inferred_avg", 0) > 0.05:
+            cf = cov.get("inferred_mean_confidence")
+            uncertainty = f"mean confidence {cf:.0%}" if cf is not None else "uncertainty N/A"
             vis_note = (f"On average {cov['inferred_avg']:.0f} of {cov['observed_avg'] + cov['inferred_avg']:.0f} {SHORT[cov['team']]} "
-                        f"players were outside the camera view; their positions were estimated from previous trajectories "
-                        f"and team shape (mean confidence {cov['inferred_mean_confidence']:.0%}).")
+                        f"players were unobserved; their positions were estimated from trajectories "
+                        f"and team shape ({uncertainty}).")
         return {
             "headline": mo["title"],
             "visibility_note": vis_note,

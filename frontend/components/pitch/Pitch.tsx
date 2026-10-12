@@ -46,6 +46,7 @@ interface Props {
   shape?: Partial<Record<TeamId, { name: string; lines: string[][] }>> | null; // detected formation: draw its lines
   camera?: { footprint: boolean; hideInferred: boolean } | null; // "what the camera couldn't see"
   reveal?: Reveal | null; // prediction -> reality example being played
+  causalPlayback?: boolean; // Hold the latest sample; never interpolate toward a future live state.
 }
 
 function PitchMarkings() {
@@ -75,19 +76,27 @@ function PitchMarkings() {
 
 const Markings = memo(PitchMarkings);
 
-export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam, overlay, selectedPlayer, showLines, onPlayerClick, showUncertainty = true, truthFrames = null, shape = null, camera = null, reveal = null }: Props) {
+export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam, overlay, selectedPlayer, showLines, onPlayerClick, showUncertainty = true, truthFrames = null, shape = null, camera = null, reveal = null, causalPlayback = false }: Props) {
   const i0 = Math.min(frames.length - 1, Math.floor(t));
-  const i1 = Math.min(frames.length - 1, i0 + 1);
+  const i1 = causalPlayback ? i0 : Math.min(frames.length - 1, i0 + 1);
   const f = t - i0;
   const fr0 = frames[i0];
   const fr1 = frames[i1];
   const order = meta.player_order;
   const pmap = useMemo(() => Object.fromEntries(meta.players.map((p) => [p.id, p])), [meta.players]);
 
-  const pos: (Pt | null)[] = order.map((_, j) => lerp(fr0.xy[j] as Pt | null, fr1.xy[j] as Pt | null, f));
-  // a >40m jump in one second is a restart (ball placed on the spot), not a pass: snap instead of sliding
+  const video = meta.source?.type === "computer_vision";
+  const pos: (Pt | null)[] = order.map((_, j) => {
+    const a = fr0.xy[j] as Pt | null, b = fr1.xy[j] as Pt | null;
+    // Do not display a blend of a measurement and an estimate as measured.
+    // Camera/identity discontinuities must not become fabricated trajectories.
+    const discontinuity = video && (fr0.obs?.[j] !== fr1.obs?.[j] || fr0.cut || fr1.cut
+      || !!fr0.cam !== !!fr1.cam || (a && b && Math.hypot(b[0]-a[0], b[1]-a[1]) > 12));
+    return discontinuity ? a : lerp(a, b, f);
+  });
+  // A large jump can be a restart or perception error; avoid drawing a continuous flight.
   const jump = Math.hypot(fr1.b[0] - fr0.b[0], fr1.b[1] - fr0.b[1]) > 40;
-  const ball = jump ? fr0.b : lerp(fr0.b, fr1.b, f)!;
+  const ball = jump || fr0.ds ? fr0.b : lerp(fr0.b, fr1.b, f)!;
 
   const teamPts = (team: TeamId, outfield = true) =>
     order
@@ -173,7 +182,7 @@ export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam
               const k = fr0.sl![j];
               if (k >= 0 && pid.startsWith(team)) (groups[k] ??= []).push(j);
             });
-          } else {
+          } else if (!causalPlayback) {
             s.lines.forEach((ln, k) => (groups[k] = ln.map((pid) => order.indexOf(pid)).filter((j) => j >= 0)));
           }
           // each line joins its players across the pitch (current positions); dashed where an end is estimated
@@ -195,7 +204,7 @@ export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam
               )}
               {(
                 <text x={team === "A" ? 1 : L - 1} y={W - 1} fontSize={2} fontWeight={700} fill={color(team)}
-                  textAnchor={team === "A" ? "start" : "end"}>{meta.teams[team].short} {s.name}</text>
+                  textAnchor={team === "A" ? "start" : "end"}>{meta.teams[team].short} {causalPlayback ? groups.filter(line => line?.length).map(line => line.length).join("-") : s.name}</text>
               )}
             </g>
           );
@@ -274,7 +283,7 @@ export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam
           <g key={pid} transform={`translate(${p[0]},${p[1]})`} onClick={() => onPlayerClick(pid)} className="cursor-pointer" opacity={estimated && !focus && !sel ? 0.45 : 1}>
             {(focus || sel) && <circle r={3.6} fill="url(#glow)" />}
             {(focus || sel) && <circle r={2.2} fill="none" stroke={sel ? "#ffffff" : "#d9f99d"} strokeWidth={0.3} className="pulse-ring" />}
-            <circle r={1.35} fill={pl.position === "GK" ? (pl.team === "A" ? "#7f1d1d" : "#0c4a6e") : color(pl.team)}
+            <circle r={1.35} fill={color(pl.team)}
               stroke={carrier ? "#fde047" : estimated ? "white" : "rgba(0,0,0,0.6)"} strokeWidth={carrier ? 0.35 : estimated ? 0.2 : 0.15}
               strokeDasharray={estimated ? "0.5 0.35" : undefined} />
             <text y={0.5} fontSize={1.3} textAnchor="middle" fill="white" fontWeight={700} style={{ pointerEvents: "none" }}>
@@ -328,7 +337,9 @@ export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam
 
       {fr0.ds && (() => {
         /* dead ball: play has not restarted yet; ring around the ball + what restarts play */
-        const label = `${fr0.ds.toUpperCase()} · NOT TAKEN YET`;
+        const suffix = fr0.ds_basis === "annotation_interval" ? "ANNOTATED STOPPAGE"
+          : fr0.ds_basis === "estimated_ball_state" ? "ESTIMATED" : "NOT TAKEN YET";
+        const label = `${fr0.ds.toUpperCase()} · ${suffix}`;
         const w = label.length * 0.85 + 2;
         const lx = Math.min(L - w, Math.max(0, ball[0] - w / 2));
         return (

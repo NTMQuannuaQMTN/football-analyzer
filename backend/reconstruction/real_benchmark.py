@@ -36,6 +36,8 @@ def split(fold=0):
 
 def segment_view(info, seg):
     """MatchData-like view of one DFL half for the team-shape estimator."""
+    if seg.get('sampling_hz',1)!=1 or 'timestamps_s' in seg and not np.allclose(np.diff(seg['timestamps_s']),1.,atol=1e-6):
+        raise ValueError('Current reconstruction features require uniform 1 Hz tracking; resample before benchmarking')
     order = [f"{t}:{p}" for t, p in zip(seg["team"], seg["pids"])]
     on = ~np.isnan(seg["pos"][..., 0])
     role = {o: ("GK" if r == "GK" else "CM") for o, r in zip(order, seg["role"])}
@@ -50,8 +52,9 @@ def segment_view(info, seg):
 
 # ----------------------------------------------------------------------------- masks
 def camera_centre(ball_x):
+    """Causal simulated camera pan: initialise from the current ball, never future balls."""
     cam = np.empty_like(ball_x)
-    c = np.nanmean(ball_x[:5]) if np.isfinite(ball_x[:5]).any() else L / 2
+    c = float(ball_x[0]) if len(ball_x) and np.isfinite(ball_x[0]) else L / 2
     for t, bx in enumerate(ball_x):
         if np.isfinite(bx):
             c += 0.5 * (bx - c)

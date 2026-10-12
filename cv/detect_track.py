@@ -4,6 +4,7 @@ Output: cv/out/<slug>/detections.jsonl, one line per sampled frame:
   {"t": seconds_in_half, "live": bool, "dets": [{"id", "cls", "conf", "box", "px", "py", "color"}]}
 """
 import argparse
+import hashlib
 import json
 import re
 import time
@@ -12,7 +13,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from cv.soccernet import DEFAULT_GAME, Calibration, game_dir, labels
+from cv.soccernet import DEFAULT_GAME, Calibration, camera_segments, game_dir, labels, on_main_camera
+from cv.track_namespace import TrackNamespace
 
 OUT = Path(__file__).resolve().parent / "out"
 TRACKER = Path(__file__).resolve().parent / "botsort_broadcast.yaml"
@@ -26,14 +28,7 @@ def slug(game: str, half: int, start: float, end: float) -> str:
 
 
 def replay_segments(game, half):
-    d = json.load(open(game_dir(game) / "Labels-cameras.json"))
-    ann = sorted([a for a in d["annotations"] if a["gameTime"].startswith(f"{half} ")], key=lambda a: int(a["position"]))
-    segs = []
-    for i, a in enumerate(ann):
-        if a.get("replay") == "replay":
-            end = int(ann[i + 1]["position"]) / 1000 if i + 1 < len(ann) else 1e9
-            segs.append((int(a["position"]) / 1000, end))
-    return segs
+    return [(start,end) for start,end,a in camera_segments(game,half) if a.get("replay")=="replay"]
 
 
 def green_ratio(frame) -> float:
@@ -79,8 +74,11 @@ def is_live_view(frame, H, boxes) -> bool:
     return not heights or float(np.median(heights)) < 160
 
 
-def run(game, half, start, end, fps, model_name, device, show):
+def run(game, half, start, end, fps, model_name, device, show, output_dir=None, seed=0,tracker_path=None,calibration_offset=0.):
     from ultralytics import YOLO
+    tracker=Path(tracker_path) if tracker_path is not None else TRACKER
+    if not tracker.is_file():raise FileNotFoundError(f'Missing tracker configuration: {tracker}')
+    cv2.setRNGSeed(seed)
     video = game_dir(game) / f"{half}_720p.mkv"
     if not video.exists():
         raise SystemExit(f"Missing {video}\nRun: hf auth login && .venv/bin/python -m cv.soccernet --game '{game}' --half {half}")
@@ -89,14 +87,19 @@ def run(game, half, start, end, fps, model_name, device, show):
     model = YOLO(model_name)
     person_ids = [k for k, v in model.names.items() if v in PERSON_NAMES]
     ball_ids = [k for k, v in model.names.items() if v in BALL_NAMES]
+    # Isolate ball prediction arguments and model state. The installed
+    # Ultralytics guards tracker callbacks by mode; an audit did NOT reproduce
+    # a double tracker update, so this has no measured accuracy benefit.
+    ball_model = YOLO(model_name) if ball_ids else None
     cap = cv2.VideoCapture(str(video))
     vfps = cap.get(cv2.CAP_PROP_FPS) or 25.0
     step = max(1, int(round(vfps / fps)))
     cap.set(cv2.CAP_PROP_POS_MSEC, start * 1000)
-    out_dir = OUT / slug(game, half, start, end)
+    out_dir = Path(output_dir) if output_dir else OUT / slug(game, half, start, end)
     out_dir.mkdir(parents=True, exist_ok=True)
     f = open(out_dir / "detections.jsonl", "w")
     n, t0, was_live = 0, time.time(), False
+    track_namespace=TrackNamespace()
     idx = int(round(start * vfps))
     while True:
         ok = cap.grab()
@@ -113,20 +116,30 @@ def run(game, half, start, end, fps, model_name, device, show):
             break
         if frame.shape[1] != 1280:
             frame = cv2.resize(frame, (1280, 720))
-        H = calib.at(t)
+        H = calib.at(t+calibration_offset)
         in_replay = any(a <= t < b for a, b in replays)
+        if in_replay or not on_main_camera(game,half,t):
+            # Replay/close-up detections belong to another time or camera.
+            # They must not update the player tracker or enter observations.
+            if getattr(model,"predictor",None) is not None and hasattr(model.predictor,"trackers"):
+                model.predictor.trackers[0].reset()
+            was_live=False
+            track_namespace.camera(False)
+            f.write(json.dumps({"t":round(t,2),"live":False,"dets":[],"camera_basis":"shot-end annotations"})+"\n")
+            n+=1
+            continue
         # players: tracked (BoT-SORT with camera-motion compensation)
-        res = model.track(frame, persist=True, classes=person_ids, tracker=str(TRACKER), device=device,
-                          verbose=False, imgsz=1280, conf=0.15)[0]
+        res = model.track(frame, persist=True, classes=person_ids, tracker=str(tracker), device=device,
+                          verbose=False, imgsz=1280, conf=0.15, agnostic_nms=True)[0]
         # ball: plain detection at low confidence — the tracker discards small fast low-score objects
-        bres = model.predict(frame, classes=ball_ids, device=device, verbose=False, imgsz=1280, conf=0.03)[0]
+        bres = ball_model.predict(frame, classes=ball_ids, device=device, verbose=False, imgsz=1280, conf=0.03)[0] if ball_model else None
         boxes, cls, confs, ids = [], [], [], []
         if res.boxes is not None and len(res.boxes):
             boxes += list(res.boxes.xyxy.cpu().numpy())
             cls += list(res.boxes.cls.cpu().numpy().astype(int))
             confs += list(res.boxes.conf.cpu().numpy())
             ids += list(res.boxes.id.cpu().numpy().astype(int)) if res.boxes.id is not None else [-1] * len(res.boxes)
-        if bres.boxes is not None and len(bres.boxes):
+        if bres is not None and bres.boxes is not None and len(bres.boxes):
             # keep the top-3 ball candidates; build_match picks the physically consistent one
             for j in bres.boxes.conf.argsort(descending=True)[:3].tolist():
                 boxes.append(bres.boxes.xyxy[j].cpu().numpy())
@@ -138,6 +151,7 @@ def run(game, half, start, end, fps, model_name, device, show):
         if not live and was_live:
             model.predictor.trackers[0].reset()  # camera cut: don't carry IDs across shots
         was_live = live
+        track_namespace.camera(live)
         dets = []
         if live:
             feet = np.array([[(b[0] + b[2]) / 2, b[3] if c in person_ids else (b[1] + b[3]) / 2] for b, c in zip(boxes, cls)]) if len(boxes) else np.zeros((0, 2))
@@ -149,13 +163,15 @@ def run(game, half, start, end, fps, model_name, device, show):
                 kind = "ball" if c in ball_ids else ("referee" if role == "referee" else "person")
                 d = {"id": int(i), "cls": kind, "role": "player" if role == "person" else role, "conf": round(float(cf), 3),
                      "box": [round(float(v), 1) for v in b], "px": round(float(p[0]), 2), "py": round(float(p[1]), 2)}
+                if kind in ('person','referee') and i>=0:
+                    d.update(id=track_namespace.identity(i),native_id=int(i),shot_id=track_namespace.shot)
                 if kind == "person":
                     d["colors"] = shirt_color(frame, b)
                 dets.append(d)
         f.write(json.dumps({"t": round(t, 2), "live": live, "dets": dets}) + "\n")
         n += 1
         if show:
-            vis = bres.plot(img=res.plot())
+            vis = bres.plot(img=res.plot()) if bres is not None else res.plot()
             cv2.putText(vis, f"{t:.1f}s live={live}", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
             cv2.imshow("track", vis)
             if cv2.waitKey(1) == 27:
@@ -163,7 +179,11 @@ def run(game, half, start, end, fps, model_name, device, show):
         if n % 100 == 0:
             print(f"t={t:.0f}s frames={n} {n / (time.time() - t0):.1f} fps")
     f.close()
-    meta = {"game": game, "half": half, "start": start, "end": end, "fps": fps, "model": model_name}
+    meta = {"game": game, "half": half, "start": start, "end": end, "fps": fps, "model": model_name,"colour_seed":seed,
+            "tracker_path":str(tracker),"tracker_sha256":hashlib.sha256(tracker.read_bytes()).hexdigest(),
+            "track_id_namespace":"shot-qualified-v1","person_nms":"class-agnostic; player/keeper/referee labels do not create separate people",
+            "calibration_offset_s":calibration_offset,"calibration_sampling":"retrospective nearest 2Hz CCBV",
+            "camera_labels":"shot-end intervals; replays excluded before tracking", "retrospective":True}
     json.dump(meta, open(out_dir / "run.json", "w"), indent=1)
     print("wrote", out_dir)
     return out_dir
@@ -180,7 +200,11 @@ if __name__ == "__main__":
                     help="fine-tuned on SoccerNet-GSR (player/goalkeeper/referee/ball); yolo11m.pt = stock COCO")
     ap.add_argument("--device", default="mps")
     ap.add_argument("--show", action="store_true", help="live preview window")
+    ap.add_argument("--out", help="isolated output directory (preserves existing detections)")
+    ap.add_argument("--tracker",help="Explicit tracker YAML; defaults to the preserved production configuration")
+    ap.add_argument("--seed",type=int,default=0,help="Fixed colour-clustering seed")
+    ap.add_argument('--calibration-offset',type=float,default=0.,help='Experimental camera/video offset; requires independent validation')
     a = ap.parse_args()
     _, labs = labels(a.game, a.half)
     print("events in window:", [(round(x["t"]), x["label"], x["team"]) for x in labs if a.start <= x["t"] <= a.end and x["label"] in ("Goal", "Shots on target", "Shots off target", "Penalty")])
-    run(a.game, a.half, a.start, a.end, a.fps, a.model, a.device, a.show)
+    run(a.game, a.half, a.start, a.end, a.fps, a.model, a.device, a.show, a.out,a.seed,a.tracker,a.calibration_offset)

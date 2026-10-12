@@ -1,12 +1,13 @@
 "use client";
 import { memo, useEffect, useState } from "react";
-import { loadPlayer } from "@/lib/api";
+import { fmtClock, loadPlayer } from "@/lib/api";
 import type { MatchMeta, Moment, PlayerProfile } from "@/lib/types";
 
-function PlayerPanel({ meta, playerId, minute, onSelect, onMoment, moments }: {
+function PlayerPanel({ meta, playerId, throughT, reconstructionMode, onSelect, onMoment, moments }: {
   meta: MatchMeta;
   playerId: string | null;
-  minute: number;
+  throughT: number;
+  reconstructionMode: string;
   onSelect: (pid: string) => void;
   onMoment: (m: Moment) => void;
   moments: Moment[];
@@ -15,15 +16,15 @@ function PlayerPanel({ meta, playerId, minute, onSelect, onMoment, moments }: {
   useEffect(() => {
     if (!playerId) return;
     let alive = true;
-    loadPlayer(playerId, Math.max(60, minute * 60 + 59)).then((p) => alive && setProf(p)).catch(() => {});
+    loadPlayer(playerId, throughT, reconstructionMode).then((p) => alive && setProf(p)).catch(() => {});
     return () => { alive = false; };
-  }, [playerId, minute]);
+  }, [playerId, throughT, reconstructionMode]);
 
   const s = prof?.stats;
   const tiles: [string, string | number][] = prof && s ? [
-    ["Distance", `${prof.movement.distance_km} km`],
-    ["Top speed", `${prof.movement.top_speed_kmh} km/h`],
-    ["Sprints", `${prof.movement.sprint_seconds}s`],
+    [meta.source?.type === "computer_vision" ? "Projected distance" : "Distance", `${prof.movement.distance_km} km`],
+    [meta.source?.type === "computer_vision" ? "Apparent top speed" : "Top speed", `${prof.movement.top_speed_kmh} km/h`],
+    [meta.source?.type === "computer_vision" ? "Apparent sprints" : "Sprints", `${prof.movement.sprint_seconds}s`],
     ["Passes", `${s.completed}/${s.passes}`],
     ["Progressive passes", s.progressive_passes],
     ["Pressure actions", s.pressures],
@@ -45,14 +46,15 @@ function PlayerPanel({ meta, playerId, minute, onSelect, onMoment, moments }: {
           </optgroup>
         ))}
       </select>
-      {prof && prof.player.id === playerId && (
+      {prof && prof.player.id === playerId && prof.until <= throughT && prof.mode === reconstructionMode && (
         <>
           <div>
             <div className="text-xl font-black tracking-tight" style={{ color: meta.teams[prof.player.team].color }}>{prof.narrative.headline}</div>
-            <div className="text-xs text-slate-400">#{prof.player.shirt} · {meta.teams[prof.player.team].name} · up to {minute + 1}&apos;</div>
+            <div className="text-xs text-slate-400">#{prof.player.shirt} · {meta.teams[prof.player.team].name} · through {fmtClock(prof.until + (meta.clock_offset ?? 0))}</div>
             {prof.visibility && prof.visibility.inferred_seconds > 0 && (
-              <div className="text-[11px] text-amber-200/90 mt-1">On camera {Math.round(prof.visibility.observed_share * 100)}% of the time; movement stats include estimated off-screen positions.</div>
+              <div className="text-[11px] text-amber-200/90 mt-1">{meta.source?.type === "computer_vision" ? "Measured positions in" : "Observed in"} {Math.round(prof.visibility.observed_share * 100)}% of frames; other movement is estimated.</div>
             )}
+            {meta.source?.type === "computer_vision" && <div className="text-[11px] text-amber-200/90 mt-1">Position and movement identities are role-assigned; shirt mapping and calibration need verification.</div>}
           </div>
           <div className="grid grid-cols-2 gap-1.5">
             {tiles.map(([k, v]) => (

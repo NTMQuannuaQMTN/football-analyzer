@@ -58,6 +58,13 @@ def scope(match: Optional[str] = None, part: Optional[str] = None) -> MatchIntel
         raise HTTPException(404, f"unknown match/part: {e}")
 
 
+def reconstruction_mode(I, mode):
+    try:
+        return I.resolve_mode(mode)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+
+
 # ---------------------------------------------------------------- lobby
 @app.get("/matches")
 def matches():
@@ -85,7 +92,8 @@ def match(match: Optional[str] = None, part: Optional[str] = None, I: MatchIntel
     goals = [e for e in I.m.events if e["event_type"] == "GOAL"]
     entry = catalog.entry(match) if match else None
     parts = [{"id": h, "label": catalog.PART_LABEL.get(h, h)} for h in entry["parts"]] if entry else None
-    return {**I.m.meta, "players": I.m.players, "goals": goals, "live": catalog.live_info(match, part or (next(iter(entry["parts"])) if entry else None)) if match else None,
+    date_meta = catalog.video_details(I.m.meta) if I.m.meta.get("source", {}).get("type") == "computer_vision" else {}
+    return {**I.m.meta, "date": I.m.meta.get("date") or date_meta.get("date") or (entry or {}).get("info", {}).get("date"), "players": I.m.players, "goals": goals, "live": catalog.live_info(match, part or (next(iter(entry["parts"])) if entry else None)) if match else None,
             "parts": parts,
             "key_events": [e for e in I.m.events if e["event_type"] in ("GOAL", "SUBSTITUTION", "RED_CARD")]}
 
@@ -94,15 +102,21 @@ def match(match: Optional[str] = None, part: Optional[str] = None, I: MatchIntel
 def frames(start: int = 0, end: Optional[int] = None, mode: str = "default", I: MatchIntelligence = Depends(scope)):
     """mode: default (truth when the match has ground truth, else replay) | truth | replay (retrospective camera
     estimate) | live (causal camera estimate: no future frames)."""
+    mode = reconstruction_mode(I, mode)
     end = I.m.duration if end is None else end
     return {"player_order": I.m.order, "mode": mode, "view": I.view, "frames": I.frames(mode)[max(0, start):end + 1]}
 
 
 @app.get("/match/reveals")
 def reveals(I: MatchIntelligence = Depends(scope)):
-    """Prediction -> reality: for every player who came back into the camera view after >= 5 s hidden, what the
-    live (causal) model predicted at that second, the 80% radius, and where the player actually was."""
-    summary = (I.m.meta.get("source") or {}).get("error_vs_truth", {}).get("reveals")
+    """Tracking-ground-truth or CV-proxy reappearance checks, distinguished by source."""
+    source = I.m.meta.get("source") or {}
+    report = source.get("error_vs_cv_proxy") if source.get("type") == "computer_vision" else source.get("error_vs_truth")
+    # Older exports stored CV proxies under error_vs_truth; the UI still labels
+    # these as consistency checks rather than ground-truth accuracy.
+    if report is None:
+        report = source.get("error_vs_truth", {})
+    summary = report.get("reveals")
     return {"summary": summary, "reveals": I.reveals}
 
 
@@ -114,13 +128,13 @@ def evaluation(I: MatchIntelligence = Depends(scope)):
 
 @app.get("/match/players/states")
 def player_states(t: float = 0, mode: str = "replay", I: MatchIntelligence = Depends(scope)):
-    return I.player_states(t, mode)
+    return I.player_states(t, reconstruction_mode(I, mode))
 
 
 @app.get("/match/players/{pid}/state")
 def player_state(pid: str, t: float = 0, mode: str = "replay", I: MatchIntelligence = Depends(scope)):
     """Observed vs inferred state of one player at t, with confidence, uncertainty, evidence and observed history."""
-    return I.player_state(pid, t, mode)
+    return I.player_state(pid, t, reconstruction_mode(I, mode))
 
 
 @app.get("/match/state")
@@ -167,15 +181,16 @@ def overlay(moment_id: str, I: MatchIntelligence = Depends(scope)):
 
 
 @app.get("/match/players")
-def players(t: Optional[float] = None, I: MatchIntelligence = Depends(scope)):
-    return [I.player_profile(p["id"], t) for p in I.m.players]
+def players(t: Optional[float] = None, mode: str = "default", I: MatchIntelligence = Depends(scope)):
+    mode = reconstruction_mode(I, mode)
+    return [I.player_profile(p["id"], t, mode) for p in I.m.players]
 
 
 @app.get("/match/players/{pid}")
-def player(pid: str, t: Optional[float] = None, I: MatchIntelligence = Depends(scope)):
+def player(pid: str, t: Optional[float] = None, mode: str = "default", I: MatchIntelligence = Depends(scope)):
     if pid not in I.m.player_by_id:
         raise HTTPException(404, "player not found")
-    return I.player_profile(pid, t)
+    return I.player_profile(pid, t, reconstruction_mode(I, mode))
 
 
 @app.get("/match/story")

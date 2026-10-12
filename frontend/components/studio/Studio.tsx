@@ -5,7 +5,10 @@ import MomentPanel from "@/components/insights/MomentPanel";
 import LiveState from "@/components/insights/LiveState";
 import PlayerPanel from "@/components/personalization/PlayerPanel";
 import MatchStory from "@/components/timeline/MatchStory";
+import MatchEvents from "@/components/studio/MatchEvents";
+import { eventLabel, MATCH_EVENT_TYPES } from "@/lib/matchEvents";
 import AccuracyPanel from "@/components/insights/AccuracyPanel";
+import WhatIf from "@/components/insights/WhatIf";
 import PlayerStateCard from "@/components/pitch/PlayerStateCard";
 import CameraRealityPanel from "@/components/pitch/CameraRealityPanel";
 import Link from "next/link";
@@ -14,18 +17,23 @@ import { useReplayClock } from "@/lib/useReplayClock";
 import type { Frame, MatchEvent, Mode, Moment, Reveal, TeamId, ViewMode } from "@/lib/types";
 
 const SPEEDS = [1, 4, 8, 16, 32, 64];
-const FEED_TYPES = new Set(["GOAL", "SHOT", "SUBSTITUTION", "RED_CARD", "TACKLE", "OFFSIDE"]);
+const EMPTY_FRAMES: Frame[] = [];
+const FEED_TYPES = new Set([...MATCH_EVENT_TYPES, "TACKLE"]);
 
 function eventLine(e: MatchEvent, names: Record<string, string>) {
   const who = e.player_id ? names[e.player_id] : "";
   switch (e.event_type) {
     case "GOAL": return `⚽ GOAL — ${who}`;
-    case "SHOT": return `Shot — ${who} (${String(e.outcome).replace("_", " ")}, xG ${e.xg})`;
+    case "SHOT": {
+      const details = [typeof e.outcome === "string" ? e.outcome.replaceAll("_", " ") : null,
+        typeof e.xg === "number" ? `xG ${e.xg}` : null].filter(Boolean);
+      return `Shot${who ? ` — ${who}` : ""}${details.length ? ` (${details.join(", ")})` : ""}`;
+    }
     case "SUBSTITUTION": return `⇅ ${names[e.player_on_id as string]} on for ${names[e.player_off_id as string]}`;
     case "RED_CARD": return `■ Red card — ${who}`;
     case "TACKLE": return `Tackle won — ${who}`;
     case "OFFSIDE": return `⚑ Offside — ${who ?? "flag"}${e.margin_m != null ? ` (${e.margin_m}m)` : ""}`;
-    default: return `${e.event_type} — ${who}`;
+    default: return `${eventLabel(e)}${who ? ` — ${who}` : ""}`;
   }
 }
 
@@ -87,13 +95,17 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
   const defaultView: ViewMode = hasTruth ? "truth" : "replay";
   const [viewMode, setViewMode] = useState<ViewMode>(defaultView);
   const [frameCache, setFrameCache] = useState<Partial<Record<ViewMode, Frame[]>>>({ [defaultView]: data.frames });
-  const [showUncertainty, setShowUncertainty] = useState(true);
+  const [frameErrors, setFrameErrors] = useState<Partial<Record<ViewMode, string>>>({});
+  const [showUncertainty, setShowUncertainty] = useState(false);
+  const [showWhatIf, setShowWhatIf] = useState(false);
+  const [showEvents, setShowEvents] = useState(false);
   const [showTruth, setShowTruth] = useState(false);
   useEffect(() => {
     const need: ViewMode[] = [viewMode, ...(showTruth ? (["truth"] as ViewMode[]) : [])];
-    need.filter((m) => !frameCache[m]).forEach((m) => loadFrames(m).then((f) => setFrameCache((c) => ({ ...c, [m]: f }))).catch(() => {}));
+    need.filter((m) => !frameCache[m]).forEach((m) => loadFrames(m).then((f) => setFrameCache((c) => ({ ...c, [m]: f }))).catch(() => setFrameErrors((e) => ({ ...e, [m]: "Positions could not load." }))));
   }, [viewMode, showTruth, frameCache]);
-  const frames = frameCache[viewMode] ?? data.frames;
+  const frames = frameCache[viewMode] ?? EMPTY_FRAMES;
+  const hasPredictionZones = useMemo(() => frames.some(frame => frame.rad?.some(radius => radius != null && radius > 0)), [frames]);
   const clock = useReplayClock(live ? Math.max(1, edge) : meta.duration);
   const { t, playing, setPlaying, speed, setSpeed, seek, playWindow, stopAt } = clock;
   // live: follow the edge at 1x until the user scrubs or replays something
@@ -122,6 +134,7 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
   const offset = meta.clock_offset ?? 0;
   const isCV = meta.source?.type === "computer_vision";
   const isTracking = meta.source?.type === "tracking";
+  const transferredCamera = isTracking && meta.source?.camera?.includes("moved onto");
   const names = useMemo(() => Object.fromEntries(meta.players.map((p) => [p.id, p.name])), [meta.players]);
   const score = useMemo(() => {
     const s = { ...(meta.initial_score ?? { A: 0, B: 0 }) };
@@ -170,9 +183,9 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
     return () => window.removeEventListener("keydown", k);
   }, [setPlaying]);
 
-  const poss = fr.p;
-  const nObs = (fr.obs ?? []).filter((o) => o === true).length;
-  const nInf = (fr.obs ?? []).filter((o) => o === false).length;
+  const poss = fr?.p;
+  const nObs = (fr?.obs ?? []).filter((o) => o === true).length;
+  const nInf = (fr?.obs ?? []).filter((o) => o === false).length;
   const possRow = timeline.A[minute];
   const shapeNow = Object.fromEntries((["A", "B"] as TeamId[]).map((tm) => {
     const r = timeline[tm][Math.min(minute, timeline[tm].length - 1)];
@@ -182,32 +195,32 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
   return (
     <main className="h-screen flex flex-col bg-[#060a13] text-slate-100 overflow-hidden">
       {/* Scoreboard */}
-      <header className="h-14 shrink-0 flex items-center gap-4 px-4 border-b border-white/10 bg-gradient-to-r from-[#0b1222] to-[#060a13]">
+      <header className="min-h-14 shrink-0 flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1 border-b border-white/10 bg-gradient-to-r from-[#0b1222] to-[#060a13]">
         {match && <Link href={`/match/${match}`} className="text-xs text-slate-400 hover:text-white whitespace-nowrap">← Highlights</Link>}
         <Link href="/" className="text-xs text-slate-400 hover:text-white">Lobby</Link>
         {live ? (
           <button onClick={goLive} title={live.note} className={`px-2 py-0.5 rounded text-xs font-black tracking-widest ${follow ? "bg-rose-600" : "bg-white/10 text-rose-300 hover:bg-rose-600/40"}`}>● {follow ? "LIVE" : "GO LIVE"}</button>
         ) : (
-          <span className={`px-2 py-0.5 rounded text-xs font-black tracking-widest ${inReplay ? "bg-lime-300 text-black" : "bg-slate-700"}`}>{inReplay ? "REPLAY" : "FULL MATCH"}</span>
+          <span className={`shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-xs font-black tracking-widest ${inReplay ? "bg-lime-300 text-black" : "bg-slate-700"}`}>{inReplay ? "REPLAY" : isCV ? (meta.duration < 2400 ? "CLIP REPLAY" : "MATCH REPLAY") : "FULL MATCH"}</span>
         )}
-        <div className="flex items-center gap-3 text-lg font-bold">
+        <div className="flex shrink-0 items-center gap-3 text-lg font-bold">
           <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm" style={{ background: meta.teams.A.color }} />{meta.teams.A.name}{poss === "A" && <span className="text-[10px] text-lime-300">●</span>}</span>
-          <span className="font-mono text-2xl px-3 py-0.5 rounded bg-white/10">{score.A} – {score.B}</span>
+          <span className="whitespace-nowrap font-mono text-2xl px-3 py-0.5 rounded bg-white/10">{meta.score_known === false ? "? - ?" : `${score.A} – ${score.B}`}</span>
           <span className="flex items-center gap-2">{poss === "B" && <span className="text-[10px] text-lime-300">●</span>}{meta.teams.B.name}<span className="w-3 h-3 rounded-sm" style={{ background: meta.teams.B.color }} /></span>
         </div>
         <span className="font-mono text-2xl text-lime-300">{fmtClock(t + offset)}</span>
-        {isCV && <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-widest bg-violet-500/30 text-violet-200" title={meta.source?.game}>COMPUTER VISION · SOCCERNET · {Math.round((meta.source?.observed_share ?? meta.source?.coverage ?? 0) * 100)}% SEEN · REST ESTIMATED</span>}
+        {isCV && <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-widest bg-violet-500/30 text-violet-200" title={meta.source?.game}>COMPUTER VISION · POSITIONS UNVERIFIED · {meta.source?.provider ?? (meta.source?.game?.startsWith("skillcorner/") ? "SkillCorner" : "SoccerNet")} · {Math.round((meta.source?.observed_share ?? meta.source?.coverage ?? 0) * 100)}% MEASURED · REST ESTIMATED</span>}
         {(hasVod || isCV) && viewMode !== "truth" && (
-          <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-white/10" title="Players on camera vs estimated off-screen">
-            <b className="text-white">{nObs}</b>/{nObs + nInf} observed · <b className="text-amber-300">{nInf}</b> inferred
-            {fr.cut && <span className="ml-2 text-rose-300 font-bold">CAMERA CUT</span>}
+          <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-white/10" title="Measured and estimated positions; missed detection does not prove a player is outside the camera">
+            {fr ? <>Now: <b className="text-white">{nObs}</b>/{nObs + nInf} {isCV ? "measured" : "observed"} · <b className="text-amber-300">{nInf}</b> inferred</> : "Now: N/A"}
+            {fr?.cut && <span className="ml-2 text-rose-300 font-bold">CAMERA CUT</span>}
             {hasVod && <span className="ml-2 text-[10px] text-slate-400 uppercase">{viewMode === "replay" ? "retrospective" : "causal estimate"}</span>}
           </span>
         )}
-        {isTracking && <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-widest bg-sky-500/30 text-sky-200" title={meta.source?.dataset}>REAL TRACKING · DFL{viewMode !== "truth" && ` · ${Math.round((meta.source?.observed_share ?? 0) * 100)}% ON CAMERA`}</span>}
+        {isTracking && <span className="px-2 py-0.5 rounded text-[10px] font-bold tracking-widest bg-sky-500/30 text-sky-200" title={meta.source?.camera ?? meta.source?.dataset}>REAL TRACKING · DFL{viewMode !== "truth" && (transferredCamera ? " · SIMULATED CAMERA" : ` · ${Math.round((meta.source?.observed_share ?? 0) * 100)}% ON CAMERA`)}</span>}
         {viewMode === "truth" && <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-400 text-black">{isTracking ? "TRACKED GROUND TRUTH" : "SYNTHETIC GROUND TRUTH"}</span>}
         <div className="flex items-center gap-2 text-[11px] text-slate-400">
-          <span>Poss (3&apos;)</span>
+          <span>Replay poss (3&apos;)</span>
           <div className="w-28 h-1.5 rounded bg-white/10 overflow-hidden flex">
             <div style={{ width: `${(possRow?.possession_s ?? 0.5) * 100}%`, background: meta.teams.A.color }} />
             <div className="flex-1" style={{ background: meta.teams.B.color }} />
@@ -227,17 +240,34 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
       <div className="flex-1 min-h-0 flex">
         {/* Pitch column */}
         <section className="flex-1 min-w-0 flex flex-col p-3 gap-2">
+          <div className="flex items-center gap-2 text-xs text-slate-300">
+            {meta.date && <span className="mr-auto">Played {meta.date}</span>}
+            {viewMode === "live" && <span title="Positions update when a sample arrives. Replay interpolates between samples." className="text-slate-400">Live · 1 s samples</span>}
+            <button type="button" aria-expanded={showEvents} onClick={() => setShowEvents(v => !v)} className="rounded border border-slate-600 px-2 py-1">{showEvents ? "Hide match events" : "Match events"}</button>
+            {viewMode !== "truth" && <button type="button" aria-pressed={cameraOn} onClick={() => setCameraOn(v => !v)} className="rounded border border-slate-600 px-2 py-1">{cameraOn ? "Hide camera view" : "Show camera view"}</button>}
+            {(isCV || hasVod) && <button type="button" disabled={!hasPredictionZones} title={hasPredictionZones ? "Model uncertainty regions; video-domain coverage is unverified" : "This export contains no prediction radii"} aria-pressed={showUncertainty} onClick={() => setShowUncertainty(v => !v)} className="rounded border border-slate-600 px-2 py-1 disabled:opacity-40">{!hasPredictionZones ? "Prediction zones N/A" : showUncertainty ? "Hide prediction zones" : "Show prediction zones"}</button>}
+            <button type="button" disabled={!shown} onClick={() => setShowWhatIf(v => !v)} className="rounded border border-slate-600 px-2 py-1 disabled:opacity-40">{showWhatIf ? "Hide explanation / what-if" : "Explain / What if"}</button>
+          </div>
           <div className="flex-1 min-h-0 relative rounded-lg overflow-hidden bg-[#0b2a17]">
-            <Pitch t={t} frames={frames} meta={meta} events={events}
+            {showEvents && <div className="absolute top-2 right-2 left-2 z-30 flex justify-end"><MatchEvents events={events} meta={meta} onClose={() => setShowEvents(false)} onSeek={nt => { setSelected(null); setFollow(false); seek(Math.min(nt, live ? edge : nt)); }} /></div>}
+            {fr ? <Pitch t={t} frames={frames} meta={meta} events={events} causalPlayback={viewMode === "live"}
               focusPlayers={selected ? selected.replay.focus_players : []}
               focusTeam={selected ? selected.replay.focus_team : null}
               overlay={selected ? selected.replay.overlay : null}
               selectedPlayer={mode === "player" ? player : null}
               showLines={showLines} onPlayerClick={onPlayerClick}
               shape={showShape ? shapeNow : null}
-              camera={showCamPanel && viewMode !== "truth" ? { footprint: cameraOn, hideInferred } : null}
+              camera={viewMode !== "truth" ? { footprint: cameraOn, hideInferred } : null}
               reveal={viewMode !== "truth" ? activeReveal : null}
-              showUncertainty={showUncertainty} truthFrames={showTruth && viewMode !== "truth" ? frameCache.truth ?? null : null} />
+              showUncertainty={showUncertainty} truthFrames={showTruth && viewMode !== "truth" ? frameCache.truth ?? null : null} /> :
+              <div role="status" className="h-full flex flex-col items-center justify-center gap-2 text-sm text-slate-300">
+                <span>{frameErrors[viewMode] ?? `Loading ${viewMode === "live" ? "live estimates" : viewMode === "replay" ? "replay estimates" : "ground truth"}…`}</span>
+                {frameErrors[viewMode] && <button className="rounded border border-slate-600 px-3 py-1" onClick={() => { setFrameErrors(e => ({ ...e, [viewMode]: undefined })); setFrameCache(c => ({ ...c })); }}>Retry</button>}
+              </div>}
+            {showWhatIf && shown && <div role="region" aria-label="Explanation and what-if" className="absolute z-30 top-2 bottom-2 right-2 w-[420px] max-w-[calc(100%-1rem)] rounded-lg border border-slate-600 bg-slate-950/95 flex flex-col">
+              <div className="flex justify-between px-3 py-2 border-b border-white/10"><span>Explanation / What if</span><button type="button" aria-label="Close explanation" onClick={() => setShowWhatIf(false)}>✕</button></div>
+              <div className="overflow-y-auto p-3"><MomentPanel moment={shown} meta={meta} mode={mode === "fan" ? "fan" : "analyst"} live={!selected} hideWhatIf />{shown.counterfactual && <WhatIf cf={shown.counterfactual} meta={meta} />}</div>
+            </div>}
             {selected && (
               <div className="absolute top-2 left-2 right-2 flex items-start gap-2 pointer-events-none">
                 <div className="pointer-events-auto bg-black/70 backdrop-blur rounded px-3 py-1.5 text-sm">
@@ -247,7 +277,7 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
                 <button onClick={backToLive} className="pointer-events-auto ml-auto bg-rose-600 hover:bg-rose-500 rounded px-3 py-1.5 text-xs font-bold">{live ? "● Back to live" : "← Back"}</button>
               </div>
             )}
-            {showCamPanel && ((isTracking && hasVod) || isCV) && (
+            {fr && showCamPanel && ((isTracking && hasVod) || isCV) && (
               <div className={`absolute ${selected ? "top-12" : "top-2"} left-2 pointer-events-none`}>
                 <CameraRealityPanel meta={meta} frame={fr} cameraOn={cameraOn} hideInferred={hideInferred} active={activeReveal} maxT={live ? edge : Infinity} video={isCV}
                   onCamera={(on) => { setCameraOn(on); if (viewMode === "truth") setViewMode("live"); }}
@@ -258,7 +288,7 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
                   }} />
               </div>
             )}
-            {cardPlayer && (hasVod || isCV) && (
+            {fr && cardPlayer && (hasVod || isCV) && (
               <div className="absolute top-12 right-2 pointer-events-none">
                 <PlayerStateCard pid={cardPlayer} sec={sec} mode={viewMode} meta={meta} onClose={() => setCardPlayer(null)} />
               </div>
@@ -289,7 +319,6 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
                 ))}
               </div>
             )}
-            {(isCV || (hasVod && viewMode !== "truth")) && <label className="flex items-center gap-1 text-xs text-slate-400"><input type="checkbox" checked={showUncertainty} onChange={(e) => setShowUncertainty(e.target.checked)} />±m</label>}
             {(isVod || (hasTruth && hasVod)) && viewMode !== "truth" && <label className="flex items-center gap-1 text-xs text-slate-400" title="Yellow squares: where inferred players really were"><input type="checkbox" checked={showTruth} onChange={(e) => setShowTruth(e.target.checked)} />Error</label>}
             {((isTracking && hasVod) || isCV) && (
               <button onClick={() => { setShowCamPanel((v) => !v); if (!showCamPanel && viewMode === "truth") setViewMode("live"); if (showCamPanel) setActiveReveal(null); }}
@@ -322,9 +351,9 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
             {mode === "accuracy" ? (
               <AccuracyPanel />
             ) : mode === "player" ? (
-              <PlayerPanel meta={meta} playerId={player} minute={minute} onSelect={setPlayer} onMoment={replay} moments={moments} />
+              <PlayerPanel meta={meta} playerId={player} throughT={sec} reconstructionMode={viewMode} onSelect={setPlayer} onMoment={replay} moments={moments} />
             ) : (
-              <MomentPanel moment={shown} meta={meta} mode={mode} live={!selected} />
+              <MomentPanel moment={shown} meta={meta} mode={mode} live={!selected} hideWhatIf />
             )}
             {(mode === "analyst" || mode === "fan") && shown && !selected && (
               <button onClick={() => replay(shown)} className="w-full py-2 rounded bg-lime-300 text-black font-bold text-sm">▶ Replay & explain this moment</button>
@@ -335,7 +364,7 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
 
       {/* Match story */}
       <footer className="h-[150px] shrink-0 border-t border-white/10 bg-[#070c17]">
-        <MatchStory story={story} moments={moments} timeline={timeline} meta={meta} t={t}
+        <MatchStory story={story} moments={moments} events={events} timeline={timeline} meta={meta} t={t}
           selectedId={selected?.id ?? null} onSelect={replay} onSeek={(nt) => { setSelected(null); setFollow(false); seek(Math.min(nt, live ? edge : nt)); }} />
       </footer>
     </main>

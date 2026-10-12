@@ -3,6 +3,8 @@ import glob
 import json
 import os
 import time
+from pathlib import Path
+from threading import Lock
 
 import numpy as np
 from typing import Optional
@@ -119,6 +121,8 @@ class MatchIntelligence:
         self.moments = MomentDetector(self.m, self.timeline, self.seqs, self.presses, self.counters, self.shifts).run()
         for mo in self.moments:
             self._attach_coverage(mo)
+            from backend.tactics.position_evidence import position_evidence, reason_from_positions
+            mo["position_reasoning"] = reason_from_positions(mo, position_evidence(self.m, mo["team"], mo["timestamp"]))
         if "replay" in self.alt_frames and self.view == "truth":
             for mo in self.moments:
                 hs = self._hidden_state(mo)
@@ -228,8 +232,10 @@ class MatchIntelligence:
                             obs += 1
                         else:
                             inf += 1
-                            if f.get("conf"):
-                                confs.append(f["conf"][j])
+                            if f.get("conf") and self.m.meta.get("source", {}).get("type") != "computer_vision":
+                                value = f["conf"][j]
+                                if value is not None and np.isfinite(value):
+                                    confs.append(value)
                 n = max(1, len(fr))
                 out[team].append({"observed_avg": round(obs / n, 1), "inferred_avg": round(inf / n, 1),
                                   "inferred_conf": round(sum(confs) / len(confs), 2) if confs else None,
@@ -243,27 +249,43 @@ class MatchIntelligence:
         obs = sum(r["observed_avg"] for r in rows) / len(rows)
         inf = sum(r["inferred_avg"] for r in rows) / len(rows)
         cf = [r["inferred_conf"] for r in rows if r["inferred_conf"] is not None]
-        conf_inf = sum(cf) / len(cf) if cf else (0.5 if inf > 0.05 else 1.0)  # CV estimates: no calibration yet
+        conf_inf = sum(cf) / len(cf) if cf else (None if inf > 0.05 else 1.0)
         share = obs / max(1e-6, obs + inf)
-        reliability = share + (1 - share) * conf_inf
+        reliability = share + (1 - share) * (conf_inf if conf_inf is not None else 0.0)
         mo["coverage"] = {"team": team, "observed_avg": round(obs, 1), "inferred_avg": round(inf, 1),
-                          "observed_share": round(share, 2), "inferred_mean_confidence": round(conf_inf, 2),
+                          "observed_share": round(share, 2), "inferred_mean_confidence": round(conf_inf, 2) if conf_inf is not None else None,
                           "reliability": round(reliability, 2), "view": self.view}
         mo["confidence"] = round(mo["confidence"] * (0.6 + 0.4 * reliability), 2)
         position_based = ("Tactical trigger", "Structural change", "Pressing", "Territory", "Recovery", "Exposed defence",
                           "Exposed space", "Opponent shape", "Control")
         for ev in mo["evidence"]:
             ev["basis"] = "observed + inferred positions" if ev["label"] in position_based and inf > 0.05 else "observed events"
+            if self.m.meta.get("source", {}).get("type") == "computer_vision":
+                ev["basis"] = "video-derived positions; identity/calibration unverified" if ev["label"] in position_based else "recorded event feed; some events estimated"
         if inf > 0.05:
+            uncertainty = f"mean confidence {conf_inf:.0%}" if conf_inf is not None else "uncertainty N/A; no calibrated confidence available"
             mo["evidence"].append({"label": "Visibility", "detail": f"On average {obs:.0f} of {obs + inf:.0f} players observed; "
-                                   f"{inf:.0f} estimated from previous trajectories and team shape (mean confidence {conf_inf:.0%})",
+                                   f"{inf:.0f} estimated from trajectories and team shape ({uncertainty})",
                                    "value": round(share, 2), "unit": "observed share", "timestamp": mo["timestamp"],
                                    "source": "reconstruction", "basis": "coverage"})
 
+    def resolve_mode(self, mode):
+        """Do not relabel a retrospective CV export as live or ground truth."""
+        if mode == "default":
+            mode = "truth" if self.view == "truth" else "replay"
+        if mode not in ("truth", "replay", "live"):
+            raise ValueError(f"Unknown reconstruction mode: {mode}")
+        source = self.m.meta.get("source") or {}
+        if source.get("type") == "computer_vision" and mode != "replay" and mode not in self.alt_frames:
+            raise ValueError("This video export provides retrospective replay only; live estimates and ground truth are N/A")
+        return mode
+
     def player_states(self, t: float, mode: str = "replay"):
         """Machine-readable per-player state at time t (observed / inferred, confidence, uncertainty, evidence)."""
+        mode = self.resolve_mode(mode)
         t = int(max(0, min(self.m.duration, t)))
         rec = self.recon.get(mode)
+        selected_frames = self.frames(mode) if mode in self.alt_frames else self.m.frames
         out = []
         for j, pid in enumerate(self.m.order):
             if rec is not None:
@@ -276,26 +298,30 @@ class MatchIntelligence:
                             "uncertainty_radius": round(float(rec.rad[t, j]), 1),
                             "evidence": rec.evidence_list(t, j), "retrospective": bool(rec.meta.get("retrospective")) and not obs})
             else:
-                f = self.m.frames[t]
+                f = selected_frames[t]
                 p = f["xy"][j]
                 if p is None:
                     continue
                 o = (f.get("obs") or [True] * len(f["xy"]))[j]
                 cf, rd = (f.get("conf") or [None] * len(f["xy"]))[j], (f.get("rad") or [None] * len(f["xy"]))[j]
                 kind = "tracking_masked_estimate" if self.m.meta.get("source", {}).get("type") == "tracking" else "cv_estimate"
+                is_cv = self.m.meta.get("source", {}).get("type") == "computer_vision"
                 out.append({"player_id": pid, "position": {"x": p[0], "y": p[1]},
-                            "state_source": "observed" if o else "inferred", "confidence": 1.0 if o else cf,
-                            "uncertainty_radius": 0.0 if o else rd, "evidence": ["observed"] if o else [kind]})
+                            "state_source": "observed" if o else "inferred", "confidence": None if is_cv else (1.0 if o else cf),
+                            "observation_timestamp": (f.get("observed_t") or [None] * len(f["xy"]))[j] if o else None,
+                            "uncertainty_radius": (None if is_cv else 0.0) if o else rd,
+                            "evidence": ["detected_foot; calibration/identity unverified" if is_cv else "observed"] if o else [kind]})
         return out
 
     def player_state(self, pid: str, t: float, mode: str = "replay"):
         """One player's state at t plus observed history (last / next sighting) for the UI."""
+        mode = self.resolve_mode(mode)
         t = int(max(0, min(self.m.duration, t)))
         st = next((p for p in self.player_states(t, mode) if p["player_id"] == pid), None)
         if st is None:
             return {"player_id": pid, "on_pitch": False}
         j = self.m.idx[pid]
-        obs = [(k, f["xy"][j]) for k, f in enumerate(self.m.frames) if (f.get("obs") or [None] * len(f["xy"]))[j] is True]
+        obs = [(k, f["xy"][j]) for k, f in enumerate(self.frames(mode)) if (f.get("obs") or [None] * len(f["xy"]))[j] is True]
         before = [o for o in obs if o[0] <= t]
         after = [o for o in obs if o[0] > t]
         hist = {"last_seen_t": before[-1][0] if before else None, "last_seen_position": before[-1][1] if before else None,
@@ -303,14 +329,18 @@ class MatchIntelligence:
                 "observed_share_so_far": round(len(before) / max(1, t + 1), 2)}
         if mode == "replay":  # retrospective only: the next sighting is future information
             hist.update({"next_seen_t": after[0][0] if after else None, "next_seen_position": after[0][1] if after else None})
+        review = {}
+        if self.m.meta.get("source", {}).get("type") == "computer_vision":
+            from backend.reconstruction.measurement_review import projected_motion_review
+            review["measurement_diagnostic"] = projected_motion_review(self.frames(mode), j, t)
         return {**st, "timestamp": t, "mode": mode, "history": hist,
+                **review,
                 "estimator": (self.recon.get(mode).meta.get("estimator", "formation") if self.recon.get(mode)
                               else self.m.meta.get("source", {}).get("estimator", self.view))}
 
     def frames(self, mode: str = "replay"):
         """Frames for rendering; each carries "sl": every player's line in the current formation (-1 = none)."""
-        if mode == "default":
-            mode = "truth" if self.view == "truth" else "replay"
+        mode = self.resolve_mode(mode)
         if mode in self._frames_cache:
             return self._frames_cache[mode]
         if mode in self.alt_frames:
@@ -321,7 +351,17 @@ class MatchIntelligence:
             fr = frames_from(self.truth_m, self.recon[mode], self.obs.cut)
         else:
             fr = self.m.frames
-        for f, sl in zip(fr, lines_per_second(fr, self.m.order, self.m.is_gk, self.timeline)):
+        if self.m.meta.get("source", {}).get("type") == "computer_vision":
+            if mode != 'live':
+                from backend.analytics.deadball import dead_ball_frames
+                fr = dead_ball_frames(fr, self.m.events)
+            # Tracking-domain confidence excludes perception/identity error.
+            # Retain raw values in the private export, not as video probabilities.
+            fr = [{**f, "conf": [None]*len(f["xy"]),
+                   "rad": [None if observed else radius for observed,radius in zip(
+                       f.get("obs") or [False]*len(f["xy"]), f.get("rad") or [None]*len(f["xy"]))]}
+                  for f in fr]
+        for f, sl in zip(fr, lines_per_second(fr, self.m.order, self.m.is_gk, self.timeline, causal=mode == "live")):
             f["sl"] = sl
         self._frames_cache[mode] = fr
         return fr
@@ -383,33 +423,55 @@ class MatchIntelligence:
         n_obs = sum(p["state_source"] == "observed" for p in ps)
         hc = sum(1 for p in ps if p["state_source"] == "inferred" and (p.get("confidence") or 0) >= 0.7)
         cov_val = (n_obs + sum((p.get("confidence") or 0) for p in ps if p["state_source"] == "inferred")) / max(1, len(ps))
+        perception_unverified = self.m.meta.get("source", {}).get("type") == "computer_vision"
         return {"timestamp": t, "minute": k, "score": self.m.score_at(t), "possession": f["p"],
                 "ball": f["b"], "teams": teams, "view": self.view,
+                "tactical_analysis_mode": "retrospective",
+                "tactical_analysis_basis": "Full-minute metrics and sequence-smoothed five-minute formations can use later frames; these summaries are not live predictions",
                 "coverage": {"observed_players": n_obs, "inferred_players": len(ps) - n_obs,
                              "high_confidence_inferred": hc, "coverage": round(cov_val, 3), "on_pitch": len(ps),
                              "camera_cut": bool(f.get("cut", False)),
-                             "tactical_reliability": "high" if cov_val >= 0.85 else "reduced" if cov_val >= 0.6 else "insufficient"},
+                             "perception_unverified": perception_unverified,
+                             "tactical_reliability": "unverified" if perception_unverified else "high" if cov_val >= 0.85 else "reduced" if cov_val >= 0.6 else "insufficient"},
                 "players": ps,
                 "active_moment_id": live[-1]["id"] if live else None}
 
-    def player_profile(self, pid: str, t: Optional[float] = None) -> dict:
-        t = self.m.duration if t is None else t
+    def player_profile(self, pid: str, t: Optional[float] = None, mode: str = "default") -> dict:
+        mode = self.resolve_mode(mode)
+        t = self.m.duration if t is None else int(max(0, min(self.m.duration, t)))
         p = self.m.player_by_id[pid]
-        mv = player_movement(self.m, self.speeds, int(t))[pid]
-        mo = player_movement(self.m, self.speeds_observed, int(t))[pid]
+        # Use only the selected view's prefix, rather than cached truth movement
+        # or the remainder of the current minute. Events are prefix-filtered too.
+        selected_frames = self.frames(mode)[:int(t) + 1]
+        profile_match = MatchData({**self.m.raw, "meta": {**self.m.meta, "duration": t},
+                                  "frames": selected_frames,
+                                  "events": [e for e in self.m.events if e["timestamp"] <= t]})
+        selected_speeds = speeds(profile_match)
+        obs = np.array([[o is True for o in (f.get("obs") or [True] * len(f["xy"]))]
+                        for f in selected_frames])
+        both = obs & np.vstack([obs[:1], obs[:-1]])
+        observed_speeds = np.where(both, selected_speeds, np.nan)
+        mv = player_movement(profile_match, selected_speeds, int(t))[pid]
+        mo = player_movement(profile_match, observed_speeds, int(t))[pid]
         mv = {**mv, "top_speed_kmh": mo["top_speed_kmh"], "sprint_seconds": mo["sprint_seconds"],
               "note": "distance includes estimated off-screen movement; top speed and sprints use observed seconds only"}
-        st = player_event_stats(self.m, t)[pid]
-        mos = [mo for mo in self.moments if mo["timestamp"] <= t and (
+        st = player_event_stats(profile_match, t)[pid]
+        # Precomputed tactical moments can use future windows. Keep their links
+        # in retrospective profiles; live profiles rely on observed events only.
+        mos = [] if mode == "live" else [mo for mo in self.moments if mo["timestamp"] <= t and (
             pid in mo["replay"]["focus_players"] or mo.get("player_id") == pid)]
         j = self.m.idx[pid]
-        seen = [f.get("obs", [True] * len(f["xy"]))[j] for f in self.m.frames[:int(t) + 1]]
+        seen = [(f.get("obs") or [True] * len(f["xy"]))[j] if f["xy"][j] is not None else None for f in selected_frames]
         on = [o for o in seen if o is not None]
         visibility = {"observed_seconds": sum(1 for o in on if o), "inferred_seconds": sum(1 for o in on if not o),
                       "observed_share": round(sum(1 for o in on if o) / max(1, len(on)), 2)}
-        return {"player": p, "until": t, "movement": mv, "stats": st, "visibility": visibility,
+        narrative = self.gen.player_summary(p, st, mos)
+        headline_kind = "LIVE ESTIMATES" if mode == "live" else "CLIP ESTIMATES" if self.m.meta.get("source", {}).get("type") == "computer_vision" else "REPLAY SUMMARY" if mode == "replay" else "PLAYER SUMMARY"
+        narrative = {**narrative, "headline": f"{p['name'].upper()} — {headline_kind}"}
+        return {"player": p, "until": t, "mode": mode, "movement": mv, "stats": st, "visibility": visibility,
+                "moment_scope": "Precomputed retrospective moments are excluded from live profiles" if mode == "live" else "retrospective",
                 "moments": [{"id": mo["id"], "title": mo["title"], "minute_label": mo["minute_label"]} for mo in mos],
-                "narrative": self.gen.player_summary(p, st, mos)}
+                "narrative": narrative}
 
     def summary(self, until: Optional[float] = None) -> dict:
         """Whole-match (or up to `until`, for a live match) analysis: team stats, players, goals, highlights."""
@@ -487,6 +549,8 @@ class MatchIntelligence:
 
 
 _cache = {}
+_cache_locks = {}
+_cache_guard = Lock()
 _DEFAULT = object()
 
 
@@ -494,7 +558,27 @@ def get_intel(seed: int = 7, source=_DEFAULT) -> MatchIntelligence:
     """Default match: MATCH_FILE=data/....json, else the synthetic match. The lobby passes `source` explicitly
     (a match file path, or None for the synthetic match with this seed)."""
     src = (os.getenv("MATCH_FILE") or None) if source is _DEFAULT else source
-    key = (seed, src)
-    if key not in _cache:
-        _cache[key] = MatchIntelligence(seed, src)
-    return _cache[key]
+    src = str(Path(src).resolve()) if src else None
+    identity = (seed, src)
+    # Six parallel studio endpoints must share one cold construction. Other
+    # matches can still load independently; failures are never cached.
+    with _cache_guard:
+        lock = _cache_locks.setdefault(identity, Lock())
+    with lock:
+        for _ in range(3):
+            stamp = Path(src).stat() if src else None
+            version = (stamp.st_mtime_ns, stamp.st_size, stamp.st_ino) if stamp else None
+            key = (*identity, version)
+            if key in _cache:
+                return _cache[key]
+            value = MatchIntelligence(seed, src)
+            after = Path(src).stat() if src else None
+            if stamp and (after.st_mtime_ns, after.st_size, after.st_ino) != version:
+                continue  # Never label a changed file as the version read earlier.
+            with _cache_guard:
+                for previous in list(_cache):
+                    if previous[:2] == identity:
+                        del _cache[previous]
+                _cache[key] = value
+            return value
+    raise RuntimeError('Match file repeatedly changed during analysis; retry after export completes')

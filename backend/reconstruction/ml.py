@@ -11,6 +11,8 @@ validation match: sigma decile -> 80% error radius and P(error <= 5 m).
     .venv/bin/python -m backend.reconstruction.ml --fold 0     # build features, train live+replay, evaluate
 """
 import argparse
+import hashlib
+import inspect
 import json
 import time
 from concurrent.futures import ProcessPoolExecutor
@@ -184,6 +186,27 @@ def features(pos_obs, vis, on, team, role, ball, poss, alive, prior, mode, t_ind
                     on_ = off_next[t, j] * sgn
                     slot_n = (mc + on_) if np.isfinite(on_).all() and len(mates) else pr
                     f += [(slot_n[0] - pr[0]) / 20, (slot_n[1] - pr[1]) / 20, float(np.isfinite(on_).all())]
+            if version >= 4:
+                # Causal pace over the preceding ten 1-Hz observations, not
+                # future ball travel. Missing ball samples contribute nothing.
+                recent = ball[max(0, t - 10):t + 1]
+                steps = np.diff(recent, axis=0)
+                valid = np.isfinite(steps).all(axis=1)
+                pace = np.linalg.norm(steps[valid], axis=1)
+                f += [float(np.minimum(pace, 30).mean()) / 10 if len(pace) else 0.0,
+                      float(len(pace)) / 10]
+                if mode == "replay":
+                    # Explicit endpoint bridge lets the learner condition on
+                    # movement through the occlusion rather than independently
+                    # decoding logarithmic elapsed times and endpoints.
+                    both = bool(seen_before and has)
+                    gap = since[t, j] + until[t, j] if both else 1.0
+                    alpha = since[t, j] / max(gap, 1.0) if both else 0.0
+                    bridge = (1-alpha)*ls + alpha*nx if both else pr
+                    speed = (nx-ls) / max(gap, 1.0) if both else np.zeros(2)
+                    f += [(bridge[0]-pr[0])/20, (bridge[1]-pr[1])/20,
+                          speed[0]/8, speed[1]/8, alpha,
+                          np.log1p(min(gap, 1200))/4 if both else 0.0, float(both)]
             rows.append(np.concatenate([np.array(f, dtype=np.float32), role_oh[j], np.array(nei, dtype=np.float32)]))
             idx.append((t, j))
     return (np.stack(rows).astype(np.float32) if rows else np.zeros((0, 1), np.float32)), np.array(idx, dtype=np.int32)
@@ -222,7 +245,18 @@ def build_per_match(matches, masks, stride, seed=0, workers=6, kind="train"):
 
 
 def build(matches, masks, stride, seed=0, workers=6, tag="train"):
-    cache = CACHE / f"ml_{tag}.npz"
+    # A tag alone previously reused features for different seeds, masks or
+    # sampling intervals. Bind regenerated caches to their actual request.
+    from backend.reconstruction.datasets import reconstruction_input_fingerprints
+    configuration = {"matches": list(matches), "masks": list(masks), "stride": stride,
+                     "consumed_input_sha256": reconstruction_input_fingerprints(matches, masks),
+                     "seed": seed, "version": FEAT_VERSION, "neighbours": K_NEI,
+                     "feature_source_sha256": hashlib.sha256(inspect.getsource(features).encode()).hexdigest(),
+                     "dependency_sources_sha256": {
+                         name: hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest()
+                         for name in ("ml.py", "real_benchmark.py", "datasets.py", "estimator.py")}}
+    digest = hashlib.sha256(json.dumps(configuration, sort_keys=True).encode()).hexdigest()[:12]
+    cache = CACHE / f"ml_{tag}_{digest}.npz"
     if cache.exists():
         d = np.load(cache, allow_pickle=True)
         return d["data"].item()
@@ -239,6 +273,7 @@ def build(matches, masks, stride, seed=0, workers=6, tag="train"):
                 data[mode].append(d)
     merged = {mode: {k: np.concatenate([d[k] for d in v]) for k in v[0]} for mode, v in data.items()}
     np.savez_compressed(cache, data=np.array(merged, dtype=object))
+    cache.with_suffix(".config.json").write_text(json.dumps(configuration, indent=2))
     return merged
 
 

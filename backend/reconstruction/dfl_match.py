@@ -105,14 +105,14 @@ def pick_fold(mid):
     return 0, False
 
 
-def estimate(info, seg, vis, mode, fold):
+def estimate(info, seg, vis, mode, fold, weights_dir=None):
     """Team-shape prior + DFL-trained correction + calibrated radius (same as the real benchmark)."""
     from backend.reconstruction.inference import load_ml
     from backend.reconstruction.ml import apply_calibration, features, predict
     rec = formation(info, seg, vis, mode)
     on = ~np.isnan(seg["pos"][..., 0])
     try:
-        net, cal, fv = load_ml(mode, fold)
+        net, cal, fv = load_ml(mode, fold,weights_dir)
     except FileNotFoundError:
         rec.meta["estimator"] = "formation"
         return rec
@@ -135,7 +135,7 @@ def estimate(info, seg, vis, mode, fold):
     return rec
 
 
-def reconstruct_half(info, seg, vis, events, order, col, fold, ball, on, ctx_weight):
+def reconstruct_half(info, seg, vis, events, order, col, fold, ball, on, ctx_weight,weights_dir=None):
     """Returns ({mode: rec}, pinned mask, error / jump report vs truth). Truth is only used for the report."""
     from types import SimpleNamespace
     T = len(seg["pos"])
@@ -155,7 +155,7 @@ def reconstruct_half(info, seg, vis, events, order, col, fold, ball, on, ctx_wei
     hid = on & ~vis
 
     def run_mode(mode, fixed_vis, pins_ok):
-        rec = estimate(info, seg2 if PIN_MODE == "hard" else seg, fixed_vis, mode, fold)
+        rec = estimate(info, seg2 if PIN_MODE == "hard" else seg, fixed_vis, mode, fold,weights_dir)
         if PIN_MODE == "soft":
             for (t, j), xy in pins.items():
                 if pins_ok[t, j]:
@@ -192,7 +192,7 @@ def reconstruct_half(info, seg, vis, events, order, col, fold, ball, on, ctx_wei
                         "radius_m": round(float(rl.rad[t, j]), 1), "confidence": round(float(rl.conf[t, j]), 2),
                         "inside_radius": bool(err <= rl.rad[t, j])})
     for mode in ("replay", "live"):
-        rec = estimate(info, seg2 if PIN_MODE == "hard" else seg, fixed, mode, fold)
+        rec = estimate(info, seg2 if PIN_MODE == "hard" else seg, fixed, mode, fold,weights_dir)
         causal = mode == "live"
         if PIN_MODE == "soft":  # pin pulls the estimate halfway; not an anchor
             for (t, j), xy in pins.items():
@@ -307,7 +307,7 @@ def display_ball(ball, alive, events, restarts, T, z=None):
     return b, dead
 
 
-def build(mid, half=1, seed=0, ctx_weight=None, fold=None):
+def build(mid, half=1, seed=0, ctx_weight=None, fold=None,weights_dir=None):
     ctx_weight = ctx_weight or CTX_WEIGHT
     info, segs = parse_dfl(mid)
     seg = segs[half - 1]
@@ -333,6 +333,14 @@ def build(mid, half=1, seed=0, ctx_weight=None, fold=None):
     vis, quads = mask_sc(seg, seed, return_quads=True)
     vis &= on
     fold, unseen = pick_fold(mid) if fold is None else (fold, mid in UNSEEN)
+    if weights_dir is not None:
+        from backend.reconstruction.inference import load_ml
+        from cv.audit_hidden_sensitivity import require_held_out
+        import torch
+        for mode in ('live','replay'):
+            require_held_out(torch.load(Path(weights_dir)/f'hidden_{mode}_{fold}.pt',weights_only=False),mid)
+            load_ml(mode,fold,weights_dir)
+        unseen=True
     cut = ~vis.any(1)
 
     ball = seg["ball"].copy()
@@ -377,7 +385,9 @@ def build(mid, half=1, seed=0, ctx_weight=None, fold=None):
                 if s == 0 or not on[t, j]:
                     xy.append(None), ob.append(None), cf.append(None), rd.append(None)
                     continue
-                p = rec.pos[t, j]
+                # Serialize the original measurement for an observed player.
+                # A double orientation transform can change a .05 rounding tie.
+                p = seg["pos"][t, j] if s == SRC_OBS else rec.pos[t, j]
                 xy.append([round(float(p[0]), 1), round(float(p[1]), 1)])
                 ob.append(bool(s == SRC_OBS))
                 cf.append(1.0 if s == SRC_OBS else round(float(rec.conf[t, j]), 2))
@@ -533,7 +543,7 @@ def build(mid, half=1, seed=0, ctx_weight=None, fold=None):
 
     # ---- hidden players: camera sightings + event pins -> formation prior + DFL-trained correction
     #      -> usual spot in the current shape / phase -> speed limit (no teleporting)
-    recs, pinned, post = reconstruct_half(info, seg, vis, events, order, col, fold, ball, on, ctx_weight)
+    recs, pinned, post = reconstruct_half(info, seg, vis, events, order, col, fold, ball, on, ctx_weight,weights_dir)
     zb = dfl_ball_height(mid).get(SECTIONS[half], np.zeros(T))
     zb = np.pad(zb[:T], (0, max(0, T - len(zb))))
     ball_disp, dead = display_ball(ball, seg["alive"], events, restarts, T, zb)
