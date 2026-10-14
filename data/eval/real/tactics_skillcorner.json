@@ -1,0 +1,284 @@
+{
+ "label_source": "SkillCorner phases_of_play (provider labels from provider tracking; proxy, not human ground truth)",
+ "counterattack": {
+  "tp": 68,
+  "fp": 41,
+  "fn": 228,
+  "precision": 0.624,
+  "recall": 0.23,
+  "f1": 0.336,
+  "note": "match = same team, engine start within the provider quick_break/transition phase +-10 s"
+ },
+ "high_press_minutes": {
+  "tp": 6,
+  "fp": 16,
+  "fn": 219,
+  "precision": 0.273,
+  "recall": 0.027,
+  "f1": 0.049,
+  "note": "provider minute = defending team >= 50% of its defending time in high_block"
+ },
+ "low_block_minutes": {
+  "tp": 54,
+  "fp": 77,
+  "fn": 232,
+  "precision": 0.412,
+  "recall": 0.189,
+  "f1": 0.259,
+  "note": "provider minute = >= 50% in low_block"
+ },
+ "press_index_mean": {
+  "provider_high_block_minutes": 40.6,
+  "provider_low_block_minutes": 41.8,
+  "n": [
+   225,
+   286
+  ]
+ },
+ "def_line_oop_mean_m": {
+  "provider_high_block_minutes": 49.1,
+  "provider_low_block_minutes": 20.9
+ },
+ "per_half": [
+  {
+   "file": "skc_1874553_h1.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1874553_h2.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 4,
+   "matched": 2
+  },
+  {
+   "file": "skc_1886347_h1.json",
+   "provider_counter_phases": 3,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1886347_h2.json",
+   "provider_counter_phases": 2,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1899585_h1.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 1,
+   "matched": 1
+  },
+  {
+   "file": "skc_1899585_h2.json",
+   "provider_counter_phases": 9,
+   "engine_counters": 7,
+   "matched": 3
+  },
+  {
+   "file": "skc_1925299_h1.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 2,
+   "matched": 2
+  },
+  {
+   "file": "skc_1925299_h2.json",
+   "provider_counter_phases": 5,
+   "engine_counters": 1,
+   "matched": 0
+  },
+  {
+   "file": "skc_1927964_h1.json",
+   "provider_counter_phases": 3,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1927964_h2.json",
+   "provider_counter_phases": 12,
+   "engine_counters": 3,
+   "matched": 3
+  },
+  {
+   "file": "skc_1953632_h1.json",
+   "provider_counter_phases": 7,
+   "engine_counters": 3,
+   "matched": 1
+  },
+  {
+   "file": "skc_1953632_h2.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 0,
+   "matched": 0
+  },
+  {
+   "file": "skc_1959846_h1.json",
+   "provider_counter_phases": 9,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1959846_h2.json",
+   "provider_counter_phases": 11,
+   "engine_counters": 6,
+   "matched": 5
+  },
+  {
+   "file": "skc_1986691_h1.json",
+   "provider_counter_phases": 8,
+   "engine_counters": 1,
+   "matched": 1
+  },
+  {
+   "file": "skc_1986691_h2.json",
+   "provider_counter_phases": 10,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1996435_h1.json",
+   "provider_counter_phases": 5,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_1996435_h2.json",
+   "provider_counter_phases": 5,
+   "engine_counters": 3,
+   "matched": 2
+  },
+  {
+   "file": "skc_1996436_h1.json",
+   "provider_counter_phases": 9,
+   "engine_counters": 1,
+   "matched": 1
+  },
+  {
+   "file": "skc_1996436_h2.json",
+   "provider_counter_phases": 3,
+   "engine_counters": 4,
+   "matched": 2
+  },
+  {
+   "file": "skc_2006229_h1.json",
+   "provider_counter_phases": 5,
+   "engine_counters": 2,
+   "matched": 0
+  },
+  {
+   "file": "skc_2006229_h2.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_2006363_h1.json",
+   "provider_counter_phases": 7,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_2006363_h2.json",
+   "provider_counter_phases": 10,
+   "engine_counters": 5,
+   "matched": 4
+  },
+  {
+   "file": "skc_2007448_h1.json",
+   "provider_counter_phases": 7,
+   "engine_counters": 1,
+   "matched": 1
+  },
+  {
+   "file": "skc_2007448_h2.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 4,
+   "matched": 2
+  },
+  {
+   "file": "skc_2007721_h1.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 3,
+   "matched": 2
+  },
+  {
+   "file": "skc_2007721_h2.json",
+   "provider_counter_phases": 11,
+   "engine_counters": 5,
+   "matched": 4
+  },
+  {
+   "file": "skc_2010085_h1.json",
+   "provider_counter_phases": 5,
+   "engine_counters": 2,
+   "matched": 2
+  },
+  {
+   "file": "skc_2010085_h2.json",
+   "provider_counter_phases": 5,
+   "engine_counters": 3,
+   "matched": 2
+  },
+  {
+   "file": "skc_2011166_h1.json",
+   "provider_counter_phases": 9,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_2011166_h2.json",
+   "provider_counter_phases": 8,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_2013725_h1.json",
+   "provider_counter_phases": 13,
+   "engine_counters": 3,
+   "matched": 2
+  },
+  {
+   "file": "skc_2013725_h2.json",
+   "provider_counter_phases": 13,
+   "engine_counters": 4,
+   "matched": 3
+  },
+  {
+   "file": "skc_2015213_h1.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 1,
+   "matched": 1
+  },
+  {
+   "file": "skc_2015213_h2.json",
+   "provider_counter_phases": 10,
+   "engine_counters": 3,
+   "matched": 1
+  },
+  {
+   "file": "skc_2016236_h1.json",
+   "provider_counter_phases": 6,
+   "engine_counters": 2,
+   "matched": 1
+  },
+  {
+   "file": "skc_2016236_h2.json",
+   "provider_counter_phases": 11,
+   "engine_counters": 6,
+   "matched": 3
+  },
+  {
+   "file": "skc_2017461_h1.json",
+   "provider_counter_phases": 7,
+   "engine_counters": 2,
+   "matched": 2
+  },
+  {
+   "file": "skc_2017461_h2.json",
+   "provider_counter_phases": 14,
+   "engine_counters": 5,
+   "matched": 4
+  }
+ ]
+}

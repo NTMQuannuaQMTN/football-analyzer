@@ -121,7 +121,9 @@ Notes on the columns:
 - **xG** is this repo's simple distance / angle model applied to provider shot locations. It is not a provider value.
 - **Unreliable team-minutes:** across the 20 matches, 2,568 of 3,992 team-minutes (64 %) are flagged, and the engine abstained on 1,087 (27 %). The threshold is conservative by design: for broadcast-derived files, inferred players count as 0 towards reliability.
 
-**Moment counts over 40 halves:**
+**Update (14 Oct):** possession changes and kick-offs are now derived from the provider's player-possession sequence, so possession spells, recoveries, transitions and counterattacks exist for these matches (14 counterattack moments over 40 halves; previously 0). Estimated players' confidence is validated on SkillCorner re-entries and now counts towards reliability, so unreliable team-minutes fell from 2,568 (64 %) to 1,087 (27 %). The remaining 1,087 are exactly the minutes where the engine abstains (fewer than 2.5 outfield players observed). Shape moments with mostly estimated players are titled "possible switch to …".
+
+**Moment counts over 40 halves** (before the possession-event fix; current: 65 goal, 169 substitution, 63 turning point, 24 shape, 14 counterattack):
 
 | Type | Count | Basis |
 |---|---|---|

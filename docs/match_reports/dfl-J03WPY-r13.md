@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WPY-r13
+# Real tracking · DFL open data: dfl-J03WPY-r13
 
 ## h1
 
@@ -25,13 +25,13 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 7' | TACTICAL_TURNING_POINT | B | 1. FC Nürnberg take territorial control | 0.81 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 8' | COUNTERATTACK | B | 1. FC Nürnberg counterattack | 0.78 | 1.0 | heuristic; real-data F1 0.55 vs DFL CounterAttack flags (experimental) |
-| 16' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 5-3-2 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
-| 33' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 46' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 4-1-3-2 | 0.87 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
-| 46' | FORMATION_SHIFT | B | 1. FC Nürnberg switch to 4-1-3-2 | 0.82 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
-| 46' | COUNTERATTACK | B | 1. FC Nürnberg counterattack | 0.78 | 1.0 | heuristic; real-data F1 0.55 vs DFL CounterAttack flags (experimental) |
+| 7' | TACTICAL_TURNING_POINT | B | 1. FC Nürnberg take territorial control | 0.81 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 8' | COUNTERATTACK | B | 1. FC Nürnberg counterattack | 0.78 | 1.0 | heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental) |
+| 16' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 5-3-2 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
+| 33' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 46' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 4-1-3-2 | 0.87 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
+| 46' | FORMATION_SHIFT | B | 1. FC Nürnberg switch to 4-1-3-2 | 0.82 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
+| 46' | COUNTERATTACK | B | 1. FC Nürnberg counterattack | 0.78 | 1.0 | heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -43,7 +43,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Exposed defence: 10 players caught upfield
 - [recorded_event] Outcome: Shot by C. Daferner (saved)
 - Followed by (not proof of causation): 10 opponents bypassed, Shot
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [453, 463], "observed_players": 0.0, "inferred_players": 10.0, "high_confidence_inferred": 0.2, "outfield_players": 10, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 47.4, "width_m": 44.2, "near_ball": 2.0}, "truth": {"def_line_m": 43.3, "width_m": 41.5`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [453, 463], "observed_players": 0.0, "inferred_players": 10.0, "high_confidence_inferred": 0.0, "outfield_players": 10, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 47.4, "width_m": 44.2, "near_ball": 2.0}, "truth": {"def_line_m": 43.3, "width_m": 41.5`
 
 **16' Fortuna Düsseldorf switch to 5-3-2** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 3-4-2-1 -> 5-3-2 → STATE_CHANGE: Right-side press 46.7% -> 62.5% → CONSEQUENCE: 0 final-third recoveries
 
@@ -63,7 +63,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Recovery: Final-third recoveries 0 -> 0
 - [ground_truth positions] Territory: Territory 47.3% -> 25.0%
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 25.0%, 0 shots
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [2695, 2705], "observed_players": 3.4, "inferred_players": 6.6, "high_confidence_inferred": 4.5, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 85.2, "width_m": 24.4, "near_ball": 3.0}, "reconstructed": {"def_line_m": 80.0, "width_m": 31.2, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [2695, 2705], "observed_players": 3.4, "inferred_players": 6.6, "high_confidence_inferred": 4.4, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 85.2, "width_m": 24.4, "near_ball": 3.0}, "reconstructed": {"def_line_m": 80.0, "width_m": 31.2, "near_ball":`
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 
@@ -103,15 +103,15 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 | 63' | SUBSTITUTION_IMPACT | A | R. Hennings on for Shinta Appelkamp | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 63' | SUBSTITUTION_IMPACT | A | N. Gavory on for E. Iyoha | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 63' | SUBSTITUTION_IMPACT | A | E. Fernandes Neto on for A. Tanaka | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 64' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.83 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 64' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.83 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 65' | SUBSTITUTION_IMPACT | B | E. Wekesser on for M. Møller Dæhli | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 65' | SUBSTITUTION_IMPACT | B | L. Schleimer on for Kwadwo Duah | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 76' | SUBSTITUTION_IMPACT | B | Manuel Wintzheimer on for F. Nürnberger | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 76' | SUBSTITUTION_IMPACT | A | Kristoffer Peterson on for F. Klaus | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 81' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 4-2-3-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 81' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 4-2-3-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 | 83' | SUBSTITUTION_IMPACT | B | S. Fofana on for J. Geis | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 84' | SUBSTITUTION_IMPACT | B | E. Valentini on for Jan Gyamerah | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 96' | FORMATION_SHIFT | B | 1. FC Nürnberg switch to 4-5-1 | 0.88 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 96' | FORMATION_SHIFT | B | 1. FC Nürnberg switch to 4-5-1 | 0.88 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -121,7 +121,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: Kwadwo Duah shot from 10.3m
 - [recorded_event] Outcome: Goal - 0-1
 - Followed by (not proof of causation): Score 0-1
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [78, 88], "observed_players": 0.0, "inferred_players": 10.0, "high_confidence_inferred": 0.5, "outfield_players": 15, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 58.0, "width_m": 25.0, "near_ball": 4.1}, "truth": {"def_line_m": 55.8, "width_m": 31.6, `
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [78, 88], "observed_players": 0.0, "inferred_players": 10.0, "high_confidence_inferred": 0.4, "outfield_players": 15, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 58.0, "width_m": 25.0, "near_ball": 4.1}, "truth": {"def_line_m": 55.8, "width_m": 31.6, `
 
 **81' Fortuna Düsseldorf switch to 4-2-3-1** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 4-1-3-2 -> 4-2-3-1 → STATE_CHANGE: Right-side press 30.4% -> 32.3% → CONSEQUENCE: 1 final-third recoveries
 

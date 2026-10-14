@@ -12,17 +12,20 @@ if [ -n "$MATCH_FILE" ] && [ ! -f "$MATCH_FILE" ]; then
   echo "MATCH_FILE not found: $MATCH_FILE"; echo "Available:"; ls data/cv_*.json data/dfl_*.json 2>/dev/null || echo "  (none — run cv.build_match first)"; exit 1
 fi
 
-# Stop only verified listeners belonging to this checkout. Refuse foreign ports.
-.venv/bin/python scripts/dev_server_guard.py --root "$PWD" --stop
-for port in 8000 3000; do
-  for _ in $(seq 1 20); do lsof -nP -iTCP:$port -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 0.25; done
-  if lsof -nP -iTCP:$port -sTCP:LISTEN >/dev/null 2>&1; then
-    echo "Port $port is used by another program:"; lsof -nP -iTCP:$port -sTCP:LISTEN; exit 1
-  fi
-done
+# Ports: API_PORT (default 8000) and WEB_PORT (default 3000). This checkout's own servers are stopped and restarted;
+# a port held by another program is never touched; the next free port is used instead.
+API_PORT="${API_PORT:-8000}"; WEB_PORT="${WEB_PORT:-3000}"
+.venv/bin/python scripts/dev_server_guard.py --root "$PWD" --stop --api-port "$API_PORT" --web-port "$WEB_PORT"
+free_port() { local p=$1; while lsof -nP -iTCP:$p -sTCP:LISTEN >/dev/null 2>&1; do p=$((p + 1)); done; echo $p; }
+for _ in $(seq 1 20); do lsof -nP -iTCP:$API_PORT -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 0.25; done
+for _ in $(seq 1 20); do lsof -nP -iTCP:$WEB_PORT -sTCP:LISTEN >/dev/null 2>&1 || break; sleep 0.25; done
+NEW_API=$(free_port "$API_PORT"); NEW_WEB=$(free_port "$WEB_PORT")
+[ "$NEW_API" != "$API_PORT" ] && echo "API port $API_PORT is used by another program; using $NEW_API"
+[ "$NEW_WEB" != "$WEB_PORT" ] && echo "Web port $WEB_PORT is used by another program; using $NEW_WEB"
+API_PORT=$NEW_API; WEB_PORT=$NEW_WEB
 
-.venv/bin/uvicorn backend.api.main:app --port 8000 &
+.venv/bin/uvicorn backend.api.main:app --port "$API_PORT" &
 API=$!
 trap 'kill $API 2>/dev/null || true' EXIT
-echo "Building match intelligence${MATCH_FILE:+ from $MATCH_FILE}..."
-(cd frontend && NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL:-http://localhost:8000}" npm run dev -- --port 3000)
+echo "Building match intelligence${MATCH_FILE:+ from $MATCH_FILE}... API http://localhost:$API_PORT  UI http://localhost:$WEB_PORT"
+(cd frontend && NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL:-http://localhost:$API_PORT}" npm run dev -- --port "$WEB_PORT")

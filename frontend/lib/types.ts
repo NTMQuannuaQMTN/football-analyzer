@@ -23,7 +23,7 @@ export interface MatchMeta {
   live?: { t_now: number; speed: number; finished: boolean; started?: boolean; part?: string; note: string } | null;
   parts?: { id: string; label: string }[] | null;
   vod_available?: boolean; // ground-truth match that also carries the camera-only estimate (Replay / Live)
-  source?: { type: string; game: string; half: number; start: number; end: number; model: string; coverage: number; observed_share?: number; dataset?: string; provider?: string; camera?: string };
+  source?: { type: string; game: string; half: number; start: number; end: number; model: string; coverage: number; observed_share?: number; dataset?: string; provider?: string; camera?: string; uncertainty_validated?: Record<string, unknown> };
   players: Player[];
   goals: MatchEvent[];
   key_events: MatchEvent[];
@@ -42,7 +42,7 @@ export interface Frame {
   sl?: number[]; // each player's line in the current formation (0 = back line), -1 = goalkeeper / none
   obs?: (boolean | null)[]; // false = estimated; does not prove the player is outside the view
   observed_t?: (number | null)[]; // Actual source measurement times, relative to clip start
-  bs?: string; // CV matches: ball source (carried, in_flight, dead_ball, goal, kick_off, near_player, raw)
+  bs?: string; // CV matches: ball source (carried, in_flight, dead_ball, goal, kick_off, near_player, raw, tracked, held_or_unknown)
   conf?: (number | null)[]; // reconstruction: P(error <= 5 m) for inferred players
   rad?: (number | null)[]; // reconstruction: calibrated uncertainty radius (m), 0 when observed
   cut?: boolean; // camera on a close-up / replay: nobody visible this second
@@ -106,6 +106,7 @@ export interface HiddenState {
 }
 
 export interface Moment {
+  available_at?: number; // live: seconds after which all of this moment's evidence is in the past
   position_reasoning?: {
     has_supported_change?: boolean;
     observation: string; interpretation: string; mechanism: string;

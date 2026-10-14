@@ -1,7 +1,7 @@
 {
  "id": "dfl-J03WOY-r13",
  "kind": "tracking",
- "label": "Real tracking \u00b7 DFL \u00b7 camera estimate r13",
+ "label": "Real tracking \u00b7 DFL open data",
  "info": {
   "date": "2022-09-10",
   "season": "2022/2023",
@@ -224,7 +224,7 @@
       ],
       "observed_players": 2.6,
       "inferred_players": 7.4,
-      "high_confidence_inferred": 5.8,
+      "high_confidence_inferred": 5.6,
       "outfield_players": 10,
       "metrics": {
        "observed_only": {
@@ -382,7 +382,7 @@
      "importance": 0.65,
      "confidence": 0.9,
      "reliability": 1.0,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -451,7 +451,7 @@
       ],
       "observed_players": 3.3,
       "inferred_players": 6.7,
-      "high_confidence_inferred": 4.2,
+      "high_confidence_inferred": 3.9,
       "outfield_players": 10,
       "metrics": {
        "observed_only": {
@@ -498,7 +498,7 @@
      "importance": 0.65,
      "confidence": 0.9,
      "reliability": 1.0,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -567,7 +567,7 @@
       ],
       "observed_players": 0.0,
       "inferred_players": 10.0,
-      "high_confidence_inferred": 0.8,
+      "high_confidence_inferred": 0.7,
       "outfield_players": 11,
       "metrics": {
        "observed_only": null,
@@ -864,7 +864,7 @@
       "title": "Goal Fortuna D\u00fcsseldorf - Dawid Kownacki",
       "importance": 0.92,
       "confidence": 0.87,
-      "reliability": 0.78,
+      "reliability": 0.79,
       "validation": "recorded goal; build-up sequence from events",
       "chain": [
        {
@@ -916,7 +916,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 67%)",
+        "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 68%)",
         "value": 0.35,
         "unit": "observed share",
         "t": 579.6,
@@ -1016,11 +1016,11 @@
       "type": "FORMATION_SHIFT",
       "subtype": null,
       "team": "B",
-      "title": "F.C. Hansa Rostock switch to 3-4-2-1",
+      "title": "F.C. Hansa Rostock possible switch to 3-4-2-1",
       "importance": 0.75,
-      "confidence": 0.73,
+      "confidence": 0.5,
       "reliability": 0.49,
-      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -1103,7 +1103,7 @@
       "title": "D. Lee on for S. Thill",
       "importance": 0.47,
       "confidence": 0.57,
-      "reliability": 0.54,
+      "reliability": 0.53,
       "validation": "recorded substitution; after-effects heuristic",
       "chain": [
        {
@@ -1159,7 +1159,7 @@
       "team": "A",
       "from_minute": 0,
       "to_minute": 1,
-      "min_reliability": 0.52,
+      "min_reliability": 0.53,
       "abstain_minutes": 2
      },
      {
@@ -1173,7 +1173,7 @@
       "team": "A",
       "from_minute": 6,
       "to_minute": 8,
-      "min_reliability": 0.43,
+      "min_reliability": 0.42,
       "abstain_minutes": 3
      },
      {
@@ -1187,14 +1187,14 @@
       "team": "A",
       "from_minute": 14,
       "to_minute": 15,
-      "min_reliability": 0.65,
+      "min_reliability": 0.64,
       "abstain_minutes": 2
      },
      {
       "team": "A",
       "from_minute": 19,
       "to_minute": 20,
-      "min_reliability": 0.52,
+      "min_reliability": 0.51,
       "abstain_minutes": 2
      },
      {
@@ -1208,21 +1208,21 @@
       "team": "A",
       "from_minute": 26,
       "to_minute": 29,
-      "min_reliability": 0.43,
+      "min_reliability": 0.42,
       "abstain_minutes": 4
      },
      {
       "team": "A",
       "from_minute": 32,
       "to_minute": 45,
-      "min_reliability": 0.21,
+      "min_reliability": 0.19,
       "abstain_minutes": 14
      },
      {
       "team": "B",
       "from_minute": 0,
       "to_minute": 1,
-      "min_reliability": 0.49,
+      "min_reliability": 0.5,
       "abstain_minutes": 2
      },
      {
@@ -1243,14 +1243,14 @@
       "team": "B",
       "from_minute": 10,
       "to_minute": 10,
-      "min_reliability": 0.68,
+      "min_reliability": 0.69,
       "abstain_minutes": 1
      },
      {
       "team": "B",
       "from_minute": 14,
       "to_minute": 15,
-      "min_reliability": 0.63,
+      "min_reliability": 0.62,
       "abstain_minutes": 2
      },
      {
@@ -1285,7 +1285,7 @@
       "team": "B",
       "from_minute": 32,
       "to_minute": 45,
-      "min_reliability": 0.2,
+      "min_reliability": 0.19,
       "abstain_minutes": 14
      }
     ],
@@ -1512,7 +1512,7 @@
      "importance": 0.75,
      "confidence": 0.92,
      "reliability": 1.0,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1591,7 +1591,7 @@
       ],
       "observed_players": 0.8,
       "inferred_players": 9.2,
-      "high_confidence_inferred": 4.1,
+      "high_confidence_inferred": 3.9,
       "outfield_players": 15,
       "metrics": {
        "observed_only": {
@@ -1904,7 +1904,7 @@
       ],
       "observed_players": 5.0,
       "inferred_players": 5.0,
-      "high_confidence_inferred": 3.3,
+      "high_confidence_inferred": 3.4,
       "outfield_players": 15,
       "metrics": {
        "observed_only": {
@@ -2019,7 +2019,7 @@
       ],
       "observed_players": 3.0,
       "inferred_players": 7.0,
-      "high_confidence_inferred": 2.1,
+      "high_confidence_inferred": 1.9,
       "outfield_players": 15,
       "metrics": {
        "observed_only": {
@@ -2120,7 +2120,7 @@
       ],
       "observed_players": 0.0,
       "inferred_players": 10.0,
-      "high_confidence_inferred": 0.5,
+      "high_confidence_inferred": 0.4,
       "outfield_players": 13,
       "metrics": {
        "observed_only": null,
@@ -2217,7 +2217,7 @@
       ],
       "observed_players": 0.0,
       "inferred_players": 10.0,
-      "high_confidence_inferred": 1.7,
+      "high_confidence_inferred": 1.5,
       "outfield_players": 13,
       "metrics": {
        "observed_only": null,
@@ -2314,7 +2314,7 @@
       ],
       "observed_players": 1.8,
       "inferred_players": 8.2,
-      "high_confidence_inferred": 3.7,
+      "high_confidence_inferred": 3.5,
       "outfield_players": 13,
       "metrics": {
        "observed_only": {
@@ -2855,11 +2855,11 @@
       "type": "FORMATION_SHIFT",
       "subtype": null,
       "team": "A",
-      "title": "Fortuna D\u00fcsseldorf switch to 4-2-3-1",
+      "title": "Fortuna D\u00fcsseldorf possible switch to 4-2-3-1",
       "importance": 0.75,
-      "confidence": 0.81,
-      "reliability": 0.71,
-      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "confidence": 0.5,
+      "reliability": 0.72,
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -2942,7 +2942,7 @@
       "title": "Goal F.C. Hansa Rostock - Lukas Fr\u00f6de",
       "importance": 0.92,
       "confidence": 0.81,
-      "reliability": 0.63,
+      "reliability": 0.64,
       "validation": "recorded goal; build-up sequence from events",
       "chain": [
        {
@@ -2994,7 +2994,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 55%)",
+        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 56%)",
         "value": 0.18,
         "unit": "observed share",
         "t": 902.3,
@@ -3144,11 +3144,11 @@
       "type": "FORMATION_SHIFT",
       "subtype": null,
       "team": "A",
-      "title": "Fortuna D\u00fcsseldorf switch to 4-1-4-1",
+      "title": "Fortuna D\u00fcsseldorf possible switch to 4-1-4-1",
       "importance": 0.86,
-      "confidence": 0.66,
+      "confidence": 0.5,
       "reliability": 0.46,
-      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -3249,8 +3249,8 @@
       "team": "A",
       "title": "Goal Fortuna D\u00fcsseldorf - E. Iyoha",
       "importance": 0.82,
-      "confidence": 0.82,
-      "reliability": 0.66,
+      "confidence": 0.83,
+      "reliability": 0.67,
       "validation": "recorded goal; build-up sequence from events",
       "chain": [
        {
@@ -3311,7 +3311,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 56%)",
+        "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 57%)",
         "value": 0.24,
         "unit": "observed share",
         "t": 1911.6,
@@ -3683,14 +3683,14 @@
       "team": "A",
       "from_minute": 0,
       "to_minute": 1,
-      "min_reliability": 0.36,
+      "min_reliability": 0.39,
       "abstain_minutes": 2
      },
      {
       "team": "A",
       "from_minute": 3,
       "to_minute": 4,
-      "min_reliability": 0.62,
+      "min_reliability": 0.63,
       "abstain_minutes": 2
      },
      {
@@ -3704,7 +3704,7 @@
       "team": "A",
       "from_minute": 13,
       "to_minute": 15,
-      "min_reliability": 0.7,
+      "min_reliability": 0.71,
       "abstain_minutes": 3
      },
      {
@@ -3732,7 +3732,7 @@
       "team": "A",
       "from_minute": 26,
       "to_minute": 27,
-      "min_reliability": 0.52,
+      "min_reliability": 0.51,
       "abstain_minutes": 2
      },
      {
@@ -3753,14 +3753,14 @@
       "team": "A",
       "from_minute": 42,
       "to_minute": 48,
-      "min_reliability": 0.33,
+      "min_reliability": 0.32,
       "abstain_minutes": 7
      },
      {
       "team": "B",
       "from_minute": 0,
       "to_minute": 1,
-      "min_reliability": 0.44,
+      "min_reliability": 0.45,
       "abstain_minutes": 2
      },
      {
@@ -3788,21 +3788,21 @@
       "team": "B",
       "from_minute": 19,
       "to_minute": 21,
-      "min_reliability": 0.53,
+      "min_reliability": 0.52,
       "abstain_minutes": 3
      },
      {
       "team": "B",
       "from_minute": 23,
       "to_minute": 24,
-      "min_reliability": 0.47,
+      "min_reliability": 0.46,
       "abstain_minutes": 2
      },
      {
       "team": "B",
       "from_minute": 26,
       "to_minute": 27,
-      "min_reliability": 0.48,
+      "min_reliability": 0.47,
       "abstain_minutes": 2
      },
      {
@@ -3816,7 +3816,7 @@
       "team": "B",
       "from_minute": 32,
       "to_minute": 48,
-      "min_reliability": 0.15,
+      "min_reliability": 0.14,
       "abstain_minutes": 17
      }
     ],

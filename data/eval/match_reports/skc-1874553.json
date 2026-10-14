@@ -102,7 +102,7 @@
    "substitutions": [],
    "chapters": [],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 2,
    "shifts": [
     {
      "team": "A",
@@ -163,19 +163,19 @@
      "team": "A",
      "title": "Goal Brisbane Roar FC - K. Jelacic",
      "importance": 0.92,
-     "confidence": 0.64,
-     "reliability": 0.19,
+     "confidence": 0.78,
+     "reliability": 0.55,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
-       "label": "Spell of possession",
-       "timestamp": 319.0
+       "label": "Interception by M. Freke",
+       "timestamp": 303.2
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 319.0
+       "label": "3 passes, 25.8s",
+       "timestamp": 303.2
       },
       {
        "stage": "OUTCOME",
@@ -188,11 +188,20 @@
      ],
      "evidence": [
       {
+       "label": "Recovery",
+       "detail": "M. Freke won the ball (interception) 0m from own goal",
+       "value": -0.1,
+       "unit": "m",
+       "t": 303.2,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "3 passes in 25.8s",
+       "value": 3,
        "unit": "passes",
-       "t": 319.0,
+       "t": 303.2,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -225,7 +234,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 44%)",
        "value": 0.19,
        "unit": "observed share",
        "t": 329.0,
@@ -245,9 +254,9 @@
      "team": "A",
      "title": "Brisbane Roar FC take territorial control",
      "importance": 0.65,
-     "confidence": 0.67,
-     "reliability": 0.46,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.79,
+     "reliability": 0.83,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -261,7 +270,7 @@
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 counterattacks",
+       "label": "1 counterattacks",
        "timestamp": 480
       }
      ],
@@ -308,7 +317,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 68%)",
        "value": 0.46,
        "unit": "observed share",
        "t": 480,
@@ -328,9 +337,9 @@
      "team": "B",
      "title": "Adelaide United Football Club take territorial control",
      "importance": 0.65,
-     "confidence": 0.7,
-     "reliability": 0.43,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.82,
+     "reliability": 0.77,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -391,7 +400,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 60%)",
        "value": 0.43,
        "unit": "observed share",
        "t": 1560,
@@ -416,8 +425,8 @@
      "team": "B",
      "title": "Goal Adelaide United Football Club - S. Mauk",
      "importance": 0.92,
-     "confidence": 0.63,
-     "reliability": 0.16,
+     "confidence": 0.73,
+     "reliability": 0.42,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -427,13 +436,13 @@
       },
       {
        "stage": "EVENT",
-       "label": "Spell of possession",
-       "timestamp": 1926.0
+       "label": "Tackle by A. Ayoubi",
+       "timestamp": 1926.8
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 1926.0
+       "label": "1 passes, 9.2s",
+       "timestamp": 1926.8
       },
       {
        "stage": "OUTCOME",
@@ -455,11 +464,20 @@
        "basis_tag": "recorded_event"
       },
       {
+       "label": "Recovery",
+       "detail": "A. Ayoubi won the ball (tackle) 63m from own goal",
+       "value": 62.8,
+       "unit": "m",
+       "t": 1926.8,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "1 passes in 9.2s",
+       "value": 1,
        "unit": "passes",
-       "t": 1926.0,
+       "t": 1926.8,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -492,7 +510,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 31%)",
        "value": 0.16,
        "unit": "observed share",
        "t": 1936.0,
@@ -510,11 +528,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "B",
-     "title": "Adelaide United Football Club switch to 4-5-1",
+     "title": "Adelaide United Football Club possible switch to 4-5-1",
      "importance": 0.75,
-     "confidence": 0.67,
-     "reliability": 0.31,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.65,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -596,19 +614,19 @@
      "team": "A",
      "title": "Goal Brisbane Roar FC - J. O'Shea",
      "importance": 0.92,
-     "confidence": 0.39,
-     "reliability": 0.13,
+     "confidence": 0.45,
+     "reliability": 0.36,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 2528.4
+       "timestamp": 2538.4
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 2528.4
+       "label": "0 passes, 0.0s",
+       "timestamp": 2538.4
       },
       {
        "stage": "OUTCOME",
@@ -622,10 +640,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
+       "detail": "0 passes in 0.0s",
        "value": 0,
        "unit": "passes",
-       "t": 2528.4,
+       "t": 2538.4,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -658,7 +676,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 1 of 11 players observed; 10 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 1 of 11 players observed; 10 estimated from trajectories and team shape (mean confidence 27%)",
        "value": 0.13,
        "unit": "observed share",
        "t": 2538.4,
@@ -674,170 +692,170 @@
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 0,
+     "from_minute": 3,
+     "to_minute": 3,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 5,
      "to_minute": 6,
-     "min_reliability": 0.19,
-     "abstain_minutes": 3
+     "min_reliability": 0.48,
+     "abstain_minutes": 2
     },
     {
      "team": "A",
-     "from_minute": 10,
-     "to_minute": 10,
-     "min_reliability": 0.34,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 12,
+     "from_minute": 13,
      "to_minute": 13,
-     "min_reliability": 0.19,
+     "min_reliability": 0.44,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 15,
      "to_minute": 17,
-     "min_reliability": 0.25,
+     "min_reliability": 0.6,
      "abstain_minutes": 3
     },
     {
      "team": "A",
-     "from_minute": 20,
+     "from_minute": 21,
      "to_minute": 21,
-     "min_reliability": 0.25,
+     "min_reliability": 0.58,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 23,
+     "from_minute": 24,
      "to_minute": 24,
-     "min_reliability": 0.23,
+     "min_reliability": 0.57,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 30,
      "to_minute": 30,
-     "min_reliability": 0.16,
+     "min_reliability": 0.48,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 32,
-     "to_minute": 33,
-     "min_reliability": 0.21,
+     "to_minute": 32,
+     "min_reliability": 0.49,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 35,
      "to_minute": 35,
-     "min_reliability": 0.23,
+     "min_reliability": 0.6,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 38,
-     "to_minute": 43,
-     "min_reliability": 0.0,
+     "from_minute": 40,
+     "to_minute": 42,
+     "min_reliability": 0.14,
      "abstain_minutes": 3
     },
     {
      "team": "A",
      "from_minute": 45,
-     "to_minute": 46,
-     "min_reliability": 0.17,
+     "to_minute": 45,
+     "min_reliability": 0.53,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 48,
      "to_minute": 48,
-     "min_reliability": 0.31,
+     "min_reliability": 0.67,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 0,
-     "to_minute": 0,
-     "min_reliability": 0.41,
-     "abstain_minutes": 0
+     "from_minute": 3,
+     "to_minute": 3,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 2,
+     "from_minute": 5,
      "to_minute": 6,
-     "min_reliability": 0.17,
-     "abstain_minutes": 3
+     "min_reliability": 0.51,
+     "abstain_minutes": 2
     },
     {
      "team": "B",
-     "from_minute": 10,
-     "to_minute": 10,
-     "min_reliability": 0.39,
-     "abstain_minutes": 0
+     "from_minute": 13,
+     "to_minute": 13,
+     "min_reliability": 0.53,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 12,
+     "from_minute": 16,
      "to_minute": 17,
-     "min_reliability": 0.24,
-     "abstain_minutes": 3
+     "min_reliability": 0.66,
+     "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 21,
      "to_minute": 21,
-     "min_reliability": 0.25,
+     "min_reliability": 0.55,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 24,
      "to_minute": 24,
-     "min_reliability": 0.27,
+     "min_reliability": 0.67,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 30,
      "to_minute": 30,
-     "min_reliability": 0.11,
+     "min_reliability": 0.39,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 32,
-     "to_minute": 33,
-     "min_reliability": 0.16,
+     "to_minute": 32,
+     "min_reliability": 0.42,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 35,
      "to_minute": 35,
-     "min_reliability": 0.23,
+     "min_reliability": 0.61,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 38,
-     "to_minute": 43,
-     "min_reliability": 0.0,
+     "from_minute": 40,
+     "to_minute": 42,
+     "min_reliability": 0.24,
      "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 45,
-     "to_minute": 46,
-     "min_reliability": 0.21,
+     "to_minute": 45,
+     "min_reliability": 0.58,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 48,
      "to_minute": 48,
-     "min_reliability": 0.2,
+     "min_reliability": 0.48,
      "abstain_minutes": 1
     }
    ],
@@ -1003,7 +1021,7 @@
    ],
    "chapters": [],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 4,
    "shifts": [
     {
      "team": "A",
@@ -1058,8 +1076,8 @@
      "team": "B",
      "title": "Goal Adelaide United Football Club - Z. Clough",
      "importance": 0.92,
-     "confidence": 0.48,
-     "reliability": 0.48,
+     "confidence": 0.54,
+     "reliability": 0.74,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -1070,12 +1088,12 @@
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 28.1
+       "timestamp": 22.3
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 28.1
+       "label": "4 passes, 15.8s",
+       "timestamp": 22.3
       },
       {
        "stage": "OUTCOME",
@@ -1098,10 +1116,10 @@
       },
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "4 passes in 15.8s",
+       "value": 4,
        "unit": "passes",
-       "t": 28.1,
+       "t": 22.3,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -1134,7 +1152,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 49%)",
        "value": 0.48,
        "unit": "observed share",
        "t": 38.1,
@@ -1154,8 +1172,8 @@
      "team": "A",
      "title": "H. Van Der Saag on for J. Caletti",
      "importance": 0.52,
-     "confidence": 0.53,
-     "reliability": 0.4,
+     "confidence": 0.63,
+     "reliability": 0.76,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1216,11 +1234,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "A",
-     "title": "Brisbane Roar FC switch to 3-4-2-1",
+     "title": "Brisbane Roar FC possible switch to 3-4-2-1",
      "importance": 0.73,
-     "confidence": 0.68,
-     "reliability": 0.45,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.8,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1302,19 +1320,19 @@
      "team": "B",
      "title": "Goal Adelaide United Football Club - A. Goodwin",
      "importance": 0.92,
-     "confidence": 0.69,
-     "reliability": 0.33,
+     "confidence": 0.8,
+     "reliability": 0.62,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 983.0
+       "timestamp": 968.1
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 983.0
+       "label": "10 passes, 24.9s",
+       "timestamp": 968.1
       },
       {
        "stage": "OUTCOME",
@@ -1328,10 +1346,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "10 passes in 24.9s",
+       "value": 10,
        "unit": "passes",
-       "t": 983.0,
+       "t": 968.1,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -1364,7 +1382,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 43%)",
        "value": 0.33,
        "unit": "observed share",
        "t": 993.0,
@@ -1384,8 +1402,8 @@
      "team": "B",
      "title": "J. Yull on for S. Mauk",
      "importance": 0.59,
-     "confidence": 0.53,
-     "reliability": 0.38,
+     "confidence": 0.63,
+     "reliability": 0.73,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1414,7 +1432,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "14 pressures (1 on the right), 0 recoveries in first 15 min",
+       "detail": "14 pressures (1 on the right), 2 recoveries in first 15 min",
        "value": 14,
        "unit": "pressures",
        "t": 1326.0,
@@ -1443,8 +1461,8 @@
      "team": "A",
      "title": "Rafael Struick on for T. Waddingham",
      "importance": 0.57,
-     "confidence": 0.54,
-     "reliability": 0.44,
+     "confidence": 0.64,
+     "reliability": 0.79,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1473,7 +1491,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "12 pressures (0 on the right), 0 recoveries in first 15 min",
+       "detail": "12 pressures (0 on the right), 1 recoveries in first 15 min",
        "value": 12,
        "unit": "pressures",
        "t": 1398.0,
@@ -1502,8 +1520,8 @@
      "team": "A",
      "title": "F. B\u00e9renguer on for T. Waddingham",
      "importance": 0.57,
-     "confidence": 0.54,
-     "reliability": 0.44,
+     "confidence": 0.64,
+     "reliability": 0.79,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1561,8 +1579,8 @@
      "team": "B",
      "title": "Isaias on for Z. Clough",
      "importance": 0.54,
-     "confidence": 0.53,
-     "reliability": 0.4,
+     "confidence": 0.63,
+     "reliability": 0.75,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1591,7 +1609,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "9 pressures (3 on the right), 0 recoveries in first 15 min",
+       "detail": "9 pressures (3 on the right), 2 recoveries in first 15 min",
        "value": 9,
        "unit": "pressures",
        "t": 1907.0,
@@ -1620,8 +1638,8 @@
      "team": "A",
      "title": "S. Klein on for Walid Shour",
      "importance": 0.53,
-     "confidence": 0.53,
-     "reliability": 0.38,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1650,7 +1668,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "8 pressures (2 on the right), 0 recoveries in first 15 min",
+       "detail": "8 pressures (2 on the right), 1 recoveries in first 15 min",
        "value": 8,
        "unit": "pressures",
        "t": 2187.0,
@@ -1679,8 +1697,8 @@
      "team": "A",
      "title": "J. Brazete on for Walid Shour",
      "importance": 0.47,
-     "confidence": 0.53,
-     "reliability": 0.38,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1738,8 +1756,8 @@
      "team": "B",
      "title": "P. Madanha on for J. Barnett",
      "importance": 0.46,
-     "confidence": 0.51,
-     "reliability": 0.31,
+     "confidence": 0.61,
+     "reliability": 0.69,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1787,218 +1805,370 @@
      ],
      "links": [],
      "hidden_state": null
+    },
+    {
+     "id": "m11-counterattack",
+     "minute": "94'",
+     "t": 2925.6,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Adelaide United Football Club counterattack",
+     "importance": 0.7,
+     "confidence": 0.65,
+     "reliability": 0.58,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 2916.4
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 2916.4
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "30.0m in 5s",
+       "timestamp": 2921.4
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.36 xG)",
+       "timestamp": 2925.6
+      }
+     ],
+     "consequences": [
+      "8 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "J. Yull regains 43m from own goal",
+       "value": 42.9,
+       "unit": "m",
+       "t": 2916.4,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Brisbane Roar FC defensive line at 32.13m",
+       "value": 32.13,
+       "unit": "m",
+       "t": 2916.4,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "30.0m in 5s, 0 pass(es)",
+       "value": 6.0,
+       "unit": "m/s",
+       "t": 2916.4,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "8 players caught upfield",
+       "value": 8,
+       "unit": "players",
+       "t": 2921.4,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by J. Yull (unknown)",
+       "value": 0.36,
+       "unit": "xG",
+       "t": 2925.6,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 43%)",
+       "value": 0.27,
+       "unit": "observed share",
+       "t": 2925.6,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m12-counterattack",
+     "minute": "95'",
+     "t": 2970.8,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Adelaide United Football Club counterattack",
+     "importance": 0.53,
+     "confidence": 0.74,
+     "reliability": 0.88,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 2955.5
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 2955.5
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "47.7m in 10s",
+       "timestamp": 2965.5
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.109 xG)",
+       "timestamp": 2970.8
+      }
+     ],
+     "consequences": [
+      "6 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "P. Kikianis regains 23m from own goal",
+       "value": 22.9,
+       "unit": "m",
+       "t": 2955.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Brisbane Roar FC defensive line at 33.0m",
+       "value": 33.0,
+       "unit": "m",
+       "t": 2955.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "47.7m in 10s, 0 pass(es)",
+       "value": 4.8,
+       "unit": "m/s",
+       "t": 2955.5,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "6 players caught upfield",
+       "value": 6,
+       "unit": "players",
+       "t": 2965.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by B. Folami (unknown)",
+       "value": 0.109,
+       "unit": "xG",
+       "t": 2970.8,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 79%)",
+       "value": 0.44,
+       "unit": "observed share",
+       "t": 2970.8,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
     }
    ],
    "story_links": 1,
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 0,
+     "from_minute": 1,
      "to_minute": 1,
-     "min_reliability": 0.27,
+     "min_reliability": 0.59,
      "abstain_minutes": 1
-    },
-    {
-     "team": "A",
-     "from_minute": 5,
-     "to_minute": 5,
-     "min_reliability": 0.42,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 7,
-     "to_minute": 7,
-     "min_reliability": 0.47,
-     "abstain_minutes": 0
     },
     {
      "team": "A",
      "from_minute": 9,
      "to_minute": 9,
-     "min_reliability": 0.28,
+     "min_reliability": 0.63,
      "abstain_minutes": 1
-    },
-    {
-     "team": "A",
-     "from_minute": 12,
-     "to_minute": 13,
-     "min_reliability": 0.41,
-     "abstain_minutes": 0
     },
     {
      "team": "A",
      "from_minute": 15,
      "to_minute": 17,
-     "min_reliability": 0.23,
+     "min_reliability": 0.55,
      "abstain_minutes": 3
     },
     {
      "team": "A",
      "from_minute": 19,
-     "to_minute": 23,
-     "min_reliability": 0.05,
-     "abstain_minutes": 3
+     "to_minute": 19,
+     "min_reliability": 0.56,
+     "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 25,
-     "to_minute": 29,
-     "min_reliability": 0.32,
-     "abstain_minutes": 0
+     "from_minute": 21,
+     "to_minute": 22,
+     "min_reliability": 0.34,
+     "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 31,
      "to_minute": 31,
-     "min_reliability": 0.27,
+     "min_reliability": 0.65,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 33,
-     "to_minute": 34,
-     "min_reliability": 0.27,
+     "to_minute": 33,
+     "min_reliability": 0.63,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 36,
-     "to_minute": 37,
-     "min_reliability": 0.23,
+     "to_minute": 36,
+     "min_reliability": 0.57,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 39,
-     "to_minute": 42,
-     "min_reliability": 0.19,
+     "from_minute": 40,
+     "to_minute": 40,
+     "min_reliability": 0.47,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 44,
      "to_minute": 44,
-     "min_reliability": 0.29,
+     "min_reliability": 0.62,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 46,
-     "to_minute": 49,
-     "min_reliability": 0.0,
+     "to_minute": 48,
+     "min_reliability": 0.23,
      "abstain_minutes": 3
     },
     {
      "team": "A",
-     "from_minute": 51,
+     "from_minute": 52,
      "to_minute": 52,
-     "min_reliability": 0.15,
+     "min_reliability": 0.55,
      "abstain_minutes": 1
-    },
-    {
-     "team": "B",
-     "from_minute": 0,
-     "to_minute": 1,
-     "min_reliability": 0.33,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 3,
-     "to_minute": 3,
-     "min_reliability": 0.42,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 5,
-     "to_minute": 5,
-     "min_reliability": 0.39,
-     "abstain_minutes": 0
     },
     {
      "team": "B",
      "from_minute": 9,
      "to_minute": 9,
-     "min_reliability": 0.21,
+     "min_reliability": 0.49,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 11,
-     "to_minute": 13,
-     "min_reliability": 0.39,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
      "from_minute": 15,
-     "to_minute": 17,
-     "min_reliability": 0.16,
+     "to_minute": 15,
+     "min_reliability": 0.46,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 19,
      "to_minute": 19,
-     "min_reliability": 0.2,
+     "min_reliability": 0.53,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 21,
-     "to_minute": 23,
-     "min_reliability": 0.05,
+     "to_minute": 22,
+     "min_reliability": 0.23,
      "abstain_minutes": 2
     },
     {
      "team": "B",
-     "from_minute": 25,
-     "to_minute": 29,
-     "min_reliability": 0.31,
+     "from_minute": 26,
+     "to_minute": 26,
+     "min_reliability": 0.63,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 31,
      "to_minute": 31,
-     "min_reliability": 0.27,
+     "min_reliability": 0.6,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 33,
-     "to_minute": 37,
-     "min_reliability": 0.2,
-     "abstain_minutes": 2
+     "to_minute": 33,
+     "min_reliability": 0.66,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 36,
+     "to_minute": 36,
+     "min_reliability": 0.54,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 40,
-     "to_minute": 41,
-     "min_reliability": 0.2,
+     "to_minute": 40,
+     "min_reliability": 0.5,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 44,
      "to_minute": 44,
-     "min_reliability": 0.26,
+     "min_reliability": 0.57,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 46,
-     "to_minute": 50,
-     "min_reliability": 0.0,
+     "to_minute": 48,
+     "min_reliability": 0.16,
      "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 52,
      "to_minute": 52,
-     "min_reliability": 0.33,
+     "min_reliability": 0.79,
      "abstain_minutes": 1
     }
    ],

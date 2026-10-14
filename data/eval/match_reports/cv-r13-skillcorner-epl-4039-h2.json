@@ -149,11 +149,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "A",
-     "title": "Manchester City switch to 4-2-2-1",
+     "title": "Manchester City possible switch to 4-2-2-1",
      "importance": 0.75,
-     "confidence": 0.68,
+     "confidence": 0.5,
      "reliability": 0.34,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -233,11 +233,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "A",
-     "title": "Manchester City switch to 3-4-2",
+     "title": "Manchester City possible switch to 3-4-2",
      "importance": 0.75,
-     "confidence": 0.69,
+     "confidence": 0.5,
      "reliability": 0.36,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",

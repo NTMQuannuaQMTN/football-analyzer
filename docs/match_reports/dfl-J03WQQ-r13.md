@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WQQ-r13
+# Real tracking · DFL open data: dfl-J03WQQ-r13
 
 ## h1
 
@@ -25,10 +25,10 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 16' | TACTICAL_TURNING_POINT | B | FC St. Pauli drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 16' | TACTICAL_TURNING_POINT | B | FC St. Pauli drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 22' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - R. Hennings | 0.95 | 1.0 | recorded goal; build-up sequence from events |
-| 35' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 46' | FORMATION_SHIFT | B | FC St. Pauli switch to 4-1-4-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 35' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 46' | FORMATION_SHIFT | B | FC St. Pauli switch to 4-1-4-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -38,7 +38,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: R. Hennings shot from 24.9m
 - [recorded_event] Outcome: Goal - 1-0
 - Followed by (not proof of causation): Score 1-0
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1257, 1267], "observed_players": 0.4, "inferred_players": 9.6, "high_confidence_inferred": 1.1, "outfield_players": 10, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 47.9, "width_m": 29.1, "near_ball": 1.8}, "truth": {"def_line_m": 34.1, "width_m": 47.`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1257, 1267], "observed_players": 0.4, "inferred_players": 9.6, "high_confidence_inferred": 1.0, "outfield_players": 10, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 47.9, "width_m": 29.1, "near_ball": 1.8}, "truth": {"def_line_m": 34.1, "width_m": 47.`
 
 **46' FC St. Pauli switch to 4-1-4-1** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 3-5-2 -> 4-1-4-1 → STATE_CHANGE: Right-side press 45.5% -> 0.0% → CONSEQUENCE: 0 final-third recoveries
 
@@ -48,7 +48,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Recovery: Final-third recoveries 0 -> 0
 - [ground_truth positions] Territory: Territory 74.8% -> 100.0%
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 100.0%, 1 shots
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2695, 2705], "observed_players": 0.5, "inferred_players": 9.5, "high_confidence_inferred": 1.5, "outfield_players": 10, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 81.1, "width_m": 40.6, "near_ball": 1.9}, "truth": {"def_line_m": 81.3, "width_m": 40.`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2695, 2705], "observed_players": 0.5, "inferred_players": 9.5, "high_confidence_inferred": 0.6, "outfield_players": 10, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 81.1, "width_m": 40.6, "near_ball": 1.9}, "truth": {"def_line_m": 81.3, "width_m": 40.`
 
 **16' FC St. Pauli drop into a low block** (TACTICAL_TURNING_POINT). Chain: TACTICAL_CHANGE: Low Block → STATE_CHANGE: Line 47.0m -> 30.6m → CONSEQUENCE: 0 counterattacks
 
@@ -102,7 +102,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 | 78' | SUBSTITUTION_IMPACT | A | A. Bodzek on for Shinta Appelkamp | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 82' | SUBSTITUTION_IMPACT | B | J. Eggestein on for M. Hartel | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 82' | SUBSTITUTION_IMPACT | B | I. Matanović on for E. Amenyido | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 86' | FORMATION_SHIFT | B | FC St. Pauli switch to 4-2-3 | 0.81 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 86' | FORMATION_SHIFT | B | FC St. Pauli switch to 4-2-3 | 0.81 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 | 92' | SUBSTITUTION_IMPACT | A | A. Hoffmann on for E. Iyoha | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 
 ### Evidence chains (top 3 by importance)

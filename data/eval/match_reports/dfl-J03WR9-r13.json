@@ -1,7 +1,7 @@
 {
  "id": "dfl-J03WR9-r13",
  "kind": "tracking",
- "label": "Real tracking \u00b7 DFL \u00b7 camera estimate r13",
+ "label": "Real tracking \u00b7 DFL open data",
  "info": {
   "date": "2022-11-11",
   "season": "2022/2023",
@@ -162,7 +162,7 @@
      "importance": 0.65,
      "confidence": 0.87,
      "reliability": 1.0,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -231,7 +231,7 @@
       ],
       "observed_players": 2.4,
       "inferred_players": 7.6,
-      "high_confidence_inferred": 2.6,
+      "high_confidence_inferred": 2.2,
       "outfield_players": 10,
       "metrics": {
        "observed_only": {
@@ -337,7 +337,7 @@
       ],
       "observed_players": 4.3,
       "inferred_players": 5.7,
-      "high_confidence_inferred": 2.8,
+      "high_confidence_inferred": 2.9,
       "outfield_players": 10,
       "metrics": {
        "observed_only": {
@@ -384,7 +384,7 @@
      "importance": 0.65,
      "confidence": 0.9,
      "reliability": 1.0,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -496,7 +496,7 @@
      "importance": 0.65,
      "confidence": 0.88,
      "reliability": 1.0,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -753,9 +753,9 @@
       "team": "A",
       "title": "Fortuna D\u00fcsseldorf push up",
       "importance": 0.65,
-      "confidence": 0.74,
-      "reliability": 0.66,
-      "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+      "confidence": 0.75,
+      "reliability": 0.67,
+      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -841,8 +841,8 @@
       "team": "A",
       "title": "Goal Fortuna D\u00fcsseldorf - M. Karbownik",
       "importance": 0.92,
-      "confidence": 0.7,
-      "reliability": 0.35,
+      "confidence": 0.71,
+      "reliability": 0.37,
       "validation": "recorded goal; build-up sequence from events",
       "chain": [
        {
@@ -894,7 +894,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 21%)",
+        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 24%)",
         "value": 0.17,
         "unit": "observed share",
         "t": 793.7,
@@ -916,7 +916,7 @@
       "importance": 0.65,
       "confidence": 0.74,
       "reliability": 0.56,
-      "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -997,9 +997,9 @@
       "team": "B",
       "title": "1. FC Kaiserslautern drop into a low block",
       "importance": 0.63,
-      "confidence": 0.65,
-      "reliability": 0.52,
-      "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+      "confidence": 0.64,
+      "reliability": 0.51,
+      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -1060,7 +1060,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 44%)",
+        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 42%)",
         "value": 0.15,
         "unit": "observed share",
         "t": 2520,
@@ -1099,7 +1099,7 @@
       "team": "A",
       "from_minute": 12,
       "to_minute": 15,
-      "min_reliability": 0.35,
+      "min_reliability": 0.37,
       "abstain_minutes": 4
      },
      {
@@ -1113,14 +1113,14 @@
       "team": "A",
       "from_minute": 19,
       "to_minute": 20,
-      "min_reliability": 0.58,
+      "min_reliability": 0.59,
       "abstain_minutes": 2
      },
      {
       "team": "A",
       "from_minute": 23,
       "to_minute": 23,
-      "min_reliability": 0.55,
+      "min_reliability": 0.56,
       "abstain_minutes": 1
      },
      {
@@ -1141,14 +1141,14 @@
       "team": "A",
       "from_minute": 31,
       "to_minute": 45,
-      "min_reliability": 0.17,
+      "min_reliability": 0.16,
       "abstain_minutes": 15
      },
      {
       "team": "B",
       "from_minute": 0,
       "to_minute": 1,
-      "min_reliability": 0.51,
+      "min_reliability": 0.52,
       "abstain_minutes": 2
      },
      {
@@ -1176,14 +1176,14 @@
       "team": "B",
       "from_minute": 17,
       "to_minute": 17,
-      "min_reliability": 0.71,
+      "min_reliability": 0.7,
       "abstain_minutes": 1
      },
      {
       "team": "B",
       "from_minute": 20,
       "to_minute": 20,
-      "min_reliability": 0.65,
+      "min_reliability": 0.64,
       "abstain_minutes": 1
      },
      {
@@ -1197,21 +1197,21 @@
       "team": "B",
       "from_minute": 25,
       "to_minute": 27,
-      "min_reliability": 0.5,
+      "min_reliability": 0.49,
       "abstain_minutes": 3
      },
      {
       "team": "B",
       "from_minute": 29,
       "to_minute": 29,
-      "min_reliability": 0.58,
+      "min_reliability": 0.57,
       "abstain_minutes": 1
      },
      {
       "team": "B",
       "from_minute": 31,
       "to_minute": 45,
-      "min_reliability": 0.26,
+      "min_reliability": 0.25,
       "abstain_minutes": 15
      }
     ],
@@ -1712,7 +1712,7 @@
       ],
       "observed_players": 2.0,
       "inferred_players": 8.0,
-      "high_confidence_inferred": 2.0,
+      "high_confidence_inferred": 1.9,
       "outfield_players": 14,
       "metrics": {
        "observed_only": {
@@ -1914,7 +1914,7 @@
       ],
       "observed_players": 3.0,
       "inferred_players": 7.0,
-      "high_confidence_inferred": 6.1,
+      "high_confidence_inferred": 6.2,
       "outfield_players": 13,
       "metrics": {
        "observed_only": {
@@ -1961,7 +1961,7 @@
      "importance": 0.65,
      "confidence": 0.86,
      "reliability": 1.0,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -2131,7 +2131,7 @@
       ],
       "observed_players": 0.0,
       "inferred_players": 10.0,
-      "high_confidence_inferred": 1.0,
+      "high_confidence_inferred": 0.9,
       "outfield_players": 14,
       "metrics": {
        "observed_only": null,
@@ -2377,7 +2377,7 @@
      "importance": 0.75,
      "confidence": 0.92,
      "reliability": 1.0,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -2503,7 +2503,7 @@
      "importance": 0.9,
      "confidence": 0.92,
      "reliability": 1.0,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -3070,7 +3070,7 @@
       "title": "P. Klement on for M. Wunderlich",
       "importance": 0.49,
       "confidence": 0.58,
-      "reliability": 0.59,
+      "reliability": 0.58,
       "validation": "recorded substitution; after-effects heuristic",
       "chain": [
        {
@@ -3303,11 +3303,11 @@
       "type": "FORMATION_SHIFT",
       "subtype": null,
       "team": "A",
-      "title": "Fortuna D\u00fcsseldorf switch to 3-4-2-1",
+      "title": "Fortuna D\u00fcsseldorf possible switch to 3-4-2-1",
       "importance": 0.75,
-      "confidence": 0.76,
-      "reliability": 0.55,
-      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "confidence": 0.5,
+      "reliability": 0.56,
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -3390,7 +3390,7 @@
       "title": "M. Mansfeld on for R. Hennings",
       "importance": 0.45,
       "confidence": 0.57,
-      "reliability": 0.52,
+      "reliability": 0.53,
       "validation": "recorded substitution; after-effects heuristic",
       "chain": [
        {
@@ -3508,7 +3508,7 @@
       "title": "E. Fernandes Neto on for M. Mansfeld",
       "importance": 0.46,
       "confidence": 0.59,
-      "reliability": 0.6,
+      "reliability": 0.61,
       "validation": "recorded substitution; after-effects heuristic",
       "chain": [
        {
@@ -3566,9 +3566,9 @@
       "team": "A",
       "title": "Fortuna D\u00fcsseldorf drop into a low block",
       "importance": 0.65,
-      "confidence": 0.77,
+      "confidence": 0.78,
       "reliability": 0.65,
-      "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
       "chain": [
        {
         "stage": "TACTICAL_CHANGE",
@@ -3629,7 +3629,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 47%)",
+        "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 48%)",
         "value": 0.33,
         "unit": "observed share",
         "t": 2940,
@@ -3649,7 +3649,7 @@
       "team": "B",
       "title": "Goal 1. FC Kaiserslautern - P. Klement",
       "importance": 0.92,
-      "confidence": 0.86,
+      "confidence": 0.85,
       "reliability": 0.75,
       "validation": "recorded goal; build-up sequence from events",
       "chain": [
@@ -3716,7 +3716,7 @@
        },
        {
         "label": "Visibility",
-        "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 53%)",
+        "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 52%)",
         "value": 0.47,
         "unit": "observed share",
         "t": 3049.7,
@@ -3734,7 +3734,7 @@
       "team": "A",
       "from_minute": 1,
       "to_minute": 4,
-      "min_reliability": 0.45,
+      "min_reliability": 0.44,
       "abstain_minutes": 4
      },
      {
@@ -3755,7 +3755,7 @@
       "team": "A",
       "from_minute": 12,
       "to_minute": 12,
-      "min_reliability": 0.68,
+      "min_reliability": 0.67,
       "abstain_minutes": 1
      },
      {
@@ -3811,21 +3811,21 @@
       "team": "A",
       "from_minute": 33,
       "to_minute": 34,
-      "min_reliability": 0.24,
+      "min_reliability": 0.22,
       "abstain_minutes": 2
      },
      {
       "team": "A",
       "from_minute": 36,
       "to_minute": 40,
-      "min_reliability": 0.21,
+      "min_reliability": 0.2,
       "abstain_minutes": 5
      },
      {
       "team": "A",
       "from_minute": 42,
       "to_minute": 46,
-      "min_reliability": 0.13,
+      "min_reliability": 0.14,
       "abstain_minutes": 5
      },
      {
@@ -3839,7 +3839,7 @@
       "team": "A",
       "from_minute": 51,
       "to_minute": 52,
-      "min_reliability": 0.15,
+      "min_reliability": 0.17,
       "abstain_minutes": 2
      },
      {
@@ -3881,21 +3881,21 @@
       "team": "B",
       "from_minute": 23,
       "to_minute": 23,
-      "min_reliability": 0.54,
+      "min_reliability": 0.55,
       "abstain_minutes": 1
      },
      {
       "team": "B",
       "from_minute": 25,
       "to_minute": 27,
-      "min_reliability": 0.36,
+      "min_reliability": 0.35,
       "abstain_minutes": 3
      },
      {
       "team": "B",
       "from_minute": 29,
       "to_minute": 29,
-      "min_reliability": 0.62,
+      "min_reliability": 0.63,
       "abstain_minutes": 1
      },
      {
@@ -3909,21 +3909,21 @@
       "team": "B",
       "from_minute": 33,
       "to_minute": 34,
-      "min_reliability": 0.26,
+      "min_reliability": 0.24,
       "abstain_minutes": 2
      },
      {
       "team": "B",
       "from_minute": 36,
       "to_minute": 40,
-      "min_reliability": 0.36,
+      "min_reliability": 0.35,
       "abstain_minutes": 5
      },
      {
       "team": "B",
       "from_minute": 42,
       "to_minute": 46,
-      "min_reliability": 0.24,
+      "min_reliability": 0.22,
       "abstain_minutes": 5
      },
      {
@@ -3937,7 +3937,7 @@
       "team": "B",
       "from_minute": 52,
       "to_minute": 52,
-      "min_reliability": 0.16,
+      "min_reliability": 0.19,
       "abstain_minutes": 1
      }
     ],

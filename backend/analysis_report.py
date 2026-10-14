@@ -25,14 +25,14 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 OUT_JSON = ROOT / "data" / "eval" / "match_reports"
 OUT_MD = ROOT / "docs" / "match_reports"
-VALIDATION = {
+VALIDATION = {  # real-data checks: DFL line-ups / CounterAttack flags; SkillCorner phase labels (backend/tactics/skillcorner_validation.py)
     "GOAL_BUILD_UP": "recorded goal; build-up sequence from events",
     "SUBSTITUTION_IMPACT": "recorded substitution; after-effects heuristic",
     "RED_CARD_IMPACT": "recorded card; after-effects heuristic",
-    "FORMATION_SHIFT": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
-    "TACTICAL_TURNING_POINT": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+    "FORMATION_SHIFT": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
+    "TACTICAL_TURNING_POINT": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
     "PRESSURE_BREAK": "heuristic (experimental on real football)",
-    "COUNTERATTACK": "heuristic; real-data F1 0.55 vs DFL CounterAttack flags (experimental)",
+    "COUNTERATTACK": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
 }
 
 EVENT_LABELS = {"Build-up", "Shot", "Outcome", "Forced backwards", "Recovery", "Possession", "Change", "Card", "Goal evidence"}

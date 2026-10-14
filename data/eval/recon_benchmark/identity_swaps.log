@@ -1,0 +1,153 @@
+fold 0 done
+fold 1 done
+fold 2 done
+fold 3 done
+fold 4 done
+fold 5 done
+fold 6 done
+{
+ "r13_mlp_aug_ens3|live|0.0": {
+  "est": {
+   "n": 653018,
+   "mean": 8.14
+  },
+  "wrong": {
+   "n": 0,
+   "mean": null
+  },
+  "right": {
+   "n": 222111,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 6.07
+  }
+ },
+ "r13_mlp_aug_ens3|replay|0.0": {
+  "est": {
+   "n": 653018,
+   "mean": 6.74
+  },
+  "wrong": {
+   "n": 0,
+   "mean": null
+  },
+  "right": {
+   "n": 222111,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 5.03
+  }
+ },
+ "r13_mlp_aug_ens3|live|0.1": {
+  "est": {
+   "n": 653018,
+   "mean": 9.24
+  },
+  "wrong": {
+   "n": 16139,
+   "mean": 34.16
+  },
+  "right": {
+   "n": 205972,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 7.52
+  }
+ },
+ "r13_mlp_aug_ens3|replay|0.1": {
+  "est": {
+   "n": 653018,
+   "mean": 8.16
+  },
+  "wrong": {
+   "n": 16139,
+   "mean": 34.16
+  },
+  "right": {
+   "n": 205972,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 6.72
+  }
+ },
+ "r13_mlp_aug_ens3|live|0.3": {
+  "est": {
+   "n": 653018,
+   "mean": 11.09
+  },
+  "wrong": {
+   "n": 46702,
+   "mean": 31.06
+  },
+  "right": {
+   "n": 175409,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 9.93
+  }
+ },
+ "r13_mlp_aug_ens3|replay|0.3": {
+  "est": {
+   "n": 653018,
+   "mean": 10.45
+  },
+  "wrong": {
+   "n": 46702,
+   "mean": 31.06
+  },
+  "right": {
+   "n": 175409,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 9.45
+  }
+ },
+ "r13_mlp_aug_ens3|live|0.65": {
+  "est": {
+   "n": 653018,
+   "mean": 13.94
+  },
+  "wrong": {
+   "n": 102021,
+   "mean": 27.45
+  },
+  "right": {
+   "n": 120090,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 13.6
+  }
+ },
+ "r13_mlp_aug_ens3|replay|0.65": {
+  "est": {
+   "n": 653018,
+   "mean": 14.12
+  },
+  "wrong": {
+   "n": 102021,
+   "mean": 27.45
+  },
+  "right": {
+   "n": 120090,
+   "mean": 0.0
+  },
+  "all": {
+   "n": 875129,
+   "mean": 13.73
+  }
+ }
+}

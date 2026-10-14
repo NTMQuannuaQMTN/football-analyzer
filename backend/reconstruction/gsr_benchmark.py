@@ -119,7 +119,7 @@ def estimate(clip, vis, mode, model=None):
             t, j = idx[:, 0], idx[:, 1]
             corr = np.where((clip["team"][j] == "B")[:, None], -corr, corr)
             pos[t, j] = np.clip(rec.pos[t, j] + corr, [0, 0], [L, W])
-            r80[t, j], p5[t, j] = apply_calibration(model.calibration, sig)
+            r80[t, j], p5[t, j] = model.calibrate(sig, X)
     return pos, r80, p5
 
 
@@ -178,6 +178,7 @@ def run(methods, clips=None):
                         r[f"err:{name}"] = e
                         if r80 is not None:
                             r[f"r80:{name}"] = float(r80[t, j])
+                            r[f"p5:{name}"] = float(p5[t, j])
                     rows.append(r)
     return rows
 

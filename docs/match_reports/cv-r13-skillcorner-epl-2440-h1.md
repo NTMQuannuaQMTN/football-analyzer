@@ -25,8 +25,8 @@ Hidden-player model: `r13_mlp_aug_ens3_final`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 25' | TACTICAL_TURNING_POINT | B | Manchester City take territorial control | 0.62 | 0.42 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 45' | TACTICAL_TURNING_POINT | B | Manchester City drop into a low block | 0.69 | 0.41 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 25' | TACTICAL_TURNING_POINT | B | Manchester City take territorial control | 0.62 | 0.42 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 45' | TACTICAL_TURNING_POINT | B | Manchester City drop into a low block | 0.69 | 0.41 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 
 ### Evidence chains (top 3 by importance)
 

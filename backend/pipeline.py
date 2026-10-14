@@ -74,6 +74,8 @@ class MatchIntelligence:
         self.view = (raw["meta"].get("view") or "cv") if source else os.getenv("VIEW", "truth")
         # a file may carry its own live / truth renderings (e.g. backend/reconstruction/dfl_match.py)
         self.alt_frames = raw.pop("alt_frames", None) or {} if source else {}
+        # estimates' calibrated confidence was checked on this input type (e.g. SkillCorner re-entries)
+        self.uncertainty_validated = bool(((raw.get("meta") or {}).get("source") or {}).get("uncertainty_validated"))
         # prediction -> reality tests (backend/reconstruction/dfl_match.py): live prediction at each reappearance
         self.reveals = raw.pop("reveals", None) or [] if source else []
         self.truth_m, self.recon, self.obs = None, {}, None
@@ -232,7 +234,8 @@ class MatchIntelligence:
                             obs += 1
                         else:
                             inf += 1
-                            if f.get("conf") and self.m.meta.get("source", {}).get("type") != "computer_vision":
+                            if f.get("conf") and (self.m.meta.get("source", {}).get("type") != "computer_vision"
+                                                  or getattr(self, "uncertainty_validated", False)):
                                 value = f["conf"][j]
                                 if value is not None and np.isfinite(value):
                                     confs.append(value)
@@ -256,6 +259,12 @@ class MatchIntelligence:
                           "observed_share": round(share, 2), "inferred_mean_confidence": round(conf_inf, 2) if conf_inf is not None else None,
                           "reliability": round(reliability, 2), "view": self.view}
         mo["confidence"] = round(mo["confidence"] * (0.6 + 0.4 * reliability), 2)
+        if mo["type"] == "FORMATION_SHIFT" and share < 0.5:
+            # mostly estimated players: on DFL truth-vs-reconstruction the timing of such a shift matched a real one in
+            # 6/9 cases but the new formation name in only 3/9, so the label is phrased as possible and capped
+            mo["title"] = mo["title"].replace(" switch to ", " possible switch to ", 1)
+            mo["confidence"] = min(mo["confidence"], 0.5)
+            mo["formation_label_reliability"] = "low: most of the team was estimated, the new formation name is uncertain"
         position_based = ("Tactical trigger", "Structural change", "Pressing", "Territory", "Recovery", "Exposed defence",
                           "Exposed space", "Opponent shape", "Control")
         for ev in mo["evidence"]:
@@ -307,8 +316,9 @@ class MatchIntelligence:
                 cf, rd = (f.get("conf") or [None] * len(f["xy"]))[j], (f.get("rad") or [None] * len(f["xy"]))[j]
                 kind = "tracking_masked_estimate" if self.m.meta.get("source", {}).get("type") == "tracking" else "cv_estimate"
                 is_cv = self.m.meta.get("source", {}).get("type") == "computer_vision"
+                inferred_conf_ok = not is_cv or (getattr(self, "uncertainty_validated", False) and not o)
                 out.append({"player_id": pid, "position": {"x": p[0], "y": p[1]},
-                            "state_source": "observed" if o else "inferred", "confidence": None if is_cv else (1.0 if o else cf),
+                            "state_source": "observed" if o else "inferred", "confidence": (1.0 if o else cf) if inferred_conf_ok else None,
                             "observation_timestamp": (f.get("observed_t") or [None] * len(f["xy"]))[j] if o else None,
                             "uncertainty_radius": (None if is_cv else 0.0) if o else rd,
                             "evidence": ["detected_foot; calibration/identity unverified" if is_cv else "observed"] if o else [kind]})
@@ -357,8 +367,11 @@ class MatchIntelligence:
                 from backend.analytics.deadball import dead_ball_frames
                 fr = dead_ball_frames(fr, self.m.events)
             # Tracking-domain confidence excludes perception/identity error.
-            # Retain raw values in the private export, not as video probabilities.
-            fr = [{**f, "conf": [None]*len(f["xy"]),
+            # Retain raw values in the private export, not as video probabilities, unless the estimates' confidence
+            # was validated on this kind of input (source.uncertainty_validated): then keep it for estimated players.
+            keep = getattr(self, "uncertainty_validated", False)
+            fr = [{**f, "conf": [c if keep and o is False else None for c, o in zip(f.get("conf") or [None] * len(f["xy"]),
+                                                                              f.get("obs") or [None] * len(f["xy"]))],
                    "rad": [None if observed else radius for observed,radius in zip(
                        f.get("obs") or [False]*len(f["xy"]), f.get("rad") or [None]*len(f["xy"]))]}
                   for f in fr]
@@ -531,7 +544,7 @@ class MatchIntelligence:
                  "off": self.m.player_by_id.get(e["player_off_id"], {}).get("name")} for e in evs if e["event_type"] == "SUBSTITUTION"]
         highlights = []
         for mo in sorted(self.moments, key=lambda m: m["timestamp"]):
-            if mo["timestamp"] > T:
+            if mo.get("available_at", mo["timestamp"]) > T:  # live: only moments whose evidence is all in the past
                 continue
             n = mo.get("narrative") or {}
             highlights.append({"id": mo["id"], "timestamp": mo["timestamp"], "end_timestamp": mo["end_timestamp"],

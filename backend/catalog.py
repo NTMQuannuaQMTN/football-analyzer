@@ -21,7 +21,10 @@ from simulator.match_generator import generate_match
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 LIVE_SEED = 7  # synthetic test match
-LIVE_MATCH = os.getenv("LIVE_MATCH", "dfl-J03WOY")  # Fortuna Düsseldorf vs F.C. Hansa Rostock (2. Bundesliga)
+# Fortuna Düsseldorf vs F.C. Hansa Rostock (2. Bundesliga); the r13 copy has the same truth and events but a camera
+# estimate built without event pins (pins fit a clock lag over the whole half, i.e. future information in live)
+LIVE_MATCH = os.getenv("LIVE_MATCH") or ("dfl-J03WOY-r13" if (DATA / "dfl_J03WOY_r13_h1.json").exists() else "dfl-J03WOY")
+SHOW_SUPERSEDED = os.getenv("SHOW_SUPERSEDED", "0") == "1"
 LIVE_SPEED = 1.0
 LIVE_NOTE = "Simulated live feed: a recorded real match (DFL tracking data) replayed in real time"
 LIVE_STARTED_MIN = float(os.getenv("LIVE_STARTED_MIN", "20"))
@@ -84,8 +87,7 @@ def _catalog_static() -> tuple:
         mid = meta.get('source',{}).get('match_id') or "DFL-MAT-" + key.split("_", 1)[1]
         info = _dfl_info(mid)
         label='Experimental reconstruction · DFL' if meta.get('source',{}).get('experimental') else 'Real tracking · DFL open data'
-        if meta.get('source',{}).get('reconstruction_session'):
-            label=f"Real tracking · DFL · camera estimate {meta['source']['reconstruction_session']}"
+        # r13 re-exports are the current version of these matches (same truth / events; newer camera estimate)
         out.append({"id": key.replace("_", "-"), "kind": "tracking", "label": label,
                     "parts": {h: parts[h] for h in sorted(parts)}, "info": info})
     # broadcast tracking (SkillCorner open data, backend/reconstruction/skillcorner_match.py): one match, two halves;
@@ -177,10 +179,30 @@ def _teams(meta):
     return {k: {"name": v["name"], "short": v.get("short") or v["name"][:3].upper(), "color": v["color"]} for k, v in meta["teams"].items()}
 
 
+def superseded(m) -> bool:
+    """A catalogued file replaced by a newer version of the same match: earlier experimental candidates (seven-hour
+    session), and originals for which a re-inferred r13 export exists. Still reachable by URL; listed only with
+    SHOW_SUPERSEDED=1. The live match is never hidden."""
+    if m["id"] == LIVE_MATCH or m["kind"] == "synthetic":
+        return False
+    p = next(iter(m["parts"].values()))
+    src = file_meta(p)["meta"].get("source") or {}
+    if src.get("session") == "seven-hour" or "trial7h" in Path(p).name:
+        return True
+    ids = {e["id"] for e in _catalog_static()}
+    if m["id"].startswith("dfl-") and not m["id"].endswith("-r13") and f"{m['id']}-r13" in ids:
+        return True
+    if m["id"].startswith("cv-") and not m["id"].startswith("cv-r13-") and "cv-r13-" + m["id"][3:] in ids:
+        return True
+    return False
+
+
 def lobby():
     """Cards for the lobby. Cheap: reads file metadata only (the live match is analysed at server start)."""
     cards = []
     for m in _catalog_static():
+        if not SHOW_SUPERSEDED and superseded(m):
+            continue
         if m["kind"] == "synthetic":
             meta = _synthetic_meta(LIVE_SEED)
             cards.append({"id": m["id"], "kind": m["kind"], "label": m["label"], "teams": _teams(meta),

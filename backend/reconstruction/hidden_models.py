@@ -147,6 +147,21 @@ class HiddenModel:
             self.net.load_state_dict(ck["state"])
             self.net.eval()
 
+    def calibrate(self, sig, X):
+        """(r80, p5) per row. With a horizon table (calibration_h, fitted on the validation tail) the empirical radius and
+        P(err <= 5 m) come from sigma deciles WITHIN the row's time-unseen bucket; otherwise the global sigma deciles."""
+        from backend.reconstruction.ml import apply_calibration
+        tabs = self.ck.get("calibration_h")
+        if not tabs or not len(sig):
+            return apply_calibration(self.calibration, sig)
+        b = horizon_bucket(X)
+        r80, p5 = apply_calibration(self.calibration, sig)
+        for name, tab in tabs.items():
+            sel = b == name
+            if sel.any():
+                r80[sel], p5[sel] = apply_calibration(tab, sig[sel])
+        return r80, p5
+
     @property
     def needs_context(self):
         if self.arch == "ensemble":
@@ -175,6 +190,19 @@ class HiddenModel:
         return np.concatenate(mus) * 20, np.concatenate(sigs)
 
 
+HORIZON_BUCKETS = (("0-10s", 0, 10), ("11-30s", 11, 30), ("31-120s", 31, 120), ("120s+", 121, 10 ** 9))
+
+
+def horizon_bucket(X):
+    """Time-unseen bucket per feature row (v3 rows: col 4 = log1p(min(since, 600)) / 4, col 5 = never seen)."""
+    since = np.expm1(np.asarray(X)[:, 4] * 4)
+    never = np.asarray(X)[:, 5] > 0.5
+    out = np.full(len(since), "never", dtype=object)
+    for name, a, b in HORIZON_BUCKETS:
+        out[(~never) & (since >= a - 0.5) & (since <= b + 0.5)] = name
+    return out
+
+
 def load_hidden(path):
     import torch
     ck = torch.load(Path(path), weights_only=False)
@@ -184,7 +212,7 @@ def load_hidden(path):
     return HiddenModel(ck)
 
 
-def predict_segment(model, pos, vis, on, team, role, ball, poss, alive, prior, mode, t_index=None):
+def predict_segment(model, pos, vis, on, team, role, ball, poss, alive, prior, mode, t_index=None, return_X=False):
     """Features exactly as in training, then the model. Returns (idx (n,2) [t,j], corr_world (n,2), sigma (n,))."""
     from backend.reconstruction.ml import features
     roles = coarse_roles(role, model.role_agnostic)
@@ -192,7 +220,7 @@ def predict_segment(model, pos, vis, on, team, role, ball, poss, alive, prior, m
     X, idx = features(pos_obs, vis, on, team, roles, ball, poss, alive, prior, mode, t_index=t_index,
                       version=model.feat_version)
     if not len(idx):
-        return idx, np.zeros((0, 2)), np.zeros(0)
+        return (idx, np.zeros((0, 2)), np.zeros(0), X) if return_X else (idx, np.zeros((0, 2)), np.zeros(0))
     seq = None
     if model.needs_context:
         C = context_tensor(pos_obs, vis, on, team, ball, poss, alive, prior)
@@ -200,4 +228,6 @@ def predict_segment(model, pos, vis, on, team, role, ball, poss, alive, prior, m
         seq = store.windows(np.zeros(len(idx), np.int64), idx[:, 0], idx[:, 1])
     corr, sig = model.raw(X, seq)
     corr = np.where((np.asarray(team)[idx[:, 1]] == "B")[:, None], -corr, corr)
+    if return_X:
+        return idx, corr, sig, X
     return idx, corr, sig

@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WOH-r13
+# Real tracking · DFL open data: dfl-J03WOH-r13
 
 ## h1
 
@@ -25,9 +25,9 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 21' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 34' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.84 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 42' | TACTICAL_TURNING_POINT | B | SSV Jahn Regensburg drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 21' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 34' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.84 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 42' | TACTICAL_TURNING_POINT | B | SSV Jahn Regensburg drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -47,7 +47,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Transitions: 0 counterattacks launched in the next 15 min
 - [recorded_event] Outcome: 0 ended in shots
 - Followed by (not proof of causation): 0 counterattacks, 2 shots (0.29 xG)
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1975, 1985], "observed_players": 3.5, "inferred_players": 6.5, "high_confidence_inferred": 4.5, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 17.7, "width_m": 18.3, "near_ball": 3.6}, "reconstructed": {"def_line_m": 14.6, "width_m": 30.3, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1975, 1985], "observed_players": 3.5, "inferred_players": 6.5, "high_confidence_inferred": 4.2, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 17.7, "width_m": 18.3, "near_ball": 3.6}, "reconstructed": {"def_line_m": 14.6, "width_m": 30.3, "near_ball":`
 
 **42' SSV Jahn Regensburg drop into a low block** (TACTICAL_TURNING_POINT). Chain: TACTICAL_CHANGE: Low Block → STATE_CHANGE: Line 46.2m -> 21.5m → CONSEQUENCE: 0 counterattacks
 
@@ -56,7 +56,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Transitions: 0 counterattacks launched in the next 15 min
 - [recorded_event] Outcome: 0 ended in shots
 - Followed by (not proof of causation): 0 counterattacks, 0 shots (0 xG)
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2455, 2465], "observed_players": 3.7, "inferred_players": 6.3, "high_confidence_inferred": 2.6, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 23.6, "width_m": 23.0, "near_ball": 4.0}, "reconstructed": {"def_line_m": 21.9, "width_m": 20.4, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2455, 2465], "observed_players": 3.7, "inferred_players": 6.3, "high_confidence_inferred": 2.0, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 23.6, "width_m": 23.0, "near_ball": 4.0}, "reconstructed": {"def_line_m": 21.9, "width_m": 20.4, "near_ball":`
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 
@@ -92,7 +92,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 59' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 59' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 59' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - D. Ginczek | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 65' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - Dawid Kownacki | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 65' | SUBSTITUTION_IMPACT | B | Scott Kennedy on for L. Guwara | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
@@ -107,7 +107,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 | 85' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - Shinta Appelkamp | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 85' | SUBSTITUTION_IMPACT | B | C. Viet on for J. Mees | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 86' | SUBSTITUTION_IMPACT | B | K. Caliskaner on for Andreas Albers | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 89' | TACTICAL_TURNING_POINT | B | SSV Jahn Regensburg drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 89' | TACTICAL_TURNING_POINT | B | SSV Jahn Regensburg drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -119,7 +119,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: D. Ginczek shot from 13.6m
 - [recorded_event] Outcome: Goal - 1-0
 - Followed by (not proof of causation): Score 1-0
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [832, 842], "observed_players": 2.2, "inferred_players": 7.8, "high_confidence_inferred": 4.7, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 85.0, "width_m": 28.2, "near_ball": 2.2}, "reconstructed": {"def_line_m": 60.0, "width_m": 36.0, "near_ball": 2`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [832, 842], "observed_players": 2.2, "inferred_players": 7.8, "high_confidence_inferred": 4.5, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 85.0, "width_m": 28.2, "near_ball": 2.2}, "reconstructed": {"def_line_m": 60.0, "width_m": 36.0, "near_ball": 2`
 
 **59' Fortuna Düsseldorf take territorial control** (TACTICAL_TURNING_POINT). Chain: TACTICAL_CHANGE: Dominant → STATE_CHANGE: Line 35.7m -> 49.3m → CONSEQUENCE: 1 counterattacks → OUTCOME: Goal
 
@@ -136,7 +136,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: Dawid Kownacki shot from 11.0m
 - [recorded_event] Outcome: Goal - 2-0
 - Followed by (not proof of causation): Score 2-0
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1152, 1162], "observed_players": 4.3, "inferred_players": 5.7, "high_confidence_inferred": 3.1, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 89.7, "width_m": 19.5, "near_ball": 1.6}, "reconstructed": {"def_line_m": 74.0, "width_m": 33.9, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1152, 1162], "observed_players": 4.3, "inferred_players": 5.7, "high_confidence_inferred": 2.9, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 89.7, "width_m": 19.5, "near_ball": 1.6}, "reconstructed": {"def_line_m": 74.0, "width_m": 33.9, "near_ball":`
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 

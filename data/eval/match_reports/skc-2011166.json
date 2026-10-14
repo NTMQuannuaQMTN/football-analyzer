@@ -154,7 +154,7 @@
      "peak_press_index": 78.1
     }
    ],
-   "counterattacks": 0,
+   "counterattacks": 2,
    "shifts": [
     {
      "team": "A",
@@ -209,9 +209,9 @@
      "team": "B",
      "title": "Melbourne Victory Football Club take territorial control",
      "importance": 0.61,
-     "confidence": 0.59,
-     "reliability": 0.38,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.7,
+     "reliability": 0.74,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -272,7 +272,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 57%)",
        "value": 0.38,
        "unit": "observed share",
        "t": 180,
@@ -297,19 +297,19 @@
      "team": "B",
      "title": "Goal Melbourne Victory Football Club - N. Velupillay",
      "importance": 0.92,
-     "confidence": 0.38,
-     "reliability": 0.1,
+     "confidence": 0.43,
+     "reliability": 0.31,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
-       "label": "Spell of possession",
-       "timestamp": 175.5
+       "label": "Interception by K. Bos",
+       "timestamp": 160.4
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 175.5
+       "label": "6 passes, 25.1s",
+       "timestamp": 160.4
       },
       {
        "stage": "OUTCOME",
@@ -322,11 +322,20 @@
      ],
      "evidence": [
       {
+       "label": "Recovery",
+       "detail": "K. Bos won the ball (interception) 45m from own goal",
+       "value": 44.8,
+       "unit": "m",
+       "t": 160.4,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "6 passes in 25.1s",
+       "value": 6,
        "unit": "passes",
-       "t": 175.5,
+       "t": 160.4,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -359,7 +368,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 1 of 11 players observed; 10 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 1 of 11 players observed; 10 estimated from trajectories and team shape (mean confidence 23%)",
        "value": 0.1,
        "unit": "observed share",
        "t": 185.5,
@@ -379,9 +388,9 @@
      "team": "B",
      "title": "Melbourne Victory Football Club switch on the high press",
      "importance": 0.63,
-     "confidence": 0.6,
-     "reliability": 0.4,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.71,
+     "reliability": 0.76,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -400,12 +409,12 @@
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 final-third recoveries",
+       "label": "1 final-third recoveries",
        "timestamp": 540
       }
      ],
      "consequences": [
-      "0 final-third recoveries",
+      "1 final-third recoveries",
       "1 shots (0.05 xG)"
      ],
      "evidence": [
@@ -438,8 +447,8 @@
       },
       {
        "label": "Recovery",
-       "detail": "0 final-third recoveries (0.0 -> 0.0 per 10 min)",
-       "value": 0,
+       "detail": "1 final-third recoveries (1.7 -> 1.0 per 10 min)",
+       "value": 1,
        "unit": "recoveries",
        "t": 540,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -447,7 +456,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 60%)",
        "value": 0.4,
        "unit": "observed share",
        "t": 540,
@@ -467,19 +476,19 @@
      "team": "A",
      "title": "Goal Wellington Phoenix FC - C. Piper",
      "importance": 0.92,
-     "confidence": 0.79,
-     "reliability": 0.58,
+     "confidence": 0.9,
+     "reliability": 0.86,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
-       "label": "Spell of possession",
-       "timestamp": 584.0
+       "label": "Interception by A. Rufer",
+       "timestamp": 565.8
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 584.0
+       "label": "10 passes, 28.2s",
+       "timestamp": 565.8
       },
       {
        "stage": "OUTCOME",
@@ -492,11 +501,20 @@
      ],
      "evidence": [
       {
+       "label": "Recovery",
+       "detail": "A. Rufer won the ball (interception) 17m from own goal",
+       "value": 16.8,
+       "unit": "m",
+       "t": 565.8,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "10 passes in 28.2s",
+       "value": 10,
        "unit": "passes",
-       "t": 584.0,
+       "t": 565.8,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -529,7 +547,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 6 of 11 players observed; 5 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 6 of 11 players observed; 5 estimated from trajectories and team shape (mean confidence 67%)",
        "value": 0.58,
        "unit": "observed share",
        "t": 594.0,
@@ -547,11 +565,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "A",
-     "title": "Wellington Phoenix FC switch to 4-3-3",
+     "title": "Wellington Phoenix FC possible switch to 4-3-3",
      "importance": 0.74,
-     "confidence": 0.69,
-     "reliability": 0.43,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.8,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -604,7 +622,7 @@
       },
       {
        "label": "Recovery",
-       "detail": "Final-third recoveries 0 -> 0",
+       "detail": "Final-third recoveries 2 -> 0",
        "value": 0,
        "unit": "recoveries",
        "t": 600,
@@ -633,9 +651,9 @@
      "team": "B",
      "title": "Melbourne Victory Football Club push up",
      "importance": 0.65,
-     "confidence": 0.66,
-     "reliability": 0.33,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.79,
+     "reliability": 0.69,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -696,7 +714,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 53%)",
        "value": 0.33,
        "unit": "observed share",
        "t": 840,
@@ -708,7 +726,104 @@
      "hidden_state": null
     },
     {
-     "id": "m06-goal-build-up",
+     "id": "m06-counterattack",
+     "minute": "33'",
+     "t": 1975.4,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Melbourne Victory Football Club counterattack",
+     "importance": 0.56,
+     "confidence": 0.73,
+     "reliability": 0.83,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 1966.7
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 1966.7
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "46.1m in 7s",
+       "timestamp": 1973.7
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.134 xG)",
+       "timestamp": 1975.4
+      }
+     ],
+     "consequences": [
+      "8 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "Z. Machach regains 34m from own goal",
+       "value": 33.9,
+       "unit": "m",
+       "t": 1966.7,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Wellington Phoenix FC defensive line at 49.95m",
+       "value": 49.95,
+       "unit": "m",
+       "t": 1966.7,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "46.1m in 7s, 2 pass(es)",
+       "value": 6.6,
+       "unit": "m/s",
+       "t": 1966.7,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "8 players caught upfield",
+       "value": 8,
+       "unit": "players",
+       "t": 1973.7,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by N. Velupillay (unknown)",
+       "value": 0.134,
+       "unit": "xG",
+       "t": 1975.4,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 6 of 11 players observed; 5 estimated from trajectories and team shape (mean confidence 65%)",
+       "value": 0.53,
+       "unit": "observed share",
+       "t": 1975.4,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m07-goal-build-up",
      "minute": "46'",
      "t": 2759.0,
      "type": "GOAL_BUILD_UP",
@@ -716,19 +831,24 @@
      "team": "B",
      "title": "Goal Melbourne Victory Football Club - Z. Machach",
      "importance": 0.92,
-     "confidence": 0.67,
-     "reliability": 0.26,
+     "confidence": 0.78,
+     "reliability": 0.57,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
+       "stage": "STATE_CHANGE",
+       "label": "1 forced backward passes",
+       "timestamp": 2691.3
+      },
+      {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 2749.0
+       "timestamp": 2700.8
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 2749.0
+       "label": "4 passes, 58.2s",
+       "timestamp": 2700.8
       },
       {
        "stage": "OUTCOME",
@@ -741,11 +861,20 @@
      ],
      "evidence": [
       {
-       "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "label": "Forced backwards",
+       "detail": "Wellington Phoenix FC made 1 backward passes before losing the ball",
+       "value": 1,
        "unit": "passes",
-       "t": 2749.0,
+       "t": 2691.3,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Build-up",
+       "detail": "4 passes in 58.2s",
+       "value": 4,
+       "unit": "passes",
+       "t": 2700.8,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -778,7 +907,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 41%)",
        "value": 0.26,
        "unit": "observed share",
        "t": 2759.0,
@@ -794,108 +923,157 @@
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 0,
-     "to_minute": 1,
-     "min_reliability": 0.35,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
      "from_minute": 3,
-     "to_minute": 6,
-     "min_reliability": 0.15,
+     "to_minute": 3,
+     "min_reliability": 0.42,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 10,
      "to_minute": 10,
-     "min_reliability": 0.05,
-     "abstain_minutes": 1
-    },
-    {
-     "team": "A",
-     "from_minute": 12,
-     "to_minute": 12,
-     "min_reliability": 0.45,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 14,
-     "to_minute": 14,
      "min_reliability": 0.25,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 16,
-     "to_minute": 16,
-     "min_reliability": 0.41,
-     "abstain_minutes": 0
+     "from_minute": 14,
+     "to_minute": 14,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 18,
-     "to_minute": 48,
-     "min_reliability": 0.0,
-     "abstain_minutes": 14
+     "from_minute": 22,
+     "to_minute": 22,
+     "min_reliability": 0.66,
+     "abstain_minutes": 1
     },
     {
-     "team": "B",
-     "from_minute": 0,
-     "to_minute": 1,
-     "min_reliability": 0.38,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 3,
-     "to_minute": 7,
-     "min_reliability": 0.1,
+     "team": "A",
+     "from_minute": 24,
+     "to_minute": 25,
+     "min_reliability": 0.54,
      "abstain_minutes": 2
     },
     {
-     "team": "B",
-     "from_minute": 9,
-     "to_minute": 10,
-     "min_reliability": 0.05,
+     "team": "A",
+     "from_minute": 30,
+     "to_minute": 31,
+     "min_reliability": 0.45,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 33,
+     "to_minute": 33,
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 35,
+     "to_minute": 35,
+     "min_reliability": 0.69,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 38,
+     "to_minute": 42,
+     "min_reliability": 0.16,
+     "abstain_minutes": 5
+    },
+    {
+     "team": "A",
+     "from_minute": 44,
+     "to_minute": 44,
+     "min_reliability": 0.52,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 46,
+     "to_minute": 46,
+     "min_reliability": 0.22,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 12,
-     "to_minute": 12,
-     "min_reliability": 0.46,
-     "abstain_minutes": 0
+     "from_minute": 3,
+     "to_minute": 3,
+     "min_reliability": 0.31,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 6,
+     "to_minute": 6,
+     "min_reliability": 0.71,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
+     "to_minute": 10,
+     "min_reliability": 0.3,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 14,
-     "to_minute": 16,
-     "min_reliability": 0.18,
-     "abstain_minutes": 2
+     "to_minute": 14,
+     "min_reliability": 0.48,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 18,
+     "from_minute": 16,
+     "to_minute": 16,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 21,
+     "to_minute": 25,
+     "min_reliability": 0.46,
+     "abstain_minutes": 5
+    },
+    {
+     "team": "B",
+     "from_minute": 30,
      "to_minute": 31,
-     "min_reliability": 0.07,
-     "abstain_minutes": 7
+     "min_reliability": 0.3,
+     "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 33,
-     "to_minute": 36,
-     "min_reliability": 0.17,
-     "abstain_minutes": 2
+     "to_minute": 33,
+     "min_reliability": 0.47,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 38,
-     "to_minute": 47,
-     "min_reliability": 0.0,
-     "abstain_minutes": 6
+     "from_minute": 35,
+     "to_minute": 35,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 39,
+     "to_minute": 41,
+     "min_reliability": 0.24,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 44,
+     "to_minute": 46,
+     "min_reliability": 0.18,
+     "abstain_minutes": 3
     }
    ],
    "observed_share": 0.346,
@@ -1091,7 +1269,7 @@
     }
    ],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 2,
    "shifts": [
     {
      "team": "A",
@@ -1148,12 +1326,12 @@
      "minute": "50'",
      "t": 276.0,
      "type": "GOAL_BUILD_UP",
-     "subtype": "sustained possession",
+     "subtype": "counterattack",
      "team": "B",
      "title": "Goal Melbourne Victory Football Club - N. Vergos",
      "importance": 0.82,
-     "confidence": 0.7,
-     "reliability": 0.35,
+     "confidence": 0.82,
+     "reliability": 0.66,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -1163,13 +1341,13 @@
       },
       {
        "stage": "EVENT",
-       "label": "Spell of possession",
-       "timestamp": 266.0
+       "label": "Tackle by N. Vergos",
+       "timestamp": 263.5
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 266.0
+       "label": "0 passes, 12.5s",
+       "timestamp": 263.5
       },
       {
        "stage": "OUTCOME",
@@ -1191,13 +1369,31 @@
        "basis_tag": "recorded_event"
       },
       {
-       "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
-       "unit": "passes",
-       "t": 266.0,
-       "engine_basis": "recorded event feed; some events estimated",
+       "label": "Recovery",
+       "detail": "N. Vergos won the ball (tackle) 22m from own goal",
+       "value": 21.6,
+       "unit": "m",
+       "t": 263.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
        "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Transition",
+       "detail": "Ball moved 54.2m in 9s with 0 pass(es)",
+       "value": 6.0,
+       "unit": "m/s",
+       "t": 263.5,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "7 Wellington Phoenix FC outfield players caught upfield of the ball",
+       "value": 7,
+       "unit": "players",
+       "t": 274.0,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
       },
       {
        "label": "Shot",
@@ -1228,7 +1424,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 48%)",
        "value": 0.35,
        "unit": "observed share",
        "t": 276.0,
@@ -1248,8 +1444,8 @@
      "team": "A",
      "title": "P. Retre on for M. Sheridan",
      "importance": 0.53,
-     "confidence": 0.51,
-     "reliability": 0.3,
+     "confidence": 0.6,
+     "reliability": 0.64,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1278,7 +1474,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "8 pressures (0 on the right), 0 recoveries in first 15 min",
+       "detail": "8 pressures (0 on the right), 1 recoveries in first 15 min",
        "value": 8,
        "unit": "pressures",
        "t": 622.0,
@@ -1307,8 +1503,8 @@
      "team": "A",
      "title": "L. Kelly-Heald on for M. Sheridan",
      "importance": 0.54,
-     "confidence": 0.51,
-     "reliability": 0.3,
+     "confidence": 0.6,
+     "reliability": 0.64,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1366,8 +1562,8 @@
      "team": "A",
      "title": "L. Brooke-Smith on for M. Sheridan",
      "importance": 0.55,
-     "confidence": 0.51,
-     "reliability": 0.3,
+     "confidence": 0.6,
+     "reliability": 0.64,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1396,7 +1592,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "10 pressures (7 on the right), 0 recoveries in first 15 min",
+       "detail": "10 pressures (7 on the right), 1 recoveries in first 15 min",
        "value": 10,
        "unit": "pressures",
        "t": 622.0,
@@ -1425,8 +1621,8 @@
      "team": "B",
      "title": "R. Piscopo on for R. Teague",
      "importance": 0.52,
-     "confidence": 0.51,
-     "reliability": 0.32,
+     "confidence": 0.61,
+     "reliability": 0.67,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1455,7 +1651,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "7 pressures (1 on the right), 0 recoveries in first 15 min",
+       "detail": "7 pressures (1 on the right), 1 recoveries in first 15 min",
        "value": 7,
        "unit": "pressures",
        "t": 646.0,
@@ -1484,8 +1680,8 @@
      "team": "B",
      "title": "A. Badolato on for Roderick Miranda",
      "importance": 0.5,
-     "confidence": 0.51,
-     "reliability": 0.34,
+     "confidence": 0.61,
+     "reliability": 0.68,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1514,7 +1710,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "5 pressures (1 on the right), 0 recoveries in first 15 min",
+       "detail": "5 pressures (1 on the right), 1 recoveries in first 15 min",
        "value": 5,
        "unit": "pressures",
        "t": 1184.0,
@@ -1543,8 +1739,8 @@
      "team": "B",
      "title": "B. Hamill on for Roderick Miranda",
      "importance": 0.47,
-     "confidence": 0.51,
-     "reliability": 0.34,
+     "confidence": 0.61,
+     "reliability": 0.68,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1573,7 +1769,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "2 pressures (0 on the right), 0 recoveries in first 15 min",
+       "detail": "2 pressures (0 on the right), 2 recoveries in first 15 min",
        "value": 2,
        "unit": "pressures",
        "t": 1184.0,
@@ -1602,9 +1798,9 @@
      "team": "A",
      "title": "Wellington Phoenix FC drop into a low block",
      "importance": 0.65,
-     "confidence": 0.67,
-     "reliability": 0.35,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.79,
+     "reliability": 0.69,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1665,7 +1861,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 52%)",
        "value": 0.35,
        "unit": "observed share",
        "t": 1260,
@@ -1690,19 +1886,19 @@
      "team": "A",
      "title": "Goal Wellington Phoenix FC - P. Retre",
      "importance": 0.92,
-     "confidence": 0.64,
-     "reliability": 0.18,
+     "confidence": 0.73,
+     "reliability": 0.43,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 1749.0
+       "timestamp": 1745.6
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 1749.0
+       "label": "2 passes, 13.4s",
+       "timestamp": 1745.6
       },
       {
        "stage": "OUTCOME",
@@ -1716,10 +1912,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "2 passes in 13.4s",
+       "value": 2,
        "unit": "passes",
-       "t": 1749.0,
+       "t": 1745.6,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -1752,7 +1948,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 30%)",
        "value": 0.18,
        "unit": "observed share",
        "t": 1759.0,
@@ -1772,8 +1968,8 @@
      "team": "A",
      "title": "N. Walker on for P. Retre",
      "importance": 0.56,
-     "confidence": 0.51,
-     "reliability": 0.31,
+     "confidence": 0.61,
+     "reliability": 0.66,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1802,7 +1998,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "11 pressures (0 on the right), 0 recoveries in first 15 min",
+       "detail": "11 pressures (0 on the right), 1 recoveries in first 15 min",
        "value": 11,
        "unit": "pressures",
        "t": 2027.0,
@@ -1831,8 +2027,8 @@
      "team": "B",
      "title": "B. Fornaroli on for N. Vergos",
      "importance": 0.57,
-     "confidence": 0.52,
-     "reliability": 0.36,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1890,8 +2086,8 @@
      "team": "B",
      "title": "F. Monge on for N. Vergos",
      "importance": 0.52,
-     "confidence": 0.52,
-     "reliability": 0.36,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1920,7 +2116,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "7 pressures (1 on the right), 0 recoveries in first 15 min",
+       "detail": "7 pressures (1 on the right), 4 recoveries in first 15 min",
        "value": 7,
        "unit": "pressures",
        "t": 2088.0,
@@ -1949,8 +2145,8 @@
      "team": "A",
      "title": "F. Conchie on for I. Hughes",
      "importance": 0.47,
-     "confidence": 0.51,
-     "reliability": 0.32,
+     "confidence": 0.61,
+     "reliability": 0.69,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -2004,108 +2200,157 @@
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 0,
-     "to_minute": 1,
-     "min_reliability": 0.45,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 3,
-     "to_minute": 13,
-     "min_reliability": 0.0,
-     "abstain_minutes": 5
-    },
-    {
-     "team": "A",
-     "from_minute": 15,
-     "to_minute": 21,
-     "min_reliability": 0.0,
-     "abstain_minutes": 4
-    },
-    {
-     "team": "A",
-     "from_minute": 23,
-     "to_minute": 24,
-     "min_reliability": 0.27,
+     "from_minute": 5,
+     "to_minute": 5,
+     "min_reliability": 0.46,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 26,
-     "to_minute": 37,
-     "min_reliability": 0.08,
-     "abstain_minutes": 5
-    },
-    {
-     "team": "A",
-     "from_minute": 40,
-     "to_minute": 49,
-     "min_reliability": 0.15,
-     "abstain_minutes": 5
-    },
-    {
-     "team": "B",
-     "from_minute": 0,
-     "to_minute": 2,
-     "min_reliability": 0.36,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 4,
-     "to_minute": 14,
-     "min_reliability": 0.0,
+     "from_minute": 10,
+     "to_minute": 13,
+     "min_reliability": 0.14,
      "abstain_minutes": 4
     },
     {
-     "team": "B",
+     "team": "A",
      "from_minute": 16,
      "to_minute": 16,
-     "min_reliability": 0.35,
-     "abstain_minutes": 0
+     "min_reliability": 0.46,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 18,
+     "to_minute": 20,
+     "min_reliability": 0.13,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "A",
+     "from_minute": 23,
+     "to_minute": 23,
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 29,
+     "to_minute": 29,
+     "min_reliability": 0.43,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 32,
+     "to_minute": 34,
+     "min_reliability": 0.23,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "A",
+     "from_minute": 36,
+     "to_minute": 36,
+     "min_reliability": 0.62,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 41,
+     "to_minute": 41,
+     "min_reliability": 0.64,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 43,
+     "to_minute": 44,
+     "min_reliability": 0.54,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 46,
+     "to_minute": 46,
+     "min_reliability": 0.56,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 48,
+     "to_minute": 48,
+     "min_reliability": 0.42,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 5,
+     "to_minute": 5,
+     "min_reliability": 0.43,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
+     "to_minute": 12,
+     "min_reliability": 0.22,
+     "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 18,
-     "to_minute": 21,
-     "min_reliability": 0.0,
+     "to_minute": 20,
+     "min_reliability": 0.19,
      "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 23,
-     "to_minute": 24,
-     "min_reliability": 0.19,
+     "to_minute": 23,
+     "min_reliability": 0.53,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 26,
+     "from_minute": 29,
      "to_minute": 29,
-     "min_reliability": 0.2,
+     "min_reliability": 0.51,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 31,
+     "from_minute": 33,
      "to_minute": 34,
-     "min_reliability": 0.09,
+     "min_reliability": 0.33,
      "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 36,
-     "to_minute": 38,
-     "min_reliability": 0.31,
+     "to_minute": 36,
+     "min_reliability": 0.74,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 40,
-     "to_minute": 50,
-     "min_reliability": 0.19,
-     "abstain_minutes": 6
+     "to_minute": 41,
+     "min_reliability": 0.65,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 43,
+     "to_minute": 44,
+     "min_reliability": 0.67,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 47,
+     "to_minute": 48,
+     "min_reliability": 0.48,
+     "abstain_minutes": 2
     }
    ],
    "observed_share": 0.342,

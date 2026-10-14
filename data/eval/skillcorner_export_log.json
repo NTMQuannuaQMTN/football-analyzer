@@ -3,7 +3,7 @@
   "file": "data/skc_1874553_h1.json",
   "seconds": 2899,
   "players": 22,
-  "events": 884,
+  "events": 982,
   "goals": 3,
   "observed_share": 0.438,
   "event_location_vs_tracking_median_m": 0.43
@@ -12,7 +12,7 @@
   "file": "data/skc_1874553_h2.json",
   "seconds": 3131,
   "players": 32,
-  "events": 896,
+  "events": 994,
   "goals": 2,
   "observed_share": 0.413,
   "event_location_vs_tracking_median_m": 0.46
@@ -21,7 +21,7 @@
   "file": "data/skc_1886347_h1.json",
   "seconds": 2779,
   "players": 22,
-  "events": 1012,
+  "events": 1112,
   "goals": 0,
   "observed_share": 0.5,
   "event_location_vs_tracking_median_m": 0.49
@@ -30,7 +30,7 @@
   "file": "data/skc_1886347_h2.json",
   "seconds": 3127,
   "players": 29,
-  "events": 859,
+  "events": 947,
   "goals": 2,
   "observed_share": 0.379,
   "event_location_vs_tracking_median_m": 0.61
@@ -39,7 +39,7 @@
   "file": "data/skc_1899585_h1.json",
   "seconds": 2976,
   "players": 23,
-  "events": 906,
+  "events": 1022,
   "goals": 1,
   "observed_share": 0.385,
   "event_location_vs_tracking_median_m": 0.51
@@ -48,7 +48,7 @@
   "file": "data/skc_1899585_h2.json",
   "seconds": 3076,
   "players": 29,
-  "events": 850,
+  "events": 959,
   "goals": 1,
   "observed_share": 0.357,
   "event_location_vs_tracking_median_m": 0.67
@@ -57,7 +57,7 @@
   "file": "data/skc_1925299_h1.json",
   "seconds": 3024,
   "players": 23,
-  "events": 944,
+  "events": 1051,
   "goals": 0,
   "observed_share": 0.437,
   "event_location_vs_tracking_median_m": 0.51
@@ -66,7 +66,7 @@
   "file": "data/skc_1925299_h2.json",
   "seconds": 3106,
   "players": 31,
-  "events": 972,
+  "events": 1069,
   "goals": 1,
   "observed_share": 0.47,
   "event_location_vs_tracking_median_m": 0.59
@@ -75,7 +75,7 @@
   "file": "data/skc_1927964_h1.json",
   "seconds": 2838,
   "players": 22,
-  "events": 1045,
+  "events": 1121,
   "goals": 2,
   "observed_share": 0.536,
   "event_location_vs_tracking_median_m": 0.39
@@ -84,7 +84,7 @@
   "file": "data/skc_1927964_h2.json",
   "seconds": 3068,
   "players": 30,
-  "events": 936,
+  "events": 1046,
   "goals": 3,
   "observed_share": 0.401,
   "event_location_vs_tracking_median_m": 0.41
@@ -93,7 +93,7 @@
   "file": "data/skc_1953632_h1.json",
   "seconds": 2897,
   "players": 23,
-  "events": 915,
+  "events": 992,
   "goals": 1,
   "observed_share": 0.513,
   "event_location_vs_tracking_median_m": 0.5
@@ -102,7 +102,7 @@
   "file": "data/skc_1953632_h2.json",
   "seconds": 3027,
   "players": 28,
-  "events": 774,
+  "events": 867,
   "goals": 1,
   "observed_share": 0.408,
   "event_location_vs_tracking_median_m": 0.52
@@ -111,7 +111,7 @@
   "file": "data/skc_1959846_h1.json",
   "seconds": 2797,
   "players": 22,
-  "events": 858,
+  "events": 956,
   "goals": 3,
   "observed_share": 0.421,
   "event_location_vs_tracking_median_m": 0.49
@@ -120,7 +120,7 @@
   "file": "data/skc_1959846_h2.json",
   "seconds": 3058,
   "players": 30,
-  "events": 906,
+  "events": 997,
   "goals": 4,
   "observed_share": 0.413,
   "event_location_vs_tracking_median_m": 0.42
@@ -129,7 +129,7 @@
   "file": "data/skc_1986691_h1.json",
   "seconds": 2778,
   "players": 22,
-  "events": 784,
+  "events": 877,
   "goals": 0,
   "observed_share": 0.449,
   "event_location_vs_tracking_median_m": 0.43
@@ -138,7 +138,7 @@
   "file": "data/skc_1986691_h2.json",
   "seconds": 3130,
   "players": 32,
-  "events": 862,
+  "events": 960,
   "goals": 1,
   "observed_share": 0.411,
   "event_location_vs_tracking_median_m": 0.39
@@ -147,7 +147,7 @@
   "file": "data/skc_1996435_h1.json",
   "seconds": 2802,
   "players": 22,
-  "events": 1062,
+  "events": 1173,
   "goals": 1,
   "observed_share": 0.534,
   "event_location_vs_tracking_median_m": 0.5
@@ -156,7 +156,7 @@
   "file": "data/skc_1996435_h2.json",
   "seconds": 2960,
   "players": 30,
-  "events": 913,
+  "events": 1010,
   "goals": 4,
   "observed_share": 0.462,
   "event_location_vs_tracking_median_m": 0.54
@@ -165,7 +165,7 @@
   "file": "data/skc_1996436_h1.json",
   "seconds": 3014,
   "players": 23,
-  "events": 808,
+  "events": 929,
   "goals": 2,
   "observed_share": 0.42,
   "event_location_vs_tracking_median_m": 0.49
@@ -174,7 +174,7 @@
   "file": "data/skc_1996436_h2.json",
   "seconds": 3013,
   "players": 30,
-  "events": 683,
+  "events": 766,
   "goals": 1,
   "observed_share": 0.369,
   "event_location_vs_tracking_median_m": 0.56
@@ -183,7 +183,7 @@
   "file": "data/skc_2006229_h1.json",
   "seconds": 2848,
   "players": 22,
-  "events": 886,
+  "events": 988,
   "goals": 1,
   "observed_share": 0.506,
   "event_location_vs_tracking_median_m": 0.52
@@ -192,7 +192,7 @@
   "file": "data/skc_2006229_h2.json",
   "seconds": 3078,
   "players": 31,
-  "events": 963,
+  "events": 1058,
   "goals": 1,
   "observed_share": 0.432,
   "event_location_vs_tracking_median_m": 0.52
@@ -201,7 +201,7 @@
   "file": "data/skc_2006363_h1.json",
   "seconds": 2895,
   "players": 22,
-  "events": 935,
+  "events": 1031,
   "goals": 2,
   "observed_share": 0.394,
   "event_location_vs_tracking_median_m": 0.49
@@ -210,7 +210,7 @@
   "file": "data/skc_2006363_h2.json",
   "seconds": 3014,
   "players": 29,
-  "events": 901,
+  "events": 1003,
   "goals": 1,
   "observed_share": 0.403,
   "event_location_vs_tracking_median_m": 0.49
@@ -219,7 +219,7 @@
   "file": "data/skc_2007448_h1.json",
   "seconds": 2853,
   "players": 22,
-  "events": 770,
+  "events": 854,
   "goals": 2,
   "observed_share": 0.412,
   "event_location_vs_tracking_median_m": 0.45
@@ -228,7 +228,7 @@
   "file": "data/skc_2007448_h2.json",
   "seconds": 2955,
   "players": 28,
-  "events": 818,
+  "events": 908,
   "goals": 2,
   "observed_share": 0.413,
   "event_location_vs_tracking_median_m": 0.46
@@ -237,7 +237,7 @@
   "file": "data/skc_2007721_h1.json",
   "seconds": 2771,
   "players": 22,
-  "events": 852,
+  "events": 940,
   "goals": 1,
   "observed_share": 0.498,
   "event_location_vs_tracking_median_m": 0.46
@@ -246,7 +246,7 @@
   "file": "data/skc_2007721_h2.json",
   "seconds": 2985,
   "players": 32,
-  "events": 865,
+  "events": 968,
   "goals": 3,
   "observed_share": 0.463,
   "event_location_vs_tracking_median_m": 0.38
@@ -255,7 +255,7 @@
   "file": "data/skc_2010085_h1.json",
   "seconds": 2944,
   "players": 22,
-  "events": 851,
+  "events": 937,
   "goals": 1,
   "observed_share": 0.415,
   "event_location_vs_tracking_median_m": 0.4
@@ -264,7 +264,7 @@
   "file": "data/skc_2010085_h2.json",
   "seconds": 2955,
   "players": 32,
-  "events": 841,
+  "events": 928,
   "goals": 0,
   "observed_share": 0.441,
   "event_location_vs_tracking_median_m": 0.48
@@ -273,7 +273,7 @@
   "file": "data/skc_2011166_h1.json",
   "seconds": 2900,
   "players": 22,
-  "events": 757,
+  "events": 846,
   "goals": 3,
   "observed_share": 0.346,
   "event_location_vs_tracking_median_m": 0.56
@@ -282,7 +282,7 @@
   "file": "data/skc_2011166_h2.json",
   "seconds": 3031,
   "players": 32,
-  "events": 760,
+  "events": 872,
   "goals": 2,
   "observed_share": 0.342,
   "event_location_vs_tracking_median_m": 0.64
@@ -291,7 +291,7 @@
   "file": "data/skc_2013725_h1.json",
   "seconds": 2790,
   "players": 22,
-  "events": 826,
+  "events": 931,
   "goals": 1,
   "observed_share": 0.422,
   "event_location_vs_tracking_median_m": 0.54
@@ -300,7 +300,7 @@
   "file": "data/skc_2013725_h2.json",
   "seconds": 2891,
   "players": 30,
-  "events": 924,
+  "events": 1066,
   "goals": 0,
   "observed_share": 0.433,
   "event_location_vs_tracking_median_m": 0.61
@@ -309,7 +309,7 @@
   "file": "data/skc_2015213_h1.json",
   "seconds": 2884,
   "players": 22,
-  "events": 906,
+  "events": 1027,
   "goals": 2,
   "observed_share": 0.458,
   "event_location_vs_tracking_median_m": 0.49
@@ -318,7 +318,7 @@
   "file": "data/skc_2015213_h2.json",
   "seconds": 3108,
   "players": 28,
-  "events": 761,
+  "events": 871,
   "goals": 4,
   "observed_share": 0.395,
   "event_location_vs_tracking_median_m": 0.52
@@ -327,7 +327,7 @@
   "file": "data/skc_2016236_h1.json",
   "seconds": 3056,
   "players": 23,
-  "events": 879,
+  "events": 1011,
   "goals": 3,
   "observed_share": 0.351,
   "event_location_vs_tracking_median_m": 0.4
@@ -336,7 +336,7 @@
   "file": "data/skc_2016236_h2.json",
   "seconds": 2950,
   "players": 31,
-  "events": 922,
+  "events": 1058,
   "goals": 2,
   "observed_share": 0.366,
   "event_location_vs_tracking_median_m": 0.45
@@ -345,7 +345,7 @@
   "file": "data/skc_2017461_h1.json",
   "seconds": 2771,
   "players": 22,
-  "events": 766,
+  "events": 866,
   "goals": 0,
   "observed_share": 0.385,
   "event_location_vs_tracking_median_m": 0.54
@@ -354,7 +354,7 @@
   "file": "data/skc_2017461_h2.json",
   "seconds": 3076,
   "players": 32,
-  "events": 793,
+  "events": 914,
   "goals": 1,
   "observed_share": 0.325,
   "event_location_vs_tracking_median_m": 0.65

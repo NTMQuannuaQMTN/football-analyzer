@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WR9-r13
+# Real tracking · DFL open data: dfl-J03WR9-r13
 
 ## h1
 
@@ -25,10 +25,10 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 6' | TACTICAL_TURNING_POINT | B | 1. FC Kaiserslautern drop into a low block | 0.87 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 6' | TACTICAL_TURNING_POINT | B | 1. FC Kaiserslautern drop into a low block | 0.87 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 14' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - M. Karbownik | 0.95 | 1.0 | recorded goal; build-up sequence from events |
-| 28' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 44' | TACTICAL_TURNING_POINT | B | 1. FC Kaiserslautern drop into a low block | 0.88 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 28' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 44' | TACTICAL_TURNING_POINT | B | 1. FC Kaiserslautern drop into a low block | 0.88 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -38,7 +38,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: M. Karbownik shot from 17.1m
 - [recorded_event] Outcome: Goal - 1-0
 - Followed by (not proof of causation): Score 1-0
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [788, 798], "observed_players": 4.3, "inferred_players": 5.7, "high_confidence_inferred": 2.8, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 80.3, "width_m": 28.1, "near_ball": 4.8}, "reconstructed": {"def_line_m": 72.2, "width_m": 47.4, "near_ball": 3`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [788, 798], "observed_players": 4.3, "inferred_players": 5.7, "high_confidence_inferred": 2.9, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 80.3, "width_m": 28.1, "near_ball": 4.8}, "reconstructed": {"def_line_m": 72.2, "width_m": 47.4, "near_ball": 3`
 
 **6' 1. FC Kaiserslautern drop into a low block** (TACTICAL_TURNING_POINT). Chain: TACTICAL_CHANGE: Low Block → STATE_CHANGE: Line 34.3m -> 28.9m → CONSEQUENCE: 0 counterattacks
 
@@ -47,7 +47,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Transitions: 0 counterattacks launched in the next 15 min
 - [recorded_event] Outcome: 0 ended in shots
 - Followed by (not proof of causation): 0 counterattacks, 0 shots (0 xG)
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [295, 305], "observed_players": 2.4, "inferred_players": 7.6, "high_confidence_inferred": 2.6, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 19.9, "width_m": 42.5, "near_ball": 4.0}, "reconstructed": {"def_line_m": 27.0, "width_m": 41.8, "near_ball": 2`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [295, 305], "observed_players": 2.4, "inferred_players": 7.6, "high_confidence_inferred": 2.2, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 19.9, "width_m": 42.5, "near_ball": 4.0}, "reconstructed": {"def_line_m": 27.0, "width_m": 41.8, "near_ball": 2`
 
 **28' Fortuna Düsseldorf drop into a low block** (TACTICAL_TURNING_POINT). Chain: TACTICAL_CHANGE: Low Block → STATE_CHANGE: Line 49.0m -> 43.3m → CONSEQUENCE: 2 counterattacks
 
@@ -97,12 +97,12 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 | 76' | SUBSTITUTION_IMPACT | A | Shinta Appelkamp on for E. Iyoha | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 77' | SUBSTITUTION_IMPACT | A | F. Klaus on for Kristoffer Peterson | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 81' | SUBSTITUTION_IMPACT | B | L. Lobinger on for Terrence Boyd | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 85' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.86 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 85' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf take territorial control | 0.86 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 86' | SUBSTITUTION_IMPACT | A | M. Mansfeld on for R. Hennings | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 87' | SUBSTITUTION_IMPACT | B | Daniel Hanslik on for Kenny Prince Redondo | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 90' | SUBSTITUTION_IMPACT | A | E. Fernandes Neto on for M. Mansfeld | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 96' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 3-4-3 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
-| 96' | FORMATION_SHIFT | B | 1. FC Kaiserslautern switch to 3-4-2-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 96' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 3-4-3 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
+| 96' | FORMATION_SHIFT | B | 1. FC Kaiserslautern switch to 3-4-2-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 | 96' | GOAL_BUILD_UP | B | Goal 1. FC Kaiserslautern - P. Klement | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 
 ### Evidence chains (top 3 by importance)

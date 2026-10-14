@@ -73,6 +73,10 @@ class MomentDetector:
         mo["importance"] = round(float(np.clip(mo["importance"], 0.2, 0.99)), 2)
         mo["confidence"] = round(float(np.clip(mo["confidence"], 0.4, 0.98)), 2)
         mo.setdefault("links", [])
+        # when a live system could know this moment: every window, evidence item and chain step must be in the past
+        horizon = [mo["timestamp"], mo.get("end_timestamp", mo["timestamp"])] + list(mo.get("window") or [])
+        horizon += [e.get("timestamp", 0) for e in mo.get("evidence", [])] + [c.get("timestamp", 0) for c in mo.get("chain", [])]
+        mo["available_at"] = float(min(max(horizon), self.m.duration))
         self.moments.append(mo)
         return mo
 

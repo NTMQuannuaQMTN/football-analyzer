@@ -100,7 +100,7 @@
    "substitutions": [],
    "chapters": [],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 2,
    "shifts": [
     {
      "team": "A",
@@ -149,9 +149,9 @@
      "team": "B",
      "title": "Adelaide United Football Club take territorial control",
      "importance": 0.65,
-     "confidence": 0.73,
-     "reliability": 0.54,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.85,
+     "reliability": 0.87,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -165,7 +165,7 @@
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 counterattacks",
+       "label": "1 counterattacks",
        "timestamp": 240
       }
      ],
@@ -212,7 +212,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 6 of 11 players observed; 5 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 6 of 11 players observed; 5 estimated from trajectories and team shape (mean confidence 71%)",
        "value": 0.54,
        "unit": "observed share",
        "t": 240,
@@ -230,11 +230,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "B",
-     "title": "Adelaide United Football Club switch to 3-4-2-1",
+     "title": "Adelaide United Football Club possible switch to 3-4-2-1",
      "importance": 0.75,
-     "confidence": 0.73,
-     "reliability": 0.48,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.8,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -287,7 +287,7 @@
       },
       {
        "label": "Recovery",
-       "detail": "Final-third recoveries 0 -> 0",
+       "detail": "Final-third recoveries 1 -> 0",
        "value": 0,
        "unit": "recoveries",
        "t": 1200,
@@ -316,19 +316,19 @@
      "team": "A",
      "title": "Goal Sydney Football Club - J. Lolley",
      "importance": 0.92,
-     "confidence": 0.67,
-     "reliability": 0.26,
+     "confidence": 0.79,
+     "reliability": 0.58,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
-       "label": "Spell of possession",
-       "timestamp": 2118.0
+       "label": "Interception by H. Devenish-Meares",
+       "timestamp": 2097.3
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 2118.0
+       "label": "6 passes, 30.7s",
+       "timestamp": 2097.3
       },
       {
        "stage": "OUTCOME",
@@ -341,11 +341,20 @@
      ],
      "evidence": [
       {
+       "label": "Recovery",
+       "detail": "H. Devenish-Meares won the ball (interception) 5m from own goal",
+       "value": 5.0,
+       "unit": "m",
+       "t": 2097.3,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "6 passes in 30.7s",
+       "value": 6,
        "unit": "passes",
-       "t": 2118.0,
+       "t": 2097.3,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -378,7 +387,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 43%)",
        "value": 0.26,
        "unit": "observed share",
        "t": 2128.0,
@@ -394,142 +403,72 @@
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 4,
+     "from_minute": 5,
      "to_minute": 5,
-     "min_reliability": 0.29,
+     "min_reliability": 0.7,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 9,
-     "to_minute": 9,
-     "min_reliability": 0.4,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 12,
-     "to_minute": 12,
-     "min_reliability": 0.36,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 17,
-     "to_minute": 18,
-     "min_reliability": 0.38,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 21,
+     "from_minute": 22,
      "to_minute": 22,
-     "min_reliability": 0.22,
+     "min_reliability": 0.55,
      "abstain_minutes": 1
-    },
-    {
-     "team": "A",
-     "from_minute": 24,
-     "to_minute": 31,
-     "min_reliability": 0.35,
-     "abstain_minutes": 0
     },
     {
      "team": "A",
      "from_minute": 35,
      "to_minute": 36,
-     "min_reliability": 0.26,
+     "min_reliability": 0.46,
      "abstain_minutes": 2
-    },
-    {
-     "team": "A",
-     "from_minute": 38,
-     "to_minute": 39,
-     "min_reliability": 0.48,
-     "abstain_minutes": 0
     },
     {
      "team": "A",
      "from_minute": 41,
      "to_minute": 41,
-     "min_reliability": 0.32,
+     "min_reliability": 0.59,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 44,
-     "to_minute": 45,
-     "min_reliability": 0.2,
+     "to_minute": 44,
+     "min_reliability": 0.5,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 4,
-     "to_minute": 6,
-     "min_reliability": 0.26,
+     "from_minute": 5,
+     "to_minute": 5,
+     "min_reliability": 0.62,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 9,
-     "to_minute": 9,
-     "min_reliability": 0.48,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 12,
-     "to_minute": 12,
-     "min_reliability": 0.36,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 17,
+     "from_minute": 18,
      "to_minute": 18,
-     "min_reliability": 0.27,
+     "min_reliability": 0.64,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 21,
+     "from_minute": 22,
      "to_minute": 22,
-     "min_reliability": 0.28,
+     "min_reliability": 0.66,
      "abstain_minutes": 1
-    },
-    {
-     "team": "B",
-     "from_minute": 24,
-     "to_minute": 25,
-     "min_reliability": 0.36,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 27,
-     "to_minute": 30,
-     "min_reliability": 0.36,
-     "abstain_minutes": 0
     },
     {
      "team": "B",
      "from_minute": 35,
      "to_minute": 36,
-     "min_reliability": 0.26,
+     "min_reliability": 0.48,
      "abstain_minutes": 2
     },
     {
      "team": "B",
-     "from_minute": 41,
-     "to_minute": 41,
-     "min_reliability": 0.39,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
      "from_minute": 44,
-     "to_minute": 45,
-     "min_reliability": 0.17,
+     "to_minute": 44,
+     "min_reliability": 0.43,
      "abstain_minutes": 1
     }
    ],
@@ -714,7 +653,7 @@
     }
    ],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 3,
    "shifts": [
     {
      "team": "A",
@@ -763,19 +702,19 @@
      "team": "A",
      "title": "Goal Sydney Football Club - P. Klimala",
      "importance": 0.82,
-     "confidence": 0.43,
-     "reliability": 0.27,
+     "confidence": 0.48,
+     "reliability": 0.51,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 6.899999999999999
+       "timestamp": 3.1
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 6.899999999999999
+       "label": "3 passes, 13.8s",
+       "timestamp": 3.1
       },
       {
        "stage": "OUTCOME",
@@ -789,10 +728,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "3 passes in 13.8s",
+       "value": 3,
        "unit": "passes",
-       "t": 6.899999999999999,
+       "t": 3.1,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -825,7 +764,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 32%)",
        "value": 0.27,
        "unit": "observed share",
        "t": 16.9,
@@ -845,19 +784,19 @@
      "team": "B",
      "title": "Goal Adelaide United Football Club - D. Pierias",
      "importance": 0.92,
-     "confidence": 0.69,
-     "reliability": 0.33,
+     "confidence": 0.85,
+     "reliability": 0.74,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 223.0
+       "timestamp": 168.6
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 223.0
+       "label": "3 passes, 64.4s",
+       "timestamp": 168.6
       },
       {
        "stage": "OUTCOME",
@@ -871,10 +810,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "3 passes in 64.4s",
+       "value": 3,
        "unit": "passes",
-       "t": 223.0,
+       "t": 168.6,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -907,7 +846,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 62%)",
        "value": 0.33,
        "unit": "observed share",
        "t": 233.0,
@@ -927,8 +866,8 @@
      "team": "B",
      "title": "Isaias on for J. Barnett",
      "importance": 0.56,
-     "confidence": 0.57,
-     "reliability": 0.53,
+     "confidence": 0.65,
+     "reliability": 0.82,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -986,8 +925,8 @@
      "team": "B",
      "title": "L. Jovanovic on for J. Barnett",
      "importance": 0.54,
-     "confidence": 0.57,
-     "reliability": 0.53,
+     "confidence": 0.65,
+     "reliability": 0.82,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1016,7 +955,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "9 pressures (2 on the right), 0 recoveries in first 15 min",
+       "detail": "9 pressures (2 on the right), 2 recoveries in first 15 min",
        "value": 9,
        "unit": "pressures",
        "t": 838.0,
@@ -1043,11 +982,11 @@
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "A",
-     "title": "Sydney Football Club switch to 3-5-2",
+     "title": "Sydney Football Club possible switch to 3-5-2",
      "importance": 0.9,
-     "confidence": 0.71,
-     "reliability": 0.44,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.74,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1105,7 +1044,7 @@
       },
       {
        "label": "Recovery",
-       "detail": "Final-third recoveries 0 -> 0",
+       "detail": "Final-third recoveries 4 -> 0",
        "value": 0,
        "unit": "recoveries",
        "t": 1200,
@@ -1148,8 +1087,8 @@
      "team": "A",
      "title": "A. Segecic on for Z. de Jesus",
      "importance": 0.58,
-     "confidence": 0.55,
-     "reliability": 0.47,
+     "confidence": 0.64,
+     "reliability": 0.78,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1178,7 +1117,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "13 pressures (1 on the right), 0 recoveries in first 15 min",
+       "detail": "13 pressures (1 on the right), 3 recoveries in first 15 min",
        "value": 13,
        "unit": "pressures",
        "t": 1367.0,
@@ -1212,8 +1151,8 @@
      "team": "B",
      "title": "Y. Dukuly on for S. Mauk",
      "importance": 0.55,
-     "confidence": 0.54,
-     "reliability": 0.42,
+     "confidence": 0.63,
+     "reliability": 0.75,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1271,19 +1210,19 @@
      "team": "A",
      "title": "Goal Sydney Football Club - A. Segecic",
      "importance": 0.82,
-     "confidence": 0.67,
-     "reliability": 0.27,
+     "confidence": 0.79,
+     "reliability": 0.58,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 1769.0
+       "timestamp": 1750.4
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 1769.0
+       "label": "5 passes, 28.6s",
+       "timestamp": 1750.4
       },
       {
        "stage": "OUTCOME",
@@ -1297,10 +1236,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "5 passes in 28.6s",
+       "value": 5,
        "unit": "passes",
-       "t": 1769.0,
+       "t": 1750.4,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -1333,7 +1272,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 42%)",
        "value": 0.27,
        "unit": "observed share",
        "t": 1779.0,
@@ -1353,8 +1292,8 @@
      "team": "A",
      "title": "J. Kucharski on for A. Ouahim",
      "importance": 0.58,
-     "confidence": 0.56,
-     "reliability": 0.51,
+     "confidence": 0.65,
+     "reliability": 0.82,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1412,8 +1351,8 @@
      "team": "A",
      "title": "Douglas Costa on for P. Klimala",
      "importance": 0.53,
-     "confidence": 0.54,
-     "reliability": 0.44,
+     "confidence": 0.64,
+     "reliability": 0.78,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1442,7 +1381,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "8 pressures (3 on the right), 0 recoveries in first 15 min",
+       "detail": "8 pressures (3 on the right), 2 recoveries in first 15 min",
        "value": 8,
        "unit": "pressures",
        "t": 2203.0,
@@ -1459,7 +1398,12 @@
        "basis_tag": "observed + model_inferred positions"
       }
      ],
-     "links": [],
+     "links": [
+      {
+       "to": "m10-goal-build-up",
+       "relation": "involved_in"
+      }
+     ],
      "hidden_state": null
     },
     {
@@ -1471,19 +1415,19 @@
      "team": "A",
      "title": "Goal Sydney Football Club - A. C\u00e1ceres",
      "importance": 0.82,
-     "confidence": 0.72,
-     "reliability": 0.39,
+     "confidence": 0.83,
+     "reliability": 0.67,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 2267.0
+       "timestamp": 2183.9
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 2267.0
+       "label": "15 passes, 93.1s",
+       "timestamp": 2183.9
       },
       {
        "stage": "OUTCOME",
@@ -1497,10 +1441,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "15 passes in 93.1s",
+       "value": 15,
        "unit": "passes",
-       "t": 2267.0,
+       "t": 2183.9,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -1533,7 +1477,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 46%)",
        "value": 0.39,
        "unit": "observed share",
        "t": 2277.0,
@@ -1553,8 +1497,8 @@
      "team": "B",
      "title": "R. White on for Z. Clough",
      "importance": 0.56,
-     "confidence": 0.54,
-     "reliability": 0.44,
+     "confidence": 0.64,
+     "reliability": 0.78,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1583,7 +1527,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "11 pressures (3 on the right), 0 recoveries in first 15 min",
+       "detail": "11 pressures (3 on the right), 2 recoveries in first 15 min",
        "value": 11,
        "unit": "pressures",
        "t": 2381.0,
@@ -1612,8 +1556,8 @@
      "team": "B",
      "title": "A. Ayoubi on for Z. Clough",
      "importance": 0.52,
-     "confidence": 0.54,
-     "reliability": 0.44,
+     "confidence": 0.64,
+     "reliability": 0.78,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1642,7 +1586,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "7 pressures (0 on the right), 0 recoveries in first 15 min",
+       "detail": "7 pressures (0 on the right), 1 recoveries in first 15 min",
        "value": 7,
        "unit": "pressures",
        "t": 2381.0,
@@ -1661,142 +1605,260 @@
      ],
      "links": [],
      "hidden_state": null
+    },
+    {
+     "id": "m13-counterattack",
+     "minute": "92'",
+     "t": 2787.4,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Adelaide United Football Club counterattack",
+     "importance": 0.54,
+     "confidence": 0.72,
+     "reliability": 0.8,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 2774.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 2774.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "37.0m in 5s",
+       "timestamp": 2779.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.103 xG)",
+       "timestamp": 2787.4
+      }
+     ],
+     "consequences": [
+      "8 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "Isaias regains 34m from own goal",
+       "value": 34.1,
+       "unit": "m",
+       "t": 2774.0,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Sydney Football Club defensive line at 31.48m",
+       "value": 31.48,
+       "unit": "m",
+       "t": 2774.0,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "37.0m in 5s, 1 pass(es)",
+       "value": 7.4,
+       "unit": "m/s",
+       "t": 2774.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "8 players caught upfield",
+       "value": 8,
+       "unit": "players",
+       "t": 2779.0,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by D. Pierias (unknown)",
+       "value": 0.103,
+       "unit": "xG",
+       "t": 2787.4,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 64%)",
+       "value": 0.44,
+       "unit": "observed share",
+       "t": 2787.4,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
     }
    ],
-   "story_links": 2,
+   "story_links": 3,
    "unreliable_segments": [
     {
      "team": "A",
      "from_minute": 0,
-     "to_minute": 6,
-     "min_reliability": 0.19,
-     "abstain_minutes": 4
-    },
-    {
-     "team": "A",
-     "from_minute": 8,
-     "to_minute": 9,
-     "min_reliability": 0.24,
+     "to_minute": 0,
+     "min_reliability": 0.51,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 12,
-     "to_minute": 13,
-     "min_reliability": 0.35,
-     "abstain_minutes": 0
+     "from_minute": 3,
+     "to_minute": 4,
+     "min_reliability": 0.42,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 6,
+     "to_minute": 6,
+     "min_reliability": 0.63,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 9,
+     "to_minute": 9,
+     "min_reliability": 0.6,
+     "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 15,
      "to_minute": 15,
-     "min_reliability": 0.25,
+     "min_reliability": 0.56,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 20,
-     "to_minute": 20,
-     "min_reliability": 0.38,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 22,
+     "from_minute": 25,
      "to_minute": 25,
-     "min_reliability": 0.28,
+     "min_reliability": 0.63,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 29,
-     "to_minute": 31,
-     "min_reliability": 0.07,
+     "to_minute": 30,
+     "min_reliability": 0.24,
      "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 36,
-     "to_minute": 39,
-     "min_reliability": 0.0,
-     "abstain_minutes": 2
+     "to_minute": 36,
+     "min_reliability": 0.66,
+     "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 44,
+     "from_minute": 38,
+     "to_minute": 38,
+     "min_reliability": 0.17,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 45,
+     "to_minute": 45,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 49,
      "to_minute": 49,
-     "min_reliability": 0.31,
-     "abstain_minutes": 2
+     "min_reliability": 0.76,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 0,
+     "to_minute": 0,
+     "min_reliability": 0.56,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 4,
+     "to_minute": 4,
+     "min_reliability": 0.42,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 6,
      "to_minute": 6,
-     "min_reliability": 0.2,
-     "abstain_minutes": 3
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 9,
      "to_minute": 9,
-     "min_reliability": 0.3,
+     "min_reliability": 0.69,
      "abstain_minutes": 1
-    },
-    {
-     "team": "B",
-     "from_minute": 12,
-     "to_minute": 13,
-     "min_reliability": 0.45,
-     "abstain_minutes": 0
     },
     {
      "team": "B",
      "from_minute": 15,
-     "to_minute": 16,
-     "min_reliability": 0.26,
+     "to_minute": 15,
+     "min_reliability": 0.53,
      "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 18,
-     "to_minute": 18,
-     "min_reliability": 0.49,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 20,
-     "to_minute": 20,
-     "min_reliability": 0.45,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 22,
+     "from_minute": 25,
      "to_minute": 25,
-     "min_reliability": 0.26,
+     "min_reliability": 0.59,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 29,
-     "to_minute": 32,
-     "min_reliability": 0.07,
+     "to_minute": 30,
+     "min_reliability": 0.3,
      "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 36,
-     "to_minute": 39,
-     "min_reliability": 0.0,
-     "abstain_minutes": 2
+     "to_minute": 36,
+     "min_reliability": 0.62,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 38,
+     "to_minute": 38,
+     "min_reliability": 0.24,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 44,
+     "to_minute": 45,
+     "min_reliability": 0.52,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 49,
      "to_minute": 49,
-     "min_reliability": 0.21,
-     "abstain_minutes": 3
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
     }
    ],
    "observed_share": 0.462,

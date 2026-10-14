@@ -289,3 +289,48 @@ The other runs (`r13_base`, `r13_mlp`, `r13_ens`, `r13_gru`) follow the same pat
 - **Identity on video** is the largest error source. Next technical step: jersey-number recognition on GSR with track voting, then measure end-to-end with GSR identities instead of oracle ones.
 - **The GRU's DFL gain (−0.4 to −0.5 m) does not transfer.** A GRU trained with degraded-context augmentation *and* observation noise or correlated-miss masks is the natural follow-up. It was not run, for lack of compute time.
 - **Live reappearance jumps** remain by design.
+
+## 11. Follow-up fixes (14 October 2026)
+
+**Horizon-aware calibration (E8, kept).** The radius and P(err ≤ 5 m) are now calibrated per σ decile within each time-unseen bucket (0–10 s, 11–30 s, 31–120 s, 120 s+, never seen). The tables are fitted on the same validation tail as before, never on test data (`backend/reconstruction/calibrate_horizon.py`). Positions are unchanged.
+
+Held-out DFL coverage of the 80 % radius:
+
+| Time unseen | Live, before → after | Replay, before → after |
+|---|---|---|
+| 31–60 s | 78.2 → **80.3 %** | 79.2 → 81.8 % |
+| 61–120 s | 77.4 → **79.5 %** | 78.0 → **80.5 %** |
+| Overall | 80.2 → 79.9 % | 80.3 → 80.3 % |
+
+Worst-bucket deviation from 80 %, replay: 4.4 → **1.9** points. Live is better for players already seen; the "never seen yet" bucket (0.9 % of rows) now over-covers at 85 %, which errs on the safe side.
+
+On SkillCorner (live), long-gap coverage improves (31–120 s: 70.5 → 72.9 %; over 120 s: 68 → 70.5 %), while 1–10 s coverage falls from 80.1 to 78.8 % and overall from 77.6 to 77.0 %.
+
+**Confidence on SkillCorner estimates is now validated and shown.** On 94,918 live re-entries, P(err ≤ 5 m) is calibrated within 0.03 in every bin (0.12 → 0.10, 0.26 → 0.25, 0.46 → 0.45, 0.66 → 0.63, 0.88 → 0.85; each pair is predicted → observed). Replay is conservative in its low bins. A-League files carry `uncertainty_validated`, and the app shows confidence for their *estimated* players. Our own video stays N/A, because identity errors are not modelled.
+
+**Identity errors (new evaluation, spec category 5).** Simulated tracker swaps on held-out DFL with the real-footprint mask. At each re-appearance, with probability *p*, the observations go to another player of the same team (`benchmark.identity_eval`). Mean error against each player's true position:
+
+| Swap rate | Hidden, live | Hidden, replay | All player-seconds, live / replay | Wrongly-identified "observed" players |
+|---|---:|---:|---|---:|
+| 0 % | 8.14 m | 6.74 m | 6.07 / 5.03 m | n/a |
+| 10 % | 9.24 m | 8.16 m | 7.52 / 6.72 m | 34.2 m |
+| 30 % | 11.09 m | 10.45 m | 9.93 / 9.45 m | 31.1 m |
+| 65 % (≈ our role-based video identity) | 13.94 m | 14.12 m | 13.60 / 13.73 m | 27.5 m |
+
+At realistic video identity quality the error more than doubles and replay's advantage disappears. Identity is the largest remaining error source; this is now measured rather than inferred.
+
+**Tactical detectors vs SkillCorner phase labels** (provider labels, proxy; 40 halves; `backend/tactics/skillcorner_validation.py`):
+
+| Detector | Precision | Recall | F1 |
+|---|---:|---:|---:|
+| Counterattack vs quick break / transition | 0.62 | 0.23 | 0.34 |
+| High press vs high-block minutes | 0.27 | 0.03 | 0.05 |
+| Low block (line ≤ 22 m) vs low-block minutes | 0.41 | 0.19 | 0.26 |
+
+- The press index does not separate high-block from low-block minutes (40.6 vs 41.8), but the out-of-possession defensive line does (49.1 m vs 20.9 m).
+- A low-block threshold tuned on 10 matches (33 m) raised test-match F1 from 0.26 to 0.40, but lowered precision from 0.36 to 0.27. It was **not adopted**, because it would add many false "low block" moments.
+- All three detectors remain labelled experimental, now with these numbers.
+
+**Formation shifts under reconstruction.** On DFL, 9 shifts were found on the reconstruction. 6 of them coincide with a true shift (±3 min), but only 3 name the same new formation, and visibility reliability does not separate right from wrong. When most of the team is estimated (observed share < 0.5), the moment is now titled "possible switch to …" with confidence capped at 0.5.
+
+Updated rating after these fixes: model accuracy 3/5 (positions unchanged; uncertainty better calibrated); specification alignment 3.5/5 (live causality, identity evaluation and detector validation added).

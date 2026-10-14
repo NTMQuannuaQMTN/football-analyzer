@@ -186,7 +186,7 @@ def run_fold(fold, methods, run, speed_limit=True):
                     pos[ti, ji] = np.clip(rec.pos[ti, ji] + corr, [0, 0], [L, W])
                     r80 = np.full(vis.shape, np.nan)
                     p5 = np.full(vis.shape, np.nan)
-                    r80[ti, ji], p5[ti, ji] = apply_calibration(mdl.calibration, sig)
+                    r80[ti, ji], p5[ti, ji] = mdl.calibrate(sig, X)
                     src_inf = on & ~vis
                     pos = _gk_clamp(pos, src_inf, seg)
                     put(f"{m}_{mode}", pos, r80, p5)
@@ -471,3 +471,76 @@ def full_validation_run(methods, folds=range(7), name=None):
     res = {"which": "validation_full", "folds": out, "aggregate": agg}
     (OUT / f"fullval_{name or '_'.join(methods)}.json").write_text(json.dumps(res, indent=1, default=float))
     return res
+
+
+# ----------------------------------------------------------------------------- identity errors (tracker swaps)
+def identity_swap(seg, vis, rate, seed):
+    """Simulated tracker identity errors: each appearance (run of visible seconds) of a player is, with probability
+    `rate`, recorded under another on-pitch player of the same team who is not visible then. Returns (obs_pos, vis')
+    as an identity-blind pipeline would see them; truth is untouched."""
+    rng = np.random.default_rng(seed)
+    T, N = vis.shape
+    on = ~np.isnan(seg["pos"][..., 0])
+    obs = np.where(vis[..., None], seg["pos"], np.nan)
+    v2 = vis.copy()
+    team = seg["team"]
+    for j in range(N):
+        t = 0
+        while t < T:
+            if not vis[t, j]:
+                t += 1
+                continue
+            t1 = t
+            while t1 < T and vis[t1, j]:
+                t1 += 1
+            if rng.random() < rate:
+                cands = [k for k in range(N) if k != j and team[k] == team[j] and on[t:t1, k].all() and not v2[t:t1, k].any()]
+                if cands:
+                    k = cands[rng.integers(len(cands))]
+                    v2[t:t1, k], obs[t:t1, k] = True, seg["pos"][t:t1, j]
+                    v2[t:t1, j], obs[t:t1, j] = False, np.nan
+            t = t1
+    return obs, v2
+
+
+def identity_eval(methods=("r13_mlp_aug_ens3",), rates=(0.0, 0.1, 0.3, 0.65), folds=range(7)):
+    """Held-out DFL, real-footprint mask, replay + live. Scores every on-pitch player-second against the player's TRUE
+    position, split into: shown as observed under the right id, shown as observed but actually another player
+    (wrong identity), and estimated."""
+    res = {}
+    for f in folds:
+        mid = dfl_matches()[f]
+        info, segs = parse_dfl(mid)
+        models = {(m, mode): hm.load_hidden(checkpoint(m, mode, f)) for m in methods for mode in ("live", "replay")}
+        for (m, mode), mdl in models.items():
+            check_held_out(mdl.ck, mid, m)
+        for si, seg in enumerate(segs):
+            on = ~np.isnan(seg["pos"][..., 0])
+            vis = mask_sc(seg, EVAL_SEED + 1000 * f + 100 * si) & on
+            for rate in rates:
+                obs, v2 = identity_swap(seg, vis, rate, EVAL_SEED + 7 * f + si)
+                seg2 = dict(seg, pos=np.where(v2[..., None], obs, seg["pos"]))  # pipeline input: identity-blind
+                wrong = v2 & ~vis | (v2 & vis & (np.linalg.norm(np.nan_to_num(obs) - np.nan_to_num(seg["pos"]), axis=2) > 1e-6))
+                for mode in ("live", "replay"):
+                    rec = formation(info, seg2, v2, mode)
+                    for m in methods:
+                        idx, corr, sig = hm.predict_segment(models[(m, mode)], seg2["pos"], v2, on, seg["team"], seg["role"],
+                                                            seg["ball"], seg["poss"], seg["alive"], rec.pos, mode)
+                        p = rec.pos.copy()
+                        if len(idx):
+                            p[idx[:, 0], idx[:, 1]] = np.clip(rec.pos[idx[:, 0], idx[:, 1]] + corr, [0, 0], [L, W])
+                        p = np.where(v2[..., None], obs, p)  # observed rows: shown where the (possibly wrong) detection is
+                        p = limit_speed(_gk_clamp(p, on & ~v2, seg), v2, on, mode == "live")
+                        e = np.linalg.norm(p - seg["pos"], axis=2)
+                        d = res.setdefault((m, mode, rate), {"est": [], "wrong": [], "right": [], "all": []})
+                        d["est"].append(e[on & ~v2])
+                        d["wrong"].append(e[wrong & on])
+                        d["right"].append(e[v2 & ~wrong & on])
+                        d["all"].append(e[on])
+        print("fold", f, "done", flush=True)
+    out = {}
+    for (m, mode, rate), d in res.items():
+        c = {k: np.concatenate(v) for k, v in d.items()}
+        out[f"{m}|{mode}|{rate}"] = {k: {"n": int(len(v)), "mean": round(float(v.mean()), 2) if len(v) else None} for k, v in c.items()}
+    (OUT / "identity_swaps.json").write_text(json.dumps(out, indent=1))
+    return out

@@ -87,12 +87,12 @@ def reconstruct_ml(m, vis, mode, on, role, anchors, teams, roles_coarse, alive=N
     from backend.reconstruction.ml import apply_calibration
     rec = reconstruct(m, vis, mode, {}, on=on, role=role, anchors=anchors)
     model, name = load_hidden_model(mode, fold, weights_dir)
-    idx, corr, sig = hm.predict_segment(model, m.xy, vis, on, teams, roles_coarse, m.ball, m.poss,
-                                        alive if alive is not None else np.ones(m.T, bool), rec.pos, mode)
+    idx, corr, sig, X = hm.predict_segment(model, m.xy, vis, on, teams, roles_coarse, m.ball, m.poss,
+                                           alive if alive is not None else np.ones(m.T, bool), rec.pos, mode, return_X=True)
     if len(idx):
         t, j = idx[:, 0], idx[:, 1]
         rec.pos[t, j] = np.clip(rec.pos[t, j] + corr, [0, 0], [L, W])
-        r80, p5 = apply_calibration(model.calibration, sig)
+        r80, p5 = model.calibrate(sig, X)
         rec.rad[t, j], rec.conf[t, j] = r80 * radius_scale, p5
     # physical prior: an unseen goalkeeper stays in his own zone (<= 25 m from his goal line)
     for jj, o in enumerate(m.order):

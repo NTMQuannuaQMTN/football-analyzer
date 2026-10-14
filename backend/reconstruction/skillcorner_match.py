@@ -81,7 +81,7 @@ def frames_for(clip, rec, poss_team, ball_seen):
             rad.append(0.0 if o else round(float(r80[t, j]), 1))
         fr.append({"t": t, "b": [round(float(clip["ball"][t, 0]), 2), round(float(clip["ball"][t, 1]), 2)],
                    "p": poss_team[t], "c": None, "xy": xy, "obs": obs, "conf": conf, "rad": rad,
-                   "ball_observed": bool(ball_seen[t])})
+                   "ball_observed": bool(ball_seen[t]), "bs": "tracked" if ball_seen[t] else "held_or_unknown"})
     return fr
 
 
@@ -163,6 +163,54 @@ def attribute_goals(ev, goals, ball, ball_seen):
     return ev
 
 
+def possession_changes(rows, pid_of, team_of, xy, ts, T):
+    """POSSESSION_CHANGE / KICK_OFF events from the provider's player-possession sequence (the engine's possession
+    spells, recoveries, transitions and counters are bounded by these). Cause: the new team's on-ball engagement
+    outcome (direct_regain -> tackle, indirect_regain -> interception) within 2 s of the change; a stoppage gap of
+    3 s+ -> restart, or kickoff when play restarts on the centre spot; otherwise loose_ball."""
+    poss = sorted([r for r in rows if r["event_type"] == "player_possession" and r["player_id"]
+                   and int(r["player_id"]) in pid_of], key=lambda r: int(r["frame_start"]))
+    regains = [r for r in rows if r["event_type"] == "on_ball_engagement" and r["end_type"] in ("direct_regain", "indirect_regain")
+               and r["player_id"] and int(r["player_id"]) in team_of]
+    out = []
+    prev = None
+    for r in poss:
+        sid = int(r["player_id"])
+        team = team_of[sid]
+        t = ts(r["frame_start"])
+        if t < 0 or t > T:
+            prev = r
+            continue
+        x, y = xy(r["x_start"], r["y_start"], r)
+        if x is None:
+            prev = r
+            continue
+        on_spot = abs(x - L / 2) <= 4 and abs(y - W / 2) <= 4
+        if prev is None:
+            out.append({"timestamp": t, "event_type": "KICK_OFF", "team_id": team, "player_id": pid_of[sid], "x": x, "y": y,
+                        "source": "first provider possession of the period"})
+        elif team_of[int(prev["player_id"])] != team:
+            f0, f1 = int(prev["frame_end"]), int(r["frame_start"])
+            reg = [g for g in regains if team_of[int(g["player_id"])] == team and f0 - 20 <= int(g["frame_end"]) <= f1 + 20]
+            gap = (f1 - f0) / 10
+            if reg:
+                cause = "tackle" if any(g["end_type"] == "direct_regain" for g in reg) else "interception"
+            elif gap >= 3 and on_spot:
+                cause = "kickoff"
+            elif gap >= 3:
+                cause = "restart"
+            else:
+                cause = "loose_ball"
+            out.append({"timestamp": t, "event_type": "POSSESSION_CHANGE", "team_id": team, "player_id": pid_of[sid],
+                        "x": x, "y": y, "from_team": team_of[int(prev["player_id"])], "cause": cause,
+                        "source": "skillcorner player possessions"})
+            if cause == "kickoff":
+                out.append({"timestamp": t, "event_type": "KICK_OFF", "team_id": team, "player_id": pid_of[sid], "x": x, "y": y,
+                            "source": "provider possession restarting on the centre spot"})
+        prev = r
+    return out
+
+
 def build_events(mdir, period, clip, ids, pid_of, team_of, flip, pl, pw, f0, T, initial_score=None):
     """Provider dynamic events -> app events for one period (timestamps = seconds from the period's first frame)."""
     rows = list(csv.DictReader(open(glob.glob(os.path.join(mdir, "*_dynamic_events.csv"))[0])))
@@ -219,6 +267,7 @@ def build_events(mdir, period, clip, ids, pid_of, team_of, flip, pl, pw, f0, T, 
             if r["end_type"] in ("direct_regain",):
                 ev.append({"timestamp": t, "event_type": "TACKLE", "team_id": team, "player_id": pid, "x": x, "y": y,
                            "opponent_id": pid_of.get(tgt), "success": True, "source": "skillcorner_dynamic_events"})
+    ev += possession_changes(rows, pid_of, team_of, xy, ts, T)
     # goals from score changes (team_score is the event team's score)
     score = dict(initial_score or {"A": 0, "B": 0})  # provider scores are cumulative over the match
     goals = []
@@ -325,6 +374,10 @@ def export(mdir, models, model_name, out_dir=DATA):
                                 "unavailable_stats": ["shots_on_target", "fouls", "corners", "offsides", "yellow_cards", "red_cards"],
                                 "event_location_vs_tracking_median_m": round(float(np.median(dist)), 2) if dist else None,
                                 "uncertainty": "DFL-calibrated 80% radius; broadcast-domain coverage measured on GSR/SkillCorner re-entries, see docs/reconstruction_evaluation.md",
+                                "uncertainty_validated": {"basis": "SkillCorner A-League re-entries (proxy truth = provider detections), model r13_mlp_aug_ens3_final",
+                                                          "live_r80_coverage": 0.776, "replay_r80_coverage": 0.807,
+                                                          "live_p5_calibration": "predicted vs observed within 0.03 in every bin",
+                                                          "applies_to": "estimated players only; measured positions remain unverified"},
                                 "orientation_basis": "provider home_team_side per period",
                                 "goals_not_in_provider_events": missing if any(missing.values()) else None,
                                 "warning": "Hidden players are model estimates, not observations. Identity and positions of observed players are SkillCorner's, not independently verified."}},

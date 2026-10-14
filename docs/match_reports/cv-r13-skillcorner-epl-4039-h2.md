@@ -25,12 +25,12 @@ Hidden-player model: `r13_mlp_aug_ens3_final`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 56' | FORMATION_SHIFT | A | Manchester City switch to 4-2-2-1 | 0.68 | 0.34 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
-| 71' | FORMATION_SHIFT | A | Manchester City switch to 3-4-2 | 0.69 | 0.36 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 56' | FORMATION_SHIFT | A | Manchester City possible switch to 4-2-2-1 | 0.5 | 0.34 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
+| 71' | FORMATION_SHIFT | A | Manchester City possible switch to 3-4-2 | 0.5 | 0.36 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 
 ### Evidence chains (top 3 by importance)
 
-**56' Manchester City switch to 4-2-2-1** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 4-2-3-1 -> 4-2-2-1 → STATE_CHANGE: Right-side press 0.0% -> 0.0% → CONSEQUENCE: 0 final-third recoveries
+**56' Manchester City possible switch to 4-2-2-1** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 4-2-3-1 -> 4-2-2-1 → STATE_CHANGE: Right-side press 0.0% -> 0.0% → CONSEQUENCE: 0 final-third recoveries
 
 - [heuristic over observed + model_inferred positions] Tactical trigger: Shape changed 4-2-3-1 -> 4-2-2-1
 - [observed + model_inferred positions] Structural change: Defensive line -22.39m, width -7.24m
@@ -39,7 +39,7 @@ Hidden-player model: `r13_mlp_aug_ens3_final`.
 - [observed + model_inferred positions] Territory: Territory 60.8% -> 36.2%
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 36.2%, 0 shots
 
-**71' Manchester City switch to 3-4-2** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 4-2-2-1 -> 3-4-2 → STATE_CHANGE: Right-side press 0.0% -> 0.0% → CONSEQUENCE: 0 final-third recoveries
+**71' Manchester City possible switch to 3-4-2** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 4-2-2-1 -> 3-4-2 → STATE_CHANGE: Right-side press 0.0% -> 0.0% → CONSEQUENCE: 0 final-third recoveries
 
 - [heuristic over observed + model_inferred positions] Tactical trigger: Shape changed 4-2-2-1 -> 3-4-2
 - [observed + model_inferred positions] Structural change: Defensive line -21.54m, width -4.35m

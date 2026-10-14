@@ -131,12 +131,12 @@ def estimate(info, seg, vis, mode, fold, weights_dir=None):
     except FileNotFoundError:
         rec.meta["estimator"] = "formation"
         return rec
-    idx, corr, sig = hm.predict_segment(model, seg["pos"], vis, on, seg["team"], seg["role"], seg["ball"], seg["poss"],
-                                        seg["alive"], rec.pos, mode)
+    idx, corr, sig, X = hm.predict_segment(model, seg["pos"], vis, on, seg["team"], seg["role"], seg["ball"], seg["poss"],
+                                           seg["alive"], rec.pos, mode, return_X=True)
     if len(idx):
         t, j = idx[:, 0], idx[:, 1]
         rec.pos[t, j] = np.clip(rec.pos[t, j] + corr, [0, 0], [L, W])
-        rec.rad[t, j], rec.conf[t, j] = apply_calibration(model.calibration, sig)
+        rec.rad[t, j], rec.conf[t, j] = model.calibrate(sig, X)
     for j, r in enumerate(seg["role"]):
         if r == "GK":
             rows = rec.src[:, j] == SRC_INF

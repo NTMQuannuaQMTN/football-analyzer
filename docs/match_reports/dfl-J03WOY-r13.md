@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WOY-r13
+# Real tracking · DFL open data: dfl-J03WOY-r13
 
 ## h1
 
@@ -27,8 +27,8 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 |---|---|---|---|---:|---:|---|
 | 10' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - Dawid Kownacki | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 27' | GOAL_BUILD_UP | A | Goal Fortuna Düsseldorf - M. Sobottka | 0.95 | 1.0 | recorded goal; build-up sequence from events |
-| 31' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 38' | TACTICAL_TURNING_POINT | B | F.C. Hansa Rostock drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 31' | TACTICAL_TURNING_POINT | A | Fortuna Düsseldorf drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 38' | TACTICAL_TURNING_POINT | B | F.C. Hansa Rostock drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 38' | SUBSTITUTION_IMPACT | B | D. Lee on for S. Thill | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 
 ### Evidence chains (top 3 by importance)
@@ -39,7 +39,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: Dawid Kownacki shot from 18.6m
 - [recorded_event] Outcome: Goal - 1-0
 - Followed by (not proof of causation): Score 1-0
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [574, 584], "observed_players": 2.6, "inferred_players": 7.4, "high_confidence_inferred": 5.8, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 64.7, "width_m": 19.2, "near_ball": 1.7}, "reconstructed": {"def_line_m": 59.5, "width_m": 47.8, "near_ball": 1`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [574, 584], "observed_players": 2.6, "inferred_players": 7.4, "high_confidence_inferred": 5.6, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 64.7, "width_m": 19.2, "near_ball": 1.7}, "reconstructed": {"def_line_m": 59.5, "width_m": 47.8, "near_ball": 1`
 
 **27' Goal Fortuna Düsseldorf - M. Sobottka** (GOAL_BUILD_UP). Chain: EVENT: Tackle by M. Sobottka → CONSEQUENCE: 1 passes, 4.1s → OUTCOME: Goal (0.449 xG)
 
@@ -57,7 +57,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Transitions: 0 counterattacks launched in the next 15 min
 - [recorded_event] Outcome: 0 ended in shots
 - Followed by (not proof of causation): 0 counterattacks, 0 shots (0 xG)
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1795, 1805], "observed_players": 3.3, "inferred_players": 6.7, "high_confidence_inferred": 4.2, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 60.6, "width_m": 32.5, "near_ball": 0.7}, "reconstructed": {"def_line_m": 43.5, "width_m": 40.7, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1795, 1805], "observed_players": 3.3, "inferred_players": 6.7, "high_confidence_inferred": 3.9, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 60.6, "width_m": 32.5, "near_ball": 0.7}, "reconstructed": {"def_line_m": 43.5, "width_m": 40.7, "near_ball":`
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 
@@ -93,7 +93,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 51' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 4-2-3-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 51' | FORMATION_SHIFT | A | Fortuna Düsseldorf switch to 4-2-3-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 | 61' | GOAL_BUILD_UP | B | Goal F.C. Hansa Rostock - Lukas Fröde | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 71' | SUBSTITUTION_IMPACT | A | Jorrit Hendrix on for Shinta Appelkamp | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 72' | SUBSTITUTION_IMPACT | A | E. Iyoha on for Dawid Kownacki | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
@@ -122,7 +122,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: E. Iyoha shot from 11.5m
 - [recorded_event] Outcome: Goal - 3-1
 - Followed by (not proof of causation): Score 3-1
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1906, 1916], "observed_players": 3.0, "inferred_players": 7.0, "high_confidence_inferred": 2.1, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 85.8, "width_m": 27.3, "near_ball": 1.8}, "reconstructed": {"def_line_m": 77.5, "width_m": 31.8, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1906, 1916], "observed_players": 3.0, "inferred_players": 7.0, "high_confidence_inferred": 1.9, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 85.8, "width_m": 27.3, "near_ball": 1.8}, "reconstructed": {"def_line_m": 77.5, "width_m": 31.8, "near_ball":`
 
 **51' Fortuna Düsseldorf switch to 4-2-3-1** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 3-5-2 -> 4-2-3-1 → STATE_CHANGE: Right-side press 0.0% -> 23.9% → CONSEQUENCE: 0 final-third recoveries
 
@@ -132,7 +132,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Recovery: Final-third recoveries 1 -> 0
 - [ground_truth positions] Territory: Territory 81.4% -> 58.0%
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 58.0%, 1 shots
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [295, 305], "observed_players": 0.8, "inferred_players": 9.2, "high_confidence_inferred": 4.1, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 50.1, "width_m": 30.5, "near_ball": 4.0}, "reconstructed": {"def_line_m": 40.0, "width_m": 31.4, "near_ball": 4`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [295, 305], "observed_players": 0.8, "inferred_players": 9.2, "high_confidence_inferred": 3.9, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 50.1, "width_m": 30.5, "near_ball": 4.0}, "reconstructed": {"def_line_m": 40.0, "width_m": 31.4, "near_ball": 4`
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 

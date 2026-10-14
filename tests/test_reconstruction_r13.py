@@ -270,3 +270,69 @@ def test_formation_shift_moment_is_stamped_where_the_new_shape_is_first_read():
     assert shifts
     for s in shifts:
         assert a[s["formation_minute"]]["formation"] == s["formation_after"]
+
+
+def test_live_summary_only_shows_moments_whose_evidence_is_already_in_the_past():
+    from backend.pipeline import MatchIntelligence
+    I = MatchIntelligence(source=str(ROOT / "data" / "dfl_J03WR9_r13_h1.json")) if (ROOT / "data" / "dfl_J03WR9_r13_h1.json").exists() else MatchIntelligence(7)
+    assert all(m["available_at"] >= m["timestamp"] for m in I.moments)
+    late = [m for m in I.moments if m["available_at"] > m["timestamp"] + 60]
+    assert late  # some moments need later evidence (e.g. a shift confirmed by the following minutes)
+    m = late[0]
+    T = (m["timestamp"] + m["available_at"]) / 2  # after the moment started, before its evidence is complete
+    ids = {h["id"] for h in I.summary(until=T)["highlights"]}
+    assert m["id"] not in ids
+    assert m["id"] in {h["id"] for h in I.summary(until=m["available_at"])["highlights"]}
+
+
+def test_lobby_hides_superseded_versions_but_keeps_them_reachable(tmp_path, monkeypatch):
+    from backend import catalog
+    meta = lambda src: {"duration": 10, "teams": {"A": {"name": "H", "color": "#000"}, "B": {"name": "A", "color": "#fff"}},
+                        "player_order": [], "initial_score": {"A": 0, "B": 0}, "source": src}
+    files = {"dfl_X1_h1.json": {"type": "tracking"}, "dfl_X1_r13_h1.json": {"type": "tracking", "reconstruction_session": "r13"},
+             "dfl_X1_trial7h_preview_h1.json": {"type": "tracking", "session": "seven-hour", "experimental": True},
+             "cv_clip_a.json": {"type": "computer_vision"}, "cv_r13_clip_a.json": {"type": "computer_vision"}}
+    for name, src in files.items():
+        (tmp_path / name).write_text(json.dumps({"meta": meta(src), "players": [], "events": [], "frames": []}))
+    monkeypatch.setattr(catalog, "DATA", tmp_path)
+    monkeypatch.setattr(catalog, "LIVE_MATCH", "none")
+    monkeypatch.setattr(catalog, "SHOW_SUPERSEDED", False)
+    catalog._catalog_static.cache_clear()
+    try:
+        shown = {c["id"] for c in catalog.lobby()}
+        assert {"dfl-X1-r13", "cv-r13-clip-a"} <= shown
+        assert not shown & {"dfl-X1", "dfl-X1-trial7h-preview", "cv-clip-a"}
+        assert catalog.entry("dfl-X1") is not None  # still reachable by URL
+        monkeypatch.setattr(catalog, "LIVE_MATCH", "dfl-X1")
+        assert not catalog.superseded(catalog.entry("dfl-X1"))  # the live match is never hidden
+    finally:
+        catalog._catalog_static.cache_clear()
+
+
+def test_possession_changes_from_provider_possessions():
+    from backend.reconstruction.skillcorner_match import possession_changes
+    def pp(fs, fe, pid, x, y, side="left_to_right"):
+        return {"event_type": "player_possession", "player_id": str(pid), "frame_start": str(fs), "frame_end": str(fe),
+                "x_start": str(x), "y_start": str(y), "attacking_side": side}
+    rows = [pp(0, 20, 1, 0, 0), pp(30, 60, 2, 5, 0),            # A -> A: no change
+            pp(70, 90, 11, -10, 3),                               # A -> B with a regain by B: tackle
+            {"event_type": "on_ball_engagement", "player_id": "11", "frame_start": "62", "frame_end": "72", "end_type": "direct_regain"},
+            pp(200, 220, 1, 0, 0),                                 # B -> A after a 11 s stoppage on the centre spot: kickoff
+            pp(225, 240, 12, 20, 10)]                              # A -> B quickly: loose ball
+    pid_of = {1: "A1", 2: "A2", 11: "B11", 12: "B12"}
+    team_of = {1: "A", 2: "A", 11: "B", 12: "B"}
+    xy = lambda x, y, r: (52.5 + float(x), 34 + float(y))
+    ev = possession_changes(rows, pid_of, team_of, xy, lambda f: int(f) / 10, 100)
+    pc = [e for e in ev if e["event_type"] == "POSSESSION_CHANGE"]
+    assert [e["cause"] for e in pc] == ["tackle", "kickoff", "loose_ball"]
+    assert [e["team_id"] for e in pc] == ["B", "A", "B"]
+    assert sum(e["event_type"] == "KICK_OFF" for e in ev) == 2  # period start + centre-spot restart
+
+
+def test_untracked_ball_is_flagged_for_display():
+    from backend.reconstruction.skillcorner_match import frames_for
+    T, N = 3, 1
+    clip = {"on": np.ones((T, N), bool), "pos": np.full((T, N, 2), np.nan), "ball": np.tile([50.0, 30.0], (T, 1))}
+    rec = (np.full((T, N, 2), 10.0), np.full((T, N), 5.0), np.full((T, N), 0.5), np.zeros((T, N), bool))
+    fr = frames_for(clip, rec, ["A"] * T, np.array([True, False, True]))
+    assert [f["bs"] for f in fr] == ["tracked", "held_or_unknown", "tracked"]

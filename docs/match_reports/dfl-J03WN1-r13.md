@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WN1-r13
+# Real tracking · DFL open data: dfl-J03WN1-r13
 
 ## h1
 
@@ -25,11 +25,11 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 4' | TACTICAL_TURNING_POINT | A | VfL Bochum 1848 take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 4' | TACTICAL_TURNING_POINT | A | VfL Bochum 1848 take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 8' | RED_CARD_IMPACT | B | Red card: A. Adli (Bayer 04 Leverkusen) | 0.9 | 1.0 | recorded card; after-effects heuristic |
 | 19' | GOAL_BUILD_UP | A | Goal VfL Bochum 1848 - P. Förster | 0.95 | 1.0 | recorded goal; build-up sequence from events |
-| 21' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
-| 30' | TACTICAL_TURNING_POINT | A | VfL Bochum 1848 take territorial control | 0.88 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 21' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
+| 30' | TACTICAL_TURNING_POINT | A | VfL Bochum 1848 take territorial control | 0.88 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 34' | GOAL_BUILD_UP | A | Goal VfL Bochum 1848 - T. Asano | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 
 ### Evidence chains (top 3 by importance)
@@ -40,7 +40,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: P. Förster shot from 7.9m
 - [recorded_event] Outcome: Goal - 1-0
 - Followed by (not proof of causation): Score 1-0
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1078, 1088], "observed_players": 1.8, "inferred_players": 8.2, "high_confidence_inferred": 3.9, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 95.7, "width_m": 20.6, "near_ball": 1.8}, "reconstructed": {"def_line_m": 67.5, "width_m": 32.6, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1078, 1088], "observed_players": 1.8, "inferred_players": 8.2, "high_confidence_inferred": 3.8, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 95.7, "width_m": 20.6, "near_ball": 1.8}, "reconstructed": {"def_line_m": 67.5, "width_m": 32.6, "near_ball":`
 
 **8' Red card: A. Adli (Bayer 04 Leverkusen)** (RED_CARD_IMPACT). Chain: EVENT: Red card → STATE_CHANGE: 4-1-3-2 -> 4-2-3 → TACTICAL_CHANGE: VfL Bochum 1848 push up → CONSEQUENCE: Territory 62.6% → OUTCOME: Goal
 
@@ -94,17 +94,17 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 51' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 51' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 56' | SUBSTITUTION_IMPACT | A | K. Schlotterbeck on for D. Heintz | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 56' | SUBSTITUTION_IMPACT | A | P. Osterhage on for P. Förster | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 67' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 67' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 78' | SUBSTITUTION_IMPACT | B | A. Hložek on for N. Amiri | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 81' | FORMATION_SHIFT | B | Bayer 04 Leverkusen switch to 4-4-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 81' | FORMATION_SHIFT | B | Bayer 04 Leverkusen switch to 4-4-1 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 | 81' | SUBSTITUTION_IMPACT | A | M. Broschinski on for P. Hofmann | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 81' | SUBSTITUTION_IMPACT | A | S. Zoller on for T. Asano | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 86' | GOAL_BUILD_UP | A | Goal VfL Bochum 1848 - K. Stöger | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 89' | SUBSTITUTION_IMPACT | A | Vasileios Lampropoulos on for K. Stöger | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 90' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen drop into a low block | 0.83 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 90' | TACTICAL_TURNING_POINT | B | Bayer 04 Leverkusen drop into a low block | 0.83 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 92' | SUBSTITUTION_IMPACT | B | Noah Mbamba on for M. Diaby | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 
 ### Evidence chains (top 3 by importance)
@@ -126,7 +126,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Recovery: Final-third recoveries 0 -> 0
 - [ground_truth positions] Territory: Territory 25.5% -> 51.7%
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 51.7%, 0 shots
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2095, 2105], "observed_players": 0.0, "inferred_players": 9.0, "high_confidence_inferred": 1.0, "outfield_players": 11, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 65.8, "width_m": 30.0, "near_ball": 4.8}, "truth": {"def_line_m": 50.0, "width_m": 35.`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2095, 2105], "observed_players": 0.0, "inferred_players": 9.0, "high_confidence_inferred": 0.8, "outfield_players": 11, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 65.8, "width_m": 30.0, "near_ball": 4.8}, "truth": {"def_line_m": 50.0, "width_m": 35.`
 
 **81' S. Zoller on for T. Asano** (SUBSTITUTION_IMPACT). Chain: EVENT: Substitution → STATE_CHANGE: Fresh legs on the RW → OUTCOME: Assist
 
@@ -135,7 +135,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Team effect: Press intensity 27.0 -> 16.8
 - [recorded_event] Outcome: Assist for the goal at 85:18
 - Followed by (not proof of causation): 5 pressures from S. Zoller, Assist
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [2112, 2122], "observed_players": 0.5, "inferred_players": 9.5, "high_confidence_inferred": 5.4, "outfield_players": 15, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 17.6, "width_m": 25.8, "near_ball": 5.1}, "truth": {"def_line_m": 21.7, "width_m": 53.`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [2112, 2122], "observed_players": 0.5, "inferred_players": 9.5, "high_confidence_inferred": 5.3, "outfield_players": 15, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 17.6, "width_m": 25.8, "near_ball": 5.1}, "truth": {"def_line_m": 21.7, "width_m": 53.`
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 

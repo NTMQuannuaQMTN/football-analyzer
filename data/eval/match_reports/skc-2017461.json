@@ -88,7 +88,7 @@
    "substitutions": [],
    "chapters": [],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 2,
    "shifts": [
     {
      "team": "A",
@@ -141,17 +141,114 @@
    ],
    "moments": [
     {
-     "id": "m00-formation-shift",
+     "id": "m00-counterattack",
+     "minute": "18'",
+     "t": 1056.5,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Auckland FC counterattack",
+     "importance": 0.56,
+     "confidence": 0.7,
+     "reliability": 0.74,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 1043.1
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 1043.1
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "51.4m in 7s",
+       "timestamp": 1050.1
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.111 xG)",
+       "timestamp": 1056.5
+      }
+     ],
+     "consequences": [
+      "9 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "M. Francois regains 20m from own goal",
+       "value": 19.8,
+       "unit": "m",
+       "t": 1043.1,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Melbourne Victory Football Club defensive line at 40.95m",
+       "value": 40.95,
+       "unit": "m",
+       "t": 1043.1,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "51.4m in 7s, 1 pass(es)",
+       "value": 7.3,
+       "unit": "m/s",
+       "t": 1043.1,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "9 players caught upfield",
+       "value": 9,
+       "unit": "players",
+       "t": 1050.1,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by J. Randall (unknown)",
+       "value": 0.111,
+       "unit": "xG",
+       "t": 1056.5,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 55%)",
+       "value": 0.42,
+       "unit": "observed share",
+       "t": 1056.5,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m01-formation-shift",
      "minute": "21'",
      "t": 1200,
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "B",
-     "title": "Auckland FC switch to 4-2-3-1",
+     "title": "Auckland FC possible switch to 4-2-3-1",
      "importance": 0.75,
-     "confidence": 0.65,
-     "reliability": 0.29,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.66,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -225,7 +322,7 @@
      "hidden_state": null
     },
     {
-     "id": "m01-formation-shift",
+     "id": "m02-formation-shift",
      "minute": "46'",
      "t": 2700,
      "type": "FORMATION_SHIFT",
@@ -233,9 +330,9 @@
      "team": "A",
      "title": "Melbourne Victory Football Club switch to 3-4-1-2",
      "importance": 0.75,
-     "confidence": 0.75,
-     "reliability": 0.53,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.9,
+     "reliability": 0.94,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -309,17 +406,17 @@
      "hidden_state": null
     },
     {
-     "id": "m02-formation-shift",
+     "id": "m03-formation-shift",
      "minute": "46'",
      "t": 2700,
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "B",
-     "title": "Auckland FC switch to 4-4-2",
+     "title": "Auckland FC possible switch to 4-4-2",
      "importance": 0.75,
-     "confidence": 0.73,
-     "reliability": 0.49,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.88,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -372,7 +469,7 @@
       },
       {
        "label": "Recovery",
-       "detail": "Final-third recoveries 0 -> 0",
+       "detail": "Final-third recoveries 1 -> 0",
        "value": 0,
        "unit": "recoveries",
        "t": 2700,
@@ -397,115 +494,157 @@
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 0,
-     "to_minute": 0,
-     "min_reliability": 0.41,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 2,
-     "to_minute": 2,
-     "min_reliability": 0.4,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 4,
-     "to_minute": 11,
-     "min_reliability": 0.07,
-     "abstain_minutes": 2
-    },
-    {
-     "team": "A",
-     "from_minute": 13,
-     "to_minute": 13,
+     "from_minute": 9,
+     "to_minute": 9,
      "min_reliability": 0.38,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "A",
-     "from_minute": 16,
-     "to_minute": 26,
-     "min_reliability": 0.05,
-     "abstain_minutes": 5
-    },
-    {
-     "team": "A",
-     "from_minute": 28,
-     "to_minute": 30,
-     "min_reliability": 0.11,
      "abstain_minutes": 1
     },
     {
      "team": "A",
-     "from_minute": 32,
-     "to_minute": 36,
-     "min_reliability": 0.27,
-     "abstain_minutes": 1
-    },
-    {
-     "team": "A",
-     "from_minute": 38,
-     "to_minute": 45,
-     "min_reliability": 0.26,
-     "abstain_minutes": 4
-    },
-    {
-     "team": "B",
-     "from_minute": 0,
-     "to_minute": 0,
-     "min_reliability": 0.45,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 2,
-     "to_minute": 4,
-     "min_reliability": 0.36,
-     "abstain_minutes": 0
-    },
-    {
-     "team": "B",
-     "from_minute": 8,
+     "from_minute": 11,
      "to_minute": 11,
-     "min_reliability": 0.05,
+     "min_reliability": 0.62,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 18,
+     "to_minute": 19,
+     "min_reliability": 0.54,
      "abstain_minutes": 2
     },
     {
-     "team": "B",
-     "from_minute": 13,
-     "to_minute": 13,
-     "min_reliability": 0.45,
-     "abstain_minutes": 0
+     "team": "A",
+     "from_minute": 22,
+     "to_minute": 24,
+     "min_reliability": 0.31,
+     "abstain_minutes": 3
     },
     {
-     "team": "B",
-     "from_minute": 16,
+     "team": "A",
+     "from_minute": 30,
      "to_minute": 30,
-     "min_reliability": 0.09,
-     "abstain_minutes": 8
+     "min_reliability": 0.42,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 36,
+     "to_minute": 36,
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 38,
+     "to_minute": 38,
+     "min_reliability": 0.73,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 40,
+     "to_minute": 40,
+     "min_reliability": 0.55,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 42,
+     "to_minute": 42,
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 45,
+     "to_minute": 45,
+     "min_reliability": 0.87,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 33,
-     "to_minute": 36,
-     "min_reliability": 0.22,
+     "from_minute": 9,
+     "to_minute": 9,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 11,
+     "to_minute": 11,
+     "min_reliability": 0.55,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 19,
+     "to_minute": 20,
+     "min_reliability": 0.61,
      "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 22,
+     "to_minute": 24,
+     "min_reliability": 0.4,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 26,
+     "to_minute": 26,
+     "min_reliability": 0.7,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 29,
+     "to_minute": 30,
+     "min_reliability": 0.37,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 34,
+     "to_minute": 34,
+     "min_reliability": 0.77,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 36,
+     "to_minute": 36,
+     "min_reliability": 0.55,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 38,
+     "to_minute": 38,
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 40,
      "to_minute": 40,
-     "min_reliability": 0.25,
-     "abstain_minutes": 2
+     "min_reliability": 0.59,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 42,
+     "to_minute": 42,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 45,
      "to_minute": 45,
-     "min_reliability": 0.25,
-     "abstain_minutes": 2
+     "min_reliability": 0.81,
+     "abstain_minutes": 1
     }
    ],
    "observed_share": 0.385,
@@ -686,7 +825,7 @@
     }
    ],
    "presses": [],
-   "counterattacks": 0,
+   "counterattacks": 5,
    "shifts": [
     {
      "team": "A",
@@ -751,7 +890,104 @@
    ],
    "moments": [
     {
-     "id": "m00-substitution-impact",
+     "id": "m00-counterattack",
+     "minute": "49'",
+     "t": 200.4,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Auckland FC counterattack",
+     "importance": 0.59,
+     "confidence": 0.62,
+     "reliability": 0.5,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 193.9
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 193.9
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "27.7m in 4s",
+       "timestamp": 197.9
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.151 xG)",
+       "timestamp": 200.4
+      }
+     ],
+     "consequences": [
+      "10 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "G. May regains 53m from own goal",
+       "value": 52.7,
+       "unit": "m",
+       "t": 193.9,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Melbourne Victory Football Club defensive line at 25.11m",
+       "value": 25.11,
+       "unit": "m",
+       "t": 193.9,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "27.7m in 4s, 1 pass(es)",
+       "value": 6.9,
+       "unit": "m/s",
+       "t": 193.9,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "10 players caught upfield",
+       "value": 10,
+       "unit": "players",
+       "t": 197.9,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by J. Randall (unknown)",
+       "value": 0.151,
+       "unit": "xG",
+       "t": 200.4,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 39%)",
+       "value": 0.17,
+       "unit": "observed share",
+       "t": 200.4,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m01-substitution-impact",
      "minute": "58'",
      "t": 769.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -759,8 +995,8 @@
      "team": "A",
      "title": "J. Rawlins on for B. Hamill",
      "importance": 0.48,
-     "confidence": 0.5,
-     "reliability": 0.29,
+     "confidence": 0.6,
+     "reliability": 0.63,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -789,7 +1025,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "3 pressures (0 on the right), 0 recoveries in first 15 min",
+       "detail": "3 pressures (0 on the right), 1 recoveries in first 15 min",
        "value": 3,
        "unit": "pressures",
        "t": 769.0,
@@ -810,7 +1046,7 @@
      "hidden_state": null
     },
     {
-     "id": "m01-substitution-impact",
+     "id": "m02-substitution-impact",
      "minute": "63'",
      "t": 1041.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -818,8 +1054,8 @@
      "team": "B",
      "title": "L. Gillion on for M. Francois",
      "importance": 0.54,
-     "confidence": 0.51,
-     "reliability": 0.31,
+     "confidence": 0.61,
+     "reliability": 0.68,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -869,7 +1105,7 @@
      "hidden_state": null
     },
     {
-     "id": "m02-substitution-impact",
+     "id": "m03-substitution-impact",
      "minute": "63'",
      "t": 1041.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -877,8 +1113,8 @@
      "team": "B",
      "title": "N. Moreno on for M. Francois",
      "importance": 0.6,
-     "confidence": 0.51,
-     "reliability": 0.31,
+     "confidence": 0.61,
+     "reliability": 0.68,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -907,7 +1143,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "16 pressures (5 on the right), 0 recoveries in first 15 min",
+       "detail": "16 pressures (5 on the right), 2 recoveries in first 15 min",
        "value": 16,
        "unit": "pressures",
        "t": 1041.0,
@@ -928,7 +1164,7 @@
      "hidden_state": null
     },
     {
-     "id": "m03-goal-build-up",
+     "id": "m04-goal-build-up",
      "minute": "64'",
      "t": 1127.0,
      "type": "GOAL_BUILD_UP",
@@ -936,19 +1172,19 @@
      "team": "B",
      "title": "Goal Auckland FC - L. Rogerson",
      "importance": 0.92,
-     "confidence": 0.71,
-     "reliability": 0.36,
+     "confidence": 0.84,
+     "reliability": 0.71,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
        "stage": "EVENT",
        "label": "Spell of possession",
-       "timestamp": 1117.0
+       "timestamp": 1119.5
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 passes, 10.0s",
-       "timestamp": 1117.0
+       "label": "1 passes, 7.5s",
+       "timestamp": 1119.5
       },
       {
        "stage": "OUTCOME",
@@ -962,10 +1198,10 @@
      "evidence": [
       {
        "label": "Build-up",
-       "detail": "0 passes in 10.0s",
-       "value": 0,
+       "detail": "1 passes in 7.5s",
+       "value": 1,
        "unit": "passes",
-       "t": 1117.0,
+       "t": 1119.5,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
       },
@@ -998,7 +1234,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 54%)",
        "value": 0.36,
        "unit": "observed share",
        "t": 1127.0,
@@ -1010,7 +1246,104 @@
      "hidden_state": null
     },
     {
-     "id": "m04-substitution-impact",
+     "id": "m05-counterattack",
+     "minute": "67'",
+     "t": 1277.8,
+     "type": "COUNTERATTACK",
+     "subtype": null,
+     "team": "B",
+     "title": "Auckland FC counterattack",
+     "importance": 0.56,
+     "confidence": 0.65,
+     "reliability": 0.59,
+     "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Ball regained",
+       "timestamp": 1266.5
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Opponent out of shape",
+       "timestamp": 1266.5
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "33.4m in 6s",
+       "timestamp": 1272.5
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Shot (0.124 xG)",
+       "timestamp": 1277.8
+      }
+     ],
+     "consequences": [
+      "9 opponents bypassed",
+      "Shot"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "N. Moreno regains 44m from own goal",
+       "value": 43.8,
+       "unit": "m",
+       "t": 1266.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Opponent shape",
+       "detail": "Melbourne Victory Football Club defensive line at 19.39m",
+       "value": 19.39,
+       "unit": "m",
+       "t": 1266.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transition",
+       "detail": "33.4m in 6s, 2 pass(es)",
+       "value": 5.6,
+       "unit": "m/s",
+       "t": 1266.5,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Exposed defence",
+       "detail": "9 players caught upfield",
+       "value": 9,
+       "unit": "players",
+       "t": 1272.5,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Shot by N. Moreno (unknown)",
+       "value": 0.124,
+       "unit": "xG",
+       "t": 1277.8,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 43%)",
+       "value": 0.27,
+       "unit": "observed share",
+       "t": 1277.8,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m06-substitution-impact",
      "minute": "70'",
      "t": 1444.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1018,8 +1351,8 @@
      "team": "A",
      "title": "Clarismario Rodrigues on for N. Vergos",
      "importance": 0.47,
-     "confidence": 0.5,
-     "reliability": 0.28,
+     "confidence": 0.6,
+     "reliability": 0.63,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1048,7 +1381,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "2 pressures (2 on the right), 0 recoveries in first 15 min",
+       "detail": "2 pressures (2 on the right), 1 recoveries in first 15 min",
        "value": 2,
        "unit": "pressures",
        "t": 1444.0,
@@ -1069,7 +1402,7 @@
      "hidden_state": null
     },
     {
-     "id": "m05-substitution-impact",
+     "id": "m07-substitution-impact",
      "minute": "70'",
      "t": 1444.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1077,8 +1410,8 @@
      "team": "A",
      "title": "B. Fornaroli on for N. Vergos",
      "importance": 0.5,
-     "confidence": 0.5,
-     "reliability": 0.28,
+     "confidence": 0.6,
+     "reliability": 0.63,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1128,7 +1461,7 @@
      "hidden_state": null
     },
     {
-     "id": "m06-substitution-impact",
+     "id": "m08-substitution-impact",
      "minute": "75'",
      "t": 1794.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1136,8 +1469,8 @@
      "team": "B",
      "title": "T. Smith on for L. Rogerson",
      "importance": 0.47,
-     "confidence": 0.52,
-     "reliability": 0.35,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1185,24 +1518,24 @@
      ],
      "links": [
       {
-       "to": "m07-formation-shift",
+       "to": "m09-formation-shift",
        "relation": "preceded"
       }
      ],
      "hidden_state": null
     },
     {
-     "id": "m07-formation-shift",
+     "id": "m09-formation-shift",
      "minute": "76'",
      "t": 1800,
      "type": "FORMATION_SHIFT",
      "subtype": null,
      "team": "B",
-     "title": "Auckland FC switch to 5-4-1",
+     "title": "Auckland FC possible switch to 5-4-1",
      "importance": 0.75,
-     "confidence": 0.68,
-     "reliability": 0.34,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "confidence": 0.5,
+     "reliability": 0.71,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1255,7 +1588,7 @@
       },
       {
        "label": "Recovery",
-       "detail": "Final-third recoveries 0 -> 0",
+       "detail": "Final-third recoveries 1 -> 0",
        "value": 0,
        "unit": "recoveries",
        "t": 1800,
@@ -1276,7 +1609,7 @@
      "hidden_state": null
     },
     {
-     "id": "m08-substitution-impact",
+     "id": "m10-substitution-impact",
      "minute": "80'",
      "t": 2079.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1284,8 +1617,8 @@
      "team": "B",
      "title": "J. Brimmer on for F. Gallegos",
      "importance": 0.6,
-     "confidence": 0.53,
-     "reliability": 0.38,
+     "confidence": 0.63,
+     "reliability": 0.75,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1314,7 +1647,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "19 pressures (7 on the right), 0 recoveries in first 15 min",
+       "detail": "19 pressures (7 on the right), 4 recoveries in first 15 min",
        "value": 19,
        "unit": "pressures",
        "t": 2079.0,
@@ -1335,7 +1668,7 @@
      "hidden_state": null
     },
     {
-     "id": "m09-substitution-impact",
+     "id": "m11-substitution-impact",
      "minute": "80'",
      "t": 2079.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1343,8 +1676,8 @@
      "team": "B",
      "title": "C. Elliott on for F. Gallegos",
      "importance": 0.49,
-     "confidence": 0.53,
-     "reliability": 0.38,
+     "confidence": 0.63,
+     "reliability": 0.75,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1373,7 +1706,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "4 pressures (3 on the right), 0 recoveries in first 15 min",
+       "detail": "4 pressures (3 on the right), 1 recoveries in first 15 min",
        "value": 4,
        "unit": "pressures",
        "t": 2079.0,
@@ -1394,7 +1727,7 @@
      "hidden_state": null
     },
     {
-     "id": "m10-substitution-impact",
+     "id": "m12-substitution-impact",
      "minute": "84'",
      "t": 2292.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1402,8 +1735,8 @@
      "team": "A",
      "title": "A. Badolato on for N. Velupillay",
      "importance": 0.52,
-     "confidence": 0.52,
-     "reliability": 0.36,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1432,7 +1765,7 @@
       },
       {
        "label": "Player activity",
-       "detail": "7 pressures (4 on the right), 0 recoveries in first 15 min",
+       "detail": "7 pressures (4 on the right), 2 recoveries in first 15 min",
        "value": 7,
        "unit": "pressures",
        "t": 2292.0,
@@ -1453,7 +1786,7 @@
      "hidden_state": null
     },
     {
-     "id": "m11-substitution-impact",
+     "id": "m13-substitution-impact",
      "minute": "84'",
      "t": 2292.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1461,8 +1794,8 @@
      "team": "A",
      "title": "R. Piscopo on for N. Velupillay",
      "importance": 0.49,
-     "confidence": 0.52,
-     "reliability": 0.36,
+     "confidence": 0.63,
+     "reliability": 0.74,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1512,7 +1845,7 @@
      "hidden_state": null
     },
     {
-     "id": "m12-tactical-turning-point",
+     "id": "m14-tactical-turning-point",
      "minute": "86'",
      "t": 2400,
      "type": "TACTICAL_TURNING_POINT",
@@ -1520,9 +1853,9 @@
      "team": "B",
      "title": "Auckland FC take territorial control",
      "importance": 0.65,
-     "confidence": 0.68,
-     "reliability": 0.38,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.81,
+     "reliability": 0.75,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1536,7 +1869,7 @@
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 counterattacks",
+       "label": "1 counterattacks",
        "timestamp": 2400
       }
      ],
@@ -1583,7 +1916,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 59%)",
        "value": 0.38,
        "unit": "observed share",
        "t": 2400,
@@ -1595,7 +1928,7 @@
      "hidden_state": null
     },
     {
-     "id": "m13-tactical-turning-point",
+     "id": "m15-tactical-turning-point",
      "minute": "94'",
      "t": 2880,
      "type": "TACTICAL_TURNING_POINT",
@@ -1603,9 +1936,9 @@
      "team": "B",
      "title": "Auckland FC drop into a low block",
      "importance": 0.65,
-     "confidence": 0.69,
-     "reliability": 0.41,
-     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "confidence": 0.79,
+     "reliability": 0.71,
+     "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
        "stage": "TACTICAL_CHANGE",
@@ -1619,12 +1952,12 @@
       },
       {
        "stage": "CONSEQUENCE",
-       "label": "0 counterattacks",
+       "label": "1 counterattacks",
        "timestamp": 2880
       }
      ],
      "consequences": [
-      "0 counterattacks",
+      "1 counterattacks",
       "1 shots (0.09 xG)"
      ],
      "evidence": [
@@ -1648,8 +1981,8 @@
       },
       {
        "label": "Transitions",
-       "detail": "0 counterattacks launched in the next 15 min",
-       "value": 0,
+       "detail": "1 counterattacks launched in the next 15 min",
+       "value": 1,
        "unit": "counters",
        "t": 2880,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1657,8 +1990,8 @@
       },
       {
        "label": "Outcome",
-       "detail": "0 ended in shots",
-       "value": 0,
+       "detail": "1 ended in shots",
+       "value": 1,
        "unit": "shots",
        "t": 2880,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1666,7 +1999,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "detail": "On average 4 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 50%)",
        "value": 0.41,
        "unit": "observed share",
        "t": 2880,
@@ -1682,87 +2015,192 @@
    "unreliable_segments": [
     {
      "team": "A",
-     "from_minute": 1,
+     "from_minute": 3,
+     "to_minute": 3,
+     "min_reliability": 0.53,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 5,
+     "to_minute": 6,
+     "min_reliability": 0.29,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 11,
      "to_minute": 12,
-     "min_reliability": 0.0,
-     "abstain_minutes": 5
+     "min_reliability": 0.19,
+     "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 14,
+     "to_minute": 14,
+     "min_reliability": 0.17,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 17,
      "to_minute": 17,
-     "min_reliability": 0.0,
-     "abstain_minutes": 2
+     "min_reliability": 0.6,
+     "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 19,
-     "to_minute": 21,
-     "min_reliability": 0.02,
+     "to_minute": 20,
+     "min_reliability": 0.34,
      "abstain_minutes": 2
     },
     {
      "team": "A",
-     "from_minute": 23,
+     "from_minute": 24,
+     "to_minute": 24,
+     "min_reliability": 0.66,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 27,
+     "to_minute": 29,
+     "min_reliability": 0.49,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "A",
+     "from_minute": 33,
      "to_minute": 35,
-     "min_reliability": 0.0,
-     "abstain_minutes": 7
+     "min_reliability": 0.14,
+     "abstain_minutes": 3
     },
     {
      "team": "A",
-     "from_minute": 37,
-     "to_minute": 43,
-     "min_reliability": 0.06,
-     "abstain_minutes": 2
+     "from_minute": 38,
+     "to_minute": 38,
+     "min_reliability": 0.31,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 40,
+     "to_minute": 40,
+     "min_reliability": 0.51,
+     "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 46,
-     "to_minute": 51,
-     "min_reliability": 0.23,
-     "abstain_minutes": 2
+     "to_minute": 46,
+     "min_reliability": 0.6,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 50,
+     "to_minute": 50,
+     "min_reliability": 0.46,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 3,
+     "to_minute": 3,
+     "min_reliability": 0.5,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 5,
+     "to_minute": 6,
+     "min_reliability": 0.28,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
      "to_minute": 12,
-     "min_reliability": 0.0,
-     "abstain_minutes": 6
+     "min_reliability": 0.14,
+     "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 14,
-     "to_minute": 21,
-     "min_reliability": 0.0,
-     "abstain_minutes": 5
+     "to_minute": 14,
+     "min_reliability": 0.24,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 23,
-     "to_minute": 31,
-     "min_reliability": 0.18,
-     "abstain_minutes": 4
+     "from_minute": 17,
+     "to_minute": 17,
+     "min_reliability": 0.61,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 19,
+     "to_minute": 21,
+     "min_reliability": 0.2,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 25,
+     "to_minute": 25,
+     "min_reliability": 0.58,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 27,
+     "to_minute": 29,
+     "min_reliability": 0.5,
+     "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 33,
-     "to_minute": 35,
-     "min_reliability": 0.0,
+     "to_minute": 34,
+     "min_reliability": 0.21,
      "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 38,
-     "to_minute": 42,
-     "min_reliability": 0.07,
-     "abstain_minutes": 3
+     "to_minute": 38,
+     "min_reliability": 0.43,
+     "abstain_minutes": 1
     },
     {
      "team": "B",
-     "from_minute": 45,
-     "to_minute": 51,
-     "min_reliability": 0.17,
-     "abstain_minutes": 2
+     "from_minute": 40,
+     "to_minute": 40,
+     "min_reliability": 0.52,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 42,
+     "to_minute": 42,
+     "min_reliability": 0.79,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 46,
+     "to_minute": 46,
+     "min_reliability": 0.45,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 50,
+     "to_minute": 50,
+     "min_reliability": 0.46,
+     "abstain_minutes": 1
     }
    ],
    "observed_share": 0.325,

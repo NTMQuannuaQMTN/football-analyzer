@@ -56,7 +56,9 @@ function LiveState({ timeline, minute, meta }: { timeline: Timeline; minute: num
         <summary className="cursor-pointer">About the time windows</summary>
         <p className="mt-1">Press, line height, width and territory summarise up to three full minutes. Shape uses five-minute windows and smoothing across the sequence. Later frames can influence these replay summaries; they are not live predictions.</p>
       </details>
-      {unverified && <div className="mt-1.5 text-[11px] text-amber-300">These metrics describe estimated positions. Camera calibration and player identities are unverified; tactical labels and accuracy confidence are N/A.</div>}
+      {unverified && <div className="mt-1.5 text-[11px] text-amber-300">{meta.source?.uncertainty_validated
+        ? "These metrics describe estimated positions. Measured positions and identities are the provider's and unverified; the confidence of estimated players was checked against later real sightings (about 78% inside the shown radius); tactical labels are experimental."
+        : "These metrics describe estimated positions. Camera calibration and player identities are unverified; tactical labels and accuracy confidence are N/A."}</div>}
       {!unverified && rows.some(({ r }) => r.visibility?.abstain) && (
         <div className="mt-1.5 text-[11px] text-amber-300">Insufficient visibility for reliable full-team tactical analysis this minute — not claiming a tactical state.</div>
       )}

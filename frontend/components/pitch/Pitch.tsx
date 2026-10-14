@@ -354,8 +354,13 @@ export default function Pitch({ t, frames, meta, events, focusPlayers, focusTeam
         </g>
         );
       })()}
-      <circle cx={ball[0]} cy={ball[1]} r={0.75} fill={fr0.ds ? "#fde047" : "white"} stroke="#111" strokeWidth={0.15}
-        opacity={fr0.bs === "raw" ? 0.45 : 1} strokeDasharray={fr0.bs === "raw" ? "0.3 0.25" : undefined} />
+      {fr0.bs === "held_or_unknown"
+        ? /* not measured this second (replay / close-up): last known position, drawn hollow so it never looks observed */
+          <circle cx={ball[0]} cy={ball[1]} r={0.75} fill="none" stroke="white" strokeWidth={0.2} opacity={0.6} strokeDasharray="0.35 0.3">
+            <title>Ball not tracked at this moment: last known position</title>
+          </circle>
+        : <circle cx={ball[0]} cy={ball[1]} r={0.75} fill={fr0.ds ? "#fde047" : "white"} stroke="#111" strokeWidth={0.15}
+            opacity={fr0.bs === "raw" ? 0.45 : 1} strokeDasharray={fr0.bs === "raw" ? "0.3 0.25" : undefined} />}
     </svg>
   );
 }

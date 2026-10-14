@@ -1,4 +1,4 @@
-# Real tracking · DFL · camera estimate r13: dfl-J03WMX-r13
+# Real tracking · DFL open data: dfl-J03WMX-r13
 
 ## h1
 
@@ -25,10 +25,10 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 5' | TACTICAL_TURNING_POINT | B | FC Bayern München push up | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 5' | TACTICAL_TURNING_POINT | B | FC Bayern München push up | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 8' | GOAL_BUILD_UP | B | Goal FC Bayern München - Kingsley Coman | 0.95 | 1.0 | recorded goal; build-up sequence from events |
-| 26' | FORMATION_SHIFT | B | FC Bayern München switch to 4-1-3-2 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
-| 42' | TACTICAL_TURNING_POINT | B | FC Bayern München take territorial control | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 26' | FORMATION_SHIFT | B | FC Bayern München switch to 4-1-3-2 | 0.92 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
+| 42' | TACTICAL_TURNING_POINT | B | FC Bayern München take territorial control | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 
 ### Evidence chains (top 3 by importance)
 
@@ -48,7 +48,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Recovery: Final-third recoveries 1 -> 1
 - [ground_truth positions] Territory: Territory 62.5% -> 44.1%
 - Followed by (not proof of causation): 1 final-third recoveries, Territory 44.1%, 0 shots
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [1495, 1505], "observed_players": 2.1, "inferred_players": 7.9, "high_confidence_inferred": 5.3, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 57.2, "width_m": 13.9, "near_ball": 4.0}, "reconstructed": {"def_line_m": 41.5, "width_m": 28.4, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [1495, 1505], "observed_players": 2.1, "inferred_players": 7.9, "high_confidence_inferred": 4.8, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 57.2, "width_m": 13.9, "near_ball": 4.0}, "reconstructed": {"def_line_m": 41.5, "width_m": 28.4, "near_ball":`
 
 **5' FC Bayern München push up** (TACTICAL_TURNING_POINT). Chain: TACTICAL_CHANGE: High Press → STATE_CHANGE: Line 35.7m -> 39.0m → CONSEQUENCE: 0 counterattacks
 
@@ -93,22 +93,22 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
-| 59' | TACTICAL_TURNING_POINT | B | FC Bayern München drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 59' | TACTICAL_TURNING_POINT | B | FC Bayern München drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 62' | SUBSTITUTION_IMPACT | A | K. Schindler on for F. Kainz | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 62' | SUBSTITUTION_IMPACT | A | Jan Thielmann on for D. Selke | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 62' | SUBSTITUTION_IMPACT | A | D. Huseinbašić on for B. Schmitz | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 62' | SUBSTITUTION_IMPACT | B | Joao Cancelo on for T. Müller | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 67' | TACTICAL_TURNING_POINT | A | 1. FC Köln drop into a low block | 0.9 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 67' | TACTICAL_TURNING_POINT | A | 1. FC Köln drop into a low block | 0.9 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 71' | SUBSTITUTION_IMPACT | B | Leon Goretzka on for Ryan Gravenberch | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 71' | SUBSTITUTION_IMPACT | B | E. Choupo-Moting on for Kingsley Coman | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 81' | FORMATION_SHIFT | B | FC Bayern München switch to 4-1-4-1 | 0.88 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups) |
+| 81' | FORMATION_SHIFT | B | FC Bayern München switch to 4-1-4-1 | 0.88 | 1.0 | heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction) |
 | 81' | GOAL_BUILD_UP | A | Goal 1. FC Köln - D. Ljubicic | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 | 82' | SUBSTITUTION_IMPACT | A | Kristian Pedersen on for D. Ljubicic | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 82' | SUBSTITUTION_IMPACT | A | T. Lemperle on for L. Maina | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 85' | SUBSTITUTION_IMPACT | B | J. Musiala on for N. Mazraoui | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
 | 85' | SUBSTITUTION_IMPACT | B | Mathys Tel on for Leon Goretzka | 0.7 | 1.0 | recorded substitution; after-effects heuristic |
-| 88' | COUNTERATTACK | B | FC Bayern München counterattack | 0.78 | 1.0 | heuristic; real-data F1 0.55 vs DFL CounterAttack flags (experimental) |
-| 89' | TACTICAL_TURNING_POINT | A | 1. FC Köln drop into a low block | 0.78 | 1.0 | heuristic; high-press thresholds UNVALIDATED on real football (experimental) |
+| 88' | COUNTERATTACK | B | FC Bayern München counterattack | 0.78 | 1.0 | heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental) |
+| 89' | TACTICAL_TURNING_POINT | A | 1. FC Köln drop into a low block | 0.78 | 1.0 | heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental) |
 | 89' | GOAL_BUILD_UP | B | Goal FC Bayern München - J. Musiala | 0.95 | 1.0 | recorded goal; build-up sequence from events |
 
 ### Evidence chains (top 3 by importance)
@@ -119,7 +119,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: D. Ljubicic shot from 11.0m
 - [recorded_event] Outcome: Goal - 1-1
 - Followed by (not proof of causation): Score 1-1
-- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [2099, 2109], "observed_players": 1.2, "inferred_players": 8.8, "high_confidence_inferred": 3.3, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 101.3, "width_m": 11.8, "near_ball": 3.3}, "reconstructed": {"def_line_m": 79.0, "width_m": 20.0, "near_ball"`
+- Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [2099, 2109], "observed_players": 1.2, "inferred_players": 8.8, "high_confidence_inferred": 3.5, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 101.3, "width_m": 11.8, "near_ball": 3.3}, "reconstructed": {"def_line_m": 79.0, "width_m": 20.0, "near_ball"`
 
 **89' Goal FC Bayern München - J. Musiala** (GOAL_BUILD_UP). Chain: EVENT: Spell of possession → CONSEQUENCE: 3 passes, 8.3s → OUTCOME: Goal (0.05 xG)
 
@@ -127,7 +127,7 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Shot: J. Musiala shot from 19.4m
 - [recorded_event] Outcome: Goal - 1-2
 - Followed by (not proof of causation): Score 1-2
-- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2589, 2599], "observed_players": 2.8, "inferred_players": 7.2, "high_confidence_inferred": 5.6, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 80.5, "width_m": 24.7, "near_ball": 3.2}, "reconstructed": {"def_line_m": 69.2, "width_m": 42.9, "near_ball":`
+- Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2589, 2599], "observed_players": 2.8, "inferred_players": 7.2, "high_confidence_inferred": 5.7, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 80.5, "width_m": 24.7, "near_ball": 3.2}, "reconstructed": {"def_line_m": 69.2, "width_m": 42.9, "near_ball":`
 
 **81' FC Bayern München switch to 4-1-4-1** (FORMATION_SHIFT). Chain: TACTICAL_CHANGE: 3-4-3 -> 4-1-4-1 → STATE_CHANGE: Right-side press 50.0% -> 34.8% → CONSEQUENCE: 0 final-third recoveries → OUTCOME: Goal
 

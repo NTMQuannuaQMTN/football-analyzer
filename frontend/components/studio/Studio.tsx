@@ -77,7 +77,8 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
     return () => clearInterval(id);
   }, [live, meta.duration]);
   const cut = live ? Math.floor(edge / 10) * 10 : Infinity;
-  const moments = useMemo(() => data.moments.filter((m) => m.timestamp <= cut), [data.moments, cut]);
+  // live: a moment appears once all of its evidence lies before the clock edge (available_at), not at its start
+  const moments = useMemo(() => data.moments.filter((m) => (m.available_at ?? m.timestamp) <= cut), [data.moments, cut]);
   const events = useMemo(() => data.events.filter((e) => e.timestamp <= cut), [data.events, cut]);
   const story = useMemo(() => {
     if (!live) return data.story;

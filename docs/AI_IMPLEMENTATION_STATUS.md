@@ -138,3 +138,18 @@ See:
 - [model card](reconstruction_model_card.md)
 - [training plan](reconstruction_training_plan.md)
 - [test guide](reconstruction_test_guide.md)
+
+## 14 October 2026 — follow-up: ten weak areas
+
+1. **Live moments** now appear only once all their evidence is in the past (`available_at`), in both the backend and the studio.
+2. **A-League possession changes and kick-offs** are derived from provider possessions. Possession spells, recoveries and counters now exist (14 counterattack moments; previously 0).
+3. **Ball not tracked by the provider** is drawn hollow and labelled as its last known position.
+4. **Validated confidence** is shown for SkillCorner-derived estimates (live P(err ≤ 5 m) within 0.03). Unreliable team-minutes fell from 64 % to 27 %.
+5. **Horizon-aware calibration:** long-unseen coverage is 79.5–80.3 % instead of 77–78 % on held-out DFL (replay worst deviation 4.4 → 1.9 points).
+6. **Low-visibility formation shifts** are titled "possible" and capped, based on a DFL check: right formation name in 3 of 9.
+7. **Detectors validated** against SkillCorner phase labels. Counter P 0.62 / R 0.23; high press does not work on real data (F1 0.05). A tuned low-block threshold was rejected because of its precision loss.
+8. **Identity-swap evaluation:** at about 65 % swaps (our video identity level), error rises from 6.1 to 13.6 m.
+9. **`run.sh`** uses the next free port when another program holds 8000 or 3000, and never stops it.
+10. **The lobby** hides 37 superseded copies (`SHOW_SUPERSEDED=1` shows them); the live match uses the pin-free r13 copy.
+
+169 Python tests pass (20 in `test_reconstruction_r13.py`); lint, type-check and the frontend rendering checks pass. `./run.sh` was verified end to end with port 8000 occupied, and studio screenshots were inspected.
