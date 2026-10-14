@@ -5,6 +5,7 @@
 Estimators: "formation" (team-shape, deterministic) or "ml" (learned correction trained on DFL ground truth,
 cv/weights/hidden_{mode}_f{fold}.pt). Live mode only ever sees the buffer up to t (causal by construction).
 """
+import os
 from pathlib import Path
 
 import numpy as np
@@ -16,14 +17,26 @@ WEIGHTS = Path(__file__).resolve().parents[2] / "cv" / "weights"
 _models = {}
 
 
-# production model: all 7 DFL matches, v3 features, refit (accuracy = the 7-fold estimate); falls back to fold 0
-PRODUCTION = "final_v3"
+# production model: all 7 DFL matches (accuracy = its 7-fold estimate). PRODUCTION_DIR None = cv/weights (legacy v3
+# MLP "final_v3"); a recon directory holds hidden_models checkpoints (any architecture). Override with
+# RECON_PRODUCTION=<dir relative to cv/weights>:<name>, e.g. "recon/r13_mlp_ens3:foldfinal" or ":final_v3".
+# 13 Oct 2026: promoted r13_mlp_aug_ens3 (3-seed v3 MLP ensemble with degraded-context augmentation); selection and
+# promotion evidence in docs/reconstruction_evaluation.md. The previous production model is ":final_v3".
+PRODUCTION = "foldfinal"
+PRODUCTION_DIR = "recon/r13_mlp_aug_ens3"
+if os.getenv("RECON_PRODUCTION"):
+    _d, PRODUCTION = os.getenv("RECON_PRODUCTION").split(":", 1)
+    PRODUCTION_DIR = _d or None
 VIDEO_RADIUS_SCALE = 2.67  # broadcast-video domain: fitted on the first half of the SoccerNet clip's reappearances
                            # (second half: 80% radius coverage 0.42 -> 0.92); see cv/clip_eval.py
 
 
+def production_root():
+    return WEIGHTS / PRODUCTION_DIR if PRODUCTION_DIR else WEIGHTS
+
+
 def default_fold():
-    return PRODUCTION if all((WEIGHTS / f"hidden_{m}_{PRODUCTION}.pt").exists() for m in ("live", "replay")) else 0
+    return PRODUCTION if all((production_root() / f"hidden_{m}_{PRODUCTION}.pt").exists() for m in ("live", "replay")) else 0
 
 
 def load_ml(mode, fold=None, weights_dir=None):
@@ -43,25 +56,43 @@ def load_ml(mode, fold=None, weights_dir=None):
 
 
 def ml_available(fold=None, weights_dir=None):
+    if fold is None and weights_dir is None:
+        fold, weights_dir = default_fold(), (production_root() if default_fold() == PRODUCTION else None)
     fold = default_fold() if fold is None else fold
     name = fold if isinstance(fold, str) else f"f{fold}"
     root = Path(weights_dir) if weights_dir is not None else WEIGHTS
     return all((root / f"hidden_{m}_{name}.pt").exists() for m in ("live", "replay"))
 
 
+_hidden = {}
+
+
+def load_hidden_model(mode, fold=None, weights_dir=None):
+    """hidden_models.HiddenModel for any checkpoint architecture (legacy v3 MLP, recon MLP / GRU / ensemble)."""
+    from backend.reconstruction import hidden_models as hm
+    if fold is None and weights_dir is None and default_fold() == PRODUCTION:
+        fold, weights_dir = PRODUCTION, production_root()
+    fold = default_fold() if fold is None else fold
+    root = Path(weights_dir) if weights_dir is not None else WEIGHTS
+    name = fold if isinstance(fold, str) else f"f{fold}"
+    key = (mode, str(root.resolve()), name)
+    if key not in _hidden:
+        _hidden[key] = hm.load_hidden(root / f"hidden_{mode}_{name}.pt")
+    return _hidden[key], name
+
+
 def reconstruct_ml(m, vis, mode, on, role, anchors, teams, roles_coarse, alive=None, fold=None, radius_scale=1.0, weights_dir=None):
     """Formation prior + learned correction + empirically calibrated uncertainty."""
-    from backend.reconstruction.ml import apply_calibration, features, predict
+    from backend.reconstruction import hidden_models as hm
+    from backend.reconstruction.ml import apply_calibration
     rec = reconstruct(m, vis, mode, {}, on=on, role=role, anchors=anchors)
-    net, cal, fv = load_ml(mode, fold, weights_dir)
-    X, idx = features(np.where(vis[..., None], m.xy, np.nan), vis, on, teams, roles_coarse, m.ball, m.poss,
-                      alive if alive is not None else np.ones(m.T, bool), rec.pos, mode, version=fv)
+    model, name = load_hidden_model(mode, fold, weights_dir)
+    idx, corr, sig = hm.predict_segment(model, m.xy, vis, on, teams, roles_coarse, m.ball, m.poss,
+                                        alive if alive is not None else np.ones(m.T, bool), rec.pos, mode)
     if len(idx):
-        corr, sig = predict(net, X)
         t, j = idx[:, 0], idx[:, 1]
-        corr = np.where((teams[j] == "B")[:, None], -corr, corr)
         rec.pos[t, j] = np.clip(rec.pos[t, j] + corr, [0, 0], [L, W])
-        r80, p5 = apply_calibration(cal, sig)
+        r80, p5 = apply_calibration(model.calibration, sig)
         rec.rad[t, j], rec.conf[t, j] = r80 * radius_scale, p5
     # physical prior: an unseen goalkeeper stays in his own zone (<= 25 m from his goal line)
     for jj, o in enumerate(m.order):
@@ -71,8 +102,7 @@ def reconstruct_ml(m, vis, mode, on, role, anchors, teams, roles_coarse, alive=N
                 rec.pos[inf_rows, jj, 0] = np.minimum(rec.pos[inf_rows, jj, 0], 25)
             else:
                 rec.pos[inf_rows, jj, 0] = np.maximum(rec.pos[inf_rows, jj, 0], L - 25)
-    fold = default_fold() if fold is None else fold
-    rec.meta["estimator"] = f"ml_{mode}_" + (fold if isinstance(fold, str) else f"f{fold}")
+    rec.meta["estimator"] = f"ml_{mode}_{name}"
     return rec
 
 

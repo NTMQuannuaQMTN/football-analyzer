@@ -1,0 +1,492 @@
+{
+ "id": "cv-r13-skillcorner-epl-4039-h2",
+ "kind": "computer_vision",
+ "label": "Computer vision \u00b7 SkillCorner",
+ "info": {
+  "date": "2020-07-02",
+  "competition": "Premier League",
+  "label": "Computer vision \u00b7 SkillCorner"
+ },
+ "parts": {
+  "clip": {
+   "basis": {
+    "positions": "observed (SkillCorner legacy broadcast detections) + model_inferred",
+    "events": "none",
+    "summary": "Broadcast detections (legacy release, no event feed); hidden players estimated"
+   },
+   "view": "cv",
+   "duration_s": 2945,
+   "score": {
+    "A": 0,
+    "B": 0
+   },
+   "teams": {
+    "A": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 820,
+     "distance_km": null,
+     "press_index": 18.5,
+     "formation": "4-2-2-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3-1"
+      },
+      {
+       "from_minute": 10,
+       "formation": "4-2-2-1"
+      },
+      {
+       "from_minute": 25,
+       "formation": "3-4-2"
+      },
+      {
+       "from_minute": 30,
+       "formation": "4-2-3"
+      },
+      {
+       "from_minute": 45,
+       "formation": "4-2-2-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 979,
+     "distance_km": null,
+     "press_index": 23.1,
+     "formation": "4-2-2-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3"
+      },
+      {
+       "from_minute": 20,
+       "formation": "4-2-2-1"
+      }
+     ]
+    }
+   },
+   "goals": [],
+   "substitutions": [],
+   "chapters": [],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 10,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 25,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 40,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 7,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 25,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 33,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 45,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-formation-shift",
+     "minute": "56'",
+     "t": 600,
+     "type": "FORMATION_SHIFT",
+     "subtype": null,
+     "team": "A",
+     "title": "Manchester City switch to 4-2-2-1",
+     "importance": 0.75,
+     "confidence": 0.68,
+     "reliability": 0.34,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "4-2-3-1 -> 4-2-2-1",
+       "timestamp": 600
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Right-side press 0.0% -> 0.0%",
+       "timestamp": 600
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 final-third recoveries",
+       "timestamp": 600
+      }
+     ],
+     "consequences": [
+      "0 final-third recoveries",
+      "Territory 36.2%",
+      "0 shots"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Shape changed 4-2-3-1 -> 4-2-2-1",
+       "value": 10.6,
+       "unit": "shift score",
+       "t": 600,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Structural change",
+       "detail": "Defensive line -22.39m, width -7.24m",
+       "value": -22.39,
+       "unit": "m",
+       "t": 600,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Pressing",
+       "detail": "Press intensity 20.1 -> 26.5; right-side share of pressures 0.0% -> 0.0%",
+       "value": 6.4,
+       "unit": "index pts",
+       "t": 600,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Recovery",
+       "detail": "Final-third recoveries 0 -> 0",
+       "value": 0,
+       "unit": "recoveries",
+       "t": 600,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 60.8% -> 36.2%",
+       "value": -24.6,
+       "unit": "pct pts",
+       "t": 600,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m01-formation-shift",
+     "minute": "71'",
+     "t": 1500,
+     "type": "FORMATION_SHIFT",
+     "subtype": null,
+     "team": "A",
+     "title": "Manchester City switch to 3-4-2",
+     "importance": 0.75,
+     "confidence": 0.69,
+     "reliability": 0.36,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "4-2-2-1 -> 3-4-2",
+       "timestamp": 1500
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Right-side press 0.0% -> 0.0%",
+       "timestamp": 1500
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 final-third recoveries",
+       "timestamp": 1500
+      }
+     ],
+     "consequences": [
+      "0 final-third recoveries",
+      "Territory 37.1%",
+      "0 shots"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Shape changed 4-2-2-1 -> 3-4-2",
+       "value": 9.83,
+       "unit": "shift score",
+       "t": 1500,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Structural change",
+       "detail": "Defensive line -21.54m, width -4.35m",
+       "value": -21.54,
+       "unit": "m",
+       "t": 1500,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Pressing",
+       "detail": "Press intensity 14.5 -> 19.7; right-side share of pressures 0.0% -> 0.0%",
+       "value": 5.2,
+       "unit": "index pts",
+       "t": 1500,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Recovery",
+       "detail": "Final-third recoveries 0 -> 0",
+       "value": 0,
+       "unit": "recoveries",
+       "t": 1500,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 43.2% -> 37.1%",
+       "value": -6.1,
+       "unit": "pct pts",
+       "t": 1500,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    }
+   ],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 0,
+     "to_minute": 6,
+     "min_reliability": 0.13,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "A",
+     "from_minute": 8,
+     "to_minute": 8,
+     "min_reliability": 0.38,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 10,
+     "to_minute": 12,
+     "min_reliability": 0.0,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "A",
+     "from_minute": 15,
+     "to_minute": 17,
+     "min_reliability": 0.17,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 20,
+     "to_minute": 21,
+     "min_reliability": 0.12,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 25,
+     "to_minute": 27,
+     "min_reliability": 0.0,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "A",
+     "from_minute": 30,
+     "to_minute": 30,
+     "min_reliability": 0.48,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 32,
+     "to_minute": 39,
+     "min_reliability": 0.11,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 41,
+     "to_minute": 42,
+     "min_reliability": 0.27,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 45,
+     "to_minute": 45,
+     "min_reliability": 0.24,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 47,
+     "to_minute": 49,
+     "min_reliability": 0.27,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 0,
+     "to_minute": 0,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 2,
+     "to_minute": 6,
+     "min_reliability": 0.26,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 8,
+     "to_minute": 8,
+     "min_reliability": 0.31,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
+     "to_minute": 12,
+     "min_reliability": 0.0,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 15,
+     "to_minute": 17,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 19,
+     "to_minute": 21,
+     "min_reliability": 0.14,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 25,
+     "to_minute": 28,
+     "min_reliability": 0.0,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 30,
+     "to_minute": 30,
+     "min_reliability": 0.38,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 32,
+     "to_minute": 32,
+     "min_reliability": 0.39,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 34,
+     "to_minute": 37,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 39,
+     "to_minute": 39,
+     "min_reliability": 0.21,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 41,
+     "to_minute": 42,
+     "min_reliability": 0.24,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 44,
+     "to_minute": 47,
+     "min_reliability": 0.25,
+     "abstain_minutes": 2
+    }
+   ],
+   "observed_share": 0.39294934120092534,
+   "file": "data/cv_r13_skillcorner_epl_4039_h2.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  }
+ }
+}

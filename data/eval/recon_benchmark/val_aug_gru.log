@@ -1,0 +1,14 @@
+0 {'formation_live': 13.98, 'r13_mlp_aug_ens3_live': 5.68, 'formation_replay': 12.04, 'r13_mlp_aug_ens3_replay': 4.62}
+1 {'formation_live': 15.22, 'r13_mlp_aug_ens3_live': 6.4, 'formation_replay': 13.71, 'r13_mlp_aug_ens3_replay': 5.5}
+2 {'formation_live': 15.61, 'r13_mlp_aug_ens3_live': 6.41, 'formation_replay': 14.16, 'r13_mlp_aug_ens3_replay': 5.52}
+3 {'formation_live': 15.54, 'r13_mlp_aug_ens3_live': 6.33, 'formation_replay': 14.03, 'r13_mlp_aug_ens3_replay': 5.37}
+4 {'formation_live': 15.83, 'r13_mlp_aug_ens3_live': 5.97, 'formation_replay': 14.27, 'r13_mlp_aug_ens3_replay': 5.25}
+5 {'formation_live': 15.13, 'r13_mlp_aug_ens3_live': 5.97, 'formation_replay': 13.16, 'r13_mlp_aug_ens3_replay': 4.96}
+6 {'formation_live': 15.53, 'r13_mlp_aug_ens3_live': 5.99, 'formation_replay': 13.86, 'r13_mlp_aug_ens3_replay': 5.2}
+0 {'r13_mlp_aug_ens3_live': 9.4, 'r13_gru_live': 8.7, 'r13_mlp_aug_ens3_replay': 8.65, 'r13_gru_replay': 8.25}
+1 {'r13_mlp_aug_ens3_live': 8.23, 'r13_gru_live': 7.85, 'r13_mlp_aug_ens3_replay': 6.78, 'r13_gru_replay': 6.73}
+2 {'r13_mlp_aug_ens3_live': 7.49, 'r13_gru_live': 7.23, 'r13_mlp_aug_ens3_replay': 6.15, 'r13_gru_replay': 6.02}
+3 {'r13_mlp_aug_ens3_live': 7.76, 'r13_gru_live': 7.49, 'r13_mlp_aug_ens3_replay': 6.38, 'r13_gru_replay': 6.16}
+4 {'r13_mlp_aug_ens3_live': 8.24, 'r13_gru_live': 7.84, 'r13_mlp_aug_ens3_replay': 6.88, 'r13_gru_replay': 6.71}
+5 {'r13_mlp_aug_ens3_live': 8.26, 'r13_gru_live': 7.94, 'r13_mlp_aug_ens3_replay': 7.02, 'r13_gru_replay': 6.86}
+6 {'r13_mlp_aug_ens3_live': 8.32, 'r13_gru_live': 7.9, 'r13_mlp_aug_ens3_replay': 7.15, 'r13_gru_replay': 6.78}

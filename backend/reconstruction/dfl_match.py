@@ -105,25 +105,38 @@ def pick_fold(mid):
     return 0, False
 
 
+_HIDDEN = {}
+
+
+def _hidden_model(mode, fold, weights_dir=None):
+    """Any checkpoint architecture (legacy v3 MLP, recon MLP / GRU / ensemble) through hidden_models."""
+    from backend.reconstruction import hidden_models as hm
+    from backend.reconstruction.inference import WEIGHTS
+    root = Path(weights_dir) if weights_dir is not None else WEIGHTS
+    name = fold if isinstance(fold, str) else f"f{fold}"
+    key = (mode, str(root.resolve()), name)
+    if key not in _HIDDEN:
+        _HIDDEN[key] = hm.load_hidden(root / f"hidden_{mode}_{name}.pt")
+    return _HIDDEN[key]
+
+
 def estimate(info, seg, vis, mode, fold, weights_dir=None):
     """Team-shape prior + DFL-trained correction + calibrated radius (same as the real benchmark)."""
-    from backend.reconstruction.inference import load_ml
-    from backend.reconstruction.ml import apply_calibration, features, predict
+    from backend.reconstruction import hidden_models as hm
+    from backend.reconstruction.ml import apply_calibration
     rec = formation(info, seg, vis, mode)
     on = ~np.isnan(seg["pos"][..., 0])
     try:
-        net, cal, fv = load_ml(mode, fold,weights_dir)
+        model = _hidden_model(mode, fold, weights_dir)
     except FileNotFoundError:
         rec.meta["estimator"] = "formation"
         return rec
-    X, idx = features(np.where(vis[..., None], seg["pos"], np.nan), vis, on, seg["team"], seg["role"],
-                      seg["ball"], seg["poss"], seg["alive"], rec.pos, mode, version=fv)
+    idx, corr, sig = hm.predict_segment(model, seg["pos"], vis, on, seg["team"], seg["role"], seg["ball"], seg["poss"],
+                                        seg["alive"], rec.pos, mode)
     if len(idx):
-        corr, sig = predict(net, X)
         t, j = idx[:, 0], idx[:, 1]
-        corr = np.where((seg["team"][j] == "B")[:, None], -corr, corr)
         rec.pos[t, j] = np.clip(rec.pos[t, j] + corr, [0, 0], [L, W])
-        rec.rad[t, j], rec.conf[t, j] = apply_calibration(cal, sig)
+        rec.rad[t, j], rec.conf[t, j] = apply_calibration(model.calibration, sig)
     for j, r in enumerate(seg["role"]):
         if r == "GK":
             rows = rec.src[:, j] == SRC_INF
@@ -334,12 +347,11 @@ def build(mid, half=1, seed=0, ctx_weight=None, fold=None,weights_dir=None):
     vis &= on
     fold, unseen = pick_fold(mid) if fold is None else (fold, mid in UNSEEN)
     if weights_dir is not None:
-        from backend.reconstruction.inference import load_ml
         from cv.audit_hidden_sensitivity import require_held_out
         import torch
         for mode in ('live','replay'):
             require_held_out(torch.load(Path(weights_dir)/f'hidden_{mode}_{fold}.pt',weights_only=False),mid)
-            load_ml(mode,fold,weights_dir)
+            _hidden_model(mode, fold, weights_dir)
         unseen=True
     cut = ~vis.any(1)
 

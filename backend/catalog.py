@@ -84,8 +84,24 @@ def _catalog_static() -> tuple:
         mid = meta.get('source',{}).get('match_id') or "DFL-MAT-" + key.split("_", 1)[1]
         info = _dfl_info(mid)
         label='Experimental reconstruction · DFL' if meta.get('source',{}).get('experimental') else 'Real tracking · DFL open data'
+        if meta.get('source',{}).get('reconstruction_session'):
+            label=f"Real tracking · DFL · camera estimate {meta['source']['reconstruction_session']}"
         out.append({"id": key.replace("_", "-"), "kind": "tracking", "label": label,
                     "parts": {h: parts[h] for h in sorted(parts)}, "info": info})
+    # broadcast tracking (SkillCorner open data, backend/reconstruction/skillcorner_match.py): one match, two halves;
+    # observed = provider broadcast detections, hidden players = our model's estimates
+    sk = {}
+    for p in sorted(glob.glob(str(DATA / "skc_*_h[12].json"))):
+        key, half = Path(p).stem.rsplit("_", 1)
+        sk.setdefault(key, {})[half] = p
+    for key, parts in sk.items():
+        meta = file_meta(parts[next(iter(parts))])["meta"]
+        src = meta.get("source", {})
+        out.append({"id": key.replace("_", "-"), "kind": "computer_vision",
+                    "label": "Broadcast tracking · SkillCorner · hidden players estimated",
+                    "parts": {h: parts[h] for h in sorted(parts)},
+                    "info": {"date": src.get("date") or meta.get("date"), "competition": src.get("competition"),
+                             "full_match": True}})
     for p in sorted(glob.glob(str(DATA / "cv_*.json"))):
         if "backup" in p:
             continue
@@ -197,7 +213,16 @@ def lobby():
                 "status": "finished", "competition": m["info"].get("competition") or src.get("competition"),
                 "date": m["info"].get("date"), "season": m["info"].get("season"), "matchday": m["info"].get("matchday"),
                 "parts": [{"id": h, "label": PART_LABEL.get(h, h)} for h in m["parts"]]}
-        if m["kind"] == "computer_vision":
+        if m["kind"] == "computer_vision" and m["info"].get("full_match"):
+            share = src.get("observed_share")
+            card["note"] = (f"Full match from broadcast detections ({round(share * 100)}% of player-seconds detected in the 1st half); "
+                            "every other position is a model estimate. Events: provider CV, not an official feed")
+            miss = (last["meta"].get("source") or {}).get("goals_not_in_provider_events")
+            if miss:
+                off = last["meta"].get("final_score") or {}
+                card["note"] += (f". Official final score {off.get('A')}–{off.get('B')}: "
+                                 f"{sum(miss.values())} goal(s) missing from the provider event stream (time and scorer unknown)")
+        elif m["kind"] == "computer_vision":
             card.update(video_details(first))
             s, e = src.get("start", 0), src.get("end", 0)
             score_note = "score is for this clip" if card["score_known"] else "score N/A"
@@ -229,7 +254,8 @@ def match_summary(mid):
         c = {}
         for k in ("goals", "shots", "shots_on_target", "passes", "passes_completed", "tackles_won", "fouls", "corners",
                   "offsides", "yellow_cards", "red_cards", "possession_seconds"):
-            c[k] = sum(p["teams"][tm][k] for p in parts)
+            vals = [p["teams"][tm][k] for p in parts]
+            c[k] = None if any(v is None for v in vals) else sum(vals)  # unknown in any part -> unknown
         c["xg"] = round(sum(p["teams"][tm]["xg"] for p in parts), 2)
         c["pass_accuracy"] = round(c["passes_completed"] / max(1, c["passes"]), 3)
         dists = [p["teams"][tm]["distance_km"] for p in parts]

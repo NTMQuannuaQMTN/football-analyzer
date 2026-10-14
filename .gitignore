@@ -12,6 +12,8 @@ data/metrica/
 data/dfl/
 data/skillcorner/
 data/eval/*.npz
+# Detailed benchmark rows are regenerated locally; keep summaries/reports in Git.
+data/eval/recon_benchmark/sc_*_rows.json
 cv/weights/*.pt
 
 # regenerable caches (features, parsed tracking) - large; rebuilt by the scripts

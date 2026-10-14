@@ -84,3 +84,57 @@ Goal facts/timing verified against local labels/video: Theo Walcott at video1811
 Added final retrospective feasible-gap bridge after learned corrections/touch cues, measured anchors preserved and conflicting pairs reported; no live future leakage. Additive Arsenal candidate:356 feasible gaps,232 speed-budget conflicts (205 adjacent observed pairs),22 large hidden-related steps unchanged. Same14 DFL halves/N665,019 replay mean7.613803→7.613797m: no meaningful accuracy improvement. Fresh person-role class-agnostic suppression recorded in detection provenance; current cached goal input is COCO-person, and sampled goal counts remain unchanged, so this is not a current goal correction.
 
 149 tests passed/250 existing warnings, compile/diff passed; actual private goal image and local candidate frame/goal APIs verified. No frontend source changed; lint/build not rerun this turn. Demo loaded additive candidate; seven-hour training continues. Accurate named goal/set-piece trajectories and camera/identity conflicts remain incomplete. See [report](GOAL_CLOSEUP_REPLAY_FOLLOWUP_20261012.md) and [manual review/actions](GOAL_CLOSEUP_REPLAY_FOLLOWUP_20261012_MANUAL_TESTING.md).
+
+
+Seven-hour closeout artifacts generated from actual outputs. See `cv/out/apply_train7h_20261012_053349/results.html` and appended recorded results in `docs/SEVEN_HOUR_APPLICATION_20261012.md`. Missing folds/applications remain explicitly incomplete; no model improvement is inferred from exit codes.
+
+## 13 October 2026 — reconstruction training, validation and match application
+
+There is no accessible dataset with broadcast video plus independent all-player truth for the same match, verified locally and on official / paper pages; see [dataset_inventory.md](dataset_inventory.md). The session therefore used a hybrid of three sources:
+- **DFL:** direct truth with transferred real camera footprints;
+- **SoccerNet-GSR:** real broadcast re-entries, direct truth;
+- **SkillCorner A-League:** 20 matches of real broadcast re-entries, proxy truth.
+
+A new unified 7-fold benchmark scores every method on identical rows (1.32 M hidden player-seconds).
+
+**Model selection.** The rule was the mean of full-context and degraded broadcast-context validation-tail error, among models that never trained on the tail. It selected `r13_mlp_aug_ens3`: a 3-seed v3 MLP ensemble with degraded-context augmentation. It passed a non-inferiority gate against the incumbent `k7r_v3` / `final_v3` and was promoted to `inference.PRODUCTION`. The old model can still be selected with `RECON_PRODUCTION=:final_v3`.
+
+| Test | Selected | Incumbent | Formation | Notes |
+|---|---|---|---|---|
+| DFL held-out | live 8.10 / replay 6.66 m | 8.23 / 6.74 m | 14.28 / 10.54 m | wins 7/7 matches |
+| DFL degraded context | 6.18 / 5.43 m | 7.77 / 6.98 m | | |
+| GSR | live 6.74 m | 6.99 m | | |
+| SkillCorner | live 7.70 m | 7.88 m | | wins 20/20 |
+
+The 80 % radius covers 80 % on DFL and 78 % / 81 % on SkillCorner. It is about 70 % on GSR-like inputs; a game-split scale of about 1.2× fixes that.
+
+**Rejected:** a GRU temporal model was best on DFL (7.72 / 6.37 m) but worse on both real-broadcast tests. This result is reported, not deployed.
+
+**Applied** with the promoted model (held-out folds for DFL):
+- 20 A-League matches added to the app (`skc-*`) from SkillCorner broadcast detections. Hidden players are estimated through replays using the match sheet; events are the provider's; goals reproduce the official score in 19/20 matches, and the one gap is flagged.
+- 7 DFL matches with a new camera estimate (`dfl-*-r13`).
+- The Arsenal clip and 2 legacy SkillCorner EPL matches (`cv-r13-*`).
+
+All 59 exports pass the quality checks. All 32 analyses ran, with basis-tagged evidence chains: [match_analysis_report.md](match_analysis_report.md).
+
+Under reconstruction, team geometry holds within 1.2–3.4 m per minute, but formation labels agree with truth only 57 % of the time; tactical moments are therefore labelled experimental.
+
+**Bugs found and fixed:**
+- per-event SkillCorner coordinate normalisation;
+- cumulative scores;
+- goal-attribution window;
+- tracking gaps during replays;
+- estimates pulled off the pitch;
+- goal without a scorer crashing moments and the API;
+- provider-missing statistics shown as 0;
+- causal narrative wording softened.
+
+**Checks:** 162 Python tests pass (13 new); frontend lint, type-check and rendering checks pass. API end-to-end checks passed, and lobby / match / studio screenshots were inspected.
+
+**Not achieved:** end-to-end video → hidden-player accuracy against truth, which needs data that does not exist locally. Identity on our own video is also unchanged at about 35 %.
+
+See:
+- [evaluation](reconstruction_evaluation.md)
+- [model card](reconstruction_model_card.md)
+- [training plan](reconstruction_training_plan.md)
+- [test guide](reconstruction_test_guide.md)

@@ -132,7 +132,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
         <div className="max-w-6xl mx-auto px-6 py-6">
           <div className="flex items-center gap-2 text-xs text-slate-400">
             {live ? <span className="flex items-center gap-1.5 font-black tracking-widest text-rose-400"><span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />LIVE {s.minute}&apos;</span>
-              : <span className="font-bold tracking-widest text-slate-300">{s.kind === "computer_vision" ? "CLIP" : "FULL TIME"}</span>}
+              : <span className="font-bold tracking-widest text-slate-300">{s.kind === "computer_vision" && s.parts.length < 2 ? "CLIP" : "FULL TIME"}</span>}
             <span>·</span><span>{s.competition}{s.matchday ? ` · Matchday ${s.matchday}` : ""}{s.season ? ` · ${s.season}` : ""}</span>
             <span className="ml-auto font-mono">{s.date ?? "N/A"}</span>
           </div>

@@ -44,7 +44,7 @@ class DeterministicNarrativeGenerator(NarrativeGenerator):
                 fan += " And a goal followed!"
             why = (f"While the press was on, {opp} were mostly pinned in their own third and {team} won the ball back "
                    f"{mo['after']['final_third_recoveries']} times in the final third; {mo['after']['shots']} shots followed. "
-                   f"The sequence suggests the press created these chances.")
+                   f"These chances followed the press; the sequence is consistent with, but does not prove, the press contributing to them.")
             lower = f"{team} high press | Pressing {_fmt(d.get('press_intensity'))} | Line {_fmt(d.get('def_line_oop_m'), 'm')}"
         elif t == "TACTICAL_TURNING_POINT" and mo.get("subtype") == "dominant":
             fan_h = f"{team.upper()} TAKE OVER"
@@ -70,7 +70,7 @@ class DeterministicNarrativeGenerator(NarrativeGenerator):
                 fan += " A goal followed within minutes."
             why = (f"After moving from {f0} to {f1}, the share of right-side pressures changed "
                    f"{_fmt(d.get('right_press_share_pct'), ' pts')}, the line moved {_fmt(d.get('def_line_oop_m'), 'm')} "
-                   f"and territory changed {_fmt(d.get('territory_pct'), ' pts')}. The sequence suggests the new shape drove the improvement.")
+                   f"and territory changed {_fmt(d.get('territory_pct'), ' pts')}. The improvement followed the new shape; the timing is consistent with, but does not prove, a link.")
             lower = f"{team} {f0} → {f1} | Press {_fmt(d.get('press_intensity'))} | Territory {_fmt(d.get('territory_pct'), ' pts')}"
         elif t == "GOAL_BUILD_UP":
             s = mo["after"]["score"]

@@ -262,7 +262,8 @@ class MatchIntelligence:
             ev["basis"] = "observed + inferred positions" if ev["label"] in position_based and inf > 0.05 else "observed events"
             if self.m.meta.get("source", {}).get("type") == "computer_vision":
                 ev["basis"] = "video-derived positions; identity/calibration unverified" if ev["label"] in position_based else "recorded event feed; some events estimated"
-        if inf > 0.05:
+        # substitution and shape moments: visibility stays in the coverage header, not in the analysis reasons
+        if inf > 0.05 and mo["type"] not in ("SUBSTITUTION_IMPACT", "FORMATION_SHIFT"):
             uncertainty = f"mean confidence {conf_inf:.0%}" if conf_inf is not None else "uncertainty N/A; no calibrated confidence available"
             mo["evidence"].append({"label": "Visibility", "detail": f"On average {obs:.0f} of {obs + inf:.0f} players observed; "
                                    f"{inf:.0f} estimated from trajectories and team shape ({uncertainty})",
@@ -506,6 +507,9 @@ class MatchIntelligence:
                 "formations": [{"from_minute": r["minute"], "formation": r["formation"]} for i, r in enumerate(rows)
                                if r.get("formation") not in (None, "?") and (i == 0 or rows[i - 1].get("formation") != r.get("formation"))],
             }
+            # statistics the source event feed does not record are unknown, not zero
+            for k in (self.m.meta.get("source") or {}).get("unavailable_stats") or []:
+                teams[tm][k] = None
         players = []
         for p in self.m.players:
             pr = self.player_profile(p["id"], T)

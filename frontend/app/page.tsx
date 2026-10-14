@@ -20,7 +20,7 @@ function MatchCard({ c }: { c: LobbyCard }) {
             <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />LIVE {c.minute}&apos;
           </span>
         ) : (
-          <span className="font-bold tracking-widest text-slate-300">{c.kind === "computer_vision" ? "CLIP" : "FT"}</span>
+          <span className="font-bold tracking-widest text-slate-300">{c.kind === "computer_vision" && c.parts.length < 2 ? "CLIP" : "FT"}</span>
         )}
         <span>·</span>
         <span className="truncate">{c.competition}{c.matchday ? ` · Matchday ${c.matchday}` : ""}</span>

@@ -1,0 +1,303 @@
+{
+ "id": "cv-r13-skillcorner-epl-2440-h2",
+ "kind": "computer_vision",
+ "label": "Computer vision \u00b7 SkillCorner",
+ "info": {
+  "date": "2019-11-10",
+  "competition": "Premier League",
+  "label": "Computer vision \u00b7 SkillCorner"
+ },
+ "parts": {
+  "clip": {
+   "basis": {
+    "positions": "observed (SkillCorner legacy broadcast detections) + model_inferred",
+    "events": "none",
+    "summary": "Broadcast detections (legacy release, no event feed); hidden players estimated"
+   },
+   "view": "cv",
+   "duration_s": 2943,
+   "score": {
+    "A": 0,
+    "B": 0
+   },
+   "teams": {
+    "A": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 768,
+     "distance_km": null,
+     "press_index": 29.0,
+     "formation": "4-1-4-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-1-4-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 1060,
+     "distance_km": null,
+     "press_index": 28.2,
+     "formation": "4-2-3-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3-1"
+      }
+     ]
+    }
+   },
+   "goals": [],
+   "substitutions": [],
+   "chapters": [
+    {
+     "team": "B",
+     "label": "DOMINANT",
+     "start": 60,
+     "end": 300
+    },
+    {
+     "team": "B",
+     "label": "DOMINANT",
+     "start": 2220,
+     "end": 2580
+    }
+   ],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 9,
+     "from": "LOW_BLOCK",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 24,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 47,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 9,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 25,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 42,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    }
+   ],
+   "moments": [],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 0,
+     "to_minute": 0,
+     "min_reliability": 0.45,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 2,
+     "to_minute": 3,
+     "min_reliability": 0.44,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 5,
+     "to_minute": 6,
+     "min_reliability": 0.15,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 8,
+     "to_minute": 12,
+     "min_reliability": 0.25,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "A",
+     "from_minute": 15,
+     "to_minute": 15,
+     "min_reliability": 0.39,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 18,
+     "to_minute": 23,
+     "min_reliability": 0.16,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 25,
+     "to_minute": 29,
+     "min_reliability": 0.19,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 32,
+     "to_minute": 33,
+     "min_reliability": 0.11,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 35,
+     "to_minute": 35,
+     "min_reliability": 0.43,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 37,
+     "to_minute": 38,
+     "min_reliability": 0.18,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 41,
+     "to_minute": 43,
+     "min_reliability": 0.15,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 45,
+     "to_minute": 45,
+     "min_reliability": 0.34,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 47,
+     "to_minute": 49,
+     "min_reliability": 0.18,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 0,
+     "to_minute": 0,
+     "min_reliability": 0.47,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 2,
+     "to_minute": 3,
+     "min_reliability": 0.36,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 5,
+     "to_minute": 13,
+     "min_reliability": 0.2,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "B",
+     "from_minute": 15,
+     "to_minute": 15,
+     "min_reliability": 0.24,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 18,
+     "to_minute": 20,
+     "min_reliability": 0.12,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 22,
+     "to_minute": 23,
+     "min_reliability": 0.25,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 25,
+     "to_minute": 30,
+     "min_reliability": 0.24,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 32,
+     "to_minute": 33,
+     "min_reliability": 0.19,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 35,
+     "to_minute": 45,
+     "min_reliability": 0.12,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "B",
+     "from_minute": 47,
+     "to_minute": 48,
+     "min_reliability": 0.18,
+     "abstain_minutes": 1
+    }
+   ],
+   "observed_share": 0.3936048666007905,
+   "file": "data/cv_r13_skillcorner_epl_2440_h2.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  }
+ }
+}

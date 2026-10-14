@@ -1,0 +1,3839 @@
+{
+ "id": "dfl-J03WOY-r13",
+ "kind": "tracking",
+ "label": "Real tracking \u00b7 DFL \u00b7 camera estimate r13",
+ "info": {
+  "date": "2022-09-10",
+  "season": "2022/2023",
+  "matchday": "8",
+  "result": "3:1",
+  "competition": "2. Bundesliga"
+ },
+ "parts": {
+  "h1": {
+   "basis": {
+    "positions": "ground_truth",
+    "events": "recorded_event (official DFL feed)",
+    "summary": "In-stadium tracking of all players (ground truth); official event feed"
+   },
+   "view": "truth",
+   "duration_s": 2764,
+   "score": {
+    "A": 2,
+    "B": 0
+   },
+   "teams": {
+    "A": {
+     "goals": 2,
+     "shots": 4,
+     "shots_on_target": 3,
+     "xg": 0.87,
+     "passes": 218,
+     "passes_completed": 171,
+     "pass_accuracy": 0.784,
+     "tackles_won": 10,
+     "fouls": 7,
+     "corners": 0,
+     "offsides": 1,
+     "yellow_cards": 1,
+     "red_cards": 0,
+     "possession_seconds": 1380,
+     "distance_km": 56.5,
+     "press_index": 23.2,
+     "formation": "4-2-3-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 3,
+     "shots_on_target": 1,
+     "xg": 0.1,
+     "passes": 206,
+     "passes_completed": 151,
+     "pass_accuracy": 0.733,
+     "tackles_won": 13,
+     "fouls": 7,
+     "corners": 1,
+     "offsides": 1,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 1385,
+     "distance_km": 56.5,
+     "press_index": 26.8,
+     "formation": "3-5-2",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "3-5-2"
+      }
+     ]
+    }
+   },
+   "goals": [
+    {
+     "timestamp": 579.6,
+     "minute": "10'",
+     "team": "A",
+     "scorer": "Dawid Kownacki",
+     "assist": "Tim Oberdorf"
+    },
+    {
+     "timestamp": 1602.1,
+     "minute": "27'",
+     "team": "A",
+     "scorer": "M. Sobottka",
+     "assist": "Dawid Kownacki"
+    }
+   ],
+   "substitutions": [
+    {
+     "timestamp": 2251.3,
+     "minute": "38'",
+     "team": "B",
+     "on": "D. Lee",
+     "off": "S. Thill"
+    }
+   ],
+   "chapters": [
+    {
+     "team": "A",
+     "label": "DOMINANT",
+     "start": 2340,
+     "end": 2700
+    }
+   ],
+   "presses": [],
+   "counterattacks": 3,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 3,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 15,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 30,
+     "from": "BALANCED",
+     "to": "LOW_BLOCK"
+    },
+    {
+     "team": "A",
+     "minute": 43,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 3,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 15,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 37,
+     "from": "BALANCED",
+     "to": "LOW_BLOCK"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-goal-build-up",
+     "minute": "10'",
+     "t": 579.6,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "A",
+     "title": "Goal Fortuna D\u00fcsseldorf - Dawid Kownacki",
+     "importance": 0.92,
+     "confidence": 0.95,
+     "reliability": 1.0,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Spell of possession",
+       "timestamp": 534.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "9 passes, 45.6s",
+       "timestamp": 534.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.223 xG)",
+       "timestamp": 579.6
+      }
+     ],
+     "consequences": [
+      "Score 1-0"
+     ],
+     "evidence": [
+      {
+       "label": "Build-up",
+       "detail": "9 passes in 45.6s",
+       "value": 9,
+       "unit": "passes",
+       "t": 534.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "Dawid Kownacki shot from 18.6m",
+       "value": 0.223,
+       "unit": "xG",
+       "t": 579.6,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 1-0",
+       "value": 1,
+       "unit": "goal",
+       "t": 579.6,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       574,
+       584
+      ],
+      "observed_players": 2.6,
+      "inferred_players": 7.4,
+      "high_confidence_inferred": 5.8,
+      "outfield_players": 10,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 64.7,
+        "width_m": 19.2,
+        "near_ball": 1.7
+       },
+       "reconstructed": {
+        "def_line_m": 59.5,
+        "width_m": 47.8,
+        "near_ball": 1.3
+       },
+       "truth": {
+        "def_line_m": 56.5,
+        "width_m": 51.0,
+        "near_ball": 1.4
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 8.2,
+        "reconstructed": 3.0
+       },
+       "width_m": {
+        "observed_only": 31.8,
+        "reconstructed": 3.2
+       },
+       "near_ball": {
+        "observed_only": 0.3,
+        "reconstructed": 0.1
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m01-goal-build-up",
+     "minute": "27'",
+     "t": 1602.1,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "A",
+     "title": "Goal Fortuna D\u00fcsseldorf - M. Sobottka",
+     "importance": 0.82,
+     "confidence": 0.95,
+     "reliability": 1.0,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Tackle by M. Sobottka",
+       "timestamp": 1598.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "1 passes, 4.1s",
+       "timestamp": 1598.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.449 xG)",
+       "timestamp": 1602.1
+      }
+     ],
+     "consequences": [
+      "Score 2-0"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "M. Sobottka won the ball (tackle) 78m from own goal",
+       "value": 78.2,
+       "unit": "m",
+       "t": 1598.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Build-up",
+       "detail": "1 passes in 4.1s",
+       "value": 1,
+       "unit": "passes",
+       "t": 1598.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "M. Sobottka shot from 10.9m",
+       "value": 0.449,
+       "unit": "xG",
+       "t": 1602.1,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 2-0",
+       "value": 1,
+       "unit": "goal",
+       "t": 1602.1,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       1597,
+       1607
+      ],
+      "observed_players": 0.0,
+      "inferred_players": 10.0,
+      "high_confidence_inferred": 0.0,
+      "outfield_players": 10,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 56.4,
+        "width_m": 35.8,
+        "near_ball": 2.6
+       },
+       "truth": {
+        "def_line_m": 57.6,
+        "width_m": 28.9,
+        "near_ball": 3.0
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 1.2
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 6.9
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 0.4
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m02-tactical-turning-point",
+     "minute": "31'",
+     "t": 1800,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "low_block",
+     "team": "A",
+     "title": "Fortuna D\u00fcsseldorf drop into a low block",
+     "importance": 0.65,
+     "confidence": 0.9,
+     "reliability": 1.0,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Low Block",
+       "timestamp": 1800
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 48.6m -> 35.9m",
+       "timestamp": 1800
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 1800
+      }
+     ],
+     "consequences": [
+      "0 counterattacks",
+      "0 shots (0 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block dropped: defensive line 48.6m -> 35.9m",
+       "value": -12.7,
+       "unit": "m",
+       "t": 1800,
+       "engine_basis": "observed events",
+       "basis_tag": "heuristic over ground_truth positions"
+      },
+      {
+       "label": "Ceded the ball",
+       "detail": "Possession 32.5% -> 45.2%",
+       "value": 12.7,
+       "unit": "pct pts",
+       "t": 1800,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Transitions",
+       "detail": "0 counterattacks launched in the next 15 min",
+       "value": 0,
+       "unit": "counters",
+       "t": 1800,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "0 ended in shots",
+       "value": 0,
+       "unit": "shots",
+       "t": 1800,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       1795,
+       1805
+      ],
+      "observed_players": 3.3,
+      "inferred_players": 6.7,
+      "high_confidence_inferred": 4.2,
+      "outfield_players": 10,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 60.6,
+        "width_m": 32.5,
+        "near_ball": 0.7
+       },
+       "reconstructed": {
+        "def_line_m": 43.5,
+        "width_m": 40.7,
+        "near_ball": 1.5
+       },
+       "truth": {
+        "def_line_m": 41.9,
+        "width_m": 37.4,
+        "near_ball": 1.9
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 18.7,
+        "reconstructed": 1.6
+       },
+       "width_m": {
+        "observed_only": 4.9,
+        "reconstructed": 3.3
+       },
+       "near_ball": {
+        "observed_only": 1.2,
+        "reconstructed": 0.4
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m03-tactical-turning-point",
+     "minute": "38'",
+     "t": 2220,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "low_block",
+     "team": "B",
+     "title": "F.C. Hansa Rostock drop into a low block",
+     "importance": 0.65,
+     "confidence": 0.9,
+     "reliability": 1.0,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Low Block",
+       "timestamp": 2220
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 52.3m -> 35.2m",
+       "timestamp": 2220
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 2220
+      }
+     ],
+     "consequences": [
+      "0 counterattacks",
+      "2 shots (0.05 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block dropped: defensive line 52.3m -> 35.2m",
+       "value": -17.1,
+       "unit": "m",
+       "t": 2220,
+       "engine_basis": "observed events",
+       "basis_tag": "heuristic over ground_truth positions"
+      },
+      {
+       "label": "Ceded the ball",
+       "detail": "Possession 63.5% -> 46.1%",
+       "value": -17.4,
+       "unit": "pct pts",
+       "t": 2220,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Transitions",
+       "detail": "0 counterattacks launched in the next 15 min",
+       "value": 0,
+       "unit": "counters",
+       "t": 2220,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "0 ended in shots",
+       "value": 0,
+       "unit": "shots",
+       "t": 2220,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "B",
+      "window_s": [
+       2215,
+       2225
+      ],
+      "observed_players": 0.0,
+      "inferred_players": 10.0,
+      "high_confidence_inferred": 0.8,
+      "outfield_players": 11,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 9.6,
+        "width_m": 35.2,
+        "near_ball": 2.5
+       },
+       "truth": {
+        "def_line_m": 10.5,
+        "width_m": 51.9,
+        "near_ball": 3.1
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 0.9
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 16.7
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 0.6
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m04-substitution-impact",
+     "minute": "38'",
+     "t": 2251.3,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "D. Lee on for S. Thill",
+     "importance": 0.47,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2251.3
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the LW",
+       "timestamp": 2251.3
+      }
+     ],
+     "consequences": [
+      "2 pressures from D. Lee"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "D. Lee replaces S. Thill (LW)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2251.3,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "2 pressures (0 on the right), 0 recoveries in first 15 min",
+       "value": 2,
+       "unit": "pressures",
+       "t": 2251.3,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 51.2 -> 22.8",
+       "value": -28.4,
+       "unit": "index pts",
+       "t": 2251.3,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "B",
+      "window_s": [
+       2246,
+       2256
+      ],
+      "observed_players": 1.6,
+      "inferred_players": 8.4,
+      "high_confidence_inferred": 2.3,
+      "outfield_players": 11,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 14.9,
+        "width_m": 9.6,
+        "near_ball": 1.0
+       },
+       "reconstructed": {
+        "def_line_m": 17.3,
+        "width_m": 33.2,
+        "near_ball": 0.5
+       },
+       "truth": {
+        "def_line_m": 18.1,
+        "width_m": 51.0,
+        "near_ball": 0.5
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 3.2,
+        "reconstructed": 0.8
+       },
+       "width_m": {
+        "observed_only": 41.4,
+        "reconstructed": 17.8
+       },
+       "near_ball": {
+        "observed_only": 0.5,
+        "reconstructed": 0.0
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    }
+   ],
+   "story_links": 0,
+   "unreliable_segments": [],
+   "observed_share": 0.226,
+   "file": "data/dfl_J03WOY_r13_h1.json",
+   "reconstruction_model": "r13_mlp_aug_ens3",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null,
+   "reconstruction_view": {
+    "basis": {
+     "positions": "observed (exact tracking, simulated camera) + model_inferred",
+     "events": "recorded_event",
+     "summary": "Analytics re-run on the camera reconstruction"
+    },
+    "view": "vod",
+    "duration_s": 2764,
+    "score": {
+     "A": 2,
+     "B": 0
+    },
+    "teams": {
+     "A": {
+      "goals": 2,
+      "shots": 4,
+      "shots_on_target": 3,
+      "xg": 0.87,
+      "passes": 218,
+      "passes_completed": 171,
+      "pass_accuracy": 0.784,
+      "tackles_won": 10,
+      "fouls": 7,
+      "corners": 0,
+      "offsides": 1,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "possession_seconds": 1380,
+      "distance_km": null,
+      "press_index": 21.3,
+      "formation": "4-2-3-1",
+      "formations": [
+       {
+        "from_minute": 0,
+        "formation": "4-2-3-1"
+       },
+       {
+        "from_minute": 45,
+        "formation": "3-4-3"
+       }
+      ]
+     },
+     "B": {
+      "goals": 0,
+      "shots": 3,
+      "shots_on_target": 1,
+      "xg": 0.1,
+      "passes": 206,
+      "passes_completed": 151,
+      "pass_accuracy": 0.733,
+      "tackles_won": 13,
+      "fouls": 7,
+      "corners": 1,
+      "offsides": 1,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "possession_seconds": 1385,
+      "distance_km": null,
+      "press_index": 22.1,
+      "formation": "3-5-2",
+      "formations": [
+       {
+        "from_minute": 0,
+        "formation": "3-5-2"
+       },
+       {
+        "from_minute": 35,
+        "formation": "3-4-2-1"
+       }
+      ]
+     }
+    },
+    "goals": [
+     {
+      "timestamp": 579.6,
+      "minute": "10'",
+      "team": "A",
+      "scorer": "Dawid Kownacki",
+      "assist": "Tim Oberdorf"
+     },
+     {
+      "timestamp": 1602.1,
+      "minute": "27'",
+      "team": "A",
+      "scorer": "M. Sobottka",
+      "assist": "Dawid Kownacki"
+     }
+    ],
+    "substitutions": [
+     {
+      "timestamp": 2251.3,
+      "minute": "38'",
+      "team": "B",
+      "on": "D. Lee",
+      "off": "S. Thill"
+     }
+    ],
+    "chapters": [
+     {
+      "team": "A",
+      "label": "DOMINANT",
+      "start": 2340,
+      "end": 2700
+     }
+    ],
+    "presses": [],
+    "counterattacks": 2,
+    "shifts": [
+     {
+      "team": "A",
+      "minute": 10,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     },
+     {
+      "team": "A",
+      "minute": 37,
+      "from": "BALANCED",
+      "to": "DOMINANT"
+     },
+     {
+      "team": "B",
+      "minute": 3,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     },
+     {
+      "team": "B",
+      "minute": 15,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     },
+     {
+      "team": "B",
+      "minute": 35,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     },
+     {
+      "team": "B",
+      "minute": 44,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     }
+    ],
+    "moments": [
+     {
+      "id": "m00-goal-build-up",
+      "minute": "10'",
+      "t": 579.6,
+      "type": "GOAL_BUILD_UP",
+      "subtype": "sustained possession",
+      "team": "A",
+      "title": "Goal Fortuna D\u00fcsseldorf - Dawid Kownacki",
+      "importance": 0.92,
+      "confidence": 0.87,
+      "reliability": 0.78,
+      "validation": "recorded goal; build-up sequence from events",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Spell of possession",
+        "timestamp": 534.0
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "9 passes, 45.6s",
+        "timestamp": 534.0
+       },
+       {
+        "stage": "OUTCOME",
+        "label": "Goal (0.223 xG)",
+        "timestamp": 579.6
+       }
+      ],
+      "consequences": [
+       "Score 1-0"
+      ],
+      "evidence": [
+       {
+        "label": "Build-up",
+        "detail": "9 passes in 45.6s",
+        "value": 9,
+        "unit": "passes",
+        "t": 534.0,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Shot",
+        "detail": "Dawid Kownacki shot from 18.6m",
+        "value": 0.223,
+        "unit": "xG",
+        "t": 579.6,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Outcome",
+        "detail": "Goal - 1-0",
+        "value": 1,
+        "unit": "goal",
+        "t": 579.6,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Visibility",
+        "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 67%)",
+        "value": 0.35,
+        "unit": "observed share",
+        "t": 579.6,
+        "engine_basis": "coverage",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m01-goal-build-up",
+      "minute": "27'",
+      "t": 1602.1,
+      "type": "GOAL_BUILD_UP",
+      "subtype": "sustained possession",
+      "team": "A",
+      "title": "Goal Fortuna D\u00fcsseldorf - M. Sobottka",
+      "importance": 0.82,
+      "confidence": 0.78,
+      "reliability": 0.55,
+      "validation": "recorded goal; build-up sequence from events",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Tackle by M. Sobottka",
+        "timestamp": 1598.0
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "1 passes, 4.1s",
+        "timestamp": 1598.0
+       },
+       {
+        "stage": "OUTCOME",
+        "label": "Goal (0.449 xG)",
+        "timestamp": 1602.1
+       }
+      ],
+      "consequences": [
+       "Score 2-0"
+      ],
+      "evidence": [
+       {
+        "label": "Recovery",
+        "detail": "M. Sobottka won the ball (tackle) 78m from own goal",
+        "value": 78.2,
+        "unit": "m",
+        "t": 1598.0,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Build-up",
+        "detail": "1 passes in 4.1s",
+        "value": 1,
+        "unit": "passes",
+        "t": 1598.0,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Shot",
+        "detail": "M. Sobottka shot from 10.9m",
+        "value": 0.449,
+        "unit": "xG",
+        "t": 1602.1,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Outcome",
+        "detail": "Goal - 2-0",
+        "value": 1,
+        "unit": "goal",
+        "t": 1602.1,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Visibility",
+        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 46%)",
+        "value": 0.17,
+        "unit": "observed share",
+        "t": 1602.1,
+        "engine_basis": "coverage",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m02-formation-shift",
+      "minute": "36'",
+      "t": 2100,
+      "type": "FORMATION_SHIFT",
+      "subtype": null,
+      "team": "B",
+      "title": "F.C. Hansa Rostock switch to 3-4-2-1",
+      "importance": 0.75,
+      "confidence": 0.73,
+      "reliability": 0.49,
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "chain": [
+       {
+        "stage": "TACTICAL_CHANGE",
+        "label": "3-5-2 -> 3-4-2-1",
+        "timestamp": 2100
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Right-side press 36.8% -> 25.0%",
+        "timestamp": 2100
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "0 final-third recoveries",
+        "timestamp": 2100
+       }
+      ],
+      "consequences": [
+       "0 final-third recoveries",
+       "Territory 21.7%",
+       "0 shots"
+      ],
+      "evidence": [
+       {
+        "label": "Tactical trigger",
+        "detail": "Shape changed 3-5-2 -> 3-4-2-1",
+        "value": 11.04,
+        "unit": "shift score",
+        "t": 2100,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "heuristic over observed + model_inferred positions"
+       },
+       {
+        "label": "Structural change",
+        "detail": "Defensive line -24.27m, width -3.05m",
+        "value": -24.27,
+        "unit": "m",
+        "t": 2100,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Pressing",
+        "detail": "Press intensity 43.4 -> 12.3; right-side share of pressures 36.8% -> 25.0%",
+        "value": -31.1,
+        "unit": "index pts",
+        "t": 2100,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Recovery",
+        "detail": "Final-third recoveries 1 -> 0",
+        "value": 0,
+        "unit": "recoveries",
+        "t": 2100,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Territory",
+        "detail": "Territory 62.3% -> 21.7%",
+        "value": -40.6,
+        "unit": "pct pts",
+        "t": 2100,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m03-substitution-impact",
+      "minute": "38'",
+      "t": 2251.3,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "B",
+      "title": "D. Lee on for S. Thill",
+      "importance": 0.47,
+      "confidence": 0.57,
+      "reliability": 0.54,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2251.3
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the LW",
+        "timestamp": 2251.3
+       }
+      ],
+      "consequences": [
+       "2 pressures from D. Lee"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "D. Lee replaces S. Thill (LW)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2251.3,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "2 pressures (0 on the right), 0 recoveries in first 15 min",
+        "value": 2,
+        "unit": "pressures",
+        "t": 2251.3,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 41.9 -> 18.8",
+        "value": -23.1,
+        "unit": "index pts",
+        "t": 2251.3,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     }
+    ],
+    "story_links": 0,
+    "unreliable_segments": [
+     {
+      "team": "A",
+      "from_minute": 0,
+      "to_minute": 1,
+      "min_reliability": 0.52,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 3,
+      "to_minute": 4,
+      "min_reliability": 0.5,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 6,
+      "to_minute": 8,
+      "min_reliability": 0.43,
+      "abstain_minutes": 3
+     },
+     {
+      "team": "A",
+      "from_minute": 10,
+      "to_minute": 10,
+      "min_reliability": 0.62,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "A",
+      "from_minute": 14,
+      "to_minute": 15,
+      "min_reliability": 0.65,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 19,
+      "to_minute": 20,
+      "min_reliability": 0.52,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 23,
+      "to_minute": 24,
+      "min_reliability": 0.55,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 26,
+      "to_minute": 29,
+      "min_reliability": 0.43,
+      "abstain_minutes": 4
+     },
+     {
+      "team": "A",
+      "from_minute": 32,
+      "to_minute": 45,
+      "min_reliability": 0.21,
+      "abstain_minutes": 14
+     },
+     {
+      "team": "B",
+      "from_minute": 0,
+      "to_minute": 1,
+      "min_reliability": 0.49,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 3,
+      "to_minute": 4,
+      "min_reliability": 0.56,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 6,
+      "to_minute": 8,
+      "min_reliability": 0.46,
+      "abstain_minutes": 3
+     },
+     {
+      "team": "B",
+      "from_minute": 10,
+      "to_minute": 10,
+      "min_reliability": 0.68,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "B",
+      "from_minute": 14,
+      "to_minute": 15,
+      "min_reliability": 0.63,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 17,
+      "to_minute": 17,
+      "min_reliability": 0.67,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "B",
+      "from_minute": 19,
+      "to_minute": 21,
+      "min_reliability": 0.63,
+      "abstain_minutes": 3
+     },
+     {
+      "team": "B",
+      "from_minute": 23,
+      "to_minute": 23,
+      "min_reliability": 0.56,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "B",
+      "from_minute": 25,
+      "to_minute": 30,
+      "min_reliability": 0.45,
+      "abstain_minutes": 6
+     },
+     {
+      "team": "B",
+      "from_minute": 32,
+      "to_minute": 45,
+      "min_reliability": 0.2,
+      "abstain_minutes": 14
+     }
+    ],
+    "observed_share": 0.226
+   },
+   "truth_vs_reconstruction": {
+    "def_line_minute_mae": 1.62,
+    "width_minute_mae": 3.51,
+    "compactness_minute_mae": 1.12,
+    "press_index_minute_mae": 4.46,
+    "depth_minute_mae": 2.89,
+    "formation_minute_agreement": 0.851,
+    "position_moments_truth": 2,
+    "position_moments_recon": 1,
+    "recalled_within_120s": 0,
+    "recon_only": 1
+   }
+  },
+  "h2": {
+   "basis": {
+    "positions": "ground_truth",
+    "events": "recorded_event (official DFL feed)",
+    "summary": "In-stadium tracking of all players (ground truth); official event feed"
+   },
+   "view": "truth",
+   "duration_s": 2936,
+   "score": {
+    "A": 3,
+    "B": 1
+   },
+   "teams": {
+    "A": {
+     "goals": 1,
+     "shots": 8,
+     "shots_on_target": 1,
+     "xg": 1.27,
+     "passes": 194,
+     "passes_completed": 136,
+     "pass_accuracy": 0.701,
+     "tackles_won": 13,
+     "fouls": 6,
+     "corners": 1,
+     "offsides": 1,
+     "yellow_cards": 1,
+     "red_cards": 0,
+     "possession_seconds": 1468,
+     "distance_km": 58.9,
+     "press_index": 22.3,
+     "formation": "4-2-3-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "3-5-2"
+      },
+      {
+       "from_minute": 5,
+       "formation": "4-2-3-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 1,
+     "shots": 7,
+     "shots_on_target": 2,
+     "xg": 0.32,
+     "passes": 248,
+     "passes_completed": 184,
+     "pass_accuracy": 0.742,
+     "tackles_won": 6,
+     "fouls": 4,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 1469,
+     "distance_km": 57.0,
+     "press_index": 22.6,
+     "formation": "4-2-3-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3-1"
+      }
+     ]
+    }
+   },
+   "goals": [
+    {
+     "timestamp": 902.3,
+     "minute": "61'",
+     "team": "B",
+     "scorer": "Lukas Fr\u00f6de",
+     "assist": "K. Pr\u00f6ger"
+    },
+    {
+     "timestamp": 1911.6,
+     "minute": "77'",
+     "team": "A",
+     "scorer": "E. Iyoha",
+     "assist": "A. Tanaka"
+    }
+   ],
+   "substitutions": [
+    {
+     "timestamp": 1542.0,
+     "minute": "71'",
+     "team": "A",
+     "on": "Jorrit Hendrix",
+     "off": "Shinta Appelkamp"
+    },
+    {
+     "timestamp": 1560.7,
+     "minute": "72'",
+     "team": "A",
+     "on": "E. Iyoha",
+     "off": "Dawid Kownacki"
+    },
+    {
+     "timestamp": 2169.0,
+     "minute": "82'",
+     "team": "B",
+     "on": "T. Mei\u00dfner",
+     "off": "Frederic Ananou"
+    },
+    {
+     "timestamp": 2173.6,
+     "minute": "82'",
+     "team": "B",
+     "on": "Nils Fr\u00f6ling",
+     "off": "K. Pr\u00f6ger"
+    },
+    {
+     "timestamp": 2180.4,
+     "minute": "82'",
+     "team": "B",
+     "on": "R. Munsy",
+     "off": "J. Verhoek"
+    },
+    {
+     "timestamp": 2348.2,
+     "minute": "85'",
+     "team": "A",
+     "on": "E. Fernandes Neto",
+     "off": "Kristoffer Peterson"
+    },
+    {
+     "timestamp": 2673.4,
+     "minute": "90'",
+     "team": "A",
+     "on": "D. Bunk",
+     "off": "A. Tanaka"
+    },
+    {
+     "timestamp": 2676.8,
+     "minute": "90'",
+     "team": "A",
+     "on": "Kwadwo Baah",
+     "off": "F. Klaus"
+    }
+   ],
+   "chapters": [
+    {
+     "team": "A",
+     "label": "DOMINANT",
+     "start": 60,
+     "end": 300
+    }
+   ],
+   "presses": [],
+   "counterattacks": 2,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 5,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 21,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 34,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 43,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 9,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 31,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 43,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-formation-shift",
+     "minute": "51'",
+     "t": 300,
+     "type": "FORMATION_SHIFT",
+     "subtype": null,
+     "team": "A",
+     "title": "Fortuna D\u00fcsseldorf switch to 4-2-3-1",
+     "importance": 0.75,
+     "confidence": 0.92,
+     "reliability": 1.0,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "3-5-2 -> 4-2-3-1",
+       "timestamp": 300
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Right-side press 0.0% -> 23.9%",
+       "timestamp": 300
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 final-third recoveries",
+       "timestamp": 300
+      }
+     ],
+     "consequences": [
+      "0 final-third recoveries",
+      "Territory 58.0%",
+      "1 shots"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Shape changed 3-5-2 -> 4-2-3-1",
+       "value": 10.46,
+       "unit": "shift score",
+       "t": 300,
+       "engine_basis": "observed events",
+       "basis_tag": "heuristic over ground_truth positions"
+      },
+      {
+       "label": "Structural change",
+       "detail": "Defensive line -22.66m, width -4.54m",
+       "value": -22.66,
+       "unit": "m",
+       "t": 300,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Pressing",
+       "detail": "Press intensity 33.6 -> 26.9; right-side share of pressures 0.0% -> 23.9%",
+       "value": -6.7,
+       "unit": "index pts",
+       "t": 300,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Recovery",
+       "detail": "Final-third recoveries 1 -> 0",
+       "value": 0,
+       "unit": "recoveries",
+       "t": 300,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 81.4% -> 58.0%",
+       "value": -23.4,
+       "unit": "pct pts",
+       "t": 300,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       295,
+       305
+      ],
+      "observed_players": 0.8,
+      "inferred_players": 9.2,
+      "high_confidence_inferred": 4.1,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 50.1,
+        "width_m": 30.5,
+        "near_ball": 4.0
+       },
+       "reconstructed": {
+        "def_line_m": 40.0,
+        "width_m": 31.4,
+        "near_ball": 4.2
+       },
+       "truth": {
+        "def_line_m": 40.8,
+        "width_m": 31.4,
+        "near_ball": 4.5
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 9.3,
+        "reconstructed": 0.8
+       },
+       "width_m": {
+        "observed_only": 0.9,
+        "reconstructed": 0.0
+       },
+       "near_ball": {
+        "observed_only": 0.5,
+        "reconstructed": 0.3
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m01-goal-build-up",
+     "minute": "61'",
+     "t": 902.3,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "B",
+     "title": "Goal F.C. Hansa Rostock - Lukas Fr\u00f6de",
+     "importance": 0.92,
+     "confidence": 0.95,
+     "reliability": 1.0,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Spell of possession",
+       "timestamp": 877.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "6 passes, 25.3s",
+       "timestamp": 877.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.145 xG)",
+       "timestamp": 902.3
+      }
+     ],
+     "consequences": [
+      "Score 2-1"
+     ],
+     "evidence": [
+      {
+       "label": "Build-up",
+       "detail": "6 passes in 25.3s",
+       "value": 6,
+       "unit": "passes",
+       "t": 877.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "Lukas Fr\u00f6de shot from 8.3m",
+       "value": 0.145,
+       "unit": "xG",
+       "t": 902.3,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 2-1",
+       "value": 1,
+       "unit": "goal",
+       "t": 902.3,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "B",
+      "window_s": [
+       897,
+       907
+      ],
+      "observed_players": 6.3,
+      "inferred_players": 3.7,
+      "high_confidence_inferred": 3.7,
+      "outfield_players": 13,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 84.2,
+        "width_m": 25.7,
+        "near_ball": 2.3
+       },
+       "reconstructed": {
+        "def_line_m": 72.9,
+        "width_m": 31.1,
+        "near_ball": 2.7
+       },
+       "truth": {
+        "def_line_m": 72.4,
+        "width_m": 30.3,
+        "near_ball": 2.6
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 11.8,
+        "reconstructed": 0.5
+       },
+       "width_m": {
+        "observed_only": 4.6,
+        "reconstructed": 0.8
+       },
+       "near_ball": {
+        "observed_only": 0.3,
+        "reconstructed": 0.1
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m02-substitution-impact",
+     "minute": "71'",
+     "t": 1542.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "Jorrit Hendrix on for Shinta Appelkamp",
+     "importance": 0.53,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 1542.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the DM",
+       "timestamp": 1542.0
+      }
+     ],
+     "consequences": [
+      "8 pressures from Jorrit Hendrix"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "Jorrit Hendrix replaces Shinta Appelkamp (DM)",
+       "value": 1,
+       "unit": "sub",
+       "t": 1542.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "8 pressures (3 on the right), 3 recoveries in first 15 min",
+       "value": 8,
+       "unit": "pressures",
+       "t": 1542.0,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 17.0 -> 17.6",
+       "value": 0.6,
+       "unit": "index pts",
+       "t": 1542.0,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       1537,
+       1547
+      ],
+      "observed_players": 3.5,
+      "inferred_players": 6.5,
+      "high_confidence_inferred": 5.5,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 38.6,
+        "width_m": 30.3,
+        "near_ball": 2.7
+       },
+       "reconstructed": {
+        "def_line_m": 37.0,
+        "width_m": 55.5,
+        "near_ball": 3.3
+       },
+       "truth": {
+        "def_line_m": 37.5,
+        "width_m": 56.6,
+        "near_ball": 2.7
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 1.1,
+        "reconstructed": 0.5
+       },
+       "width_m": {
+        "observed_only": 26.3,
+        "reconstructed": 1.1
+       },
+       "near_ball": {
+        "observed_only": 0.0,
+        "reconstructed": 0.6
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m03-substitution-impact",
+     "minute": "72'",
+     "t": 1560.7,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "E. Iyoha on for Dawid Kownacki",
+     "importance": 0.52,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 1560.7
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the ST",
+       "timestamp": 1560.7
+      }
+     ],
+     "consequences": [
+      "7 pressures from E. Iyoha"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "E. Iyoha replaces Dawid Kownacki (ST)",
+       "value": 1,
+       "unit": "sub",
+       "t": 1560.7,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "7 pressures (3 on the right), 5 recoveries in first 15 min",
+       "value": 7,
+       "unit": "pressures",
+       "t": 1560.7,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 17.3 -> 16.2",
+       "value": -1.1,
+       "unit": "index pts",
+       "t": 1560.7,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [
+      {
+       "to": "m04-goal-build-up",
+       "relation": "involved_in"
+      }
+     ],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       1555,
+       1565
+      ],
+      "observed_players": 5.0,
+      "inferred_players": 5.0,
+      "high_confidence_inferred": 3.3,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 37.2,
+        "width_m": 43.0,
+        "near_ball": 1.6
+       },
+       "reconstructed": {
+        "def_line_m": 36.5,
+        "width_m": 51.2,
+        "near_ball": 1.6
+       },
+       "truth": {
+        "def_line_m": 37.2,
+        "width_m": 57.0,
+        "near_ball": 1.6
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 0.0,
+        "reconstructed": 0.7
+       },
+       "width_m": {
+        "observed_only": 14.0,
+        "reconstructed": 5.8
+       },
+       "near_ball": {
+        "observed_only": 0.0,
+        "reconstructed": 0.0
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m04-goal-build-up",
+     "minute": "77'",
+     "t": 1911.6,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "A",
+     "title": "Goal Fortuna D\u00fcsseldorf - E. Iyoha",
+     "importance": 0.82,
+     "confidence": 0.95,
+     "reliability": 1.0,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Interception by M. Sobottka",
+       "timestamp": 1907.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "2 passes, 4.6s",
+       "timestamp": 1907.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.269 xG)",
+       "timestamp": 1911.6
+      }
+     ],
+     "consequences": [
+      "Score 3-1"
+     ],
+     "evidence": [
+      {
+       "label": "Recovery",
+       "detail": "M. Sobottka won the ball (interception) 83m from own goal",
+       "value": 83.4,
+       "unit": "m",
+       "t": 1907.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Build-up",
+       "detail": "2 passes in 4.6s",
+       "value": 2,
+       "unit": "passes",
+       "t": 1907.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "E. Iyoha shot from 11.5m",
+       "value": 0.269,
+       "unit": "xG",
+       "t": 1911.6,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 3-1",
+       "value": 1,
+       "unit": "goal",
+       "t": 1911.6,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       1906,
+       1916
+      ],
+      "observed_players": 3.0,
+      "inferred_players": 7.0,
+      "high_confidence_inferred": 2.1,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 85.8,
+        "width_m": 27.3,
+        "near_ball": 1.8
+       },
+       "reconstructed": {
+        "def_line_m": 77.5,
+        "width_m": 31.8,
+        "near_ball": 3.3
+       },
+       "truth": {
+        "def_line_m": 59.5,
+        "width_m": 34.0,
+        "near_ball": 2.5
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 26.3,
+        "reconstructed": 18.0
+       },
+       "width_m": {
+        "observed_only": 6.7,
+        "reconstructed": 2.2
+       },
+       "near_ball": {
+        "observed_only": 0.7,
+        "reconstructed": 0.8
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m05-substitution-impact",
+     "minute": "82'",
+     "t": 2169.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "T. Mei\u00dfner on for Frederic Ananou",
+     "importance": 0.46,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2169.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the CB",
+       "timestamp": 2169.0
+      }
+     ],
+     "consequences": [
+      "1 pressures from T. Mei\u00dfner"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "T. Mei\u00dfner replaces Frederic Ananou (CB)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2169.0,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "1 pressures (0 on the right), 2 recoveries in first 15 min",
+       "value": 1,
+       "unit": "pressures",
+       "t": 2169.0,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 25.7 -> 23.7",
+       "value": -2.0,
+       "unit": "index pts",
+       "t": 2169.0,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "B",
+      "window_s": [
+       2164,
+       2174
+      ],
+      "observed_players": 0.0,
+      "inferred_players": 10.0,
+      "high_confidence_inferred": 0.5,
+      "outfield_players": 13,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 32.1,
+        "width_m": 35.7,
+        "near_ball": 4.9
+       },
+       "truth": {
+        "def_line_m": 37.6,
+        "width_m": 40.1,
+        "near_ball": 4.2
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 5.5
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 4.4
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 0.7
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m06-substitution-impact",
+     "minute": "82'",
+     "t": 2173.6,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "Nils Fr\u00f6ling on for K. Pr\u00f6ger",
+     "importance": 0.48,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2173.6
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the RM",
+       "timestamp": 2173.6
+      }
+     ],
+     "consequences": [
+      "3 pressures from Nils Fr\u00f6ling"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "Nils Fr\u00f6ling replaces K. Pr\u00f6ger (RM)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2173.6,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "3 pressures (0 on the right), 1 recoveries in first 15 min",
+       "value": 3,
+       "unit": "pressures",
+       "t": 2173.6,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 25.7 -> 23.7",
+       "value": -2.0,
+       "unit": "index pts",
+       "t": 2173.6,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "B",
+      "window_s": [
+       2168,
+       2178
+      ],
+      "observed_players": 0.0,
+      "inferred_players": 10.0,
+      "high_confidence_inferred": 1.7,
+      "outfield_players": 13,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 36.7,
+        "width_m": 38.4,
+        "near_ball": 4.5
+       },
+       "truth": {
+        "def_line_m": 41.4,
+        "width_m": 43.3,
+        "near_ball": 3.5
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 4.7
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 4.9
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 1.0
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m07-substitution-impact",
+     "minute": "82'",
+     "t": 2180.4,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "R. Munsy on for J. Verhoek",
+     "importance": 0.47,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2180.4
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the ST",
+       "timestamp": 2180.4
+      }
+     ],
+     "consequences": [
+      "2 pressures from R. Munsy"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "R. Munsy replaces J. Verhoek (ST)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2180.4,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "2 pressures (1 on the right), 3 recoveries in first 15 min",
+       "value": 2,
+       "unit": "pressures",
+       "t": 2180.4,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 25.7 -> 23.7",
+       "value": -2.0,
+       "unit": "index pts",
+       "t": 2180.4,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "B",
+      "window_s": [
+       2175,
+       2185
+      ],
+      "observed_players": 1.8,
+      "inferred_players": 8.2,
+      "high_confidence_inferred": 3.7,
+      "outfield_players": 13,
+      "metrics": {
+       "observed_only": {
+        "def_line_m": 43.1,
+        "width_m": 35.6,
+        "near_ball": 2.8
+       },
+       "reconstructed": {
+        "def_line_m": 41.9,
+        "width_m": 40.0,
+        "near_ball": 3.3
+       },
+       "truth": {
+        "def_line_m": 43.7,
+        "width_m": 47.6,
+        "near_ball": 2.8
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": 0.6,
+        "reconstructed": 1.8
+       },
+       "width_m": {
+        "observed_only": 12.0,
+        "reconstructed": 7.6
+       },
+       "near_ball": {
+        "observed_only": 0.0,
+        "reconstructed": 0.5
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m08-substitution-impact",
+     "minute": "85'",
+     "t": 2348.2,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "E. Fernandes Neto on for Kristoffer Peterson",
+     "importance": 0.51,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2348.2
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the LM",
+       "timestamp": 2348.2
+      }
+     ],
+     "consequences": [
+      "6 pressures from E. Fernandes Neto"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "E. Fernandes Neto replaces Kristoffer Peterson (LM)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2348.2,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "6 pressures (6 on the right), 1 recoveries in first 15 min",
+       "value": 6,
+       "unit": "pressures",
+       "t": 2348.2,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 14.4 -> 25.7",
+       "value": 11.3,
+       "unit": "index pts",
+       "t": 2348.2,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       2343,
+       2353
+      ],
+      "observed_players": 0.1,
+      "inferred_players": 9.9,
+      "high_confidence_inferred": 0.9,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 32.4,
+        "width_m": 52.3,
+        "near_ball": 0.0
+       },
+       "truth": {
+        "def_line_m": 28.9,
+        "width_m": 46.8,
+        "near_ball": 0.7
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 3.5
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 5.5
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 0.7
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m09-substitution-impact",
+     "minute": "90'",
+     "t": 2673.4,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "D. Bunk on for A. Tanaka",
+     "importance": 0.47,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2673.4
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the AM",
+       "timestamp": 2673.4
+      }
+     ],
+     "consequences": [
+      "2 pressures from D. Bunk"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "D. Bunk replaces A. Tanaka (AM)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2673.4,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "2 pressures (2 on the right), 0 recoveries in first 15 min",
+       "value": 2,
+       "unit": "pressures",
+       "t": 2673.4,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 15.9 -> 35.5",
+       "value": 19.6,
+       "unit": "index pts",
+       "t": 2673.4,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       2668,
+       2678
+      ],
+      "observed_players": 0.6,
+      "inferred_players": 9.4,
+      "high_confidence_inferred": 0.9,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 25.3,
+        "width_m": 39.6,
+        "near_ball": 0.3
+       },
+       "truth": {
+        "def_line_m": 21.8,
+        "width_m": 44.8,
+        "near_ball": 0.3
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 3.5
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 5.2
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 0.0
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    },
+    {
+     "id": "m10-substitution-impact",
+     "minute": "90'",
+     "t": 2676.8,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "Kwadwo Baah on for F. Klaus",
+     "importance": 0.47,
+     "confidence": 0.7,
+     "reliability": 1.0,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2676.8
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the RM",
+       "timestamp": 2676.8
+      }
+     ],
+     "consequences": [
+      "2 pressures from Kwadwo Baah"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "Kwadwo Baah replaces F. Klaus (RM)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2676.8,
+       "engine_basis": "observed events",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "2 pressures (1 on the right), 0 recoveries in first 15 min",
+       "value": 2,
+       "unit": "pressures",
+       "t": 2676.8,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 15.9 -> 35.5",
+       "value": 19.6,
+       "unit": "index pts",
+       "t": 2676.8,
+       "engine_basis": "observed events",
+       "basis_tag": "ground_truth positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": {
+      "team": "A",
+      "window_s": [
+       2671,
+       2681
+      ],
+      "observed_players": 0.6,
+      "inferred_players": 9.4,
+      "high_confidence_inferred": 0.7,
+      "outfield_players": 15,
+      "metrics": {
+       "observed_only": null,
+       "reconstructed": {
+        "def_line_m": 29.8,
+        "width_m": 39.1,
+        "near_ball": 0.0
+       },
+       "truth": {
+        "def_line_m": 26.5,
+        "width_m": 45.6,
+        "near_ball": 0.0
+       }
+      },
+      "abs_error_vs_truth": {
+       "def_line_m": {
+        "observed_only": null,
+        "reconstructed": 3.3
+       },
+       "width_m": {
+        "observed_only": null,
+        "reconstructed": 6.5
+       },
+       "near_ball": {
+        "observed_only": null,
+        "reconstructed": 0.0
+       }
+      },
+      "note": "Shape of this team as a broadcast camera would have shown it, as reconstructed, and as it really was"
+     }
+    }
+   ],
+   "story_links": 1,
+   "unreliable_segments": [],
+   "observed_share": 0.229,
+   "file": "data/dfl_J03WOY_r13_h2.json",
+   "reconstruction_model": "r13_mlp_aug_ens3",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null,
+   "reconstruction_view": {
+    "basis": {
+     "positions": "observed (exact tracking, simulated camera) + model_inferred",
+     "events": "recorded_event",
+     "summary": "Analytics re-run on the camera reconstruction"
+    },
+    "view": "vod",
+    "duration_s": 2936,
+    "score": {
+     "A": 3,
+     "B": 1
+    },
+    "teams": {
+     "A": {
+      "goals": 1,
+      "shots": 8,
+      "shots_on_target": 1,
+      "xg": 1.27,
+      "passes": 194,
+      "passes_completed": 136,
+      "pass_accuracy": 0.701,
+      "tackles_won": 13,
+      "fouls": 6,
+      "corners": 1,
+      "offsides": 1,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "possession_seconds": 1468,
+      "distance_km": null,
+      "press_index": 20.0,
+      "formation": "4-2-3-1",
+      "formations": [
+       {
+        "from_minute": 0,
+        "formation": "4-1-4-1"
+       },
+       {
+        "from_minute": 5,
+        "formation": "4-2-3-1"
+       },
+       {
+        "from_minute": 30,
+        "formation": "4-1-4-1"
+       }
+      ]
+     },
+     "B": {
+      "goals": 1,
+      "shots": 7,
+      "shots_on_target": 2,
+      "xg": 0.32,
+      "passes": 248,
+      "passes_completed": 184,
+      "pass_accuracy": 0.742,
+      "tackles_won": 6,
+      "fouls": 4,
+      "corners": 0,
+      "offsides": 0,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "possession_seconds": 1469,
+      "distance_km": null,
+      "press_index": 20.4,
+      "formation": "4-2-3-1",
+      "formations": [
+       {
+        "from_minute": 0,
+        "formation": "3-4-2-1"
+       },
+       {
+        "from_minute": 15,
+        "formation": "4-2-3-1"
+       }
+      ]
+     }
+    },
+    "goals": [
+     {
+      "timestamp": 902.3,
+      "minute": "61'",
+      "team": "B",
+      "scorer": "Lukas Fr\u00f6de",
+      "assist": "K. Pr\u00f6ger"
+     },
+     {
+      "timestamp": 1911.6,
+      "minute": "77'",
+      "team": "A",
+      "scorer": "E. Iyoha",
+      "assist": "A. Tanaka"
+     }
+    ],
+    "substitutions": [
+     {
+      "timestamp": 1542.0,
+      "minute": "71'",
+      "team": "A",
+      "on": "Jorrit Hendrix",
+      "off": "Shinta Appelkamp"
+     },
+     {
+      "timestamp": 1560.7,
+      "minute": "72'",
+      "team": "A",
+      "on": "E. Iyoha",
+      "off": "Dawid Kownacki"
+     },
+     {
+      "timestamp": 2169.0,
+      "minute": "82'",
+      "team": "B",
+      "on": "T. Mei\u00dfner",
+      "off": "Frederic Ananou"
+     },
+     {
+      "timestamp": 2173.6,
+      "minute": "82'",
+      "team": "B",
+      "on": "Nils Fr\u00f6ling",
+      "off": "K. Pr\u00f6ger"
+     },
+     {
+      "timestamp": 2180.4,
+      "minute": "82'",
+      "team": "B",
+      "on": "R. Munsy",
+      "off": "J. Verhoek"
+     },
+     {
+      "timestamp": 2348.2,
+      "minute": "85'",
+      "team": "A",
+      "on": "E. Fernandes Neto",
+      "off": "Kristoffer Peterson"
+     },
+     {
+      "timestamp": 2673.4,
+      "minute": "90'",
+      "team": "A",
+      "on": "D. Bunk",
+      "off": "A. Tanaka"
+     },
+     {
+      "timestamp": 2676.8,
+      "minute": "90'",
+      "team": "A",
+      "on": "Kwadwo Baah",
+      "off": "F. Klaus"
+     }
+    ],
+    "chapters": [
+     {
+      "team": "A",
+      "label": "DOMINANT",
+      "start": 60,
+      "end": 300
+     }
+    ],
+    "presses": [],
+    "counterattacks": 2,
+    "shifts": [
+     {
+      "team": "A",
+      "minute": 4,
+      "from": "DOMINANT",
+      "to": "BALANCED"
+     },
+     {
+      "team": "A",
+      "minute": 14,
+      "from": "DOMINANT",
+      "to": "BALANCED"
+     },
+     {
+      "team": "A",
+      "minute": 29,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     },
+     {
+      "team": "B",
+      "minute": 9,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     },
+     {
+      "team": "B",
+      "minute": 31,
+      "from": "DOMINANT",
+      "to": "BALANCED"
+     },
+     {
+      "team": "B",
+      "minute": 46,
+      "from": "BALANCED",
+      "to": "BALANCED"
+     }
+    ],
+    "moments": [
+     {
+      "id": "m00-formation-shift",
+      "minute": "51'",
+      "t": 300,
+      "type": "FORMATION_SHIFT",
+      "subtype": null,
+      "team": "A",
+      "title": "Fortuna D\u00fcsseldorf switch to 4-2-3-1",
+      "importance": 0.75,
+      "confidence": 0.81,
+      "reliability": 0.71,
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "chain": [
+       {
+        "stage": "TACTICAL_CHANGE",
+        "label": "4-1-4-1 -> 4-2-3-1",
+        "timestamp": 300
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Right-side press 0.0% -> 23.9%",
+        "timestamp": 300
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "0 final-third recoveries",
+        "timestamp": 300
+       }
+      ],
+      "consequences": [
+       "0 final-third recoveries",
+       "Territory 58.0%",
+       "1 shots"
+      ],
+      "evidence": [
+       {
+        "label": "Tactical trigger",
+        "detail": "Shape changed 4-1-4-1 -> 4-2-3-1",
+        "value": 10.13,
+        "unit": "shift score",
+        "t": 300,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "heuristic over observed + model_inferred positions"
+       },
+       {
+        "label": "Structural change",
+        "detail": "Defensive line -21.97m, width -1.76m",
+        "value": -21.97,
+        "unit": "m",
+        "t": 300,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Pressing",
+        "detail": "Press intensity 31.9 -> 19.3; right-side share of pressures 0.0% -> 23.9%",
+        "value": -12.6,
+        "unit": "index pts",
+        "t": 300,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Recovery",
+        "detail": "Final-third recoveries 1 -> 0",
+        "value": 0,
+        "unit": "recoveries",
+        "t": 300,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Territory",
+        "detail": "Territory 81.4% -> 58.0%",
+        "value": -23.4,
+        "unit": "pct pts",
+        "t": 300,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m01-goal-build-up",
+      "minute": "61'",
+      "t": 902.3,
+      "type": "GOAL_BUILD_UP",
+      "subtype": "sustained possession",
+      "team": "B",
+      "title": "Goal F.C. Hansa Rostock - Lukas Fr\u00f6de",
+      "importance": 0.92,
+      "confidence": 0.81,
+      "reliability": 0.63,
+      "validation": "recorded goal; build-up sequence from events",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Spell of possession",
+        "timestamp": 877.0
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "6 passes, 25.3s",
+        "timestamp": 877.0
+       },
+       {
+        "stage": "OUTCOME",
+        "label": "Goal (0.145 xG)",
+        "timestamp": 902.3
+       }
+      ],
+      "consequences": [
+       "Score 2-1"
+      ],
+      "evidence": [
+       {
+        "label": "Build-up",
+        "detail": "6 passes in 25.3s",
+        "value": 6,
+        "unit": "passes",
+        "t": 877.0,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Shot",
+        "detail": "Lukas Fr\u00f6de shot from 8.3m",
+        "value": 0.145,
+        "unit": "xG",
+        "t": 902.3,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Outcome",
+        "detail": "Goal - 2-1",
+        "value": 1,
+        "unit": "goal",
+        "t": 902.3,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Visibility",
+        "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 55%)",
+        "value": 0.18,
+        "unit": "observed share",
+        "t": 902.3,
+        "engine_basis": "coverage",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m02-substitution-impact",
+      "minute": "71'",
+      "t": 1542.0,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "A",
+      "title": "Jorrit Hendrix on for Shinta Appelkamp",
+      "importance": 0.53,
+      "confidence": 0.57,
+      "reliability": 0.54,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 1542.0
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the DM",
+        "timestamp": 1542.0
+       }
+      ],
+      "consequences": [
+       "8 pressures from Jorrit Hendrix"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "Jorrit Hendrix replaces Shinta Appelkamp (DM)",
+        "value": 1,
+        "unit": "sub",
+        "t": 1542.0,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "8 pressures (3 on the right), 3 recoveries in first 15 min",
+        "value": 8,
+        "unit": "pressures",
+        "t": 1542.0,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 17.1 -> 16.3",
+        "value": -0.8,
+        "unit": "index pts",
+        "t": 1542.0,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [
+       {
+        "to": "m04-formation-shift",
+        "relation": "preceded"
+       }
+      ],
+      "hidden_state": null
+     },
+     {
+      "id": "m03-substitution-impact",
+      "minute": "72'",
+      "t": 1560.7,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "A",
+      "title": "E. Iyoha on for Dawid Kownacki",
+      "importance": 0.52,
+      "confidence": 0.57,
+      "reliability": 0.53,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 1560.7
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the ST",
+        "timestamp": 1560.7
+       }
+      ],
+      "consequences": [
+       "7 pressures from E. Iyoha"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "E. Iyoha replaces Dawid Kownacki (ST)",
+        "value": 1,
+        "unit": "sub",
+        "t": 1560.7,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "7 pressures (3 on the right), 5 recoveries in first 15 min",
+        "value": 7,
+        "unit": "pressures",
+        "t": 1560.7,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 17.2 -> 15.2",
+        "value": -2.0,
+        "unit": "index pts",
+        "t": 1560.7,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [
+       {
+        "to": "m04-formation-shift",
+        "relation": "preceded"
+       },
+       {
+        "to": "m05-goal-build-up",
+        "relation": "involved_in"
+       }
+      ],
+      "hidden_state": null
+     },
+     {
+      "id": "m04-formation-shift",
+      "minute": "76'",
+      "t": 1800,
+      "type": "FORMATION_SHIFT",
+      "subtype": null,
+      "team": "A",
+      "title": "Fortuna D\u00fcsseldorf switch to 4-1-4-1",
+      "importance": 0.86,
+      "confidence": 0.66,
+      "reliability": 0.46,
+      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups)",
+      "chain": [
+       {
+        "stage": "TACTICAL_CHANGE",
+        "label": "4-2-3-1 -> 4-1-4-1",
+        "timestamp": 1800
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Right-side press 45.0% -> 26.9%",
+        "timestamp": 1800
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "1 final-third recoveries",
+        "timestamp": 1800
+       },
+       {
+        "stage": "OUTCOME",
+        "label": "Goal",
+        "timestamp": 1911.6
+       }
+      ],
+      "consequences": [
+       "1 final-third recoveries",
+       "Territory 46.7%",
+       "2 shots"
+      ],
+      "evidence": [
+       {
+        "label": "Tactical trigger",
+        "detail": "Shape changed 4-2-3-1 -> 4-1-4-1",
+        "value": 6.51,
+        "unit": "shift score",
+        "t": 1800,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "heuristic over observed + model_inferred positions"
+       },
+       {
+        "label": "Structural change",
+        "detail": "Defensive line +6.95m, width -11.62m",
+        "value": 6.95,
+        "unit": "m",
+        "t": 1800,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Pressing",
+        "detail": "Press intensity 16.6 -> 14.2; right-side share of pressures 45.0% -> 26.9%",
+        "value": -2.4,
+        "unit": "index pts",
+        "t": 1800,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Recovery",
+        "detail": "Final-third recoveries 0 -> 1",
+        "value": 1,
+        "unit": "recoveries",
+        "t": 1800,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Territory",
+        "detail": "Territory 34.7% -> 46.7%",
+        "value": 12.0,
+        "unit": "pct pts",
+        "t": 1800,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Outcome",
+        "detail": "Goal at 76:51",
+        "value": 1,
+        "unit": "goals",
+        "t": 1911.6,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       }
+      ],
+      "links": [
+       {
+        "to": "m05-goal-build-up",
+        "relation": "followed_during"
+       }
+      ],
+      "hidden_state": null
+     },
+     {
+      "id": "m05-goal-build-up",
+      "minute": "77'",
+      "t": 1911.6,
+      "type": "GOAL_BUILD_UP",
+      "subtype": "sustained possession",
+      "team": "A",
+      "title": "Goal Fortuna D\u00fcsseldorf - E. Iyoha",
+      "importance": 0.82,
+      "confidence": 0.82,
+      "reliability": 0.66,
+      "validation": "recorded goal; build-up sequence from events",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Interception by M. Sobottka",
+        "timestamp": 1907.0
+       },
+       {
+        "stage": "CONSEQUENCE",
+        "label": "2 passes, 4.6s",
+        "timestamp": 1907.0
+       },
+       {
+        "stage": "OUTCOME",
+        "label": "Goal (0.269 xG)",
+        "timestamp": 1911.6
+       }
+      ],
+      "consequences": [
+       "Score 3-1"
+      ],
+      "evidence": [
+       {
+        "label": "Recovery",
+        "detail": "M. Sobottka won the ball (interception) 83m from own goal",
+        "value": 83.4,
+        "unit": "m",
+        "t": 1907.0,
+        "engine_basis": "observed + inferred positions",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Build-up",
+        "detail": "2 passes in 4.6s",
+        "value": 2,
+        "unit": "passes",
+        "t": 1907.0,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Shot",
+        "detail": "E. Iyoha shot from 11.5m",
+        "value": 0.269,
+        "unit": "xG",
+        "t": 1911.6,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Outcome",
+        "detail": "Goal - 3-1",
+        "value": 1,
+        "unit": "goal",
+        "t": 1911.6,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Visibility",
+        "detail": "On average 3 of 11 players observed; 8 estimated from trajectories and team shape (mean confidence 56%)",
+        "value": 0.24,
+        "unit": "observed share",
+        "t": 1911.6,
+        "engine_basis": "coverage",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m06-substitution-impact",
+      "minute": "82'",
+      "t": 2169.0,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "B",
+      "title": "T. Mei\u00dfner on for Frederic Ananou",
+      "importance": 0.46,
+      "confidence": 0.55,
+      "reliability": 0.46,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2169.0
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the CB",
+        "timestamp": 2169.0
+       }
+      ],
+      "consequences": [
+       "1 pressures from T. Mei\u00dfner"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "T. Mei\u00dfner replaces Frederic Ananou (CB)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2169.0,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "1 pressures (0 on the right), 2 recoveries in first 15 min",
+        "value": 1,
+        "unit": "pressures",
+        "t": 2169.0,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 20.5 -> 23.6",
+        "value": 3.1,
+        "unit": "index pts",
+        "t": 2169.0,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m07-substitution-impact",
+      "minute": "82'",
+      "t": 2173.6,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "B",
+      "title": "Nils Fr\u00f6ling on for K. Pr\u00f6ger",
+      "importance": 0.48,
+      "confidence": 0.55,
+      "reliability": 0.46,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2173.6
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the RM",
+        "timestamp": 2173.6
+       }
+      ],
+      "consequences": [
+       "3 pressures from Nils Fr\u00f6ling"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "Nils Fr\u00f6ling replaces K. Pr\u00f6ger (RM)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2173.6,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "3 pressures (0 on the right), 1 recoveries in first 15 min",
+        "value": 3,
+        "unit": "pressures",
+        "t": 2173.6,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 20.5 -> 23.6",
+        "value": 3.1,
+        "unit": "index pts",
+        "t": 2173.6,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m08-substitution-impact",
+      "minute": "82'",
+      "t": 2180.4,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "B",
+      "title": "R. Munsy on for J. Verhoek",
+      "importance": 0.47,
+      "confidence": 0.55,
+      "reliability": 0.46,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2180.4
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the ST",
+        "timestamp": 2180.4
+       }
+      ],
+      "consequences": [
+       "2 pressures from R. Munsy"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "R. Munsy replaces J. Verhoek (ST)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2180.4,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "2 pressures (1 on the right), 3 recoveries in first 15 min",
+        "value": 2,
+        "unit": "pressures",
+        "t": 2180.4,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 20.5 -> 23.6",
+        "value": 3.1,
+        "unit": "index pts",
+        "t": 2180.4,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m09-substitution-impact",
+      "minute": "85'",
+      "t": 2348.2,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "A",
+      "title": "E. Fernandes Neto on for Kristoffer Peterson",
+      "importance": 0.51,
+      "confidence": 0.56,
+      "reliability": 0.51,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2348.2
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the LM",
+        "timestamp": 2348.2
+       }
+      ],
+      "consequences": [
+       "6 pressures from E. Fernandes Neto"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "E. Fernandes Neto replaces Kristoffer Peterson (LM)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2348.2,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "6 pressures (6 on the right), 1 recoveries in first 15 min",
+        "value": 6,
+        "unit": "pressures",
+        "t": 2348.2,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 14.3 -> 24.4",
+        "value": 10.1,
+        "unit": "index pts",
+        "t": 2348.2,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m10-substitution-impact",
+      "minute": "90'",
+      "t": 2673.4,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "A",
+      "title": "D. Bunk on for A. Tanaka",
+      "importance": 0.47,
+      "confidence": 0.58,
+      "reliability": 0.58,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2673.4
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the AM",
+        "timestamp": 2673.4
+       }
+      ],
+      "consequences": [
+       "2 pressures from D. Bunk"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "D. Bunk replaces A. Tanaka (AM)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2673.4,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "2 pressures (2 on the right), 0 recoveries in first 15 min",
+        "value": 2,
+        "unit": "pressures",
+        "t": 2673.4,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 20.3 -> 27.7",
+        "value": 7.4,
+        "unit": "index pts",
+        "t": 2673.4,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     },
+     {
+      "id": "m11-substitution-impact",
+      "minute": "90'",
+      "t": 2676.8,
+      "type": "SUBSTITUTION_IMPACT",
+      "subtype": null,
+      "team": "A",
+      "title": "Kwadwo Baah on for F. Klaus",
+      "importance": 0.47,
+      "confidence": 0.58,
+      "reliability": 0.58,
+      "validation": "recorded substitution; after-effects heuristic",
+      "chain": [
+       {
+        "stage": "EVENT",
+        "label": "Substitution",
+        "timestamp": 2676.8
+       },
+       {
+        "stage": "STATE_CHANGE",
+        "label": "Fresh legs on the RM",
+        "timestamp": 2676.8
+       }
+      ],
+      "consequences": [
+       "2 pressures from Kwadwo Baah"
+      ],
+      "evidence": [
+       {
+        "label": "Change",
+        "detail": "Kwadwo Baah replaces F. Klaus (RM)",
+        "value": 1,
+        "unit": "sub",
+        "t": 2676.8,
+        "engine_basis": "observed events",
+        "basis_tag": "recorded_event"
+       },
+       {
+        "label": "Player activity",
+        "detail": "2 pressures (1 on the right), 0 recoveries in first 15 min",
+        "value": 2,
+        "unit": "pressures",
+        "t": 2676.8,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       },
+       {
+        "label": "Team effect",
+        "detail": "Press intensity 20.3 -> 27.7",
+        "value": 7.4,
+        "unit": "index pts",
+        "t": 2676.8,
+        "engine_basis": "observed events",
+        "basis_tag": "observed + model_inferred positions"
+       }
+      ],
+      "links": [],
+      "hidden_state": null
+     }
+    ],
+    "story_links": 4,
+    "unreliable_segments": [
+     {
+      "team": "A",
+      "from_minute": 0,
+      "to_minute": 1,
+      "min_reliability": 0.36,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 3,
+      "to_minute": 4,
+      "min_reliability": 0.62,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 6,
+      "to_minute": 10,
+      "min_reliability": 0.52,
+      "abstain_minutes": 5
+     },
+     {
+      "team": "A",
+      "from_minute": 13,
+      "to_minute": 15,
+      "min_reliability": 0.7,
+      "abstain_minutes": 3
+     },
+     {
+      "team": "A",
+      "from_minute": 17,
+      "to_minute": 17,
+      "min_reliability": 0.55,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "A",
+      "from_minute": 19,
+      "to_minute": 21,
+      "min_reliability": 0.5,
+      "abstain_minutes": 3
+     },
+     {
+      "team": "A",
+      "from_minute": 23,
+      "to_minute": 24,
+      "min_reliability": 0.58,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 26,
+      "to_minute": 27,
+      "min_reliability": 0.52,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "A",
+      "from_minute": 29,
+      "to_minute": 29,
+      "min_reliability": 0.66,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "A",
+      "from_minute": 31,
+      "to_minute": 40,
+      "min_reliability": 0.17,
+      "abstain_minutes": 10
+     },
+     {
+      "team": "A",
+      "from_minute": 42,
+      "to_minute": 48,
+      "min_reliability": 0.33,
+      "abstain_minutes": 7
+     },
+     {
+      "team": "B",
+      "from_minute": 0,
+      "to_minute": 1,
+      "min_reliability": 0.44,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 6,
+      "to_minute": 9,
+      "min_reliability": 0.47,
+      "abstain_minutes": 4
+     },
+     {
+      "team": "B",
+      "from_minute": 14,
+      "to_minute": 15,
+      "min_reliability": 0.63,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 17,
+      "to_minute": 17,
+      "min_reliability": 0.63,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "B",
+      "from_minute": 19,
+      "to_minute": 21,
+      "min_reliability": 0.53,
+      "abstain_minutes": 3
+     },
+     {
+      "team": "B",
+      "from_minute": 23,
+      "to_minute": 24,
+      "min_reliability": 0.47,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 26,
+      "to_minute": 27,
+      "min_reliability": 0.48,
+      "abstain_minutes": 2
+     },
+     {
+      "team": "B",
+      "from_minute": 29,
+      "to_minute": 29,
+      "min_reliability": 0.59,
+      "abstain_minutes": 1
+     },
+     {
+      "team": "B",
+      "from_minute": 32,
+      "to_minute": 48,
+      "min_reliability": 0.15,
+      "abstain_minutes": 17
+     }
+    ],
+    "observed_share": 0.229
+   },
+   "truth_vs_reconstruction": {
+    "def_line_minute_mae": 1.49,
+    "width_minute_mae": 3.17,
+    "compactness_minute_mae": 1.15,
+    "press_index_minute_mae": 4.02,
+    "depth_minute_mae": 2.23,
+    "formation_minute_agreement": 0.602,
+    "position_moments_truth": 1,
+    "position_moments_recon": 2,
+    "recalled_within_120s": 1,
+    "recon_only": 1
+   }
+  }
+ }
+}

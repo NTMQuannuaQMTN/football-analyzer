@@ -1,0 +1,201 @@
+{
+ "id": "cv-r13-2016-08-14-18-00-arsenal-3-4-liverpool-h1-1440-2040",
+ "kind": "computer_vision",
+ "label": "Computer vision \u00b7 SoccerNet",
+ "info": {
+  "date": "2016-08-14",
+  "competition": "Premier League",
+  "label": "Computer vision \u00b7 SoccerNet"
+ },
+ "parts": {
+  "clip": {
+   "basis": {
+    "positions": "observed (our CV from broadcast video; identity role-based, unverified) + model_inferred",
+    "events": "labelled SoccerNet actions where available",
+    "summary": "Computer vision from broadcast video; calibration and identity unverified (experimental)"
+   },
+   "view": "cv",
+   "duration_s": 600,
+   "score": {
+    "A": 1,
+    "B": 0
+   },
+   "teams": {
+    "A": {
+     "goals": 1,
+     "shots": 1,
+     "shots_on_target": 1,
+     "xg": 0.12,
+     "passes": 51,
+     "passes_completed": 24,
+     "pass_accuracy": 0.471,
+     "tackles_won": 0,
+     "fouls": 1,
+     "corners": 0,
+     "offsides": 1,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 233,
+     "distance_km": null,
+     "press_index": 29.1,
+     "formation": "4-2-3-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 2,
+     "shots_on_target": 2,
+     "xg": 0.11,
+     "passes": 53,
+     "passes_completed": 29,
+     "pass_accuracy": 0.547,
+     "tackles_won": 0,
+     "fouls": 4,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 2,
+     "red_cards": 0,
+     "possession_seconds": 364,
+     "distance_km": null,
+     "press_index": 34.0,
+     "formation": "4-3-3",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-3-3"
+      }
+     ]
+    }
+   },
+   "goals": [
+    {
+     "timestamp": 370.0,
+     "minute": "31'",
+     "team": "A",
+     "scorer": "Walcott",
+     "assist": null
+    }
+   ],
+   "substitutions": [],
+   "chapters": [],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 3,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 3,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-goal-build-up",
+     "minute": "31'",
+     "t": 370.0,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "A",
+     "title": "Goal Arsenal - Walcott",
+     "importance": 0.92,
+     "confidence": 0.63,
+     "reliability": 0.16,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Spell of possession",
+       "timestamp": 360.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 passes, 10.0s",
+       "timestamp": 360.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.125 xG)",
+       "timestamp": 370.0
+      }
+     ],
+     "consequences": [
+      "Score 1-0"
+     ],
+     "evidence": [
+      {
+       "label": "Build-up",
+       "detail": "0 passes in 10.0s",
+       "value": 0,
+       "unit": "passes",
+       "t": 360.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "Walcott shot from 16.1m",
+       "value": 0.125,
+       "unit": "xG",
+       "t": 370.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 1-0",
+       "value": 1,
+       "unit": "goal",
+       "t": 370.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.16,
+       "unit": "observed share",
+       "t": 370.0,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    }
+   ],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 0,
+     "to_minute": 8,
+     "min_reliability": 0.0,
+     "abstain_minutes": 6
+    },
+    {
+     "team": "B",
+     "from_minute": 0,
+     "to_minute": 7,
+     "min_reliability": 0.0,
+     "abstain_minutes": 6
+    }
+   ],
+   "observed_share": 0.331,
+   "file": "data/cv_r13_2016_08_14_18_00_arsenal_3_4_liverpool_h1_1440_2040.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  }
+ }
+}

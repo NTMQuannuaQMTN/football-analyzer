@@ -75,7 +75,7 @@ API: `/evaluation`, `/match/frames?mode=replay|live|truth`, `/match/players/stat
 
 Counterattacks are detected from the ball and events, which are always observed, so visibility does not affect them. Their F1 is limited by the detector also flagging fast breaks that the simulator never scripted as counters.
 
-Real-football results, dataset choice and the trained model: [docs/HIDDEN_STATE_RECONSTRUCTION.md](docs/HIDDEN_STATE_RECONSTRUCTION.md). On unseen Bundesliga teams, with real broadcast-camera masking, the learned model reaches 8.2–8.3 m (live) and 7.0 m (replay) against 13.8–13.9 / 10.0–10.4 m for the formation estimator and 15.5–16.0 m for last position.
+**Current model and evaluation (13 Oct 2026):** [docs/reconstruction_evaluation.md](docs/reconstruction_evaluation.md) and [model card](docs/reconstruction_model_card.md). The production model `r13_mlp_aug_ens3` was evaluated on DFL 7-fold held out (live 8.10 m / replay 6.66 m vs 14.28 / 10.54 m for the formation estimator), on real-broadcast SoccerNet-GSR re-entries (live 6.74 m) and on SkillCorner A-League re-entries (live 7.70 m). Analysis of 30 reconstructed matches: [docs/match_analysis_report.md](docs/match_analysis_report.md). Earlier results: Real-football results, dataset choice and the trained model: [docs/HIDDEN_STATE_RECONSTRUCTION.md](docs/HIDDEN_STATE_RECONSTRUCTION.md). On unseen Bundesliga teams, with real broadcast-camera masking, the learned model reaches 8.2–8.3 m (live) and 7.0 m (replay) against 13.8–13.9 / 10.0–10.4 m for the formation estimator and 15.5–16.0 m for last position.
 
 ## Layout
 

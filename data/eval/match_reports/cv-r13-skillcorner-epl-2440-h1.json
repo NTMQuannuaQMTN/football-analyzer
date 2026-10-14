@@ -1,0 +1,432 @@
+{
+ "id": "cv-r13-skillcorner-epl-2440-h1",
+ "kind": "computer_vision",
+ "label": "Computer vision \u00b7 SkillCorner",
+ "info": {
+  "date": "2019-11-10",
+  "competition": "Premier League",
+  "label": "Computer vision \u00b7 SkillCorner"
+ },
+ "parts": {
+  "clip": {
+   "basis": {
+    "positions": "observed (SkillCorner legacy broadcast detections) + model_inferred",
+    "events": "none",
+    "summary": "Broadcast detections (legacy release, no event feed); hidden players estimated"
+   },
+   "view": "cv",
+   "duration_s": 2813,
+   "score": {
+    "A": 0,
+    "B": 0
+   },
+   "teams": {
+    "A": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 773,
+     "distance_km": null,
+     "press_index": 22.2,
+     "formation": "4-3-3",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-3-3"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 1037,
+     "distance_km": null,
+     "press_index": 26.6,
+     "formation": "4-1-3-2",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-1-3-2"
+      }
+     ]
+    }
+   },
+   "goals": [],
+   "substitutions": [],
+   "chapters": [
+    {
+     "team": "A",
+     "label": "LOW_BLOCK",
+     "start": 0,
+     "end": 240
+    },
+    {
+     "team": "B",
+     "label": "DOMINANT",
+     "start": 0,
+     "end": 300
+    }
+   ],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 4,
+     "from": "LOW_BLOCK",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 12,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 29,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 44,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 4,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 12,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 24,
+     "from": "BALANCED",
+     "to": "DOMINANT"
+    },
+    {
+     "team": "B",
+     "minute": 32,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 44,
+     "from": "BALANCED",
+     "to": "LOW_BLOCK"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-tactical-turning-point",
+     "minute": "25'",
+     "t": 1440,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "dominant",
+     "team": "B",
+     "title": "Manchester City take territorial control",
+     "importance": 0.63,
+     "confidence": 0.62,
+     "reliability": 0.42,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Dominant",
+       "timestamp": 1440
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 44.8m -> 37.1m",
+       "timestamp": 1440
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 1440
+      }
+     ],
+     "consequences": [
+      "Territory 56.5%",
+      "0 shots (0 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block pushed up: defensive line 44.8m -> 37.1m",
+       "value": -7.7,
+       "unit": "m",
+       "t": 1440,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Possession",
+       "detail": "Possession 58.0% -> 62.0%",
+       "value": 4.0,
+       "unit": "pct pts",
+       "t": 1440,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 57.5% -> 56.5%",
+       "value": -1.0,
+       "unit": "pct pts",
+       "t": 1440,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "0 shots (0 xG) in the following minutes",
+       "value": 0,
+       "unit": "shots",
+       "t": 1440,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.42,
+       "unit": "observed share",
+       "t": 1440,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m01-tactical-turning-point",
+     "minute": "45'",
+     "t": 2640,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "low_block",
+     "team": "B",
+     "title": "Manchester City drop into a low block",
+     "importance": 0.65,
+     "confidence": 0.69,
+     "reliability": 0.41,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Low Block",
+       "timestamp": 2640
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 46.3m -> 18.1m",
+       "timestamp": 2640
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 2640
+      }
+     ],
+     "consequences": [
+      "0 counterattacks",
+      "0 shots (0 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block dropped: defensive line 46.3m -> 18.1m",
+       "value": -28.2,
+       "unit": "m",
+       "t": 2640,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Ceded the ball",
+       "detail": "Possession 69.7% -> 41.0%",
+       "value": -28.7,
+       "unit": "pct pts",
+       "t": 2640,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transitions",
+       "detail": "0 counterattacks launched in the next 15 min",
+       "value": 0,
+       "unit": "counters",
+       "t": 2640,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "0 ended in shots",
+       "value": 0,
+       "unit": "shots",
+       "t": 2640,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.41,
+       "unit": "observed share",
+       "t": 2640,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    }
+   ],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 0,
+     "to_minute": 14,
+     "min_reliability": 0.03,
+     "abstain_minutes": 8
+    },
+    {
+     "team": "A",
+     "from_minute": 17,
+     "to_minute": 18,
+     "min_reliability": 0.41,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 20,
+     "to_minute": 23,
+     "min_reliability": 0.35,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 25,
+     "to_minute": 25,
+     "min_reliability": 0.45,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 29,
+     "to_minute": 35,
+     "min_reliability": 0.26,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 37,
+     "to_minute": 42,
+     "min_reliability": 0.0,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "A",
+     "from_minute": 44,
+     "to_minute": 46,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 0,
+     "to_minute": 8,
+     "min_reliability": 0.04,
+     "abstain_minutes": 7
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
+     "to_minute": 14,
+     "min_reliability": 0.17,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "B",
+     "from_minute": 17,
+     "to_minute": 18,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 21,
+     "to_minute": 24,
+     "min_reliability": 0.26,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 28,
+     "to_minute": 29,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 31,
+     "to_minute": 35,
+     "min_reliability": 0.29,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 37,
+     "to_minute": 42,
+     "min_reliability": 0.0,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 44,
+     "to_minute": 46,
+     "min_reliability": 0.35,
+     "abstain_minutes": 0
+    }
+   ],
+   "observed_share": 0.37373198940363117,
+   "file": "data/cv_r13_skillcorner_epl_2440_h1.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  }
+ }
+}

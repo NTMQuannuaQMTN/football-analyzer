@@ -1,0 +1,78 @@
+{
+ "final_v3": {
+  "live": {
+   "fit_train_test_valid": {
+    "scale": 1.165,
+    "n_test": 702,
+    "coverage_unscaled": 0.692,
+    "coverage_scaled": 0.798,
+    "mean_radius_unscaled_m": 8.66,
+    "mean_radius_scaled_m": 10.08
+   },
+   "fit_valid_test_train": {
+    "scale": 1.171,
+    "n_test": 642,
+    "coverage_unscaled": 0.706,
+    "coverage_scaled": 0.802,
+    "mean_radius_unscaled_m": 9.3,
+    "mean_radius_scaled_m": 10.89
+   }
+  },
+  "replay": {
+   "fit_train_test_valid": {
+    "scale": 1.069,
+    "n_test": 1626,
+    "coverage_unscaled": 0.754,
+    "coverage_scaled": 0.79,
+    "mean_radius_unscaled_m": 4.42,
+    "mean_radius_scaled_m": 4.73
+   },
+   "fit_valid_test_train": {
+    "scale": 1.091,
+    "n_test": 1374,
+    "coverage_unscaled": 0.772,
+    "coverage_scaled": 0.811,
+    "mean_radius_unscaled_m": 4.62,
+    "mean_radius_scaled_m": 5.03
+   }
+  }
+ },
+ "r13_mlp_aug_ens3_final": {
+  "live": {
+   "fit_train_test_valid": {
+    "scale": 1.269,
+    "n_test": 702,
+    "coverage_unscaled": 0.732,
+    "coverage_scaled": 0.839,
+    "mean_radius_unscaled_m": 8.29,
+    "mean_radius_scaled_m": 10.52
+   },
+   "fit_valid_test_train": {
+    "scale": 1.166,
+    "n_test": 642,
+    "coverage_unscaled": 0.67,
+    "coverage_scaled": 0.759,
+    "mean_radius_unscaled_m": 8.77,
+    "mean_radius_scaled_m": 10.22
+   }
+  },
+  "replay": {
+   "fit_train_test_valid": {
+    "scale": 1.175,
+    "n_test": 1626,
+    "coverage_unscaled": 0.702,
+    "coverage_scaled": 0.786,
+    "mean_radius_unscaled_m": 3.82,
+    "mean_radius_scaled_m": 4.48
+   },
+   "fit_valid_test_train": {
+    "scale": 1.202,
+    "n_test": 1374,
+    "coverage_unscaled": 0.71,
+    "coverage_scaled": 0.811,
+    "mean_radius_unscaled_m": 4.03,
+    "mean_radius_scaled_m": 4.85
+   }
+  }
+ }
+}

@@ -1,0 +1,7 @@
+0 {'k7r_v3_live': 8.96, 'r13_mlp_live': 9.56, 'r13_mlp_ens3_live': 9.37, 'k7r_v3_replay': 8.27, 'r13_mlp_replay': 9.07, 'r13_mlp_ens3_replay': 8.74}
+1 {'k7r_v3_live': 7.84, 'r13_mlp_live': 8.38, 'r13_mlp_ens3_live': 8.22, 'k7r_v3_replay': 6.54, 'r13_mlp_replay': 7.2, 'r13_mlp_ens3_replay': 6.91}
+2 {'k7r_v3_live': 7.23, 'r13_mlp_live': 7.71, 'r13_mlp_ens3_live': 7.51, 'k7r_v3_replay': 5.93, 'r13_mlp_replay': 6.55, 'r13_mlp_ens3_replay': 6.25}
+3 {'k7r_v3_live': 7.5, 'r13_mlp_live': 7.98, 'r13_mlp_ens3_live': 7.81, 'k7r_v3_replay': 6.12, 'r13_mlp_replay': 6.66, 'r13_mlp_ens3_replay': 6.52}
+4 {'k7r_v3_live': 7.92, 'r13_mlp_live': 8.38, 'r13_mlp_ens3_live': 8.22, 'k7r_v3_replay': 6.69, 'r13_mlp_replay': 7.19, 'r13_mlp_ens3_replay': 6.99}
+5 {'k7r_v3_live': 7.95, 'r13_mlp_live': 8.49, 'r13_mlp_ens3_live': 8.25, 'k7r_v3_replay': 6.81, 'r13_mlp_replay': 7.36, 'r13_mlp_ens3_replay': 7.16}
+6 {'k7r_v3_live': 8.12, 'r13_mlp_live': 8.45, 'r13_mlp_ens3_live': 8.29, 'k7r_v3_replay': 6.89, 'r13_mlp_replay': 7.45, 'r13_mlp_ens3_replay': 7.24}

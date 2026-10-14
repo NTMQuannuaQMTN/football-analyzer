@@ -95,6 +95,9 @@ class MomentDetector:
             mo.get("subtype") == "high_press" and any(
                 s["team"] == mo["team"] and abs(s["timestamp"] - mo["timestamp"]) <= 180 for s in shifts))]
         self.moments.sort(key=lambda x: x["timestamp"])
+        for mo in self.moments:  # an unknown actor (e.g. a goal without a located scorer) is not a focus player
+            if mo.get("replay"):
+                mo["replay"]["focus_players"] = [p for p in mo["replay"].get("focus_players") or [] if p is not None]
         for i, mo in enumerate(self.moments):
             mo["id"] = f"m{i:02d}-{mo['type'].lower().replace('_', '-')}"
         return self.moments
@@ -103,8 +106,12 @@ class MomentDetector:
         for g in [e for e in self.m.events if e["event_type"] == "GOAL"]:
             team, t = g["team_id"], g["timestamp"]
             seq = self.seq_for_goal(g)
-            shot = next((e for e in self.m.events if e["event_type"] == "SHOT" and 0 <= t - e["timestamp"] <= 1.0
-                         and e["team_id"] == team), {"xg": g.get("xg"), "timestamp": t})
+            if g.get("shot_timestamp") is not None:  # goal timed at the tracked ball entry; its shot is recorded explicitly
+                shot = next((e for e in self.m.events if e["event_type"] == "SHOT" and e["team_id"] == team
+                             and abs(e["timestamp"] - g["shot_timestamp"]) < 1e-6), {"xg": g.get("xg"), "timestamp": t})
+            else:
+                shot = next((e for e in self.m.events if e["event_type"] == "SHOT" and 0 <= t - e["timestamp"] <= 1.0
+                             and e["team_id"] == team), {"xg": g.get("xg"), "timestamp": t})
             rec_t = seq["start"] if seq else t - 10
             rec_ev = self.ev(seq["start_event"]) if seq else None
             opp = other(team)
@@ -133,13 +140,15 @@ class MomentDetector:
                                           byp, "players", t - 2))
             else:
                 evidence.append(self._evi("Build-up", f"{len(passes)} passes in {round(t - rec_t, 1)}s", len(passes), "passes", rec_t))
-            if shot.get("location_known", True):
+            if shot.get("location_known", True) and "distance" in shot:
                 evidence.append(self._evi("Shot", f"{self.name(g['player_id'])} shot from {shot['distance']}m", shot["xg"], "xG", t))
             else:
-                evidence.append(self._evi("Shot", "Shot location not visible on the live camera (replay / close-up)", "n/a", "", t))
+                evidence.append(self._evi("Shot", "Shot location not available (not visible on camera, or not in the event feed)", "n/a", "", t))
             evidence.append(self._evi("Outcome", f"Goal - {score['A']}-{score['B']}", 1, "goal", t))
+            if g.get("evidence"):  # provider goals: what the goal's time / scorer rests on
+                evidence.append(self._evi("Goal evidence", g["evidence"], "unverified" if g.get("unverified") else "tracked", "", t))
             involved = sorted({g["player_id"], *(p["player_id"] for p in passes), *([g["assist_id"]] if g.get("assist_id") else []),
-                               *([rec_ev["player_id"]] if rec_ev else [])})
+                               *([rec_ev["player_id"]] if rec_ev else [])} - {None})
             won = seq and seq["cause"] in ("tackle", "interception")
             chain = [{"stage": "EVENT", "label": f"{seq['cause'].title()} by {self.name(seq['player_id'])}" if won else "Spell of possession", "timestamp": rec_t}]
             if press:
@@ -153,7 +162,7 @@ class MomentDetector:
                 "title": f"Goal {TEAM_NAMES[team]} - {self.name(g['player_id'])}",
                 "subtype": context,
                 "importance": 0.82 + 0.1 * (abs(score["A"] - score["B"]) <= 1) + 0.05 * (t > 4500),
-                "confidence": 0.95,
+                "confidence": 0.6 if g.get("unverified") else 0.95,
                 "trigger": {"event_type": "GOAL", "event_id": g["id"], "description": f"{self.name(g['player_id'])} scores"},
                 "before": {"score": {k: v - (1 if k == team else 0) for k, v in score.items()}, "recovery_own_x": rec_x,
                            "opp_backward_passes": len(opp_back)},
@@ -164,7 +173,7 @@ class MomentDetector:
                 "chain": chain,
                 "replay": {"start": max(0, min(rec_t - 10, t - 20)), "end": t + 4, "focus_players": involved,
                            "focus_team": team, "overlay": "counter" if counter else "press" if press else "shape"},
-                "related_events": [g["id"], shot["id"]] + ([rec_ev["id"]] if rec_ev else []) + [p["id"] for p in passes],
+                "related_events": [g["id"]] + ([shot["id"]] if "id" in shot else []) + ([rec_ev["id"]] if rec_ev else []) + [p["id"] for p in passes],
                 "window": [rec_t, t],
             })
 
@@ -354,9 +363,10 @@ class MomentDetector:
             if any(abs(sh["start"] - r) <= 180 for r in reds):
                 continue  # forced by the red card: explained by RED_CARD_IMPACT
             team, k = sh["team"], sh["minute"]
+            used.add((team, k))
+            k = sh.get("formation_minute", k)  # stamp the moment where the new shape is first read
             t = k * 60
             before, after = self.wm(team, k - 6, k), self.wm(team, k, k + 10)
-            used.add((team, k))
             # find pressing structure on the right side
             def right_share(a, b):
                 ps = self.m.events_between(a, b, ("PRESSURE",), team)

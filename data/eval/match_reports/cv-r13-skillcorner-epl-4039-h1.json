@@ -1,0 +1,332 @@
+{
+ "id": "cv-r13-skillcorner-epl-4039-h1",
+ "kind": "computer_vision",
+ "label": "Computer vision \u00b7 SkillCorner",
+ "info": {
+  "date": "2020-07-02",
+  "competition": "Premier League",
+  "label": "Computer vision \u00b7 SkillCorner"
+ },
+ "parts": {
+  "clip": {
+   "basis": {
+    "positions": "observed (SkillCorner legacy broadcast detections) + model_inferred",
+    "events": "none",
+    "summary": "Broadcast detections (legacy release, no event feed); hidden players estimated"
+   },
+   "view": "cv",
+   "duration_s": 2896,
+   "score": {
+    "A": 0,
+    "B": 0
+   },
+   "teams": {
+    "A": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 1004,
+     "distance_km": null,
+     "press_index": 22.6,
+     "formation": "4-2-3-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-2-3-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": 0,
+     "xg": 0,
+     "passes": 0,
+     "passes_completed": 0,
+     "pass_accuracy": 0.0,
+     "tackles_won": 0,
+     "fouls": 0,
+     "corners": 0,
+     "offsides": 0,
+     "yellow_cards": 0,
+     "red_cards": 0,
+     "possession_seconds": 833,
+     "distance_km": null,
+     "press_index": 26.4,
+     "formation": "4-3-3",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-3-3"
+      },
+      {
+       "from_minute": 45,
+       "formation": "4-2-3"
+      }
+     ]
+    }
+   },
+   "goals": [],
+   "substitutions": [],
+   "chapters": [],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 4,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 13,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 27,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 38,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 46,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 4,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 15,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 27,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 38,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 46,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    }
+   ],
+   "moments": [],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 0,
+     "to_minute": 3,
+     "min_reliability": 0.29,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 8,
+     "to_minute": 8,
+     "min_reliability": 0.49,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 10,
+     "to_minute": 10,
+     "min_reliability": 0.26,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 13,
+     "to_minute": 14,
+     "min_reliability": 0.0,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 17,
+     "to_minute": 17,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 19,
+     "to_minute": 19,
+     "min_reliability": 0.29,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 21,
+     "to_minute": 27,
+     "min_reliability": 0.0,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "A",
+     "from_minute": 29,
+     "to_minute": 29,
+     "min_reliability": 0.35,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 32,
+     "to_minute": 32,
+     "min_reliability": 0.22,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 34,
+     "to_minute": 34,
+     "min_reliability": 0.05,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 36,
+     "to_minute": 36,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 41,
+     "to_minute": 45,
+     "min_reliability": 0.1,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 48,
+     "to_minute": 48,
+     "min_reliability": 0.13,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 0,
+     "to_minute": 3,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 5,
+     "to_minute": 6,
+     "min_reliability": 0.45,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 8,
+     "to_minute": 8,
+     "min_reliability": 0.45,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
+     "to_minute": 10,
+     "min_reliability": 0.18,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 13,
+     "to_minute": 14,
+     "min_reliability": 0.0,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 17,
+     "to_minute": 17,
+     "min_reliability": 0.35,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 19,
+     "to_minute": 19,
+     "min_reliability": 0.27,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 21,
+     "to_minute": 27,
+     "min_reliability": 0.0,
+     "abstain_minutes": 5
+    },
+    {
+     "team": "B",
+     "from_minute": 29,
+     "to_minute": 34,
+     "min_reliability": 0.06,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 36,
+     "to_minute": 36,
+     "min_reliability": 0.29,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 42,
+     "to_minute": 45,
+     "min_reliability": 0.11,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 47,
+     "to_minute": 48,
+     "min_reliability": 0.08,
+     "abstain_minutes": 1
+    }
+   ],
+   "observed_share": 0.4065527289911003,
+   "file": "data/cv_r13_skillcorner_epl_4039_h1.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  }
+ }
+}

@@ -40,10 +40,14 @@ def detect_shifts(timeline: Dict[str, List[dict]]) -> List[dict]:
         for k in sorted(chosen):
             before, after = rows[max(0, k - WIN):k], rows[k:k + WIN]
             deltas = {f: round(_mean(after, f) - _mean(before, f), 2) for f in FEATURES}
+            f_after = after[min(len(after) - 1, 1)]["formation"]
+            # first minute whose (per-minute) shape actually reads the new formation: a moment stamped earlier would
+            # contradict the per-minute shape shown for that minute
+            f_minute = next((k + i for i, r in enumerate(after) if r["formation"] == f_after), k)
             out.append({
                 "type": "TACTICAL_SHIFT", "team": team, "minute": k, "start": k * 60,
                 "score": round(scores[k], 2), "deltas": deltas,
-                "formation_before": before[-1]["formation"], "formation_after": after[min(len(after) - 1, 1)]["formation"],
+                "formation_before": before[-1]["formation"], "formation_after": f_after, "formation_minute": f_minute,
                 "label_before": tactical_label(before[-1], opp[k - 1]),
                 "label_after": tactical_label(after[min(len(after) - 1, 2)], opp[min(len(opp) - 1, k + 2)]),
             })

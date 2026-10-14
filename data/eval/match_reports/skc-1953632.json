@@ -1,0 +1,1533 @@
+{
+ "id": "skc-1953632",
+ "kind": "computer_vision",
+ "label": "Broadcast tracking \u00b7 SkillCorner \u00b7 hidden players estimated",
+ "info": {
+  "date": "2024-12-31",
+  "competition": "A-League 2024/25",
+  "full_match": true
+ },
+ "parts": {
+  "h1": {
+   "basis": {
+    "positions": "observed (SkillCorner broadcast detections) + model_inferred (hidden players)",
+    "events": "recorded_event (SkillCorner CV-derived; not an official feed)",
+    "summary": "Broadcast detections for visible players; every other position is a model estimate"
+   },
+   "view": "cv",
+   "duration_s": 2896,
+   "score": {
+    "A": 0,
+    "B": 1
+   },
+   "teams": {
+    "A": {
+     "goals": 0,
+     "shots": 0,
+     "shots_on_target": null,
+     "xg": 0,
+     "passes": 139,
+     "passes_completed": 115,
+     "pass_accuracy": 0.827,
+     "tackles_won": 11,
+     "fouls": null,
+     "corners": null,
+     "offsides": null,
+     "yellow_cards": null,
+     "red_cards": null,
+     "possession_seconds": 575,
+     "distance_km": null,
+     "press_index": 19.3,
+     "formation": "3-4-2-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "3-4-2-1"
+      }
+     ]
+    },
+    "B": {
+     "goals": 1,
+     "shots": 4,
+     "shots_on_target": null,
+     "xg": 0.51,
+     "passes": 366,
+     "passes_completed": 345,
+     "pass_accuracy": 0.943,
+     "tackles_won": 5,
+     "fouls": null,
+     "corners": null,
+     "offsides": null,
+     "yellow_cards": null,
+     "red_cards": null,
+     "possession_seconds": 1296,
+     "distance_km": null,
+     "press_index": 35.7,
+     "formation": "4-1-4-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-1-4-1"
+      }
+     ]
+    }
+   },
+   "goals": [
+    {
+     "timestamp": 1977.0,
+     "minute": "33'",
+     "team": "B",
+     "scorer": "S. Souprayen",
+     "assist": null
+    }
+   ],
+   "substitutions": [
+    {
+     "timestamp": 2379.0,
+     "minute": "40'",
+     "team": "B",
+     "on": "B. Mazzeo",
+     "off": "Y. Cohen"
+    }
+   ],
+   "chapters": [],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 6,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 22,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 34,
+     "from": "LOW_BLOCK",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 46,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 15,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 34,
+     "from": "BALANCED",
+     "to": "DOMINANT"
+    },
+    {
+     "team": "B",
+     "minute": 46,
+     "from": "BALANCED",
+     "to": "DOMINANT"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-goal-build-up",
+     "minute": "33'",
+     "t": 1977.0,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "B",
+     "title": "Goal Melbourne City FC - S. Souprayen",
+     "importance": 0.92,
+     "confidence": 0.62,
+     "reliability": 0.13,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Spell of possession",
+       "timestamp": 1967.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 passes, 10.0s",
+       "timestamp": 1967.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.302 xG)",
+       "timestamp": 1977.0
+      }
+     ],
+     "consequences": [
+      "Score 0-1"
+     ],
+     "evidence": [
+      {
+       "label": "Build-up",
+       "detail": "0 passes in 10.0s",
+       "value": 0,
+       "unit": "passes",
+       "t": 1967.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "S. Souprayen shot from 10.4m",
+       "value": 0.302,
+       "unit": "xG",
+       "t": 1977.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 0-1",
+       "value": 1,
+       "unit": "goal",
+       "t": 1977.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Goal evidence",
+       "detail": "ball tracked entering the goal",
+       "value": "tracked",
+       "unit": "",
+       "t": 1977.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 1 of 11 players observed; 10 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.13,
+       "unit": "observed share",
+       "t": 1977.0,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m01-tactical-turning-point",
+     "minute": "35'",
+     "t": 2040,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "dominant",
+     "team": "B",
+     "title": "Melbourne City FC take territorial control",
+     "importance": 0.65,
+     "confidence": 0.69,
+     "reliability": 0.43,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Dominant",
+       "timestamp": 2040
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 54.1m -> 38.8m",
+       "timestamp": 2040
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 2040
+      }
+     ],
+     "consequences": [
+      "Territory 51.2%",
+      "1 shots (0.04 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block pushed up: defensive line 54.1m -> 38.8m",
+       "value": -15.3,
+       "unit": "m",
+       "t": 2040,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Possession",
+       "detail": "Possession 65.0% -> 42.5%",
+       "value": -22.5,
+       "unit": "pct pts",
+       "t": 2040,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 57.3% -> 51.2%",
+       "value": -6.1,
+       "unit": "pct pts",
+       "t": 2040,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "1 shots (0.04 xG) in the following minutes",
+       "value": 1,
+       "unit": "shots",
+       "t": 2040,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.43,
+       "unit": "observed share",
+       "t": 2040,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m02-substitution-impact",
+     "minute": "40'",
+     "t": 2379.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "B. Mazzeo on for Y. Cohen",
+     "importance": 0.49,
+     "confidence": 0.56,
+     "reliability": 0.49,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2379.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the RF",
+       "timestamp": 2379.0
+      }
+     ],
+     "consequences": [
+      "4 pressures from B. Mazzeo"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "B. Mazzeo replaces Y. Cohen (RF)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2379.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "4 pressures (0 on the right), 0 recoveries in first 15 min",
+       "value": 4,
+       "unit": "pressures",
+       "t": 2379.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 21.9 -> 28.4",
+       "value": 6.5,
+       "unit": "index pts",
+       "t": 2379.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m03-tactical-turning-point",
+     "minute": "47'",
+     "t": 2760,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "dominant",
+     "team": "B",
+     "title": "Melbourne City FC take territorial control",
+     "importance": 0.65,
+     "confidence": 0.69,
+     "reliability": 0.42,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Dominant",
+       "timestamp": 2760
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 39.7m -> 46.4m",
+       "timestamp": 2760
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 2760
+      }
+     ],
+     "consequences": [
+      "Territory 84.3%",
+      "1 shots (0.04 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block pushed up: defensive line 39.7m -> 46.4m",
+       "value": 6.7,
+       "unit": "m",
+       "t": 2760,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Possession",
+       "detail": "Possession 71.5% -> 54.7%",
+       "value": -16.8,
+       "unit": "pct pts",
+       "t": 2760,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 38.7% -> 84.3%",
+       "value": 45.6,
+       "unit": "pct pts",
+       "t": 2760,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "1 shots (0.04 xG) in the following minutes",
+       "value": 1,
+       "unit": "shots",
+       "t": 2760,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.42,
+       "unit": "observed share",
+       "t": 2760,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    }
+   ],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 2,
+     "to_minute": 3,
+     "min_reliability": 0.23,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 10,
+     "to_minute": 11,
+     "min_reliability": 0.32,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 14,
+     "to_minute": 14,
+     "min_reliability": 0.45,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 21,
+     "to_minute": 21,
+     "min_reliability": 0.23,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 25,
+     "to_minute": 25,
+     "min_reliability": 0.21,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 29,
+     "to_minute": 29,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 32,
+     "to_minute": 36,
+     "min_reliability": 0.0,
+     "abstain_minutes": 5
+    },
+    {
+     "team": "A",
+     "from_minute": 38,
+     "to_minute": 40,
+     "min_reliability": 0.05,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "A",
+     "from_minute": 42,
+     "to_minute": 42,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 47,
+     "to_minute": 48,
+     "min_reliability": 0.35,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 2,
+     "to_minute": 3,
+     "min_reliability": 0.29,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 10,
+     "to_minute": 11,
+     "min_reliability": 0.27,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 14,
+     "to_minute": 14,
+     "min_reliability": 0.39,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 21,
+     "to_minute": 21,
+     "min_reliability": 0.21,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 25,
+     "to_minute": 25,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 29,
+     "to_minute": 29,
+     "min_reliability": 0.24,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 32,
+     "to_minute": 36,
+     "min_reliability": 0.0,
+     "abstain_minutes": 5
+    },
+    {
+     "team": "B",
+     "from_minute": 38,
+     "to_minute": 40,
+     "min_reliability": 0.05,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 42,
+     "to_minute": 42,
+     "min_reliability": 0.44,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 47,
+     "to_minute": 48,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    }
+   ],
+   "observed_share": 0.513,
+   "file": "data/skc_1953632_h1.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  },
+  "h2": {
+   "basis": {
+    "positions": "observed (SkillCorner broadcast detections) + model_inferred (hidden players)",
+    "events": "recorded_event (SkillCorner CV-derived; not an official feed)",
+    "summary": "Broadcast detections for visible players; every other position is a model estimate"
+   },
+   "view": "cv",
+   "duration_s": 3026,
+   "score": {
+    "A": 1,
+    "B": 1
+   },
+   "teams": {
+    "A": {
+     "goals": 1,
+     "shots": 5,
+     "shots_on_target": null,
+     "xg": 0.88,
+     "passes": 143,
+     "passes_completed": 115,
+     "pass_accuracy": 0.804,
+     "tackles_won": 4,
+     "fouls": null,
+     "corners": null,
+     "offsides": null,
+     "yellow_cards": null,
+     "red_cards": null,
+     "possession_seconds": 571,
+     "distance_km": null,
+     "press_index": 34.0,
+     "formation": "3-4-2-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "3-4-2-1"
+      },
+      {
+       "from_minute": 45,
+       "formation": "4-4-2"
+      }
+     ]
+    },
+    "B": {
+     "goals": 0,
+     "shots": 6,
+     "shots_on_target": null,
+     "xg": 0.95,
+     "passes": 216,
+     "passes_completed": 183,
+     "pass_accuracy": 0.847,
+     "tackles_won": 7,
+     "fouls": null,
+     "corners": null,
+     "offsides": null,
+     "yellow_cards": null,
+     "red_cards": null,
+     "possession_seconds": 899,
+     "distance_km": null,
+     "press_index": 46.0,
+     "formation": "4-1-4-1",
+     "formations": [
+      {
+       "from_minute": 0,
+       "formation": "4-1-4-1"
+      }
+     ]
+    }
+   },
+   "goals": [
+    {
+     "timestamp": 1324.0,
+     "minute": "68'",
+     "team": "A",
+     "scorer": "N. Paull",
+     "assist": null
+    }
+   ],
+   "substitutions": [
+    {
+     "timestamp": 531.0,
+     "minute": "54'",
+     "team": "A",
+     "on": "W. Wilson",
+     "off": "N. Smith"
+    },
+    {
+     "timestamp": 1716.0,
+     "minute": "74'",
+     "team": "A",
+     "on": "D. Herrington",
+     "off": "T. Sainsbury"
+    },
+    {
+     "timestamp": 1722.0,
+     "minute": "74'",
+     "team": "B",
+     "on": "K. Rahmani",
+     "off": "Z. Schreiber"
+    },
+    {
+     "timestamp": 1722.0,
+     "minute": "74'",
+     "team": "B",
+     "on": "G. Ferreyra",
+     "off": "Z. Schreiber"
+    },
+    {
+     "timestamp": 2341.0,
+     "minute": "85'",
+     "team": "A",
+     "on": "H. Eames",
+     "off": "H. Steele"
+    },
+    {
+     "timestamp": 2517.0,
+     "minute": "87'",
+     "team": "B",
+     "on": "M. Ghossaini",
+     "off": "M. Memeti"
+    }
+   ],
+   "chapters": [
+    {
+     "team": "B",
+     "label": "DOMINANT",
+     "start": 2520,
+     "end": 2820
+    }
+   ],
+   "presses": [],
+   "counterattacks": 0,
+   "shifts": [
+    {
+     "team": "A",
+     "minute": 8,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 24,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "A",
+     "minute": 33,
+     "from": "BALANCED",
+     "to": "LOW_BLOCK"
+    },
+    {
+     "team": "A",
+     "minute": 41,
+     "from": "BALANCED",
+     "to": "LOW_BLOCK"
+    },
+    {
+     "team": "B",
+     "minute": 8,
+     "from": "DOMINANT",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 24,
+     "from": "BALANCED",
+     "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 33,
+     "from": "BALANCED",
+     "to": "DOMINANT"
+    },
+    {
+     "team": "B",
+     "minute": 41,
+     "from": "BALANCED",
+     "to": "DOMINANT"
+    }
+   ],
+   "moments": [
+    {
+     "id": "m00-substitution-impact",
+     "minute": "54'",
+     "t": 531.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "W. Wilson on for N. Smith",
+     "importance": 0.5,
+     "confidence": 0.51,
+     "reliability": 0.32,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 531.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the RW",
+       "timestamp": 531.0
+      }
+     ],
+     "consequences": [
+      "5 pressures from W. Wilson"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "W. Wilson replaces N. Smith (RW)",
+       "value": 1,
+       "unit": "sub",
+       "t": 531.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "5 pressures (1 on the right), 0 recoveries in first 15 min",
+       "value": 5,
+       "unit": "pressures",
+       "t": 531.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 17.5 -> 42.8",
+       "value": 25.3,
+       "unit": "index pts",
+       "t": 531.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m01-goal-build-up",
+     "minute": "68'",
+     "t": 1324.0,
+     "type": "GOAL_BUILD_UP",
+     "subtype": "sustained possession",
+     "team": "A",
+     "title": "Goal Central Coast Mariners Football Club - N. Paull",
+     "importance": 0.92,
+     "confidence": 0.37,
+     "reliability": 0.05,
+     "validation": "recorded goal; build-up sequence from events",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Spell of possession",
+       "timestamp": 1314.0
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 passes, 10.0s",
+       "timestamp": 1314.0
+      },
+      {
+       "stage": "OUTCOME",
+       "label": "Goal (0.522 xG)",
+       "timestamp": 1324.0
+      }
+     ],
+     "consequences": [
+      "Score 1-1"
+     ],
+     "evidence": [
+      {
+       "label": "Build-up",
+       "detail": "0 passes in 10.0s",
+       "value": 0,
+       "unit": "passes",
+       "t": 1314.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Shot",
+       "detail": "N. Paull shot from 6.2m",
+       "value": 0.522,
+       "unit": "xG",
+       "t": 1324.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Outcome",
+       "detail": "Goal - 1-1",
+       "value": 1,
+       "unit": "goal",
+       "t": 1324.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Goal evidence",
+       "detail": "ball NOT seen entering the goal (tracking lost); timing and scorer unverified",
+       "value": "unverified",
+       "unit": "",
+       "t": 1324.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 0 of 11 players observed; 10 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.05,
+       "unit": "observed share",
+       "t": 1324.0,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m02-substitution-impact",
+     "minute": "74'",
+     "t": 1716.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "D. Herrington on for T. Sainsbury",
+     "importance": 0.5,
+     "confidence": 0.52,
+     "reliability": 0.36,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 1716.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the RCB",
+       "timestamp": 1716.0
+      }
+     ],
+     "consequences": [
+      "5 pressures from D. Herrington"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "D. Herrington replaces T. Sainsbury (RCB)",
+       "value": 1,
+       "unit": "sub",
+       "t": 1716.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "5 pressures (0 on the right), 0 recoveries in first 15 min",
+       "value": 5,
+       "unit": "pressures",
+       "t": 1716.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 24.0 -> 37.1",
+       "value": 13.1,
+       "unit": "index pts",
+       "t": 1716.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m03-substitution-impact",
+     "minute": "74'",
+     "t": 1722.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "K. Rahmani on for Z. Schreiber",
+     "importance": 0.51,
+     "confidence": 0.52,
+     "reliability": 0.34,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 1722.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the LF",
+       "timestamp": 1722.0
+      }
+     ],
+     "consequences": [
+      "6 pressures from K. Rahmani"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "K. Rahmani replaces Z. Schreiber (LF)",
+       "value": 1,
+       "unit": "sub",
+       "t": 1722.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "6 pressures (6 on the right), 0 recoveries in first 15 min",
+       "value": 6,
+       "unit": "pressures",
+       "t": 1722.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 57.9 -> 45.3",
+       "value": -12.6,
+       "unit": "index pts",
+       "t": 1722.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m04-substitution-impact",
+     "minute": "74'",
+     "t": 1722.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "G. Ferreyra on for Z. Schreiber",
+     "importance": 0.46,
+     "confidence": 0.52,
+     "reliability": 0.34,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 1722.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the RCB",
+       "timestamp": 1722.0
+      }
+     ],
+     "consequences": [
+      "1 pressures from G. Ferreyra"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "G. Ferreyra replaces Z. Schreiber (RCB)",
+       "value": 1,
+       "unit": "sub",
+       "t": 1722.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "1 pressures (0 on the right), 0 recoveries in first 15 min",
+       "value": 1,
+       "unit": "pressures",
+       "t": 1722.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 57.9 -> 45.3",
+       "value": -12.6,
+       "unit": "index pts",
+       "t": 1722.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m05-tactical-turning-point",
+     "minute": "79'",
+     "t": 1980,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "low_block",
+     "team": "A",
+     "title": "Central Coast Mariners Football Club drop into a low block",
+     "importance": 0.65,
+     "confidence": 0.72,
+     "reliability": 0.49,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Low Block",
+       "timestamp": 1980
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 48.0m -> 25.4m",
+       "timestamp": 1980
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 1980
+      }
+     ],
+     "consequences": [
+      "0 counterattacks",
+      "0 shots (0 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block dropped: defensive line 48.0m -> 25.4m",
+       "value": -22.6,
+       "unit": "m",
+       "t": 1980,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Ceded the ball",
+       "detail": "Possession 45.5% -> 24.6%",
+       "value": -20.9,
+       "unit": "pct pts",
+       "t": 1980,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transitions",
+       "detail": "0 counterattacks launched in the next 15 min",
+       "value": 0,
+       "unit": "counters",
+       "t": 1980,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "0 ended in shots",
+       "value": 0,
+       "unit": "shots",
+       "t": 1980,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.49,
+       "unit": "observed share",
+       "t": 1980,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m06-substitution-impact",
+     "minute": "85'",
+     "t": 2341.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "A",
+     "title": "H. Eames on for H. Steele",
+     "importance": 0.55,
+     "confidence": 0.57,
+     "reliability": 0.52,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2341.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the LM",
+       "timestamp": 2341.0
+      }
+     ],
+     "consequences": [
+      "10 pressures from H. Eames"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "H. Eames replaces H. Steele (LM)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2341.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "10 pressures (2 on the right), 0 recoveries in first 15 min",
+       "value": 10,
+       "unit": "pressures",
+       "t": 2341.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 44.2 -> 28.3",
+       "value": -15.9,
+       "unit": "index pts",
+       "t": 2341.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m07-tactical-turning-point",
+     "minute": "87'",
+     "t": 2460,
+     "type": "TACTICAL_TURNING_POINT",
+     "subtype": "low_block",
+     "team": "A",
+     "title": "Central Coast Mariners Football Club drop into a low block",
+     "importance": 0.65,
+     "confidence": 0.69,
+     "reliability": 0.53,
+     "validation": "heuristic; high-press thresholds UNVALIDATED on real football (experimental)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "Low Block",
+       "timestamp": 2460
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Line 30.7m -> 22.1m",
+       "timestamp": 2460
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 counterattacks",
+       "timestamp": 2460
+      }
+     ],
+     "consequences": [
+      "0 counterattacks",
+      "0 shots (0 xG)"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Block dropped: defensive line 30.7m -> 22.1m",
+       "value": -8.6,
+       "unit": "m",
+       "t": 2460,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Ceded the ball",
+       "detail": "Possession 16.5% -> 18.1%",
+       "value": 1.6,
+       "unit": "pct pts",
+       "t": 2460,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Transitions",
+       "detail": "0 counterattacks launched in the next 15 min",
+       "value": 0,
+       "unit": "counters",
+       "t": 2460,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Outcome",
+       "detail": "0 ended in shots",
+       "value": 0,
+       "unit": "shots",
+       "t": 2460,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Visibility",
+       "detail": "On average 6 of 11 players observed; 5 estimated from trajectories and team shape (uncertainty N/A; no calibrated confidence available)",
+       "value": 0.53,
+       "unit": "observed share",
+       "t": 2460,
+       "engine_basis": "coverage",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m08-substitution-impact",
+     "minute": "87'",
+     "t": 2517.0,
+     "type": "SUBSTITUTION_IMPACT",
+     "subtype": null,
+     "team": "B",
+     "title": "M. Ghossaini on for M. Memeti",
+     "importance": 0.45,
+     "confidence": 0.55,
+     "reliability": 0.46,
+     "validation": "recorded substitution; after-effects heuristic",
+     "chain": [
+      {
+       "stage": "EVENT",
+       "label": "Substitution",
+       "timestamp": 2517.0
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Fresh legs on the CF",
+       "timestamp": 2517.0
+      }
+     ],
+     "consequences": [
+      "0 pressures from M. Ghossaini"
+     ],
+     "evidence": [
+      {
+       "label": "Change",
+       "detail": "M. Ghossaini replaces M. Memeti (CF)",
+       "value": 1,
+       "unit": "sub",
+       "t": 2517.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Player activity",
+       "detail": "0 pressures (0 on the right), 0 recoveries in first 15 min",
+       "value": 0,
+       "unit": "pressures",
+       "t": 2517.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Team effect",
+       "detail": "Press intensity 50.2 -> 51.7",
+       "value": 1.5,
+       "unit": "index pts",
+       "t": 2517.0,
+       "engine_basis": "recorded event feed; some events estimated",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    }
+   ],
+   "story_links": 0,
+   "unreliable_segments": [
+    {
+     "team": "A",
+     "from_minute": 0,
+     "to_minute": 1,
+     "min_reliability": 0.33,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 4,
+     "to_minute": 4,
+     "min_reliability": 0.48,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 6,
+     "to_minute": 9,
+     "min_reliability": 0.27,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 11,
+     "to_minute": 17,
+     "min_reliability": 0.1,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "A",
+     "from_minute": 19,
+     "to_minute": 23,
+     "min_reliability": 0.05,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "A",
+     "from_minute": 28,
+     "to_minute": 35,
+     "min_reliability": 0.0,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "A",
+     "from_minute": 37,
+     "to_minute": 38,
+     "min_reliability": 0.38,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "A",
+     "from_minute": 40,
+     "to_minute": 42,
+     "min_reliability": 0.26,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "A",
+     "from_minute": 48,
+     "to_minute": 49,
+     "min_reliability": 0.4,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 0,
+     "to_minute": 1,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 4,
+     "to_minute": 4,
+     "min_reliability": 0.39,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 6,
+     "to_minute": 9,
+     "min_reliability": 0.28,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 11,
+     "to_minute": 11,
+     "min_reliability": 0.26,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 13,
+     "to_minute": 17,
+     "min_reliability": 0.07,
+     "abstain_minutes": 1
+    },
+    {
+     "team": "B",
+     "from_minute": 19,
+     "to_minute": 24,
+     "min_reliability": 0.1,
+     "abstain_minutes": 3
+    },
+    {
+     "team": "B",
+     "from_minute": 28,
+     "to_minute": 35,
+     "min_reliability": 0.0,
+     "abstain_minutes": 4
+    },
+    {
+     "team": "B",
+     "from_minute": 37,
+     "to_minute": 38,
+     "min_reliability": 0.37,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 40,
+     "to_minute": 42,
+     "min_reliability": 0.26,
+     "abstain_minutes": 2
+    },
+    {
+     "team": "B",
+     "from_minute": 44,
+     "to_minute": 44,
+     "min_reliability": 0.44,
+     "abstain_minutes": 0
+    },
+    {
+     "team": "B",
+     "from_minute": 48,
+     "to_minute": 50,
+     "min_reliability": 0.33,
+     "abstain_minutes": 0
+    }
+   ],
+   "observed_share": 0.408,
+   "file": "data/skc_1953632_h2.json",
+   "reconstruction_model": "r13_mlp_aug_ens3_final",
+   "goals_not_in_provider_events": null,
+   "official_final_score": null
+  }
+ }
+}

@@ -54,7 +54,7 @@ function PlayerPanel({ meta, playerId, throughT, reconstructionMode, onSelect, o
             {prof.visibility && prof.visibility.inferred_seconds > 0 && (
               <div className="text-[11px] text-amber-200/90 mt-1">{meta.source?.type === "computer_vision" ? "Measured positions in" : "Observed in"} {Math.round(prof.visibility.observed_share * 100)}% of frames; other movement is estimated.</div>
             )}
-            {meta.source?.type === "computer_vision" && <div className="text-[11px] text-amber-200/90 mt-1">Position and movement identities are role-assigned; shirt mapping and calibration need verification.</div>}
+            {meta.source?.type === "computer_vision" && <div className="text-[11px] text-amber-200/90 mt-1">{meta.source?.provider === "SkillCorner" ? "Identities are SkillCorner's (provider tracking), not independently verified; unseen movement is estimated." : "Position and movement identities are role-assigned; shirt mapping and calibration need verification."}</div>}
           </div>
           <div className="grid grid-cols-2 gap-1.5">
             {tiles.map(([k, v]) => (

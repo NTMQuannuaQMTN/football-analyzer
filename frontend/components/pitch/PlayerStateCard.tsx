@@ -45,7 +45,7 @@ export default function PlayerStateCard({ pid, sec, mode, meta, onClose }: { pid
         <div className="mt-1.5 text-slate-300">{meta.source?.type === "computer_vision" ? "Projected measurement" : "Observed position"} at ({st.position.x}, {st.position.y}). Measured {Math.round((h.observed_share_so_far ?? 0) * 100)}% of the timeline so far.
           {st.observation_timestamp != null && <div>Measurement time {fmtClock(st.observation_timestamp + off)}.</div>}</div>
       )}
-      {meta.source?.type === "computer_vision" && <div className="text-[10px] text-amber-200 mt-1">Lineup identity is assigned by role; shirt number is unverified. Camera projection may contain error. An estimate can be inside the view when detection or identity is missing.</div>}
+      {meta.source?.type === "computer_vision" && <div className="text-[10px] text-amber-200 mt-1">{meta.source?.provider === "SkillCorner" ? "Identity and measured positions come from SkillCorner broadcast tracking (provider computer vision), not independently verified. Hidden positions are our model estimates." : "Lineup identity is assigned by role; shirt number is unverified. Camera projection may contain error. An estimate can be inside the view when detection or identity is missing."}</div>}
       {st.measurement_diagnostic?.status === "review_camera_or_identity" && <div className="text-[10px] text-amber-200 mt-1">Review camera or identity: recent projected measurements imply {st.measurement_diagnostic.apparent_speed_m_s} m/s over {st.measurement_diagnostic.elapsed_s}s. This is a measurement conflict, not verified player speed.</div>}
     </div>
   );
