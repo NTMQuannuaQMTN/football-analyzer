@@ -59,6 +59,25 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - Followed by (not proof of causation): 0 counterattacks, 0 shots (0 xG)
 - Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1795, 1805], "observed_players": 3.3, "inferred_players": 6.7, "high_confidence_inferred": 3.9, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 60.6, "width_m": 32.5, "near_ball": 0.7}, "reconstructed": {"def_line_m": 43.5, "width_m": 40.7, "near_ball":`
 
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (8 changes)
+- 2' [TACTIC] From low block to balanced. Defensive line (out of possession) +24.7m, width +7.7m, compactness +3.0m, possession +11.8%, territory +41.4%, press index +19.3. Followed by 0 shot(s) for (0 xG) and 1 against (0.05 xG). _(ground truth positions)_
+- 16' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -3.4m, territory +11.2%. Followed by 1 shot(s) for (0.17 xG) and 0 against (0 xG). _(ground truth positions)_
+- 27' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +11.1m, width -7.2m, possession -25.8%, territory +11.3%. Followed by 1 shot(s) for (0.45 xG) and 0 against (0 xG), 1 goal(s) for. _(ground truth positions)_
+- 30' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -12.6m, territory -24.3%, press index -10.6. Followed by 1 shot(s) for (0.02 xG) and 0 against (0 xG). Preceded by goal scored 27'. _(ground truth positions)_
+- 33' [TACTIC] From balanced to low block. Defensive line (out of possession) -20.9m, possession -12.2%, territory -44.5%, press index -8.1. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by card 32'. _(ground truth positions)_
+- 35' [TACTIC] From low block to balanced. Defensive line (out of possession) +19.7m, width +6.7m, compactness +5.4m, possession +25.3%, territory +47.3%, press index +16.2. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by card 32'. _(ground truth positions)_
+- 40' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +10.9m, possession +19.4%, territory +32.6%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent substitution 38': D. Lee on for S. Thill. _(ground truth positions)_
+- 46' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -21.2m, width -8.0m, possession -9.3%, territory -31.0%, press index -15.4. Followed by 0 shot(s) for (0 xG) and 2 against (0.05 xG). _(ground truth positions)_
+
+**Team B** (5 changes)
+- 2' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -12.2m, width +5.3m, possession -11.8%, territory -41.6%. Followed by 1 shot(s) for (0.05 xG) and 0 against (0 xG). _(ground truth positions)_
+- 16' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -12.5m, territory -11.2%. Followed by 0 shot(s) for (0 xG) and 1 against (0.17 xG). _(ground truth positions)_
+- 33' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +25.2m, width -4.2m, possession +10.9%, territory +53.9%, press index +13.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent card 32'. _(ground truth positions)_
+- 35' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -23.0m, possession -26.5%, territory -40.5%, press index -23.1. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent card 32'. _(ground truth positions)_
+- 38' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -17.6m, possession -14.8%, territory -31.4%, press index -34.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 
 Formation agreement per team-minute: 85%. Mean absolute difference per minute: defensive line 1.62 m, width 3.51 m, compactness 1.12 m, press index 4.46. Position-based moments: truth 2, reconstruction 1, recalled within ±120 s 0, reconstruction-only 1.
@@ -133,6 +152,26 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [ground_truth positions] Territory: Territory 81.4% -> 58.0%
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 58.0%, 1 shots
 - Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [295, 305], "observed_players": 0.8, "inferred_players": 9.2, "high_confidence_inferred": 3.9, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 50.1, "width_m": 30.5, "near_ball": 4.0}, "reconstructed": {"def_line_m": 40.0, "width_m": 31.4, "near_ball": 4`
+
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (9 changes)
+- 47' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +11.5m, width +3.6m, possession +16.5%, territory +24.0%, press index +22.9. Followed by 1 shot(s) for (0.07 xG) and 0 against (0 xG). _(ground truth positions)_
+- 51' [FORMATION] Shape read as 3-5-2 -> 4-2-3-1. Matthias Zimmermann midfield -> defence; A. Tanaka midfield -> defensive midfield; M. Sobottka midfield -> defensive midfield; Kristoffer Peterson midfield -> attacking midfield. Defensive line (out of possession) -18.4m, possession -22.9%, territory -31.2%, press index -14.8. Followed by 0 shot(s) for (0 xG) and 1 against (0.02 xG). _(ground truth positions)_
+- 51' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -18.4m, possession -22.9%, territory -31.2%, press index -14.8. Followed by 0 shot(s) for (0 xG) and 1 against (0.02 xG). _(ground truth positions)_
+- 58' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +24.8m, possession +26.0%, territory +14.7%, press index +28.2. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 60' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -17.1m, possession -20.4%, territory -25.9%, press index -20.4. Followed by 2 shot(s) for (0.1 xG) and 1 against (0.14 xG), 1 against. _(ground truth positions)_
+- 67' [STRUCTURE] Structural change in how the team is positioned. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 78' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +19.7m, width -6.1m, territory +35.8%, press index +12.7. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 32'. _(ground truth positions)_
+- 80' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -20.6m, possession +9.2%, territory -25.2%, press index -12.7. Followed by 1 shot(s) for (0.08 xG) and 2 against (0.05 xG). Preceded by goal scored 32'. _(ground truth positions)_
+- 89' [STRUCTURE] Structural change in how the team is positioned. Width -3.1m, possession -19.6%, territory +11.8%, press index +20.3. Followed by 1 shot(s) for (0.47 xG) and 1 against (0.02 xG). _(ground truth positions)_
+
+**Team B** (5 changes)
+- 49' [TACTIC] From balanced to low block. Defensive line (out of possession) -8.4m, territory -8.8%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 51' [TACTIC] From low block to balanced. Defensive line (out of possession) +27.2m, width +4.2m, possession +24.7%, territory +34.3%, press index +22.1. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 55' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -17.0m, width -8.2m, possession -26.9%, territory -22.2%, press index -28.1. Followed by 1 shot(s) for (0.02 xG) and 1 against (0.27 xG). _(ground truth positions)_
+- 77' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -7.6m, territory -16.0%, press index -9.9. Followed by 1 shot(s) for (0.03 xG) and 2 against (0.35 xG), 1 against. _(ground truth positions)_
+- 89' [STRUCTURE] Structural change in how the team is positioned. Possession +19.6%, territory -11.8%, press index +12.0. Followed by 1 shot(s) for (0.02 xG) and 1 against (0.47 xG). _(ground truth positions)_
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { use, useEffect, useMemo, useState } from "react";
-import { API, loadSummary, type Highlight, type MatchSummary, type PlayerLine } from "@/lib/api";
+import { API, loadSummary, type Highlight, type MatchSummary, type PlayerLine, type TacticalChange } from "@/lib/api";
 
 type Team = "A" | "B";
 const TYPE: Record<string, { label: string; cls: string; group: string }> = {
@@ -59,6 +59,68 @@ function HighlightCard({ h, s, part, partLabel }: { h: Highlight; s: MatchSummar
         </>
       )}
       <div className="mt-2 text-[10px] text-slate-500" title="Importance and evidence scores are heuristic rankings, not calibrated probabilities of accuracy">importance {Math.round(h.importance * 100)} · evidence strength {s.kind === "computer_vision" ? "N/A" : `${Math.round(h.confidence * 100)}/100`}</div>
+    </div>
+  );
+}
+
+const STATE_TXT: Record<string, string> = { HIGH_PRESS: "High press", LOW_BLOCK: "Low block", DOMINANT: "Territorial control", BALANCED: "Balanced" };
+const CHANGE_STYLE: Record<string, { label: string; cls: string }> = {
+  FORMATION: { label: "FORMATION", cls: "bg-sky-400/20 text-sky-200" },
+  TACTIC: { label: "TACTIC", cls: "bg-lime-400/20 text-lime-200" },
+  STRUCTURE: { label: "STRUCTURE", cls: "bg-violet-400/20 text-violet-200" },
+};
+const DELTA_LABEL: [string, string, string][] = [["def_line_oop_m", "Line (out of poss.)", "m"], ["width_m", "Width", "m"],
+  ["compactness_m", "Compactness", "m"], ["possession_pct", "Possession", "%"], ["territory_pct", "Territory", "%"], ["press_intensity", "Press index", ""]];
+
+function ChangeCard({ c, s, part, partLabel }: { c: TacticalChange; s: MatchSummary; part: string; partLabel?: string }) {
+  const st = CHANGE_STYLE[c.type];
+  const name = (v: string | null) => (c.type === "FORMATION" ? v : STATE_TXT[v ?? ""] ?? v) ?? "–";
+  const unsure = c.type === "FORMATION" && (c.observed_share ?? 1) < 0.5;
+  const f = c.followed;
+  return (
+    <div className="rounded-lg border border-white/10 bg-[#0b1222] p-3">
+      <div className="flex items-center gap-2 text-[11px]">
+        <span className="font-mono font-bold text-lime-300">{c.minute_label}</span>
+        <span className={`px-1.5 py-0.5 rounded font-bold tracking-wider ${st.cls}`}>{st.label}</span>
+        {partLabel && <span className="text-slate-500">{partLabel}</span>}
+        {unsure && <span className="text-amber-300">possible</span>}
+        {c.brief && <span className="text-slate-500">brief</span>}
+        <Link href={`/match/${s.id}/studio?part=${part}&t=${Math.max(0, c.timestamp - 10)}`} className="ml-auto px-2 py-0.5 rounded bg-lime-300 text-black font-bold">▶ Watch</Link>
+      </div>
+      <div className="mt-1.5 font-semibold">
+        <span className="font-mono">{name(c.from)}</span> <span className="text-slate-500">→</span> <span className="font-mono">{name(c.to)}</span>
+        {c.lasts_min != null && <span className="ml-2 text-[11px] font-normal text-slate-500">for {c.lasts_min} min</span>}
+      </div>
+      {!!c.moved?.length && (
+        <div className="mt-1.5 flex flex-wrap gap-1">
+          {c.moved.map((m) => (
+            <span key={m.player_id} className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-300">
+              {m.shirt != null && <b className="mr-1">#{m.shirt}</b>}{m.name}: {m.from} → {m.to}
+            </span>
+          ))}
+        </div>
+      )}
+      <div className="mt-2 grid grid-cols-3 gap-x-3 gap-y-0.5 text-[11px]">
+        {DELTA_LABEL.map(([k, lab, unit]) => {
+          const d = c.deltas[k];
+          if (d == null || c.before[k] == null) return null;
+          return (
+            <div key={k} className="flex justify-between gap-1">
+              <span className="text-slate-500 truncate">{lab}</span>
+              <span className="font-mono">{c.before[k]}→{c.after[k]}{unit} <span className={d > 0 ? "text-lime-300" : d < 0 ? "text-rose-300" : "text-slate-500"}>({d > 0 ? "+" : ""}{d})</span></span>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-2 text-[11px] text-slate-300">
+        Followed by {f.shots_for} shot{f.shots_for === 1 ? "" : "s"} for ({f.xg_for} xG) and {f.shots_against} against ({f.xg_against} xG)
+        {f.goals_for > 0 && <b className="text-lime-300"> · {f.goals_for} goal{f.goals_for > 1 ? "s" : ""} for</b>}
+        {f.goals_against > 0 && <b className="text-rose-300"> · {f.goals_against} against</b>}
+      </div>
+      {c.preceded_by.length > 0 && <div className="mt-1 text-[11px] text-slate-400">Preceded by: {c.preceded_by.join("; ")}</div>}
+      <div className="mt-1 text-[10px] text-slate-500">
+        {c.basis}{c.observed_share != null && s.kind === "computer_vision" ? ` · ${Math.round(c.observed_share * 100)}% of the team observed` : ""} · timing shows sequence, not cause
+      </div>
     </div>
   );
 }
@@ -258,6 +320,34 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
           )}
         </aside>
       </div>
+
+      {s.parts.some((p) => p.changes && (p.changes.A.length || p.changes.B.length)) && (
+        <section className="max-w-6xl mx-auto px-6 pb-10">
+          <div className="flex items-baseline gap-2 mb-1">
+            <h2 className="text-xs uppercase tracking-widest text-slate-300 font-bold">Tactical &amp; formation changes</h2>
+            <span className="text-xs text-slate-500">every change for both teams</span>
+          </div>
+          <p className="text-[11px] text-slate-500 mb-3">
+            Formation = the shape read from player positions each minute; tactic = pressing / block / control state (lasting 2+ minutes); structure = a
+            shift in line height, width or pressing without a new shape. Numbers compare up to 5 minutes before and after.
+            {s.kind === "computer_vision" && " Positions include model estimates; shape readings with most of the team estimated are marked possible."}
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {(["A", "B"] as Team[]).map((tm) => {
+              const items = s.parts.flatMap((p) => (p.changes?.[tm] ?? []).map((c) => ({ c, part: p.id, partLabel: s.parts.length > 1 ? p.label : undefined })));
+              return (
+                <div key={tm}>
+                  <div className="font-bold mb-2" style={{ color: s.teams[tm].color }}>{s.teams[tm].name} <span className="text-xs text-slate-500 font-normal">{items.length} changes</span></div>
+                  <div className="space-y-2">
+                    {items.length === 0 && <div className="text-sm text-slate-500">No changes detected.</div>}
+                    {items.map(({ c, part, partLabel }) => <ChangeCard key={`${part}-${c.id}`} c={c} s={s} part={part} partLabel={partLabel} />)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

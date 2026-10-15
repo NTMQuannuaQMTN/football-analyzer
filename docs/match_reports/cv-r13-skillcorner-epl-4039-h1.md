@@ -25,6 +25,25 @@ Hidden-player model: `r13_mlp_aug_ens3_final`.
 
 | Min | Type | Team | Title | Confidence | Visibility reliability | Validation |
 |---|---|---|---|---:|---:|---|
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (7 changes)
+- 5' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -3.4m, possession -22.2%, territory +22.5%, press index -20.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 14' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +4.5m, width -4.0m, possession -18.2%, territory +10.8%, press index -8.3. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 24' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +27.9m, width -10.6m, possession -11.9%, territory +48.7%, press index +19.0. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 26' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -26.8m, possession -17.1%, territory -37.1%, press index -11.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 36' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +21.9m, width +3.1m, possession +21.7%, territory +51.9%, press index +23.8. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 39' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -17.7m, width +3.3m, possession -13.1%, territory -43.1%, press index -28.7. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(measured + estimated positions)_
+- 47' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -3.1m, width -3.9m, possession -11.5%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+
+**Team B** (6 changes)
+- 3' [TACTIC] From territorial control to balanced. Width +4.4m, possession +28.5%, territory -21.4%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 16' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +5.4m, width +3.5m, possession +20.6%, press index +10.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 24' [TACTIC] From balanced to low block. Defensive line (out of possession) -27.9m, width -17.2m, compactness -6.9m, possession -12.9%, territory -41.2%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 27' [TACTIC] From low block to balanced. Defensive line (out of possession) +24.8m, width +11.3m, compactness +5.1m, possession +18.5%, territory +32.8%, press index -16.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 39' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +9.5m, width +4.4m, possession +5.0%, territory +27.6%, press index -11.9. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions)_
+- 46' [FORMATION] Possible change of shape 4-3-3 -> 4-2-3 (most of the team was estimated).  Fabinho midfield -> defence. Defensive line (out of possession) -9.6m, width -6.5m, possession -12.8%, territory -10.1%, press index -18.4. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(mostly estimated positions: the shape reading is uncertain)_
+
 ### Unreliable segments (visibility reliability < 0.5, or engine abstained)
 
 - Team A, minutes 0–3 (min reliability 0.29; abstained 1 min)

@@ -37,7 +37,7 @@
      "red_cards": null,
      "possession_seconds": 817,
      "distance_km": null,
-     "press_index": 34.1,
+     "press_index": 34.4,
      "formation": "4-2-3-1",
      "formations": [
       {
@@ -66,16 +66,12 @@
      "red_cards": null,
      "possession_seconds": 734,
      "distance_km": null,
-     "press_index": 36.6,
+     "press_index": 37.7,
      "formation": "4-2-3-1",
      "formations": [
       {
        "from_minute": 0,
        "formation": "4-2-3-1"
-      },
-      {
-       "from_minute": 35,
-       "formation": "4-1-3-2"
       }
      ]
     }
@@ -149,6 +145,12 @@
      "minute": 36,
      "from": "BALANCED",
      "to": "BALANCED"
+    },
+    {
+     "team": "B",
+     "minute": 44,
+     "from": "BALANCED",
+     "to": "BALANCED"
     }
    ],
    "moments": [
@@ -161,8 +163,8 @@
      "team": "A",
      "title": "Goal Melbourne Victory Football Club - B. Hamill",
      "importance": 0.92,
-     "confidence": 0.76,
-     "reliability": 0.51,
+     "confidence": 0.78,
+     "reliability": 0.55,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -214,7 +216,7 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball tracked entering the goal",
+       "detail": "provider goal-ending possession; ball tracked entering the goal",
        "value": "tracked",
        "unit": "",
        "t": 404.0,
@@ -223,7 +225,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 37%)",
+       "detail": "On average 2 of 11 players observed; 9 estimated from trajectories and team shape (mean confidence 43%)",
        "value": 0.22,
        "unit": "observed share",
        "t": 404.0,
@@ -305,7 +307,7 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball tracked entering the goal",
+       "detail": "provider goal-ending possession; ball tracked entering the goal",
        "value": "tracked",
        "unit": "",
        "t": 912.0,
@@ -334,8 +336,8 @@
      "team": "A",
      "title": "Melbourne Victory Football Club counterattack",
      "importance": 0.56,
-     "confidence": 0.71,
-     "reliability": 0.78,
+     "confidence": 0.72,
+     "reliability": 0.79,
      "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
      "chain": [
       {
@@ -375,8 +377,8 @@
       },
       {
        "label": "Opponent shape",
-       "detail": "Western United defensive line at 19.4m",
-       "value": 19.4,
+       "detail": "Western United defensive line at 20.41m",
+       "value": 20.41,
        "unit": "m",
        "t": 2041.6,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -411,7 +413,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 58%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 61%)",
        "value": 0.47,
        "unit": "observed share",
        "t": 2048.2,
@@ -432,7 +434,7 @@
      "title": "Melbourne Victory Football Club drop into a low block",
      "importance": 0.65,
      "confidence": 0.83,
-     "reliability": 0.8,
+     "reliability": 0.82,
      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
@@ -442,7 +444,7 @@
       },
       {
        "stage": "STATE_CHANGE",
-       "label": "Line 48.4m -> 31.0m",
+       "label": "Line 48.4m -> 30.9m",
        "timestamp": 2160
       },
       {
@@ -458,8 +460,8 @@
      "evidence": [
       {
        "label": "Tactical trigger",
-       "detail": "Block dropped: defensive line 48.4m -> 31.0m",
-       "value": -17.4,
+       "detail": "Block dropped: defensive line 48.4m -> 30.9m",
+       "value": -17.5,
        "unit": "m",
        "t": 2160,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -494,7 +496,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 65%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 68%)",
        "value": 0.42,
        "unit": "observed share",
        "t": 2160,
@@ -519,8 +521,8 @@
      "team": "A",
      "title": "Goal Melbourne Victory Football Club - B. Fornaroli",
      "importance": 0.92,
-     "confidence": 0.89,
-     "reliability": 0.84,
+     "confidence": 0.9,
+     "reliability": 0.87,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -572,7 +574,7 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball tracked entering the goal",
+       "detail": "provider goal-ending possession; ball tracked entering the goal",
        "value": "tracked",
        "unit": "",
        "t": 2217.0,
@@ -581,7 +583,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 73%)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 78%)",
        "value": 0.4,
        "unit": "observed share",
        "t": 2217.0,
@@ -600,8 +602,8 @@
      "subtype": null,
      "team": "A",
      "title": "Melbourne Victory Football Club switch to 3-4-3",
-     "importance": 0.72,
-     "confidence": 0.82,
+     "importance": 0.73,
+     "confidence": 0.83,
      "reliability": 0.87,
      "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
      "chain": [
@@ -630,7 +632,7 @@
       {
        "label": "Tactical trigger",
        "detail": "Shape changed 4-2-3-1 -> 3-4-3",
-       "value": 7.42,
+       "value": 7.61,
        "unit": "shift score",
        "t": 2700,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -638,8 +640,8 @@
       },
       {
        "label": "Structural change",
-       "detail": "Defensive line +13.42m, width +6.42m",
-       "value": 13.42,
+       "detail": "Defensive line +14.06m, width +6.38m",
+       "value": 14.06,
        "unit": "m",
        "t": 2700,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -647,7 +649,7 @@
       },
       {
        "label": "Pressing",
-       "detail": "Press intensity 22.6 -> 47.6; right-side share of pressures 33.3% -> 0.0%",
+       "detail": "Press intensity 23.1 -> 48.1; right-side share of pressures 33.3% -> 0.0%",
        "value": 25.0,
        "unit": "index pts",
        "t": 2700,
@@ -683,77 +685,77 @@
      "team": "A",
      "from_minute": 1,
      "to_minute": 1,
-     "min_reliability": 0.68,
+     "min_reliability": 0.8,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 6,
      "to_minute": 7,
-     "min_reliability": 0.35,
+     "min_reliability": 0.36,
      "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 9,
      "to_minute": 10,
-     "min_reliability": 0.64,
+     "min_reliability": 0.69,
      "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 14,
      "to_minute": 15,
-     "min_reliability": 0.46,
+     "min_reliability": 0.51,
      "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 22,
      "to_minute": 22,
-     "min_reliability": 0.51,
+     "min_reliability": 0.62,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 24,
      "to_minute": 24,
-     "min_reliability": 0.68,
+     "min_reliability": 0.75,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 27,
      "to_minute": 27,
-     "min_reliability": 0.44,
+     "min_reliability": 0.51,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 37,
      "to_minute": 38,
-     "min_reliability": 0.16,
+     "min_reliability": 0.13,
      "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 1,
      "to_minute": 1,
-     "min_reliability": 0.66,
+     "min_reliability": 0.77,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 6,
      "to_minute": 7,
-     "min_reliability": 0.37,
+     "min_reliability": 0.45,
      "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 9,
      "to_minute": 9,
-     "min_reliability": 0.64,
+     "min_reliability": 0.69,
      "abstain_minutes": 1
     },
     {
@@ -767,25 +769,560 @@
      "team": "B",
      "from_minute": 22,
      "to_minute": 22,
-     "min_reliability": 0.55,
+     "min_reliability": 0.62,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 27,
      "to_minute": 27,
-     "min_reliability": 0.63,
+     "min_reliability": 0.76,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 37,
      "to_minute": 38,
-     "min_reliability": 0.21,
+     "min_reliability": 0.25,
      "abstain_minutes": 2
     }
    ],
    "observed_share": 0.421,
+   "changes": {
+    "A": [
+     {
+      "minute_label": "2'",
+      "type": "TACTIC",
+      "from": "LOW_BLOCK",
+      "to": "BALANCED",
+      "lasts_min": 5,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 16.2,
+       "width_m": 4.7,
+       "compactness_m": 1.0,
+       "possession_pct": -13.2,
+       "territory_pct": 39.8,
+       "press_intensity": -3.6
+      },
+      "followed": {
+       "shots_for": 2,
+       "xg_for": 0.23,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        60,
+        360
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.46,
+      "basis": "mostly estimated positions",
+      "reading": "From low block to balanced. Defensive line (out of possession) +16.2m, width +4.7m, possession -13.2%, territory +39.8%. Followed by 2 shot(s) for (0.23 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "7'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 3,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 14.2,
+       "width_m": -2.3,
+       "compactness_m": 0.4,
+       "possession_pct": 3.2,
+       "territory_pct": 38.5,
+       "press_intensity": -28.4
+      },
+      "followed": {
+       "shots_for": 2,
+       "xg_for": 0.31,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 1,
+       "goals_against": 0,
+       "window_s": [
+        360,
+        540
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.4,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +14.2m, territory +38.5%, press index -28.4. Followed by 2 shot(s) for (0.31 xG) and 0 against (0 xG), 1 goal(s) for."
+     },
+     {
+      "minute_label": "10'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 18,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -8.6,
+       "width_m": 3.5,
+       "compactness_m": 1.4,
+       "possession_pct": -4.6,
+       "territory_pct": -28.9,
+       "press_intensity": 1.0
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.22,
+       "shots_against": 1,
+       "xg_against": 0.07,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        540,
+        840
+       ]
+      },
+      "preceded_by": [
+       "goal scored 7'"
+      ],
+      "observed_share": 0.4,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -8.6m, width +3.5m, territory -28.9%. Followed by 1 shot(s) for (0.22 xG) and 1 against (0.07 xG). Preceded by goal scored 7'."
+     },
+     {
+      "minute_label": "21'",
+      "type": "STRUCTURE",
+      "from": "BALANCED",
+      "to": "BALANCED",
+      "lasts_min": null,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 12.8,
+       "width_m": 10.2,
+       "compactness_m": 3.9,
+       "possession_pct": 40.4,
+       "territory_pct": 23.2,
+       "press_intensity": 0.4
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.13,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1200,
+        1500
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.42,
+      "basis": "mostly estimated positions",
+      "reading": "Structural change in how the team is positioned. Defensive line (out of possession) +12.8m, width +10.2m, compactness +3.9m, possession +40.4%, territory +23.2%. Followed by 1 shot(s) for (0.13 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "28'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 2,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 22.1,
+       "width_m": -5.1,
+       "compactness_m": -2.7,
+       "possession_pct": -9.6,
+       "territory_pct": 17.2,
+       "press_intensity": 16.4
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1620,
+        1740
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.35,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +22.1m, width -5.1m, possession -9.6%, territory +17.2%, press index +16.4. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "30'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 3,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -21.9,
+       "width_m": -0.4,
+       "compactness_m": 1.5,
+       "possession_pct": 10.0,
+       "territory_pct": -23.7,
+       "press_intensity": -9.2
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.06,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1740,
+        1920
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.37,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -21.9m, possession +10.0%, territory -23.7%, press index -9.2. Followed by 1 shot(s) for (0.06 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "33'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 3,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 9.4,
+       "width_m": 0.3,
+       "compactness_m": 0.2,
+       "possession_pct": 10.0,
+       "territory_pct": 30.7,
+       "press_intensity": 5.5
+      },
+      "followed": {
+       "shots_for": 3,
+       "xg_for": 0.33,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1920,
+        2100
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.42,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +9.4m, possession +10.0%, territory +30.7%. Followed by 3 shot(s) for (0.33 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "36'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 12,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -22.6,
+       "width_m": -8.8,
+       "compactness_m": -2.4,
+       "possession_pct": -48.8,
+       "territory_pct": -28.8,
+       "press_intensity": -24.9
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.53,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 1,
+       "goals_against": 0,
+       "window_s": [
+        2100,
+        2400
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.35,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -22.6m, width -8.8m, possession -48.8%, territory -28.8%, press index -24.9. Followed by 1 shot(s) for (0.53 xG) and 0 against (0 xG), 1 goal(s) for."
+     },
+     {
+      "minute_label": "46'",
+      "type": "FORMATION",
+      "from": "4-2-3-1",
+      "to": "3-4-3",
+      "lasts_min": 2,
+      "moved": [
+       {
+        "player_id": "A3",
+        "name": "A. Traor\u00e9",
+        "shirt": 3,
+        "from": "defence",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A7",
+        "name": "D. Arzani",
+        "shirt": 7,
+        "from": "attacking midfield",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A6",
+        "name": "R. Teague",
+        "shirt": 6,
+        "from": "defensive midfield",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A14",
+        "name": "J. Valadon",
+        "shirt": 14,
+        "from": "defensive midfield",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A8",
+        "name": "Z. Machach",
+        "shirt": 8,
+        "from": "attacking midfield",
+        "to": "attack"
+       },
+       {
+        "player_id": "A27",
+        "name": "R. Piscopo",
+        "shirt": 27,
+        "from": "attacking midfield",
+        "to": "attack"
+       }
+      ],
+      "deltas": {
+       "def_line_oop_m": 3.0,
+       "width_m": 4.7,
+       "compactness_m": 1.8,
+       "possession_pct": 20.0,
+       "territory_pct": 16.3,
+       "press_intensity": 21.4
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        2700,
+        2820
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.49,
+      "basis": "mostly estimated positions: the shape reading is uncertain",
+      "reading": "Possible change of shape 4-2-3-1 -> 3-4-3 (most of the team was estimated). A. Traor\u00e9 defence -> midfield; D. Arzani attacking midfield -> midfield; R. Teague defensive midfield -> midfield; J. Valadon defensive midfield -> midfield. Defensive line (out of possession) +3.0m, width +4.7m, possession +20.0%, territory +16.3%, press index +21.4. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG)."
+     }
+    ],
+    "B": [
+     {
+      "minute_label": "3'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 5,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -13.4,
+       "width_m": -5.8,
+       "compactness_m": -1.9,
+       "possession_pct": -11.4,
+       "territory_pct": -39.9,
+       "press_intensity": 8.2
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 3,
+       "xg_against": 0.37,
+       "goals_for": 0,
+       "goals_against": 1,
+       "window_s": [
+        120,
+        420
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.44,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -13.4m, width -5.8m, possession -11.4%, territory -39.9%, press index +8.2. Followed by 0 shot(s) for (0 xG) and 3 against (0.37 xG), 1 against."
+     },
+     {
+      "minute_label": "8'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "LOW_BLOCK",
+      "lasts_min": 2,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -18.7,
+       "width_m": -3.4,
+       "compactness_m": -2.5,
+       "possession_pct": 15.9,
+       "territory_pct": -30.1,
+       "press_intensity": -58.2
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.17,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        420,
+        540
+       ]
+      },
+      "preceded_by": [
+       "goal conceded 7'"
+      ],
+      "observed_share": 0.46,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to low block. Defensive line (out of possession) -18.7m, width -3.4m, possession +15.9%, territory -30.1%, press index -58.2. Followed by 0 shot(s) for (0 xG) and 1 against (0.17 xG). Preceded by goal conceded 7'."
+     },
+     {
+      "minute_label": "10'",
+      "type": "TACTIC",
+      "from": "LOW_BLOCK",
+      "to": "BALANCED",
+      "lasts_min": 38,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 20.9,
+       "width_m": 10.0,
+       "compactness_m": 4.9,
+       "possession_pct": -5.9,
+       "territory_pct": 31.1,
+       "press_intensity": 37.9
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.07,
+       "shots_against": 1,
+       "xg_against": 0.22,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        540,
+        840
+       ]
+      },
+      "preceded_by": [
+       "goal conceded 7'"
+      ],
+      "observed_share": 0.44,
+      "basis": "mostly estimated positions",
+      "reading": "From low block to balanced. Defensive line (out of possession) +20.9m, width +10.0m, compactness +4.9m, possession -5.9%, territory +31.1%, press index +37.9. Followed by 1 shot(s) for (0.07 xG) and 1 against (0.22 xG). Preceded by goal conceded 7'."
+     },
+     {
+      "minute_label": "21'",
+      "type": "STRUCTURE",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": null,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -23.5,
+       "width_m": -0.7,
+       "compactness_m": -1.0,
+       "possession_pct": -40.4,
+       "territory_pct": -23.8,
+       "press_intensity": -0.7
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.13,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1200,
+        1500
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.43,
+      "basis": "mostly estimated positions",
+      "reading": "Structural change in how the team is positioned. Defensive line (out of possession) -23.5m, possession -40.4%, territory -23.8%. Followed by 0 shot(s) for (0 xG) and 1 against (0.13 xG)."
+     },
+     {
+      "minute_label": "37'",
+      "type": "STRUCTURE",
+      "from": "BALANCED",
+      "to": "BALANCED",
+      "lasts_min": null,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 19.4,
+       "width_m": -3.7,
+       "compactness_m": -1.7,
+       "possession_pct": 8.4,
+       "territory_pct": 27.0,
+       "press_intensity": -20.1
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.53,
+       "goals_for": 0,
+       "goals_against": 1,
+       "window_s": [
+        2160,
+        2460
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.38,
+      "basis": "mostly estimated positions",
+      "reading": "Structural change in how the team is positioned. Defensive line (out of possession) +19.4m, width -3.7m, possession +8.4%, territory +27.0%, press index -20.1. Followed by 0 shot(s) for (0 xG) and 1 against (0.53 xG), 1 against."
+     },
+     {
+      "minute_label": "45'",
+      "type": "STRUCTURE",
+      "from": "BALANCED",
+      "to": "BALANCED",
+      "lasts_min": null,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -4.8,
+       "width_m": 4.5,
+       "compactness_m": 2.0,
+       "possession_pct": 10.7,
+       "territory_pct": -12.1,
+       "press_intensity": 4.2
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        2640,
+        2820
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.56,
+      "basis": "measured + estimated positions",
+      "reading": "Structural change in how the team is positioned. Defensive line (out of possession) -4.8m, width +4.5m, possession +10.7%, territory -12.1%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG)."
+     }
+    ]
+   },
    "file": "data/skc_1959846_h1.json",
    "reconstruction_model": "r13_mlp_aug_ens3_final",
    "goals_not_in_provider_events": null,
@@ -820,7 +1357,7 @@
      "red_cards": null,
      "possession_seconds": 713,
      "distance_km": null,
-     "press_index": 42.0,
+     "press_index": 40.9,
      "formation": "4-1-4-1",
      "formations": [
       {
@@ -830,10 +1367,6 @@
       {
        "from_minute": 40,
        "formation": "3-4-3"
-      },
-      {
-       "from_minute": 45,
-       "formation": "4-4-2"
       }
      ]
     },
@@ -853,11 +1386,15 @@
      "red_cards": null,
      "possession_seconds": 842,
      "distance_km": null,
-     "press_index": 57.3,
+     "press_index": 55.2,
      "formation": "4-2-3-1",
      "formations": [
       {
        "from_minute": 0,
+       "formation": "4-1-3-2"
+      },
+      {
+       "from_minute": 20,
        "formation": "4-2-3-1"
       }
      ]
@@ -920,14 +1457,14 @@
      "minute": "75'",
      "team": "A",
      "on": "K. Bos",
-     "off": "D. Arzani"
+     "off": "B. Fornaroli"
     },
     {
      "timestamp": 1793.0,
      "minute": "75'",
      "team": "A",
      "on": "Clarismario Rodrigues",
-     "off": "D. Arzani"
+     "off": "A. Traor\u00e9"
     },
     {
      "timestamp": 1959.0,
@@ -941,7 +1478,7 @@
      "minute": "78'",
      "team": "B",
      "on": "M. Grimaldi",
-     "off": "L. Vickery"
+     "off": "A. Walatee"
     },
     {
      "timestamp": 2474.0,
@@ -988,9 +1525,9 @@
     },
     {
      "team": "A",
-     "minute": 44,
+     "minute": 39,
      "from": "BALANCED",
-     "to": "LOW_BLOCK"
+     "to": "BALANCED"
     },
     {
      "team": "B",
@@ -1012,9 +1549,9 @@
     },
     {
      "team": "B",
-     "minute": 44,
-     "from": "BALANCED",
-     "to": "DOMINANT"
+     "minute": 47,
+     "from": "DOMINANT",
+     "to": "BALANCED"
     }
    ],
    "moments": [
@@ -1027,8 +1564,8 @@
      "team": "A",
      "title": "Melbourne Victory Football Club take territorial control",
      "importance": 0.65,
-     "confidence": 0.81,
-     "reliability": 0.76,
+     "confidence": 0.82,
+     "reliability": 0.79,
      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
@@ -1090,7 +1627,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 59%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 64%)",
        "value": 0.41,
        "unit": "observed share",
        "t": 780,
@@ -1115,8 +1652,8 @@
      "team": "A",
      "title": "Melbourne Victory Football Club counterattack",
      "importance": 0.74,
-     "confidence": 0.73,
-     "reliability": 0.85,
+     "confidence": 0.74,
+     "reliability": 0.86,
      "validation": "heuristic; vs DFL CounterAttack flags F1 0.55; vs SkillCorner quick-break phases P 0.62 / R 0.23 (experimental)",
      "chain": [
       {
@@ -1156,8 +1693,8 @@
       },
       {
        "label": "Opponent shape",
-       "detail": "Western United defensive line at 39.62m",
-       "value": 39.62,
+       "detail": "Western United defensive line at 38.94m",
+       "value": 38.94,
        "unit": "m",
        "t": 1069.3,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -1192,7 +1729,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 72%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 73%)",
        "value": 0.48,
        "unit": "observed share",
        "t": 1094.1,
@@ -1212,8 +1749,8 @@
      "team": "A",
      "title": "N. Velupillay on for R. Piscopo",
      "importance": 0.55,
-     "confidence": 0.64,
-     "reliability": 0.78,
+     "confidence": 0.65,
+     "reliability": 0.81,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1251,8 +1788,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 40.9 -> 44.9",
-       "value": 4.0,
+       "detail": "Press intensity 40.7 -> 44.9",
+       "value": 4.2,
        "unit": "index pts",
        "t": 1242.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1276,8 +1813,8 @@
      "team": "B",
      "title": "Goal Western United - A. Walatee",
      "importance": 0.92,
-     "confidence": 0.55,
-     "reliability": 0.78,
+     "confidence": 0.87,
+     "reliability": 0.79,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -1352,8 +1889,8 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball NOT seen entering the goal (tracking lost); timing and scorer unverified",
-       "value": "unverified",
+       "detail": "provider goal-ending possession (ball not tracked into the goal)",
+       "value": "tracked",
        "unit": "",
        "t": 1424.3,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1361,7 +1898,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 58%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 59%)",
        "value": 0.48,
        "unit": "observed share",
        "t": 1424.3,
@@ -1381,8 +1918,8 @@
      "team": "B",
      "title": "J. Lauton on for R. Bozinovski",
      "importance": 0.58,
-     "confidence": 0.64,
-     "reliability": 0.78,
+     "confidence": 0.65,
+     "reliability": 0.81,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1420,8 +1957,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 70.6 -> 52.6",
-       "value": -18.0,
+       "detail": "Press intensity 70.6 -> 50.6",
+       "value": -20.0,
        "unit": "index pts",
        "t": 1787.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1440,8 +1977,8 @@
      "team": "A",
      "title": "N. Vergos on for D. Arzani",
      "importance": 0.57,
-     "confidence": 0.64,
-     "reliability": 0.8,
+     "confidence": 0.65,
+     "reliability": 0.83,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1479,8 +2016,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 42.5 -> 35.2",
-       "value": -7.3,
+       "detail": "Press intensity 42.6 -> 35.2",
+       "value": -7.4,
        "unit": "index pts",
        "t": 1793.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1502,10 +2039,10 @@
      "type": "SUBSTITUTION_IMPACT",
      "subtype": null,
      "team": "A",
-     "title": "K. Bos on for D. Arzani",
+     "title": "K. Bos on for B. Fornaroli",
      "importance": 0.51,
-     "confidence": 0.64,
-     "reliability": 0.8,
+     "confidence": 0.65,
+     "reliability": 0.83,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1525,7 +2062,7 @@
      "evidence": [
       {
        "label": "Change",
-       "detail": "K. Bos replaces D. Arzani (LB)",
+       "detail": "K. Bos replaces B. Fornaroli (LB)",
        "value": 1,
        "unit": "sub",
        "t": 1793.0,
@@ -1543,8 +2080,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 42.5 -> 35.2",
-       "value": -7.3,
+       "detail": "Press intensity 42.6 -> 35.2",
+       "value": -7.4,
        "unit": "index pts",
        "t": 1793.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1561,10 +2098,10 @@
      "type": "SUBSTITUTION_IMPACT",
      "subtype": null,
      "team": "A",
-     "title": "Clarismario Rodrigues on for D. Arzani",
+     "title": "Clarismario Rodrigues on for A. Traor\u00e9",
      "importance": 0.54,
-     "confidence": 0.64,
-     "reliability": 0.8,
+     "confidence": 0.65,
+     "reliability": 0.83,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1584,7 +2121,7 @@
      "evidence": [
       {
        "label": "Change",
-       "detail": "Clarismario Rodrigues replaces D. Arzani (RW)",
+       "detail": "Clarismario Rodrigues replaces A. Traor\u00e9 (RW)",
        "value": 1,
        "unit": "sub",
        "t": 1793.0,
@@ -1602,8 +2139,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 42.5 -> 35.2",
-       "value": -7.3,
+       "detail": "Press intensity 42.6 -> 35.2",
+       "value": -7.4,
        "unit": "index pts",
        "t": 1793.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1627,8 +2164,8 @@
      "team": "B",
      "title": "R. Danzaki on for L. Vickery",
      "importance": 0.53,
-     "confidence": 0.63,
-     "reliability": 0.75,
+     "confidence": 0.64,
+     "reliability": 0.79,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1666,8 +2203,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 64.3 -> 48.1",
-       "value": -16.2,
+       "detail": "Press intensity 63.3 -> 47.0",
+       "value": -16.3,
        "unit": "index pts",
        "t": 1959.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1689,10 +2226,10 @@
      "type": "SUBSTITUTION_IMPACT",
      "subtype": null,
      "team": "B",
-     "title": "M. Grimaldi on for L. Vickery",
+     "title": "M. Grimaldi on for A. Walatee",
      "importance": 0.52,
-     "confidence": 0.63,
-     "reliability": 0.75,
+     "confidence": 0.64,
+     "reliability": 0.79,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1712,7 +2249,7 @@
      "evidence": [
       {
        "label": "Change",
-       "detail": "M. Grimaldi replaces L. Vickery (LW)",
+       "detail": "M. Grimaldi replaces A. Walatee (LW)",
        "value": 1,
        "unit": "sub",
        "t": 1959.0,
@@ -1730,8 +2267,8 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 64.3 -> 48.1",
-       "value": -16.2,
+       "detail": "Press intensity 63.3 -> 47.0",
+       "value": -16.3,
        "unit": "index pts",
        "t": 1959.0,
        "engine_basis": "recorded event feed; some events estimated",
@@ -1755,8 +2292,8 @@
      "team": "A",
      "title": "Goal Melbourne Victory Football Club - Clarismario Rodrigues",
      "importance": 0.92,
-     "confidence": 0.86,
-     "reliability": 0.75,
+     "confidence": 0.87,
+     "reliability": 0.8,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -1831,7 +2368,7 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball tracked entering the goal",
+       "detail": "provider goal-ending possession; ball tracked entering the goal",
        "value": "tracked",
        "unit": "",
        "t": 2039.0,
@@ -1840,7 +2377,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 57%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 65%)",
        "value": 0.43,
        "unit": "observed share",
        "t": 2039.0,
@@ -1859,9 +2396,9 @@
      "subtype": "dominant",
      "team": "B",
      "title": "Western United take territorial control",
-     "importance": 0.65,
-     "confidence": 0.78,
-     "reliability": 0.76,
+     "importance": 0.64,
+     "confidence": 0.76,
+     "reliability": 0.79,
      "validation": "heuristic; high press vs SkillCorner high-block minutes F1 0.05, low block F1 0.26 (experimental)",
      "chain": [
       {
@@ -1871,7 +2408,7 @@
       },
       {
        "stage": "STATE_CHANGE",
-       "label": "Line 37.8m -> 47.4m",
+       "label": "Line 37.7m -> 47.5m",
        "timestamp": 2100
       },
       {
@@ -1881,14 +2418,14 @@
       }
      ],
      "consequences": [
-      "Territory 74.1%",
+      "Territory 73.5%",
       "4 shots (1.3 xG)"
      ],
      "evidence": [
       {
        "label": "Tactical trigger",
-       "detail": "Block pushed up: defensive line 37.8m -> 47.4m",
-       "value": 9.6,
+       "detail": "Block pushed up: defensive line 37.7m -> 47.5m",
+       "value": 9.8,
        "unit": "m",
        "t": 2100,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -1905,8 +2442,8 @@
       },
       {
        "label": "Territory",
-       "detail": "Territory 55.2% -> 74.1%",
-       "value": 18.9,
+       "detail": "Territory 54.7% -> 73.5%",
+       "value": 18.8,
        "unit": "pct pts",
        "t": 2100,
        "engine_basis": "video-derived positions; identity/calibration unverified",
@@ -1923,7 +2460,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 58%)",
+       "detail": "On average 5 of 11 players observed; 6 estimated from trajectories and team shape (mean confidence 64%)",
        "value": 0.43,
        "unit": "observed share",
        "t": 2100,
@@ -1944,7 +2481,91 @@
      "hidden_state": null
     },
     {
-     "id": "m12-substitution-impact",
+     "id": "m12-formation-shift",
+     "minute": "86'",
+     "t": 2400,
+     "type": "FORMATION_SHIFT",
+     "subtype": null,
+     "team": "A",
+     "title": "Melbourne Victory Football Club possible switch to 3-4-3",
+     "importance": 0.75,
+     "confidence": 0.5,
+     "reliability": 0.8,
+     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
+     "chain": [
+      {
+       "stage": "TACTICAL_CHANGE",
+       "label": "4-1-4-1 -> 3-4-3",
+       "timestamp": 2400
+      },
+      {
+       "stage": "STATE_CHANGE",
+       "label": "Right-side press 34.4% -> 17.2%",
+       "timestamp": 2400
+      },
+      {
+       "stage": "CONSEQUENCE",
+       "label": "0 final-third recoveries",
+       "timestamp": 2400
+      }
+     ],
+     "consequences": [
+      "0 final-third recoveries",
+      "Territory 28.8%",
+      "0 shots"
+     ],
+     "evidence": [
+      {
+       "label": "Tactical trigger",
+       "detail": "Shape changed 4-1-4-1 -> 3-4-3",
+       "value": 8.8,
+       "unit": "shift score",
+       "t": 2400,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "heuristic over observed + model_inferred positions"
+      },
+      {
+       "label": "Structural change",
+       "detail": "Defensive line +12.9m, width +15.14m",
+       "value": 12.9,
+       "unit": "m",
+       "t": 2400,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Pressing",
+       "detail": "Press intensity 36.9 -> 42.5; right-side share of pressures 34.4% -> 17.2%",
+       "value": 5.6,
+       "unit": "index pts",
+       "t": 2400,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      },
+      {
+       "label": "Recovery",
+       "detail": "Final-third recoveries 0 -> 0",
+       "value": 0,
+       "unit": "recoveries",
+       "t": 2400,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "recorded_event"
+      },
+      {
+       "label": "Territory",
+       "detail": "Territory 41.5% -> 28.8%",
+       "value": -12.7,
+       "unit": "pct pts",
+       "t": 2400,
+       "engine_basis": "video-derived positions; identity/calibration unverified",
+       "basis_tag": "observed + model_inferred positions"
+      }
+     ],
+     "links": [],
+     "hidden_state": null
+    },
+    {
+     "id": "m13-substitution-impact",
      "minute": "87'",
      "t": 2474.0,
      "type": "SUBSTITUTION_IMPACT",
@@ -1952,8 +2573,8 @@
      "team": "A",
      "title": "J. Rawlins on for Z. Machach",
      "importance": 0.46,
-     "confidence": 0.63,
-     "reliability": 0.75,
+     "confidence": 0.64,
+     "reliability": 0.79,
      "validation": "recorded substitution; after-effects heuristic",
      "chain": [
       {
@@ -1991,100 +2612,11 @@
       },
       {
        "label": "Team effect",
-       "detail": "Press intensity 39.9 -> 43.0",
-       "value": 3.1,
+       "detail": "Press intensity 39.7 -> 42.6",
+       "value": 2.9,
        "unit": "index pts",
        "t": 2474.0,
        "engine_basis": "recorded event feed; some events estimated",
-       "basis_tag": "observed + model_inferred positions"
-      }
-     ],
-     "links": [
-      {
-       "to": "m13-formation-shift",
-       "relation": "preceded"
-      }
-     ],
-     "hidden_state": null
-    },
-    {
-     "id": "m13-formation-shift",
-     "minute": "91'",
-     "t": 2700,
-     "type": "FORMATION_SHIFT",
-     "subtype": null,
-     "team": "A",
-     "title": "Melbourne Victory Football Club possible switch to 4-4-2",
-     "importance": 0.75,
-     "confidence": 0.5,
-     "reliability": 0.69,
-     "validation": "heuristic (template-fit formations: back line 13/14, exact 5/14 vs DFL line-ups; 57% minute agreement truth vs reconstruction)",
-     "chain": [
-      {
-       "stage": "TACTICAL_CHANGE",
-       "label": "3-4-3 -> 4-4-2",
-       "timestamp": 2700
-      },
-      {
-       "stage": "STATE_CHANGE",
-       "label": "Right-side press 18.2% -> 16.7%",
-       "timestamp": 2700
-      },
-      {
-       "stage": "CONSEQUENCE",
-       "label": "1 final-third recoveries",
-       "timestamp": 2700
-      }
-     ],
-     "consequences": [
-      "1 final-third recoveries",
-      "Territory 32.8%",
-      "2 shots"
-     ],
-     "evidence": [
-      {
-       "label": "Tactical trigger",
-       "detail": "Shape changed 3-4-3 -> 4-4-2",
-       "value": 10.52,
-       "unit": "shift score",
-       "t": 2700,
-       "engine_basis": "video-derived positions; identity/calibration unverified",
-       "basis_tag": "heuristic over observed + model_inferred positions"
-      },
-      {
-       "label": "Structural change",
-       "detail": "Defensive line -17.82m, width -10.64m",
-       "value": -17.82,
-       "unit": "m",
-       "t": 2700,
-       "engine_basis": "video-derived positions; identity/calibration unverified",
-       "basis_tag": "observed + model_inferred positions"
-      },
-      {
-       "label": "Pressing",
-       "detail": "Press intensity 44.8 -> 43.5; right-side share of pressures 18.2% -> 16.7%",
-       "value": -1.3,
-       "unit": "index pts",
-       "t": 2700,
-       "engine_basis": "video-derived positions; identity/calibration unverified",
-       "basis_tag": "observed + model_inferred positions"
-      },
-      {
-       "label": "Recovery",
-       "detail": "Final-third recoveries 0 -> 1",
-       "value": 1,
-       "unit": "recoveries",
-       "t": 2700,
-       "engine_basis": "video-derived positions; identity/calibration unverified",
-       "basis_tag": "recorded_event"
-      },
-      {
-       "label": "Territory",
-       "detail": "Territory 34.0% -> 32.8%",
-       "value": -1.2,
-       "unit": "pct pts",
-       "t": 2700,
-       "engine_basis": "video-derived positions; identity/calibration unverified",
        "basis_tag": "observed + model_inferred positions"
       }
      ],
@@ -2100,8 +2632,8 @@
      "team": "B",
      "title": "Goal Western United - N. Boti\u0107",
      "importance": 0.92,
-     "confidence": 0.82,
-     "reliability": 0.65,
+     "confidence": 0.84,
+     "reliability": 0.71,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -2116,7 +2648,7 @@
       },
       {
        "stage": "OUTCOME",
-       "label": "Goal (0.5 xG)",
+       "label": "Goal (0.0 xG)",
        "timestamp": 2747.0
       }
      ],
@@ -2135,9 +2667,9 @@
       },
       {
        "label": "Shot",
-       "detail": "N. Boti\u0107 shot from 6.4m",
-       "value": 0.5,
-       "unit": "xG",
+       "detail": "Shot location not available (not visible on camera, or not in the event feed)",
+       "value": "n/a",
+       "unit": "",
        "t": 2747.0,
        "engine_basis": "recorded event feed; some events estimated",
        "basis_tag": "recorded_event"
@@ -2153,7 +2685,7 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball tracked entering the goal",
+       "detail": "provider goal-ending possession; ball tracked entering the goal",
        "value": "tracked",
        "unit": "",
        "t": 2747.0,
@@ -2162,7 +2694,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 46%)",
+       "detail": "On average 4 of 11 players observed; 7 estimated from trajectories and team shape (mean confidence 55%)",
        "value": 0.35,
        "unit": "observed share",
        "t": 2747.0,
@@ -2183,7 +2715,7 @@
      "title": "Goal Western United - H. Ibusuki",
      "importance": 0.92,
      "confidence": 0.65,
-     "reliability": 0.22,
+     "reliability": 0.21,
      "validation": "recorded goal; build-up sequence from events",
      "chain": [
       {
@@ -2235,7 +2767,7 @@
       },
       {
        "label": "Goal evidence",
-       "detail": "ball tracked entering the goal",
+       "detail": "provider goal-ending possession; ball tracked entering the goal",
        "value": "tracked",
        "unit": "",
        "t": 2943.0,
@@ -2244,7 +2776,7 @@
       },
       {
        "label": "Visibility",
-       "detail": "On average 0 of 11 players observed; 11 estimated from trajectories and team shape (mean confidence 20%)",
+       "detail": "On average 0 of 11 players observed; 11 estimated from trajectories and team shape (mean confidence 19%)",
        "value": 0.03,
        "unit": "observed share",
        "t": 2943.0,
@@ -2256,55 +2788,55 @@
      "hidden_state": null
     }
    ],
-   "story_links": 9,
+   "story_links": 8,
    "unreliable_segments": [
     {
      "team": "A",
      "from_minute": 4,
      "to_minute": 4,
-     "min_reliability": 0.64,
+     "min_reliability": 0.76,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 10,
      "to_minute": 11,
-     "min_reliability": 0.47,
+     "min_reliability": 0.57,
      "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 13,
      "to_minute": 14,
-     "min_reliability": 0.42,
+     "min_reliability": 0.43,
      "abstain_minutes": 2
     },
     {
      "team": "A",
      "from_minute": 16,
      "to_minute": 16,
-     "min_reliability": 0.59,
+     "min_reliability": 0.68,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 20,
      "to_minute": 20,
-     "min_reliability": 0.61,
+     "min_reliability": 0.67,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 24,
      "to_minute": 24,
-     "min_reliability": 0.23,
+     "min_reliability": 0.32,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 29,
      "to_minute": 29,
-     "min_reliability": 0.45,
+     "min_reliability": 0.49,
      "abstain_minutes": 1
     },
     {
@@ -2318,56 +2850,56 @@
      "team": "A",
      "from_minute": 37,
      "to_minute": 37,
-     "min_reliability": 0.56,
+     "min_reliability": 0.69,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 46,
      "to_minute": 46,
-     "min_reliability": 0.3,
+     "min_reliability": 0.38,
      "abstain_minutes": 1
     },
     {
      "team": "A",
      "from_minute": 49,
      "to_minute": 49,
-     "min_reliability": 0.29,
+     "min_reliability": 0.38,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 4,
      "to_minute": 4,
-     "min_reliability": 0.61,
+     "min_reliability": 0.69,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 10,
      "to_minute": 11,
-     "min_reliability": 0.4,
+     "min_reliability": 0.46,
      "abstain_minutes": 2
     },
     {
      "team": "B",
      "from_minute": 14,
      "to_minute": 16,
-     "min_reliability": 0.45,
+     "min_reliability": 0.47,
      "abstain_minutes": 3
     },
     {
      "team": "B",
      "from_minute": 20,
      "to_minute": 20,
-     "min_reliability": 0.58,
+     "min_reliability": 0.65,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 22,
      "to_minute": 22,
-     "min_reliability": 0.66,
+     "min_reliability": 0.72,
      "abstain_minutes": 1
     },
     {
@@ -2381,46 +2913,704 @@
      "team": "B",
      "from_minute": 29,
      "to_minute": 29,
-     "min_reliability": 0.47,
+     "min_reliability": 0.53,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 32,
      "to_minute": 32,
-     "min_reliability": 0.67,
+     "min_reliability": 0.71,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 34,
      "to_minute": 34,
-     "min_reliability": 0.27,
+     "min_reliability": 0.39,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 37,
      "to_minute": 37,
-     "min_reliability": 0.39,
+     "min_reliability": 0.45,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 46,
      "to_minute": 46,
-     "min_reliability": 0.24,
+     "min_reliability": 0.27,
      "abstain_minutes": 1
     },
     {
      "team": "B",
      "from_minute": 49,
      "to_minute": 49,
-     "min_reliability": 0.22,
+     "min_reliability": 0.21,
      "abstain_minutes": 1
     }
    ],
    "observed_share": 0.413,
+   "changes": {
+    "A": [
+     {
+      "minute_label": "49'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "LOW_BLOCK",
+      "lasts_min": 2,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -26.4,
+       "width_m": -5.6,
+       "compactness_m": -2.1,
+       "possession_pct": -4.7,
+       "territory_pct": -29.8,
+       "press_intensity": 16.0
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.34,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        180,
+        300
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.46,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to low block. Defensive line (out of possession) -26.4m, width -5.6m, territory -29.8%, press index +16.0. Followed by 0 shot(s) for (0 xG) and 1 against (0.34 xG)."
+     },
+     {
+      "minute_label": "51'",
+      "type": "TACTIC",
+      "from": "LOW_BLOCK",
+      "to": "BALANCED",
+      "lasts_min": 9,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 17.5,
+       "width_m": -2.3,
+       "compactness_m": 0.0,
+       "possession_pct": -16.2,
+       "territory_pct": 28.9,
+       "press_intensity": -16.6
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.22,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        300,
+        600
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.46,
+      "basis": "mostly estimated positions",
+      "reading": "From low block to balanced. Defensive line (out of possession) +17.5m, possession -16.2%, territory +28.9%, press index -16.6. Followed by 0 shot(s) for (0 xG) and 1 against (0.22 xG)."
+     },
+     {
+      "minute_label": "60'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 2,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 22.0,
+       "width_m": 5.2,
+       "compactness_m": 3.9,
+       "possession_pct": 21.8,
+       "territory_pct": 53.7,
+       "press_intensity": 10.2
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        840,
+        960
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.28,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +22.0m, width +5.2m, compactness +3.9m, possession +21.8%, territory +53.7%, press index +10.2. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "62'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 5,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -20.3,
+       "width_m": 1.1,
+       "compactness_m": -0.6,
+       "possession_pct": -16.8,
+       "territory_pct": -35.9,
+       "press_intensity": -4.9
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.41,
+       "shots_against": 2,
+       "xg_against": 0.56,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        960,
+        1260
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.37,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -20.3m, possession -16.8%, territory -35.9%. Followed by 1 shot(s) for (0.41 xG) and 2 against (0.56 xG)."
+     },
+     {
+      "minute_label": "67'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "LOW_BLOCK",
+      "lasts_min": 2,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -11.0,
+       "width_m": 5.7,
+       "compactness_m": 0.7,
+       "possession_pct": 7.8,
+       "territory_pct": -37.6,
+       "press_intensity": 26.8
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.06,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1260,
+        1380
+       ]
+      },
+      "preceded_by": [
+       "substitution 21': N. Velupillay on for R. Piscopo"
+      ],
+      "observed_share": 0.44,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to low block. Defensive line (out of possession) -11.0m, width +5.7m, possession +7.8%, territory -37.6%, press index +26.8. Followed by 0 shot(s) for (0 xG) and 1 against (0.06 xG). Preceded by substitution 21': N. Velupillay on for R. Piscopo."
+     },
+     {
+      "minute_label": "69'",
+      "type": "TACTIC",
+      "from": "LOW_BLOCK",
+      "to": "BALANCED",
+      "lasts_min": 21,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 21.6,
+       "width_m": -5.5,
+       "compactness_m": 0.3,
+       "possession_pct": -15.4,
+       "territory_pct": 44.4,
+       "press_intensity": -22.4
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.31,
+       "goals_for": 0,
+       "goals_against": 1,
+       "window_s": [
+        1380,
+        1680
+       ]
+      },
+      "preceded_by": [
+       "substitution 21': N. Velupillay on for R. Piscopo"
+      ],
+      "observed_share": 0.44,
+      "basis": "mostly estimated positions",
+      "reading": "From low block to balanced. Defensive line (out of possession) +21.6m, width -5.5m, possession -15.4%, territory +44.4%, press index -22.4. Followed by 0 shot(s) for (0 xG) and 1 against (0.31 xG), 1 against. Preceded by substitution 21': N. Velupillay on for R. Piscopo."
+     },
+     {
+      "minute_label": "86'",
+      "type": "FORMATION",
+      "from": "4-1-4-1",
+      "to": "3-4-3",
+      "lasts_min": 11,
+      "moved": [
+       {
+        "player_id": "A2",
+        "name": "J. Geria",
+        "shirt": 2,
+        "from": "defence",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A6",
+        "name": "R. Teague",
+        "shirt": 6,
+        "from": "defensive midfield",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A14",
+        "name": "J. Valadon",
+        "shirt": 14,
+        "from": "attacking midfield",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A28",
+        "name": "K. Bos",
+        "shirt": 28,
+        "from": "defence",
+        "to": "midfield"
+       },
+       {
+        "player_id": "A17",
+        "name": "N. Velupillay",
+        "shirt": 17,
+        "from": "attacking midfield",
+        "to": "attack"
+       },
+       {
+        "player_id": "A11",
+        "name": "Clarismario Rodrigues",
+        "shirt": 11,
+        "from": "attacking midfield",
+        "to": "attack"
+       }
+      ],
+      "deltas": {
+       "def_line_oop_m": 9.9,
+       "width_m": 14.7,
+       "compactness_m": 4.0,
+       "possession_pct": 36.6,
+       "territory_pct": 4.6,
+       "press_intensity": 5.1
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        2400,
+        2640
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.47,
+      "basis": "mostly estimated positions: the shape reading is uncertain",
+      "reading": "Possible change of shape 4-1-4-1 -> 3-4-3 (most of the team was estimated). J. Geria defence -> midfield; R. Teague defensive midfield -> midfield; J. Valadon attacking midfield -> midfield; K. Bos defence -> midfield. Defensive line (out of possession) +9.9m, width +14.7m, compactness +4.0m, possession +36.6%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "90'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "LOW_BLOCK",
+      "lasts_min": 7,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -19.7,
+       "width_m": -12.1,
+       "compactness_m": -5.6,
+       "possession_pct": -28.8,
+       "territory_pct": -24.0,
+       "press_intensity": -2.3
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 2,
+       "xg_against": 0.58,
+       "goals_for": 0,
+       "goals_against": 1,
+       "window_s": [
+        2640,
+        2940
+       ]
+      },
+      "preceded_by": [
+       "substitution 42': J. Rawlins on for Z. Machach"
+      ],
+      "observed_share": 0.45,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to low block. Defensive line (out of possession) -19.7m, width -12.1m, compactness -5.6m, possession -28.8%, territory -24.0%. Followed by 0 shot(s) for (0 xG) and 2 against (0.58 xG), 1 against. Preceded by substitution 42': J. Rawlins on for Z. Machach."
+     }
+    ],
+    "B": [
+     {
+      "minute_label": "49'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 2,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 13.9,
+       "width_m": -6.3,
+       "compactness_m": -1.6,
+       "possession_pct": 4.7,
+       "territory_pct": 29.8,
+       "press_intensity": -9.6
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.34,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        180,
+        300
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.39,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +13.9m, width -6.3m, territory +29.8%, press index -9.6. Followed by 1 shot(s) for (0.34 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "51'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 4,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -11.5,
+       "width_m": 2.8,
+       "compactness_m": 0.9,
+       "possession_pct": 12.0,
+       "territory_pct": -33.5,
+       "press_intensity": -8.7
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.22,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        300,
+        540
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.43,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -11.5m, possession +12.0%, territory -33.5%, press index -8.7. Followed by 1 shot(s) for (0.22 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "55'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 4,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 5.1,
+       "width_m": 1.4,
+       "compactness_m": -1.7,
+       "possession_pct": -0.5,
+       "territory_pct": 27.5,
+       "press_intensity": 12.3
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        540,
+        780
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.38,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +5.1m, territory +27.5%, press index +12.3. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "59'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 8,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -14.4,
+       "width_m": -2.4,
+       "compactness_m": -0.1,
+       "possession_pct": -14.1,
+       "territory_pct": -37.5,
+       "press_intensity": -6.9
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.41,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        780,
+        1080
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.31,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -14.4m, possession -14.1%, territory -37.5%. Followed by 1 shot(s) for (0.41 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "66'",
+      "type": "FORMATION",
+      "from": "4-1-3-2",
+      "to": "4-2-3-1",
+      "lasts_min": 31,
+      "moved": [
+       {
+        "player_id": "B23",
+        "name": "R. Bozinovski",
+        "shirt": 23,
+        "from": "attacking midfield",
+        "to": "defensive midfield"
+       },
+       {
+        "player_id": "B19",
+        "name": "N. Boti\u0107",
+        "shirt": 19,
+        "from": "attack",
+        "to": "attacking midfield"
+       }
+      ],
+      "deltas": {
+       "def_line_oop_m": 4.5,
+       "width_m": 1.7,
+       "compactness_m": 1.5,
+       "possession_pct": -0.4,
+       "territory_pct": 10.8,
+       "press_intensity": 7.7
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.15,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1200,
+        1260
+       ]
+      },
+      "preceded_by": [],
+      "observed_share": 0.39,
+      "basis": "mostly estimated positions: the shape reading is uncertain",
+      "reading": "Possible change of shape 4-1-3-2 -> 4-2-3-1 (most of the team was estimated). R. Bozinovski attacking midfield -> defensive midfield; N. Boti\u0107 attack -> attacking midfield. Defensive line (out of possession) +4.5m, territory +10.8%. Followed by 1 shot(s) for (0.15 xG) and 0 against (0 xG)."
+     },
+     {
+      "minute_label": "67'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 3,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 15.4,
+       "width_m": -0.1,
+       "compactness_m": -1.2,
+       "possession_pct": -2.0,
+       "territory_pct": 27.7,
+       "press_intensity": 12.3
+      },
+      "followed": {
+       "shots_for": 2,
+       "xg_for": 0.37,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 1,
+       "goals_against": 0,
+       "window_s": [
+        1260,
+        1440
+       ]
+      },
+      "preceded_by": [
+       "opponent substitution 21': N. Velupillay on for R. Piscopo"
+      ],
+      "observed_share": 0.39,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +15.4m, territory +27.7%, press index +12.3. Followed by 2 shot(s) for (0.37 xG) and 0 against (0 xG), 1 goal(s) for. Preceded by opponent substitution 21': N. Velupillay on for R. Piscopo."
+     },
+     {
+      "minute_label": "70'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 20,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -20.6,
+       "width_m": 0.3,
+       "compactness_m": 0.7,
+       "possession_pct": -9.0,
+       "territory_pct": -44.1,
+       "press_intensity": -3.8
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.07,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        1440,
+        1740
+       ]
+      },
+      "preceded_by": [
+       "goal scored 24'"
+      ],
+      "observed_share": 0.46,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -20.6m, possession -9.0%, territory -44.1%. Followed by 1 shot(s) for (0.07 xG) and 0 against (0 xG). Preceded by goal scored 24'."
+     },
+     {
+      "minute_label": "81'",
+      "type": "STRUCTURE",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": null,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 2.7,
+       "width_m": -3.6,
+       "compactness_m": -0.6,
+       "possession_pct": 9.0,
+       "territory_pct": -1.4,
+       "press_intensity": -3.0
+      },
+      "followed": {
+       "shots_for": 2,
+       "xg_for": 0.73,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        2100,
+        2400
+       ]
+      },
+      "preceded_by": [
+       "substitution 33': R. Danzaki on for L. Vickery",
+       "substitution 33': M. Grimaldi on for A. Walatee",
+       "goal conceded 34'"
+      ],
+      "observed_share": 0.43,
+      "basis": "mostly estimated positions",
+      "reading": "Structural change in how the team is positioned. Width -3.6m, possession +9.0%. Followed by 2 shot(s) for (0.73 xG) and 0 against (0 xG). Preceded by substitution 33': R. Danzaki on for L. Vickery; substitution 33': M. Grimaldi on for A. Walatee; goal conceded 34'."
+     },
+     {
+      "minute_label": "90'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 4,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 12.1,
+       "width_m": 3.4,
+       "compactness_m": -0.2,
+       "possession_pct": 27.8,
+       "territory_pct": 25.0,
+       "press_intensity": 5.1
+      },
+      "followed": {
+       "shots_for": 2,
+       "xg_for": 0.58,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 1,
+       "goals_against": 0,
+       "window_s": [
+        2640,
+        2880
+       ]
+      },
+      "preceded_by": [
+       "opponent substitution 42': J. Rawlins on for Z. Machach"
+      ],
+      "observed_share": 0.44,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +12.1m, width +3.4m, possession +27.8%, territory +25.0%. Followed by 2 shot(s) for (0.58 xG) and 0 against (0 xG), 1 goal(s) for. Preceded by opponent substitution 42': J. Rawlins on for Z. Machach."
+     },
+     {
+      "minute_label": "94'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 3,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -18.8,
+       "width_m": -5.1,
+       "compactness_m": 0.0,
+       "possession_pct": -22.7,
+       "territory_pct": -24.8,
+       "press_intensity": -13.4
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.49,
+       "shots_against": 2,
+       "xg_against": 0.08,
+       "goals_for": 1,
+       "goals_against": 0,
+       "window_s": [
+        2880,
+        3060
+       ]
+      },
+      "preceded_by": [
+       "goal scored 46'"
+      ],
+      "observed_share": 0.38,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -18.8m, width -5.1m, possession -22.7%, territory -24.8%, press index -13.4. Followed by 1 shot(s) for (0.49 xG) and 2 against (0.08 xG), 1 goal(s) for. Preceded by goal scored 46'."
+     }
+    ]
+   },
    "file": "data/skc_1959846_h2.json",
    "reconstruction_model": "r13_mlp_aug_ens3_final",
    "goals_not_in_provider_events": null,

@@ -120,7 +120,10 @@ def analyse_part(I, until=None):
             "presses": [{"team": p["team"], "start": p["start"], "end": p["end"], "peak_press_index": p.get("peak_press_index")} for p in I.presses],
             "counterattacks": len(I.counters), "shifts": [{"team": x["team"], "minute": x["minute"], "from": x.get("label_before"), "to": x.get("label_after")} for x in I.shifts],
             "moments": moments, "story_links": sum(len(m.get("links") or []) for m in I.moments),
-            "unreliable_segments": unreliable_segments(I), "observed_share": (I.m.meta.get("source") or {}).get("observed_share")}
+            "unreliable_segments": unreliable_segments(I), "observed_share": (I.m.meta.get("source") or {}).get("observed_share"),
+            "changes": {tm: [{k: c.get(k) for k in ("minute_label", "type", "from", "to", "lasts_min", "moved", "deltas", "followed",
+                                                     "preceded_by", "observed_share", "basis", "reading")} for c in getattr(I, "changes", {}).get(tm, [])]
+                        for tm in ("A", "B")}}
 
 
 def compare_truth_vs_recon(I_truth, I_rec):
@@ -225,6 +228,13 @@ def markdown(rec):
             if m.get("hidden_state"):
                 L.append(f"- Camera / reconstruction / truth at this moment: `{json.dumps(m['hidden_state'])[:300]}`")
             L.append("")
+        if any(r.get("changes", {}).values()):
+            L += ["### Tactical & formation changes (every change, both teams)", ""]
+            for tm in ("A", "B"):
+                L.append(f"**Team {tm}** ({len(r['changes'][tm])} changes)")
+                for c in r["changes"][tm]:
+                    L.append(f"- {c['minute_label']} [{c['type']}] {c['reading']} _({c['basis']})_")
+                L.append("")
         if r.get("truth_vs_reconstruction"):
             c = r["truth_vs_reconstruction"]
             L += ["### Does the analysis survive reconstruction? (truth vs camera reconstruction)", "",

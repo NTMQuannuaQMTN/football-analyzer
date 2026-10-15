@@ -94,6 +94,15 @@ export interface PartSummary {
   substitutions: { timestamp: number; minute: string; team: "A" | "B"; on: string; off: string }[];
   highlights: Highlight[];
   chapters: { team: "A" | "B"; label: string; start: number; end: number }[];
+  changes?: Record<"A" | "B", TacticalChange[]>;
+}
+export interface TacticalChange {
+  id: string; team: "A" | "B"; type: "FORMATION" | "TACTIC" | "STRUCTURE"; minute: number; timestamp: number;
+  clock: string; minute_label: string; from: string | null; to: string | null; lasts_min: number | null; brief: boolean;
+  moved?: { player_id: string; name: string; shirt?: number; from: string; to: string }[];
+  before: Record<string, number | null>; after: Record<string, number | null>; deltas: Record<string, number | null>;
+  preceded_by: string[]; followed: { shots_for: number; xg_for: number; shots_against: number; xg_against: number; goals_for: number; goals_against: number };
+  observed_share: number | null; basis: string; reading: string;
 }
 export interface PlayerLine {
   id: string; name: string; team: "A" | "B"; shirt?: number; position?: string; passes: number; completed: number;

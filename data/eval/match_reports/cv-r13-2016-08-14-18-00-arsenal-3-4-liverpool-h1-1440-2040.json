@@ -192,6 +192,115 @@
     }
    ],
    "observed_share": 0.331,
+   "changes": {
+    "A": [
+     {
+      "minute_label": "26'",
+      "type": "TACTIC",
+      "from": "LOW_BLOCK",
+      "to": "BALANCED",
+      "lasts_min": 5,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 19.5,
+       "width_m": 7.2,
+       "compactness_m": 0.5,
+       "possession_pct": -6.8,
+       "territory_pct": 48.6,
+       "press_intensity": 17.9
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 0,
+       "goals_against": 0,
+       "window_s": [
+        60,
+        360
+       ]
+      },
+      "preceded_by": [
+       "opponent card 2'"
+      ],
+      "observed_share": 0.29,
+      "basis": "mostly estimated positions",
+      "reading": "From low block to balanced. Defensive line (out of possession) +19.5m, width +7.2m, possession -6.8%, territory +48.6%, press index +17.9. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent card 2'."
+     },
+     {
+      "minute_label": "31'",
+      "type": "TACTIC",
+      "from": "BALANCED",
+      "to": "DOMINANT",
+      "lasts_min": 4,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": 12.1,
+       "width_m": -3.9,
+       "compactness_m": -0.2,
+       "possession_pct": -14.4,
+       "territory_pct": 28.2,
+       "press_intensity": 22.1
+      },
+      "followed": {
+       "shots_for": 1,
+       "xg_for": 0.12,
+       "shots_against": 0,
+       "xg_against": 0,
+       "goals_for": 1,
+       "goals_against": 0,
+       "window_s": [
+        360,
+        600
+       ]
+      },
+      "preceded_by": [
+       "opponent card 4'",
+       "goal scored 7'"
+      ],
+      "observed_share": 0.33,
+      "basis": "mostly estimated positions",
+      "reading": "From balanced to territorial control. Defensive line (out of possession) +12.1m, width -3.9m, possession -14.4%, territory +28.2%, press index +22.1. Followed by 1 shot(s) for (0.12 xG) and 0 against (0 xG), 1 goal(s) for. Preceded by opponent card 4'; goal scored 7'."
+     }
+    ],
+    "B": [
+     {
+      "minute_label": "27'",
+      "type": "TACTIC",
+      "from": "DOMINANT",
+      "to": "BALANCED",
+      "lasts_min": 8,
+      "moved": null,
+      "deltas": {
+       "def_line_oop_m": -24.9,
+       "width_m": 5.4,
+       "compactness_m": -0.3,
+       "possession_pct": 21.3,
+       "territory_pct": -50.4,
+       "press_intensity": 2.8
+      },
+      "followed": {
+       "shots_for": 0,
+       "xg_for": 0,
+       "shots_against": 1,
+       "xg_against": 0.12,
+       "goals_for": 0,
+       "goals_against": 1,
+       "window_s": [
+        120,
+        420
+       ]
+      },
+      "preceded_by": [
+       "card 2'"
+      ],
+      "observed_share": 0.25,
+      "basis": "mostly estimated positions",
+      "reading": "From territorial control to balanced. Defensive line (out of possession) -24.9m, width +5.4m, possession +21.3%, territory -50.4%. Followed by 0 shot(s) for (0 xG) and 1 against (0.12 xG), 1 against. Preceded by card 2'."
+     }
+    ]
+   },
    "file": "data/cv_r13_2016_08_14_18_00_arsenal_3_4_liverpool_h1_1440_2040.json",
    "reconstruction_model": "r13_mlp_aug_ens3_final",
    "goals_not_in_provider_events": null,

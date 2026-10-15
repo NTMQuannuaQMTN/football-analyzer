@@ -31,6 +31,58 @@ LINE_LAT = {"GK": (0, 0), "CB": (1, 0), "LCB": (1, -.3), "RCB": (1, .3), "LB": (
             "CF": (3.1, 0), "ST": (3.1, 0), "CM": (2, 0)}
 
 
+RESTART_KIND = {"throw_in": "Throw-in", "free_kick": "Free kick", "goal_kick": "Goal kick", "corner": "Corner",
+                "goal": "Goal · kick-off", "penalty": "Penalty"}
+
+
+def restart_kind(label):
+    """'throw_in_for' -> 'Throw-in'; '' -> None."""
+    if not label:
+        return None
+    base = label.rsplit("_", 1)[0] if label.endswith(("_for", "_against")) else label
+    return RESTART_KIND.get(base, "Dead ball")
+
+
+def provider_stoppages(mdir, period, f0, T):
+    """Dead-ball spells from SkillCorner's own interruption labels: play stops after a possession whose
+    game_interruption_after is set and restarts with the next possession whose game_interruption_before is set (its
+    reception starts ~1 s after the restart). Returns (alive (T,) bool, [(start_s, restart_s, kind, after_label)],
+    possession start times)."""
+    import csv
+    rows = list(csv.DictReader(open(glob.glob(os.path.join(mdir, "*_dynamic_events.csv"))[0])))
+    poss = sorted([r for r in rows if r["period"] == str(period) and r["event_type"] == "player_possession"],
+                  key=lambda r: int(r["frame_start"]))
+    ts = lambda fr: (int(fr) - f0) / 10
+    spells = []
+    for i, r in enumerate(poss):
+        after = r.get("game_interruption_after") or ""
+        if not after:
+            continue
+        s = ts(r["frame_end"]) + 1.0
+        if i + 1 >= len(poss):
+            continue
+        nxt = poss[i + 1]  # play restarts with the very next possession (its restart label can be missing)
+        if ts(nxt["frame_start"]) - s > 300:
+            continue
+        e = max(s + 1.0, ts(nxt["frame_start"]) - 1.0)
+        if after in ("goal_for", "goal_against"):  # a goal stops play until ITS kick-off, not the next touch
+            for q in poss[i + 1:]:
+                if ts(q["frame_start"]) - s > 180:
+                    break
+                if (q.get("game_interruption_before") or "") in ("goal_for", "goal_against"):
+                    e = max(e, ts(q["frame_start"]) - 1.0)
+                    break
+                if q.get("game_interruption_after"):
+                    break  # another stoppage first: this goal's kick-off label is missing; never swallow live play
+        # the stoppage type is how play STOPPED (the next row's restart label can be stray, e.g. a goal restart label
+        # on a possession after a goal kick); goal stoppages are confirmed against counted goals when displayed
+        spells.append((s, e, restart_kind(after) or restart_kind(nxt.get("game_interruption_before") or ""), after))
+    alive = np.ones(T, bool)
+    for s, e, _, _ in spells:
+        alive[max(0, int(np.ceil(s))):min(T, int(np.floor(e)))] = False
+    return alive, spells, [ts(r["frame_start"]) for r in poss]
+
+
 def load_match(mdir):
     mid = os.path.basename(mdir)
     meta = json.load(open(glob.glob(os.path.join(mdir, "*_match.json"))[0]))
@@ -52,6 +104,7 @@ def load_match(mdir):
         pos = np.full((T, N, 2), np.nan)
         on = np.zeros((T, N), bool)
         ball = np.full((T, 2), np.nan)
+        ball_z = np.full(T, np.nan)
         poss = np.full(T, -1)
         for t, fr in enumerate(frames):
             for p in fr["player_data"]:
@@ -62,6 +115,7 @@ def load_match(mdir):
             b = fr.get("ball_data") or {}
             if b.get("x") is not None:
                 ball[t] = (b["x"] * L / pl, b["y"] * W / pw)
+                ball_z[t] = b["z"] if b.get("z") is not None else np.nan
             g = (fr.get("possession") or {}).get("group")
             poss[t] = 0 if g == "home team" else 1 if g == "away team" else -1
         # on the pitch = the match sheet's playing time in this period (the provider lists nobody while the
@@ -95,8 +149,11 @@ def load_match(mdir):
             ln, lat = LINE_LAT.get(a, (2, 0))
             anchors.append(((ln - 1) / 2 * 30 - 15, -lat * 22))
         tracked = np.array([bool(fr["player_data"]) for fr in frames])
-        yield f"{mid}_p{period}", {"clip": f"{mid}_p{period}", "game": mid, "pos": pos, "on": on, "ball": ball, "tracked": tracked, "ball_seen": ball_seen,
-                                   "team": team, "role": role, "poss": poss, "alive": np.ones(T, bool),
+        f0 = int(frames[0]["frame"])
+        alive, spells, starts = provider_stoppages(mdir, period, f0, T)
+        yield f"{mid}_p{period}", {"clip": f"{mid}_p{period}", "game": mid, "pos": pos, "on": on, "ball": ball, "tracked": tracked, "ball_seen": ball_seen, "ball_z": ball_z,
+                                   "team": team, "role": role, "poss": poss, "alive": alive, "stoppages": spells, "f0": f0,
+                                   "possession_starts": starts,
                                    "anchors": anchors, "acronyms": acr}
 
 

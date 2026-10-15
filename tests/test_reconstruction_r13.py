@@ -235,7 +235,9 @@ def test_goal_is_credited_to_the_shot_whose_ball_enters_the_goal_not_a_blocked_o
     T = 40
     ball = np.tile([60.0, 34.0], (T, 1))
     ball[10:13] = [[93.7, 32.4], [93.3, 35.6], [88.1, 36.5]]  # first shot comes back out
-    ball[13:16] = [[99.8, 34.5], [106.1, 34.4], [107.0, 35.0]]  # rebound goes in at t=14
+    ball[13:16] = [[99.8, 34.5], [106.1, 34.4], [107.0, 35.0]]  # rebound goes in at t=14 and stays in the net
+    ball[16:30] = [107.0, 35.0]
+    ball[30:] = [52.5, 34.0]                                     # kick-off follows
     seen = np.ones(T, bool)
     first = {"timestamp": 10.0, "event_type": "SHOT", "team_id": "A", "player_id": "A9", "x": 94.7, "y": 35.8, "xg": 0.3,
              "provider_lead_to_goal": True}
@@ -247,16 +249,71 @@ def test_goal_is_credited_to_the_shot_whose_ball_enters_the_goal_not_a_blocked_o
     assert first.get("outcome") != "goal" and rebound["outcome"] == "goal"
 
 
-def test_goal_without_tracking_evidence_is_labelled_unverified():
+def test_goal_without_credible_evidence_is_not_pinned_on_a_shot():
+    """No provider goal-ending possession and no ball seen in the net: the goal counts in the official score but no
+    GOAL event / moment is invented on a nearby shot (that produced false goal moments)."""
     from backend.reconstruction.skillcorner_match import attribute_goals
     T = 30
     ball = np.tile([60.0, 34.0], (T, 1))
     seen = np.zeros(T, bool)  # camera on a replay: ball never tracked
     shot = {"timestamp": 5.0, "event_type": "SHOT", "team_id": "B", "player_id": "B7", "x": 10.0, "y": 34.0, "xg": 0.4}
     ev = [shot]
-    attribute_goals(ev, [("B", 20.0, {"A": 0, "B": 1})], ball, seen)
-    goal = next(e for e in ev if e["event_type"] == "GOAL")
-    assert goal["unverified"] and "NOT seen" in goal["evidence"]
+    unlocated = attribute_goals(ev, [("B", 20.0, {"A": 0, "B": 1})], ball, seen)
+    assert not [e for e in ev if e["event_type"] == "GOAL"] and shot.get("outcome") != "goal"
+    assert unlocated == [{"team": "B", "score_after": {"A": 0, "B": 1}, "provider_score_change_s": 20.0}]
+
+
+def test_rebound_crossing_under_the_bar_is_a_goal_even_if_tracking_drifts_behind_the_goal():
+    """skc-1886347 (a real goal, confirmed by the user): De Vries' shot crossed the line at 1.65 m; tracking then drifts
+    behind the goal. With the score change and a kick-off, that is a goal."""
+    from backend.reconstruction.skillcorner_match import attribute_goals
+    T = 120
+    ball = np.tile([60.0, 34.0], (T, 1))
+    ball[10:16] = [[99.8, 34.5], [106.1, 34.4], [106.8, 36.1], [107.6, 36.5], [110.8, 37.5], [112.2, 39.4]]
+    z = np.full(T, 0.3)
+    z[11] = 1.65
+    ball[95:] = [52.5, 34.0]
+    shot = {"timestamp": 9.0, "event_type": "SHOT", "team_id": "A", "player_id": "A15", "x": 87.0, "y": 35.0, "xg": 0.1}
+    ev = [shot]
+    unlocated = attribute_goals(ev, [("A", 8.0, {"A": 2, "B": 0})], ball, np.ones(T, bool), ball_z=z)
+    goal = [e for e in ev if e["event_type"] == "GOAL"]
+    assert not unlocated and goal and goal[0]["player_id"] == "A15" and goal[0]["timestamp"] == 11.0
+
+
+def test_stray_goal_restart_label_is_not_drawn_as_a_goal():
+    """skc-1886347 41:42: a goal kick, but the next provider row is labelled 'restart after a goal'; no goal counted."""
+    from backend.reconstruction.skillcorner_match import display_ball
+    T = 200
+    clip = {"ball": np.tile([30.0, 34.0], (T, 1)), "ball_seen": np.ones(T, bool),
+            "stoppages": [(20.0, 110.0, "Goal kick", "goal_kick_against")]}
+    _, labels, _, _ = display_ball(clip, [])
+    assert "Goal · kick-off" not in labels and labels[50] == "Goal kick"
+    clip["stoppages"] = [(20.0, 110.0, "Goal · kick-off", "goal_for")]  # provider goal label, no counted goal
+    _, labels, _, _ = display_ball(clip, [])
+    assert "Goal · kick-off" not in labels and labels[50] == "Dead ball"
+
+
+def test_set_piece_goal_splits_the_stoppage_and_is_not_timed_at_the_kick_off():
+    from backend.reconstruction.skillcorner_match import attribute_goals, display_ball
+    T = 200
+    ball = np.tile([90.0, 10.0], (T, 1))
+    ball[101] = [105.6, 33.0]  # the corner, taken ~60 s after it was awarded, is headed in at t=101
+    seen = np.ones(T, bool)
+    ev = []
+    # provider zero-length goal row at t=100; previous possession ended at t=40 (corner awarded)
+    attribute_goals(ev, [("A", 100.0, {"A": 1, "B": 0})], ball, seen, goal_ends=[(100.0, "A", "A9", False, 41.0)])
+    goal = [e for e in ev if e["event_type"] == "GOAL"][0]
+    assert goal["timestamp"] == 101.0 and goal["player_id"] == "A9"  # at the goal row, not at the corner award
+    clip = {"ball": ball, "ball_seen": seen, "stoppages": [(41.0, 99.0, "Corner", "corner_for"), (102.0, 160.0, "Goal · kick-off", "goal_for")]}
+    _, labels, _, _ = display_ball(clip, [goal])
+    assert labels[50] == "Corner" and labels[110] == "Goal · kick-off"
+
+
+def test_ball_over_the_crossbar_is_not_a_goal():
+    from backend.reconstruction.skillcorner_match import ball_entry
+    ball = np.tile([106.0, 34.0], (10, 1))
+    assert ball_entry(ball, np.ones(10, bool), "A", 0, 5, ball_z=np.full(10, 3.5)) is None
+    assert ball_entry(ball, np.ones(10, bool), "A", 0, 5, ball_z=np.full(10, 1.0)) == 0
 
 
 def test_formation_shift_moment_is_stamped_where_the_new_shape_is_first_read():
@@ -317,12 +374,12 @@ def test_possession_changes_from_provider_possessions():
     rows = [pp(0, 20, 1, 0, 0), pp(30, 60, 2, 5, 0),            # A -> A: no change
             pp(70, 90, 11, -10, 3),                               # A -> B with a regain by B: tackle
             {"event_type": "on_ball_engagement", "player_id": "11", "frame_start": "62", "frame_end": "72", "end_type": "direct_regain"},
-            pp(200, 220, 1, 0, 0),                                 # B -> A after a 11 s stoppage on the centre spot: kickoff
-            pp(225, 240, 12, 20, 10)]                              # A -> B quickly: loose ball
+            pp(2000, 2020, 1, 0, 0),                               # B -> A after a long stoppage on the centre spot: kickoff
+            pp(2025, 2040, 12, 20, 10)]                            # A -> B quickly: loose ball
     pid_of = {1: "A1", 2: "A2", 11: "B11", 12: "B12"}
     team_of = {1: "A", 2: "A", 11: "B", 12: "B"}
     xy = lambda x, y, r: (52.5 + float(x), 34 + float(y))
-    ev = possession_changes(rows, pid_of, team_of, xy, lambda f: int(f) / 10, 100)
+    ev = possession_changes(rows, pid_of, team_of, xy, lambda f: int(f) / 10, 400)
     pc = [e for e in ev if e["event_type"] == "POSSESSION_CHANGE"]
     assert [e["cause"] for e in pc] == ["tackle", "kickoff", "loose_ball"]
     assert [e["team_id"] for e in pc] == ["B", "A", "B"]
@@ -336,3 +393,86 @@ def test_untracked_ball_is_flagged_for_display():
     rec = (np.full((T, N, 2), 10.0), np.full((T, N), 5.0), np.full((T, N), 0.5), np.zeros((T, N), bool))
     fr = frames_for(clip, rec, ["A"] * T, np.array([True, False, True]))
     assert [f["bs"] for f in fr] == ["tracked", "held_or_unknown", "tracked"]
+
+
+def test_ball_stays_in_the_net_after_a_goal_until_the_kick_off():
+    from backend.reconstruction.skillcorner_match import display_ball
+    T = 120
+    ball = np.tile([60.0, 34.0], (T, 1))
+    seen = np.ones(T, bool)
+    ball[20] = [106.0, 34.5]            # goal at t=20 (home attacks +x)
+    ball[21:60] = [[70 + k % 7, 20 + k % 11] for k in range(39)]  # celebrations: ball wanders / replays
+    seen[25:55] = False
+    ball[90:] = [52.5, 34.0]           # kick-off from the centre spot at t=90
+    clip = {"ball": ball, "ball_seen": seen, "stoppages": []}
+    b, labels, _, basis = display_ball(clip, [{"timestamp": 20.0, "team_id": "A"}])
+    assert all(labels[t] == "Goal · kick-off" for t in range(22, 90))
+    assert all(b[t, 0] > 105 and abs(b[t, 1] - 34) <= 3.2 for t in range(22, 86))  # in the net, not wandering
+    assert np.allclose(b[95], [52.5, 34.0]) and labels[95] is None
+
+
+def test_throw_in_ball_is_placed_on_the_touchline():
+    from backend.reconstruction.skillcorner_match import display_ball
+    T = 40
+    ball = np.tile([50.0, 30.0], (T, 1))
+    ball[10:13] = [[50, 66], [50, 69], [51, 70]]  # goes out over the far touchline
+    clip = {"ball": ball, "ball_seen": np.ones(T, bool), "stoppages": [(12.0, 25.0, "Throw-in", "throw_in_for")]}
+    b, labels, _, _ = display_ball(clip, [])
+    assert labels[11] == "Throw-in"  # spell starts when the ball left the pitch, not a second later
+    assert all(abs(b[t, 1] - 68.5) < 1e-6 for t in range(14, 23))  # placed on the touchline until thrown
+
+
+def test_restart_is_taken_from_where_the_tracked_ball_rests_and_never_teleports():
+    """The user's goal kick: the ball was put on a rule spot, then jumped to the receiver in the other half."""
+    from backend.reconstruction.skillcorner_match import display_ball, glide_gaps
+    T = 80
+    ball = np.tile([40.0, 30.0], (T, 1))
+    seen = np.ones(T, bool)
+    for k in range(3, 10):                                    # play moves towards the goal (physical speeds)
+        ball[k] = [40.0 - 5.2 * (k - 2), 30.0 + 1.4 * (k - 2)]
+    ball[10:13] = [[4.0, 40.0], [-1.0, 42.0], [-2.0, 43.0]]  # goes out over the goal line
+    ball[13:30] = [3.0, 38.0]                                 # tracked at rest in the goal area: the kick spot
+    for k in range(30, 34):                                   # goal kick: flies ~60 m to the other half
+        ball[k] = [3.0 + 15 * (k - 29), 38.0 - (k - 29)]
+    ball[34:] = ball[33]
+    clip = {"ball": ball, "ball_seen": seen, "stoppages": [(12.0, 33.0, "Goal kick", "goal_kick_for")]}
+    b, labels, _, _ = display_ball(clip, [])
+    b = glide_gaps(b, seen, labels)
+    assert np.allclose(b[20], [3.0, 38.0])                     # placed where the tracking shows it, not a rule spot
+    assert labels[29] == "Goal kick" and labels[30] is None    # play restarts at the kick, not at the reception
+    steps = [float(np.hypot(*(b[t] - b[t - 1]))) for t in range(1, T)]
+    jumps = [t for t, d in zip(range(1, T), steps) if d > 32 and not (labels[t] and not labels[t - 1])]
+    assert not jumps                                            # only allowed jump: at the end of play
+
+
+def test_goal_stoppage_never_swallows_the_stoppages_after_it():
+    """skc-2015213: a goal whose kick-off label is missing must not stretch over later throw-ins / free kicks."""
+    from backend.reconstruction.skillcorner_match import display_ball
+    T = 400
+    clip = {"ball": np.tile([30.0, 34.0], (T, 1)), "ball_seen": np.ones(T, bool),
+            "stoppages": [(10.0, 300.0, "Goal · kick-off", "goal_for"), (100.0, 120.0, "Throw-in", "throw_in_for"),
+                          (200.0, 220.0, "Free kick", "free_kick_against")]}
+    _, labels, _, _ = display_ball(clip, [{"timestamp": 9.0, "team_id": "A"}])
+    assert labels[50] == "Goal · kick-off" and labels[110] == "Throw-in" and labels[210] == "Free kick"
+    assert labels[150] is None  # live play between the stoppages
+
+
+def test_tactical_changes_cover_every_change_with_moved_players_and_ignore_blips():
+    from backend.tactics.changes import _runs, tactical_changes
+    assert [r[0] for r in _runs(list("BBBDBBBLLLBB"), 2)] == ["B", "L", "B"]  # the 1-minute "D" is noise
+    from backend.pipeline import MatchIntelligence
+    I = MatchIntelligence(source=str(ROOT / "data" / "skc_2017461_h1.json")) if (ROOT / "data" / "skc_2017461_h1.json").exists() else MatchIntelligence(7)
+    ch = tactical_changes(I)
+    for tm in ("A", "B"):
+        forms = [r.get("formation") for r in I.timeline[tm]]
+        n_form = sum(1 for k in range(1, len(forms)) if forms[k] and forms[k - 1] and forms[k] != forms[k - 1])
+        assert sum(c["type"] == "FORMATION" for c in ch[tm]) == n_form  # every formation change, none invented
+        for c in ch[tm]:
+            assert c["reading"] and c["timestamp"] == c["minute"] * 60
+            if c["type"] == "FORMATION":
+                before = {p for line in I.timeline[tm][c["minute"] - 1]["formation_lines"] for p in line}
+                assert {x["player_id"] for x in c["moved"]} <= before
+    first = min((c for tm in "AB" for c in ch[tm]), key=lambda c: c["available_at"])
+    live = tactical_changes(I, until=first["available_at"] - 1)  # live: just before its after-window has elapsed
+    assert first["id"] not in {c["id"] for tm in "AB" for c in live[tm]}
+    assert all(c["available_at"] <= first["available_at"] - 1 for tm in "AB" for c in live[tm])

@@ -242,8 +242,9 @@ def lobby():
             miss = (last["meta"].get("source") or {}).get("goals_not_in_provider_events")
             if miss:
                 off = last["meta"].get("final_score") or {}
-                card["note"] += (f". Official final score {off.get('A')}–{off.get('B')}: "
-                                 f"{sum(miss.values())} goal(s) missing from the provider event stream (time and scorer unknown)")
+                card["score"] = {"A": off.get("A"), "B": off.get("B")}  # the official result, not just located goals
+                card["note"] += (f". Final score is the official result; {sum(miss.values())} goal(s) could not be located "
+                                 "in time from the provider data, so they have no goal moment")
         elif m["kind"] == "computer_vision":
             card.update(video_details(first))
             s, e = src.get("start", 0), src.get("end", 0)

@@ -59,6 +59,29 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - Followed by (not proof of causation): Territory 51.1%, 1 shots (0.04 xG)
 - Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [235, 245], "observed_players": 8.1, "inferred_players": 1.9, "high_confidence_inferred": 1.9, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 42.2, "width_m": 31.2, "near_ball": 4.3}, "reconstructed": {"def_line_m": 41.5, "width_m": 39.1, "near_ball": 4`
 
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (9 changes)
+- 2' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +8.2m, possession -15.3%, territory +31.3%. Followed by 1 shot(s) for (0.05 xG) and 0 against (0 xG). _(ground truth positions)_
+- 5' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -13.5m, possession +8.5%, territory -41.7%. Followed by 0 shot(s) for (0 xG) and 1 against (0.04 xG), 1 against. _(ground truth positions)_
+- 15' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +17.0m, width -5.2m, territory +45.7%, press index +24.6. Followed by 0 shot(s) for (0 xG) and 1 against (0.04 xG). _(ground truth positions)_
+- 18' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -28.2m, width -7.8m, possession -44.0%, territory -37.6%, press index -39.2. Followed by 0 shot(s) for (0 xG) and 1 against (0.15 xG). _(ground truth positions)_
+- 21' [FORMATION] Shape read as 4-2-3-1 -> 5-4-1. Ellyes Skhiri defensive midfield -> defence; E. Martel defensive midfield -> midfield; D. Ljubicic attacking midfield -> midfield; F. Kainz attack -> midfield. Defensive line (out of possession) +3.4m, width +5.6m, possession +9.0%, press index +17.6. Followed by 1 shot(s) for (0.1 xG) and 0 against (0 xG). _(ground truth positions)_
+- 26' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +14.4m, possession +30.0%, territory +10.8%. Followed by 1 shot(s) for (0.02 xG) and 0 against (0 xG). Preceded by card 24'. _(ground truth positions)_
+- 39' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +16.8m, possession +27.0%, territory +28.3%, press index +24.0. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 43' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -23.9m, width -6.9m, possession -17.2%, territory -53.8%, press index -11.0. Followed by 0 shot(s) for (0 xG) and 1 against (0.07 xG). _(ground truth positions)_
+- 46' [FORMATION] Shape read as 5-4-1 -> 3-5-2. B. Schmitz defence -> midfield; Jonas Hector defence -> midfield; F. Kainz midfield -> attack. Defensive line (out of possession) -3.1m, width +4.7m, possession +41.7%, territory -17.4%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+
+**Team B** (8 changes)
+- 6' [TACTIC] From balanced to high press. Defensive line (out of possession) +13.5m, territory +32.2%, press index +24.7. Followed by 1 shot(s) for (0.04 xG) and 0 against (0 xG), 1 goal(s) for. _(ground truth positions)_
+- 9' [TACTIC] From high press to balanced. Width -10.0m, possession -26.7%, press index -34.2. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 8'. _(ground truth positions)_
+- 11' [TACTIC] From balanced to territorial control. Width +4.8m, territory +7.0%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 8'. _(ground truth positions)_
+- 13' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -16.5m, territory -28.0%, press index -23.5. Followed by 0 shot(s) for (0 xG) and 1 against (0.09 xG). _(ground truth positions)_
+- 15' [TACTIC] From balanced to low block. Defensive line (out of possession) -16.7m, width -9.0m, compactness -3.4m, possession -10.0%, territory -33.0%, press index -9.0. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 17' [TACTIC] From low block to balanced. Defensive line (out of possession) +37.2m, width +8.7m, compactness +3.1m, possession +38.9%, territory +36.8%, press index +30.1. Followed by 2 shot(s) for (0.2 xG) and 0 against (0 xG). _(ground truth positions)_
+- 26' [FORMATION] Shape read as 4-1-4-1 -> 4-1-3-2. Leroy Sané attacking midfield -> attack. Defensive line (out of possession) -8.5m, width -10.9m, compactness -3.6m, possession -30.0%, territory -10.8%, press index -26.9. Followed by 0 shot(s) for (0 xG) and 1 against (0.02 xG). Preceded by opponent card 24'. _(ground truth positions)_
+- 44' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +17.0m, possession -9.6%, territory +62.4%. Followed by 1 shot(s) for (0.07 xG) and 0 against (0 xG). _(ground truth positions)_
+
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 
 Formation agreement per team-minute: 26%. Mean absolute difference per minute: defensive line 1.39 m, width 3.04 m, compactness 1.09 m, press index 4.86. Position-based moments: truth 3, reconstruction 2, recalled within ±120 s 2, reconstruction-only 0.
@@ -139,6 +162,37 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Outcome: Goal at 88:14
 - Followed by (not proof of causation): 0 final-third recoveries, Territory 43.9%, 2 shots
 - Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2095, 2105], "observed_players": 0.0, "inferred_players": 10.0, "high_confidence_inferred": 5.8, "outfield_players": 15, "metrics": {"observed_only": null, "reconstructed": {"def_line_m": 9.6, "width_m": 18.4, "near_ball": 5.2}, "truth": {"def_line_m": 16.6, "width_m": 21.`
+
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (10 changes)
+- 49' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +11.1m, width +4.8m, possession +8.3%, territory +9.0%, press index -9.9. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 52' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +6.2m, width -4.0m, possession -6.0%, territory +43.6%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 55' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -9.2m, territory -22.1%. Followed by 1 shot(s) for (0.02 xG) and 1 against (0.04 xG). _(ground truth positions)_
+- 60' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +14.6m, width +3.1m, possession +16.0%, territory +10.6%, press index +19.0. Followed by 1 shot(s) for (0.03 xG) and 0 against (0 xG). _(ground truth positions)_
+- 69' [TACTIC] From territorial control to low block. Defensive line (out of possession) -33.3m, width -13.7m, compactness -4.8m, possession -17.6%, territory -50.4%, press index -22.4. Followed by 0 shot(s) for (0 xG) and 3 against (0.18 xG). _(ground truth positions)_
+- 74' [TACTIC] From low block to territorial control. Defensive line (out of possession) +35.4m, width +9.1m, compactness +3.4m, territory +54.3%, press index +31.4. Followed by 1 shot(s) for (0.24 xG) and 1 against (0.06 xG). Preceded by opponent substitution 26': Leon Goretzka on for Ryan Gravenberch; opponent substitution 26': E. Choupo-Moting on for Kingsley Coman. _(ground truth positions)_
+- 76' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -12.0m, width +5.2m, possession +28.0%, territory -25.0%. Followed by 0 shot(s) for (0 xG) and 1 against (0.11 xG). _(ground truth positions)_
+- 80' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +9.0m, width -8.1m, possession -24.6%, territory +43.3%, press index -18.8. Followed by 1 shot(s) for (0.77 xG) and 0 against (0 xG), 1 goal(s) for. _(ground truth positions)_
+- 85' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -7.1m, width +4.8m, possession +16.9%, territory -38.6%, press index +14.4. Followed by 0 shot(s) for (0 xG) and 1 against (0.42 xG). Preceded by substitution 37': Kristian Pedersen on for D. Ljubicic; substitution 37': T. Lemperle on for L. Maina; opponent substitution 40': J. Musiala on for N. Mazraoui; opponent substitution 40': Mathys Tel on for Leon Goretzka. _(ground truth positions)_
+- 89' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -10.9m, width -4.7m, possession -6.3%, territory -25.8%, press index -12.7. Followed by 0 shot(s) for (0 xG) and 1 against (0.05 xG), 1 against. Preceded by goal conceded 44'. _(ground truth positions)_
+
+**Team B** (15 changes)
+- 47' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +14.8m, width +5.7m, territory +23.0%, press index +8.1. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 50' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -10.8m, possession -11.3%, territory -31.0%, press index -11.6. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 52' [TACTIC] From balanced to low block. Defensive line (out of possession) -20.3m, width -6.3m, territory -37.0%, press index -16.0. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 54' [TACTIC] From low block to balanced. Defensive line (out of possession) +18.6m, width +5.9m, possession +9.8%, territory +25.6%. Followed by 1 shot(s) for (0.04 xG) and 1 against (0.02 xG). _(ground truth positions)_
+- 60' [TACTIC] From balanced to low block. Defensive line (out of possession) -12.7m, width -10.0m, compactness -4.2m, possession -16.5%, territory -14.1%, press index -9.1. Followed by 0 shot(s) for (0 xG) and 1 against (0.03 xG). _(ground truth positions)_
+- 63' [TACTIC] From low block to balanced. Defensive line (out of possession) +5.6m, width +9.4m, compactness +4.0m, possession +12.5%, territory +7.8%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent substitution 17': K. Schindler on for F. Kainz; opponent substitution 17': Jan Thielmann on for D. Selke; opponent substitution 17': D. Huseinbašić on for B. Schmitz; substitution 17': Joao Cancelo on for T. Müller. _(ground truth positions)_
+- 67' [STRUCTURE] Structural change in how the team is positioned. Possession +18.5%, territory +13.5%, press index +20.6. Followed by 1 shot(s) for (0.05 xG) and 0 against (0 xG). _(ground truth positions)_
+- 70' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +24.7m, width -4.7m, possession +14.4%, territory +47.3%, press index +26.0. Followed by 2 shot(s) for (0.14 xG) and 0 against (0 xG). _(ground truth positions)_
+- 73' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -16.5m, possession -14.3%, territory -48.9%, press index -37.4. Followed by 2 shot(s) for (0.17 xG) and 1 against (0.24 xG). Preceded by substitution 26': Leon Goretzka on for Ryan Gravenberch; substitution 26': E. Choupo-Moting on for Kingsley Coman. _(ground truth positions)_
+- 80' [TACTIC] From balanced to low block. Defensive line (out of possession) -18.2m, width -6.3m, compactness -4.5m, possession -26.0%, territory -32.0%, press index -8.3. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 81' [FORMATION] Shape read as 3-4-3 -> 4-1-4-1. Joao Cancelo midfield -> defence; Joshua Kimmich midfield -> defensive midfield; Serge Gnabry attack -> attacking midfield; Leroy Sané attack -> attacking midfield. Defensive line (out of possession) -3.6m, width +6.3m, possession +37.5%, territory -13.0%, press index +29.9. Followed by 0 shot(s) for (0 xG) and 1 against (0.77 xG), 1 against. Preceded by goal conceded 36'. _(ground truth positions)_
+- 83' [TACTIC] From low block to balanced. Defensive line (out of possession) +22.1m, width +8.3m, compactness +5.1m, possession +10.7%, territory +33.8%, press index -13.6. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal conceded 36'; opponent card 36'; opponent substitution 37': Kristian Pedersen on for D. Ljubicic; opponent substitution 37': T. Lemperle on for L. Maina. _(ground truth positions)_
+- 91' [FORMATION] Shape read as 4-1-4-1 -> 4-3-3. Joshua Kimmich defensive midfield -> midfield; Serge Gnabry attacking midfield -> midfield; J. Musiala attacking midfield -> midfield; Leroy Sané attacking midfield -> attack. Defensive line (out of possession) +10.1m, possession +8.4%, territory +29.4%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 44'; opponent card 45'. _(ground truth positions)_
+- 91' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +10.1m, possession +8.4%, territory +29.4%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 44'; opponent card 45'. _(ground truth positions)_
+- 93' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -8.1m, width -4.8m, possession +23.8%, territory -27.8%, press index +11.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent card 45'. _(ground truth positions)_
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 

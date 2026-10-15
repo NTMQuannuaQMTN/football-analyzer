@@ -186,3 +186,80 @@ Reconstruction reduces the line error from 9.6 m to 1.5 m and the width error fr
 - SkillCorner identities and detections are the provider's and have not been verified independently. 3 goals have no located shot.
 - During replays and close-ups (about a quarter of A-League seconds: 30,335 of 118,255), every position is an estimate. These intervals appear in the reports as unreliable or abstained minutes.
 - The live views of broadcast-derived matches are past-only reconstructions of a recorded match. They are not live data feeds.
+
+## Update (14 Oct): goal timing and dead-ball display for A-League matches
+
+- **Goal timing.** Goals were sometimes counted 1–3 minutes late. They had been placed at the provider's score change, which happens around the kick-off after the goal.
+  - Goals are now timed from the provider's own goal-ending possession (`game_interruption_after = goal_for / goal_against`, covering 63 of 66 goals), refined to the second the tracked ball enters the goal when visible.
+  - Evidence across the 65 goals in the files: 46 from the provider possession with the ball tracked going in, 16 from the provider possession alone, and 3 from a shot followed by the ball tracked entering. No goal is now followed by its kick-off within 20 s; previously 2 were placed at the kick-off itself.
+  - Example: `skc-1886347` N. Moreno, now 83:01 (was "unidentified player" at 85:39).
+  - The official score is reproduced in 19 / 20 matches; one goal in `skc-1899585` is absent from the provider data.
+- **Dead-ball display, same rules as DFL.** Stoppages come from the provider's interruption labels: play stops after a possession marked as interrupted and restarts with the next possession, for 1,823 spells.
+  - The ball is shown where play stopped (from the second it left the pitch), then at the restart spot: touchline, corner flag, goal area, penalty spot, or where the free kick is taken.
+  - After a goal it stays in the net until it is carried to the centre spot for the kick-off. This holds for 650 / 650 of the checked post-goal seconds, versus a wandering tracked or held ball before.
+  - Labels are marked "annotated stoppage" (provider) or "estimated" (derived from tracking or the goal event).
+  - No solid ball is drawn off the pitch while play is live; the only off-pitch balls during play are hollow "last known position" markers.
+- **The model now receives the provider's ball-in-play status** (it was always "in play" before). On SkillCorner re-entries, live error went 7.70 → 7.64 m and replay 2.81 → 2.73 m. The 80 % radius covers slightly less (live 77 → 75 %, replay 79 → 79 %).
+
+## Update (15 Oct): goal displays only for counted goals (supersedes the 14 Oct "later" note)
+
+The false positive reported by the user was a **goal display without a counted goal**: in `skc-1886347` at 41:42, a goal-kick stoppage was drawn as "GOAL · KICK-OFF" for 96 s while the scoreboard stayed 1–0. The provider had labelled the *next* possession as a restart after a goal, and the display took the stoppage type from that row.
+
+The earlier fix for this report was wrong. It removed F. De Vries' 88:21 goal in the same match, which is real (confirmed by the user); its rejection rule ("the ball travelled more than 3 m behind the line") has been reverted.
+
+Rules now:
+1. **Stoppage type** comes from how play stopped (goal kick, corner, throw-in, …), not from the next row's restart label. A stoppage is drawn as a goal only if a counted goal (one that changes the official score) lies inside it. A provider goal label without a counted goal is drawn as a plain dead ball.
+2. **Set-piece goals:** the provider often logs a zero-length goal row at the kick-off instead of the scorer's real possession. The goal is timed by the ball tracked into the net between the set piece and the kick-off. Failing that, it is placed at the set piece and marked approximate (7 goals), never at the kick-off. The stoppage is split: corner / free kick first, then the goal.
+3. **A goal stoppage ends at its own kick-off.** When that label is missing it ends at the ball tracked back on the centre spot. It never swallows the throw-ins and free kicks that follow; before this fix, one goal stretched over 5 minutes of play in `skc-2015213`.
+4. **Kick-off events** appear only after counted goals.
+5. **Goals without credible evidence** (no provider scoring possession, no tracked ball under the bar followed by a kick-off) get no goal moment; the official score is still shown on the card.
+
+Audit over the 20 matches:
+
+| Check | Result |
+|---|---|
+| Goal displays without a counted goal | 0 (was 6) |
+| Goals placed at the kick-off | 0 |
+| Kick-offs without a counted goal | 0 |
+| Post-goal seconds with the ball in the scoring net | 650 / 650 |
+| Placed goals equal to the official score | 19 / 20 (`skc-1899585`: one goal is absent from the provider data) |
+
+## Update (15 Oct): no ball teleports except at the end of play
+
+The ball display (replay view) now jumps only once per stoppage: when play ends, it goes to where play restarts.
+- **Restart spot and moment come from tracking:** the tracked ball at rest, then kicked or thrown (a physical movement of 3–32 m/s). Rule spots (goal area, corner flag, touchline, penalty spot) are used only when the ball is not tracked.
+  - Before, the ball waited on the rule spot until the *receiver's* possession and then jumped to the receiver, often in the other half (the reported goal kick).
+- **After the restart** the ball flies continuously to where it is next tracked, at about 25 m/s. Kick-offs follow the same rule.
+- **Tracking gaps during live play:** the ball glides between the last and next tracked positions (still drawn as not tracked). Physically impossible single-second tracked steps (> 32 m) are spread over two seconds. The live view cannot use the next position and keeps the last known one.
+
+Set-piece goal timing was corrected in the same pass. The provider's zero-length goal row after a set piece *is* the goal time (the set piece can take a minute to be taken), so those 7 goals are no longer placed at the set-piece award. 47 of 65 goals are now confirmed by the ball tracked into the net (was 40).
+
+Measured jumps of more than 32 m in one second, replay view, 20 matches:
+
+| Situation | Before | After |
+|---|---:|---:|
+| At restarts | 283 | 0 |
+| During live play | 144 | 0 |
+| End of play → restart spot (allowed) | 77 + 15 | one per stoppage, never more |
+
+Goal checks are unchanged: 0 goal displays without a counted goal, 0 late goals, 650 / 650 post-goal seconds in the scoring net, and 19 / 20 matches with goals equal to the official score.
+
+## Update (15 Oct): every tactical and formation change, both teams
+
+`backend/tactics/changes.py` lists every change, read from the engine's per-minute timeline. It is shown on each match page ("Tactical & formation changes", one column per team, with Watch links), in the per-match reports, and through `GET /match/changes`.
+
+| Type | What counts as a change | Detail recorded |
+|---|---|---|
+| Formation | Every change of the per-minute shape (template fit, smoothed over time) | Which players moved between lines (defence / midfield / attack) |
+| Tactic | Every change of the tactical state: high press, low block, territorial control, balanced. One-minute blips are ignored (a state must last 2+ minutes) | n/a |
+| Structure | Every detected shift in line height, width, depth or pressing that is not already a formation or tactic change | n/a |
+
+Every change, whatever its type, also records:
+- before / after values over up to 5 minutes, never across the next change: out-of-possession line, width, compactness, possession, territory, press index. These are the same smoothed values the labels come from, so numbers and labels agree.
+- What preceded it: substitutions, goals or cards in the previous 3 minutes.
+- What followed it: shots and xG for and against, and goals, while the new state lasted.
+- The share of the team that was observed, and the basis. Shape readings with most of the team estimated are marked "possible".
+
+Over the 32 analysed matches / halves: 986 changes (697 tactic, 116 formation, 173 structure). In live mode a change appears only once its after-window has elapsed.
+
+Fixed alongside: when a team made two substitutions at once, both incoming players were paired with the same outgoing player. Pairing is now one-to-one (169 substitutions, none duplicated).

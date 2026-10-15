@@ -58,6 +58,30 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - Followed by (not proof of causation): 0 counterattacks, 0 shots (0 xG)
 - Camera / reconstruction / truth at this moment: `{"team": "B", "window_s": [2455, 2465], "observed_players": 3.7, "inferred_players": 6.3, "high_confidence_inferred": 2.0, "outfield_players": 10, "metrics": {"observed_only": {"def_line_m": 23.6, "width_m": 23.0, "near_ball": 4.0}, "reconstructed": {"def_line_m": 21.9, "width_m": 20.4, "near_ball":`
 
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (9 changes)
+- 5' [TACTIC] From low block to balanced. Defensive line (out of possession) +26.7m, width +19.0m, compactness +8.4m, possession +51.5%, territory +50.2%, press index +24.4. Followed by 1 shot(s) for (0.08 xG) and 1 against (0.15 xG). _(ground truth positions)_
+- 9' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +9.4m, width -6.8m, possession -24.0%, territory +19.3%. Followed by 1 shot(s) for (0.03 xG) and 0 against (0 xG). _(ground truth positions)_
+- 11' [TACTIC] From territorial control to balanced. Possession +9.7%, territory -23.9%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 16' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +14.1m, possession +16.6%, territory +35.6%, press index +10.1. Followed by 1 shot(s) for (0.06 xG) and 0 against (0 xG). _(ground truth positions)_
+- 21' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -13.2m, width -6.5m, possession -31.5%, territory -10.5%, press index -15.0. Followed by 0 shot(s) for (0 xG) and 1 against (0.07 xG). _(ground truth positions)_
+- 24' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -9.7m, possession +10.9%, territory -44.3%. Followed by 2 shot(s) for (0.06 xG) and 0 against (0 xG). _(ground truth positions)_
+- 34' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -11.9m, possession +15.0%, territory -34.0%. Followed by 0 shot(s) for (0 xG) and 1 against (0.04 xG). _(ground truth positions)_
+- 42' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +18.6m, width +6.6m, possession +33.4%, territory +36.6%, press index +18.0. Followed by 2 shot(s) for (0.29 xG) and 0 against (0 xG). _(ground truth positions)_
+- 46' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +9.8m, width -9.8m, compactness -3.8m, territory +24.5%, press index +18.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+
+**Team B** (9 changes)
+- 5' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -36.8m, possession -48.8%, territory -55.0%, press index -35.9. Followed by 1 shot(s) for (0.15 xG) and 1 against (0.08 xG). _(ground truth positions)_
+- 16' [TACTIC] From balanced to low block. Defensive line (out of possession) -26.2m, possession -16.6%, territory -35.6%, press index -12.4. Followed by 0 shot(s) for (0 xG) and 1 against (0.06 xG). _(ground truth positions)_
+- 21' [TACTIC] From low block to balanced. Defensive line (out of possession) +21.5m, width +4.7m, possession +37.4%, territory +20.6%, press index +24.0. Followed by 1 shot(s) for (0.07 xG) and 0 against (0 xG). _(ground truth positions)_
+- 26' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +5.7m, possession -31.6%, territory +52.6%, press index -16.5. Followed by 0 shot(s) for (0 xG) and 2 against (0.06 xG). _(ground truth positions)_
+- 28' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -15.5m, territory -54.3%, press index -11.0. Followed by 1 shot(s) for (0.03 xG) and 1 against (0.17 xG). _(ground truth positions)_
+- 31' [FORMATION] Shape read as 4-2-3-1 -> 4-2-2-2. Andreas Albers attacking midfield -> attack. Defensive line (out of possession) +3.3m, territory +26.3%. Followed by 0 shot(s) for (0 xG) and 2 against (0.11 xG). _(ground truth positions)_
+- 36' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +14.6m, width +9.3m, possession +7.0%, territory +27.8%, press index +11.2. Followed by 2 shot(s) for (0.05 xG) and 0 against (0 xG). _(ground truth positions)_
+- 40' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -12.8m, width -9.4m, possession -18.4%, territory -33.8%, press index -11.0. Followed by 1 shot(s) for (0.01 xG) and 1 against (0.27 xG). _(ground truth positions)_
+- 46' [FORMATION] Shape read as 4-2-2-2 -> 3-4-1-2. M. Thalhammer defensive midfield -> defence; K. Faber defence -> defensive midfield; Andreas Albers attack -> defensive midfield; L. Guwara defence -> defensive midfield. Defensive line (out of possession) -8.8m, width -3.0m, compactness -3.2m, territory -29.9%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 
 Formation agreement per team-minute: 82%. Mean absolute difference per minute: defensive line 1.95 m, width 3.54 m, compactness 1.51 m, press index 3.0. Position-based moments: truth 3, reconstruction 3, recalled within ±120 s 3, reconstruction-only 0.
@@ -137,6 +161,32 @@ Hidden-player model: `r13_mlp_aug_ens3`.
 - [recorded_event] Outcome: Goal - 2-0
 - Followed by (not proof of causation): Score 2-0
 - Camera / reconstruction / truth at this moment: `{"team": "A", "window_s": [1152, 1162], "observed_players": 4.3, "inferred_players": 5.7, "high_confidence_inferred": 2.9, "outfield_players": 15, "metrics": {"observed_only": {"def_line_m": 89.7, "width_m": 19.5, "near_ball": 1.6}, "reconstructed": {"def_line_m": 74.0, "width_m": 33.9, "near_ball":`
+
+### Tactical & formation changes (every change, both teams)
+
+**Team A** (8 changes)
+- 47' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -8.3m, possession +15.7%, territory -34.0%. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 50' [STRUCTURE] Structural change in how the team is positioned. Width +5.7m, possession -6.9%, territory -11.4%, press index -27.1. Followed by 0 shot(s) for (0 xG) and 1 against (0.02 xG). _(ground truth positions)_
+- 60' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +10.0m, width -11.3m, possession -16.4%, territory +49.4%, press index -25.5. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 14'. _(ground truth positions)_
+- 67' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -5.3m, width +9.3m, territory -27.4%, press index +21.3. Followed by 1 shot(s) for (0.01 xG) and 0 against (0 xG). Preceded by opponent card 19'; goal scored 20'; opponent substitution 20': Scott Kennedy on for L. Guwara; substitution 21': C. Klarer on for A. Hoffmann; substitution 21': Shinta Appelkamp on for Kristoffer Peterson. _(ground truth positions)_
+- 74' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) -10.6m, width -9.9m, possession -45.0%, territory -21.6%, press index -31.7. Followed by 1 shot(s) for (0.15 xG) and 0 against (0 xG), 1 goal(s) for. Preceded by opponent substitution 28': P. Owusu on for A. Yildirim; opponent substitution 29': C. Makridis on for N. Shipnoski. _(ground truth positions)_
+- 79' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +16.9m, possession -6.4%, territory +52.9%, press index +16.2. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by goal scored 33'. _(ground truth positions)_
+- 81' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -16.3m, width +5.9m, possession +17.8%, territory -43.9%, press index -13.2. Followed by 1 shot(s) for (0.85 xG) and 1 against (0.02 xG), 1 goal(s) for. Preceded by goal scored 33'. _(ground truth positions)_
+- 91' [FORMATION] Shape read as 4-1-3-2 -> 4-1-4-1, lasting only a minute. Kwadwo Baah attacking midfield -> defence; Shinta Appelkamp attacking midfield -> defence; C. Klarer defence -> defensive midfield; Jorrit Hendrix defensive midfield -> attacking midfield. Defensive line (out of possession) +26.0m, width +6.1m, territory +41.6%, press index +12.2. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by opponent card 44'. _(ground truth positions)_
+
+**Team B** (12 changes)
+- 50' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +5.7m, width +4.0m, territory +16.3%, press index +8.0. Followed by 1 shot(s) for (0.02 xG) and 0 against (0 xG). _(ground truth positions)_
+- 54' [TACTIC] From balanced to territorial control. Possession -18.7%, territory +20.0%. Followed by 1 shot(s) for (0.04 xG) and 0 against (0 xG). _(ground truth positions)_
+- 58' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -13.5m, width -4.3m, possession +11.2%, territory -47.8%. Followed by 0 shot(s) for (0 xG) and 1 against (0.08 xG), 1 against. _(ground truth positions)_
+- 64' [TACTIC] From balanced to low block. Defensive line (out of possession) -15.1m, width -8.7m, compactness -4.3m, possession -42.2%, territory -11.3%, press index -18.5. Followed by 0 shot(s) for (0 xG) and 1 against (0.77 xG), 1 against. _(ground truth positions)_
+- 66' [FORMATION] Shape read as 4-2-3-1 -> 4-1-3-2. M. Thalhammer defensive midfield -> attacking midfield; Andreas Albers attacking midfield -> attack. Defensive line (out of possession) +18.4m, width +9.0m, possession +21.6%, territory +27.9%. Followed by 1 shot(s) for (0.02 xG) and 1 against (0.01 xG). Preceded by card 19'; goal conceded 20'; substitution 20': Scott Kennedy on for L. Guwara; opponent substitution 21': C. Klarer on for A. Hoffmann; opponent substitution 21': Shinta Appelkamp on for Kristoffer Peterson. _(ground truth positions)_
+- 66' [TACTIC] From low block to balanced. Defensive line (out of possession) +18.4m, width +9.0m, possession +21.6%, territory +27.9%. Followed by 1 shot(s) for (0.02 xG) and 1 against (0.01 xG). Preceded by card 19'; goal conceded 20'; substitution 20': Scott Kennedy on for L. Guwara; opponent substitution 21': C. Klarer on for A. Hoffmann; opponent substitution 21': Shinta Appelkamp on for Kristoffer Peterson. _(ground truth positions)_
+- 72' [STRUCTURE] Structural change in how the team is positioned. Defensive line (out of possession) +6.5m, possession +21.3%, territory +14.0%, press index +12.3. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by card 24'. _(ground truth positions)_
+- 76' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +19.0m, possession +30.0%, territory +24.0%, press index +19.9. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by substitution 28': P. Owusu on for A. Yildirim; substitution 29': C. Makridis on for N. Shipnoski; opponent card 29'. _(ground truth positions)_
+- 78' [TACTIC] From territorial control to balanced. Defensive line (out of possession) -26.5m, possession -13.1%, territory -49.6%, press index -13.7. Followed by 1 shot(s) for (0.02 xG) and 1 against (0.15 xG), 1 against. Preceded by goal conceded 33'. _(ground truth positions)_
+- 83' [TACTIC] From balanced to territorial control. Defensive line (out of possession) +14.5m, possession -8.9%, territory +43.1%, press index +14.8. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). _(ground truth positions)_
+- 85' [TACTIC] From territorial control to balanced. Territory -12.3%. Followed by 0 shot(s) for (0 xG) and 1 against (0.85 xG), 1 against. Preceded by opponent substitution 39': E. Iyoha on for Dawid Kownacki; opponent substitution 39': Kwadwo Baah on for F. Klaus; opponent substitution 39': R. Hennings on for D. Ginczek; goal conceded 40'. _(ground truth positions)_
+- 91' [FORMATION] Shape read as 4-1-3-2 -> 4-4-2, lasting only a minute. P. Owusu attack -> defence; K. Caliskaner attack -> defence; Benedikt Gimber defensive midfield -> midfield; M. Thalhammer attacking midfield -> midfield. Defensive line (out of possession) -20.9m, width -10.6m, compactness -5.1m, territory -41.6%, press index -22.9. Followed by 0 shot(s) for (0 xG) and 0 against (0 xG). Preceded by card 44'. _(ground truth positions)_
 
 ### Does the analysis survive reconstruction? (truth vs camera reconstruction)
 

@@ -193,6 +193,12 @@ def player(pid: str, t: Optional[float] = None, mode: str = "default", I: MatchI
     return I.player_profile(pid, t, reconstruction_mode(I, mode))
 
 
+@app.get("/match/changes")
+def changes(I: MatchIntelligence = Depends(scope)):
+    """Every tactical and formation change for both teams, with before / after evidence (backend/tactics/changes.py)."""
+    return I.changes
+
+
 @app.get("/match/story")
 def story(I: MatchIntelligence = Depends(scope)):
     return I.story

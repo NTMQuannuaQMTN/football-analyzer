@@ -131,6 +131,8 @@ class MatchIntelligence:
                 if hs:
                     mo["hidden_state"] = hs
         self.story = build_story(self.moments, self.timeline)
+        from backend.tactics.changes import tactical_changes
+        self.changes = tactical_changes(self)
         # EXPLAIN / RENDER
         from backend.narratives import generator as gen_mod
         gen_mod.TEAM_NAMES.update({t: v["name"] for t, v in self.m.meta["teams"].items()})
@@ -554,7 +556,8 @@ class MatchIntelligence:
                                "bullets": (n.get("analyst") or {}).get("bullets", []), "why": n.get("why_it_matters"),
                                "coverage": mo.get("coverage")})
         chapters_ = [{**c, "end": min(c["end"], T)} for c in self.story["chapters"] if c["start"] <= T]
-        return {"until": T, "duration": self.m.duration, "clock_offset": offset, "view": self.view, "teams": teams,
+        changes = {tm: [c for c in self.changes.get(tm, []) if c["available_at"] <= T or T >= self.m.duration] for tm in ("A", "B")}
+        return {"until": T, "duration": self.m.duration, "clock_offset": offset, "view": self.view, "teams": teams, "changes": changes,
                 "players": players, "goals": goals, "cards": cards, "substitutions": subs, "highlights": highlights,
                 "chapters": chapters_, "score": self.m.score_at(T)}
 
