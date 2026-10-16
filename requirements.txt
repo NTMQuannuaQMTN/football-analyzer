@@ -4,4 +4,3 @@ pydantic
 numpy
 scipy
 pytest
-scikit-learn>=1.5

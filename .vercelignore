@@ -14,3 +14,9 @@ cv/weights/
 runs/
 tests/
 docs/
+
+# local backups of previous exports, benchmark rows/reports and training-only code: not needed by the API
+data/_prev_exports_*/
+data/eval/recon_benchmark/
+data/eval/real/
+backend/reconstruction/algo_zoo.py

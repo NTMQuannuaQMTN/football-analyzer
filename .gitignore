@@ -24,3 +24,6 @@ frontend/.env*
 data/reset_backups/
 runs/
 *.pt
+
+# local backups of previous exports (never committed; large)
+data/_prev_exports_*/

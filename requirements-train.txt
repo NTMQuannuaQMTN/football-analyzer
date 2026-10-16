@@ -1,0 +1,5 @@
+# Offline model training / algorithm screening only (not deployed): backend/reconstruction/algo_zoo.py
+# plus torch for training and inference of the hidden-player models.
+-r requirements.txt
+scikit-learn>=1.5
+torch
