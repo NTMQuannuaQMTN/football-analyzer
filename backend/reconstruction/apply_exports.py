@@ -64,7 +64,7 @@ def clip_from_export(d):
             "anchors": anchors, "role_basis": "provider role acronyms" if acr else "lineup slot (cv.clip_eval.coarse_roles)"}
 
 
-def apply(src, models, model_name, tag):
+def apply(src, models, model_name, tag, file_tag=None):
     d = json.loads((DATA / src).read_text())
     sha = hashlib.sha256((DATA / src).read_bytes()).hexdigest()
     clip = clip_from_export(d)
@@ -102,7 +102,7 @@ def apply(src, models, model_name, tag):
     src_meta.pop("error_vs_truth", None)
     out["meta"] = dict(d["meta"], source=src_meta)
     name = src.removeprefix("cv_")
-    path = DATA / f"cv_{tag}_{name}"
+    path = DATA / f"cv_{file_tag or tag}_{name}"
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(out, separators=(",", ":")))
     tmp.replace(path)
@@ -120,8 +120,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--tag", required=True)
+    ap.add_argument("--file-tag", default=None, help="keep an existing export's file name (app id), e.g. r13")
     a = ap.parse_args()
     models = {mode: hm.load_hidden(model_path(a.model, mode)) for mode in ("live", "replay")}
-    log = [apply(s, models, a.model, a.tag) for s in SOURCES]
+    log = [apply(s, models, a.model, a.tag, a.file_tag) for s in SOURCES]
     print(json.dumps(log, indent=1))
     (DATA / "eval" / f"apply_exports_{a.tag}.json").write_text(json.dumps(log, indent=1))

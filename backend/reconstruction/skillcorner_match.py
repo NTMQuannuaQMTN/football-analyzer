@@ -537,6 +537,12 @@ def build_events(mdir, period, clip, ids, pid_of, team_of, flip, pl, pw, f0, T, 
     return ev, score, unlocated
 
 
+def validated_uncertainty(model_name):
+    """Measured SkillCorner re-entry coverage for this model (skillcorner_benchmark writes it); None = not validated."""
+    p = DATA / "eval" / "recon_benchmark" / f"sc_uncertainty_{model_name}.json"
+    return json.loads(p.read_text()) if p.exists() else None
+
+
 def export(mdir, models, model_name, out_dir=DATA):
     mid = os.path.basename(mdir)
     meta = json.load(open(glob.glob(os.path.join(mdir, "*_match.json"))[0]))
@@ -644,10 +650,7 @@ def export(mdir, models, model_name, out_dir=DATA):
                                 "unavailable_stats": ["shots_on_target", "fouls", "corners", "offsides", "yellow_cards", "red_cards"],
                                 "event_location_vs_tracking_median_m": round(float(np.median(dist)), 2) if dist else None,
                                 "uncertainty": "DFL-calibrated 80% radius; broadcast-domain coverage measured on GSR/SkillCorner re-entries, see docs/reconstruction_evaluation.md",
-                                "uncertainty_validated": {"basis": "SkillCorner A-League re-entries (proxy truth = provider detections), model r13_mlp_aug_ens3_final",
-                                                          "live_r80_coverage": 0.776, "replay_r80_coverage": 0.807,
-                                                          "live_p5_calibration": "predicted vs observed within 0.03 in every bin",
-                                                          "applies_to": "estimated players only; measured positions remain unverified"},
+                                "uncertainty_validated": validated_uncertainty(model_name),
                                 "orientation_basis": "provider home_team_side per period",
                                 "goals_not_in_provider_events": missing if any(missing.values()) else None,
                                 "goals_not_located": unlocated or None,

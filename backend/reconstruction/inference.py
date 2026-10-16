@@ -22,8 +22,11 @@ _models = {}
 # RECON_PRODUCTION=<dir relative to cv/weights>:<name>, e.g. "recon/r13_mlp_ens3:foldfinal" or ":final_v3".
 # 13 Oct 2026: promoted r13_mlp_aug_ens3 (3-seed v3 MLP ensemble with degraded-context augmentation); selection and
 # promotion evidence in docs/reconstruction_evaluation.md. The previous production model is ":final_v3".
+# 16 Oct 2026: promoted r16_blend = equal blend of r13_mlp_aug_ens3 and r16_top3 (the three best algorithms of the
+# algo_zoo screening: MLP, mixture density network, zone classifier); better on every promotion gate (evaluation §12).
+# Previous: "recon/r13_mlp_aug_ens3:foldfinal".
 PRODUCTION = "foldfinal"
-PRODUCTION_DIR = "recon/r13_mlp_aug_ens3"
+PRODUCTION_DIR = "recon/r16_blend"
 if os.getenv("RECON_PRODUCTION"):
     _d, PRODUCTION = os.getenv("RECON_PRODUCTION").split(":", 1)
     PRODUCTION_DIR = _d or None

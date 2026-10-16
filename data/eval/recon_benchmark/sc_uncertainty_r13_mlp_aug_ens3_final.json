@@ -1,0 +1,10 @@
+{
+ "basis": "SkillCorner A-League re-entries (proxy truth = provider detections), model r13_mlp_aug_ens3_final",
+ "applies_to": "estimated players only; measured positions remain unverified",
+ "live_r80_coverage": 0.748,
+ "live_p5_max_bin_gap": 0.051,
+ "live_n": 94918,
+ "replay_r80_coverage": 0.787,
+ "replay_p5_max_bin_gap": 0.172,
+ "replay_n": 226050
+}

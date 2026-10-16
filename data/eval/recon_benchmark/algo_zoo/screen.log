@@ -1,0 +1,314 @@
+fold 0 live   zero             full  13.87  degraded  20.66  crit  17.27  train     0.0s  rows 1362341
+fold 0 live   ridge            full  10.91  degraded  16.94  crit  13.92  train     1.3s  rows 1362341
+fold 0 live   linear_svr       full  10.78  degraded  17.19  crit  13.99  train   170.1s  rows 400000
+fold 0 live   knn              full  10.47  degraded  15.62  crit  13.05  train     0.0s  rows 150000
+fold 0 live   decision_tree    full  10.92  degraded  15.82  crit  13.37  train    66.8s  rows 1362341
+fold 0 live   random_forest    full   9.65  degraded  14.65  crit  12.15  train   836.8s  rows 300000
+fold 0 live   extra_trees      full   9.53  degraded  14.53  crit  12.03  train   690.0s  rows 300000
+fold 0 live   hist_gbm         full   8.23  degraded  13.89  crit  11.06  train  2299.9s  rows 1362341
+fold 0 live   mlp              full   8.16  degraded  13.58  crit  10.87  train    29.9s  rows 1362341
+fold 0 live   mdn              full   8.11  degraded  13.80  crit  10.96  train   730.4s  rows 1362341
+fold 0 live   zone_classifier  full   8.25  degraded  13.89  crit  11.07  train   126.5s  rows 1362341
+fold 0 live   jepa             full   8.59  degraded  13.74  crit  11.16  train    48.4s  rows 1362341
+fold 0 replay zero             full  11.81  degraded  18.87  crit  15.34  train     0.0s  rows 1362341
+fold 0 replay ridge            full   9.60  degraded  15.26  crit  12.43  train     1.2s  rows 1362341
+fold 0 replay linear_svr       full   9.44  degraded  15.98  crit  12.71  train   108.8s  rows 400000
+fold 0 replay knn              full   9.52  degraded  13.26  crit  11.39  train     0.0s  rows 150000
+fold 0 replay decision_tree    full   9.64  degraded  13.59  crit  11.62  train    42.3s  rows 1362341
+fold 0 replay random_forest    full   8.66  degraded  12.57  crit  10.61  train    34.2s  rows 300000
+fold 0 replay extra_trees      full   8.72  degraded  12.51  crit  10.62  train    17.6s  rows 300000
+fold 0 replay hist_gbm         full   7.24  degraded  11.73  crit   9.49  train    89.2s  rows 1362341
+fold 0 replay mlp              full   7.03  degraded  11.33  crit   9.18  train    14.2s  rows 1362341
+fold 0 replay mdn              full   6.91  degraded  11.30  crit   9.11  train    17.8s  rows 1362341
+fold 0 replay zone_classifier  full   7.02  degraded  11.59  crit   9.31  train    25.8s  rows 1362341
+fold 0 replay jepa             full   7.60  degraded  11.74  crit   9.67  train    30.7s  rows 1362341
+fold 3 live   zero             full  13.74  degraded  20.73  crit  17.24  train     0.0s  rows 1358584
+fold 3 live   ridge            full  11.08  degraded  16.98  crit  14.03  train     0.2s  rows 1358584
+fold 3 live   linear_svr       full  10.99  degraded  17.26  crit  14.12  train    70.9s  rows 400000
+fold 3 live   knn              full  10.43  degraded  15.36  crit  12.90  train     0.0s  rows 150000
+fold 3 live   decision_tree    full  10.95  degraded  15.87  crit  13.41  train    35.5s  rows 1358584
+fold 3 live   random_forest    full   9.70  degraded  14.62  crit  12.16  train    32.3s  rows 300000
+fold 3 live   extra_trees      full   9.55  degraded  14.45  crit  12.00  train    20.3s  rows 300000
+fold 3 live   hist_gbm         full   8.35  degraded  13.87  crit  11.11  train    87.2s  rows 1358584
+fold 3 live   mlp              full   8.19  degraded  13.49  crit  10.84  train    15.2s  rows 1358584
+fold 3 live   mdn              full   8.15  degraded  13.80  crit  10.97  train    17.5s  rows 1358584
+fold 3 live   zone_classifier  full   8.35  degraded  13.92  crit  11.13  train    24.1s  rows 1358584
+fold 3 live   jepa             full   8.62  degraded  13.73  crit  11.17  train    30.2s  rows 1358584
+fold 3 replay zero             full  11.93  degraded  18.99  crit  15.46  train     0.0s  rows 1358584
+fold 3 replay ridge            full   9.88  degraded  15.32  crit  12.60  train     0.3s  rows 1358584
+fold 3 replay linear_svr       full   9.71  degraded  16.00  crit  12.86  train    95.8s  rows 400000
+fold 3 replay knn              full   9.67  degraded  13.30  crit  11.49  train     0.0s  rows 150000
+fold 3 replay decision_tree    full   9.75  degraded  13.68  crit  11.71  train    41.1s  rows 1358584
+fold 3 replay random_forest    full   8.81  degraded  12.60  crit  10.71  train    44.4s  rows 300000
+fold 3 replay extra_trees      full   8.82  degraded  12.50  crit  10.66  train    28.3s  rows 300000
+fold 3 replay hist_gbm         full   7.37  degraded  11.74  crit   9.55  train   104.6s  rows 1358584
+fold 3 replay mlp              full   7.16  degraded  11.30  crit   9.23  train    15.4s  rows 1358584
+fold 3 replay mdn              full   6.95  degraded  11.34  crit   9.15  train    18.5s  rows 1358584
+fold 3 replay zone_classifier  full   7.10  degraded  11.67  crit   9.38  train    25.8s  rows 1358584
+fold 3 replay jepa             full   7.84  degraded  11.71  crit   9.78  train    32.1s  rows 1358584
+fold 6 live   zero             full  13.46  degraded  20.48  crit  16.97  train     0.0s  rows 1359144
+fold 6 live   ridge            full  10.74  degraded  16.62  crit  13.68  train     0.4s  rows 1359144
+fold 6 live   linear_svr       full  10.58  degraded  16.87  crit  13.72  train    77.2s  rows 400000
+fold 6 live   knn              full  10.35  degraded  15.09  crit  12.72  train     0.0s  rows 150000
+fold 6 live   decision_tree    full  10.73  degraded  15.40  crit  13.07  train    41.7s  rows 1359144
+fold 6 live   random_forest    full   9.48  degraded  14.35  crit  11.91  train    45.9s  rows 300000
+fold 6 live   extra_trees      full   9.31  degraded  14.29  crit  11.80  train    27.5s  rows 300000
+fold 6 live   hist_gbm         full   8.15  degraded  13.62  crit  10.89  train    95.2s  rows 1359144
+fold 6 live   mlp              full   8.03  degraded  13.25  crit  10.64  train    15.5s  rows 1359144
+fold 6 live   mdn              full   8.04  degraded  13.47  crit  10.75  train    19.5s  rows 1359144
+fold 6 live   zone_classifier  full   8.17  degraded  13.64  crit  10.90  train    26.8s  rows 1359144
+fold 6 live   jepa             full   8.50  degraded  13.52  crit  11.01  train    39.6s  rows 1359144
+fold 6 replay zero             full  11.17  degraded  18.94  crit  15.05  train     0.0s  rows 1359144
+fold 6 replay ridge            full   9.35  degraded  15.18  crit  12.26  train     0.5s  rows 1359144
+fold 6 replay linear_svr       full   9.10  degraded  15.92  crit  12.51  train   140.6s  rows 400000
+fold 6 replay knn              full   9.15  degraded  13.06  crit  11.10  train     0.0s  rows 150000
+fold 6 replay decision_tree    full   9.19  degraded  13.37  crit  11.28  train    55.4s  rows 1359144
+fold 6 replay random_forest    full   8.37  degraded  12.35  crit  10.36  train    73.8s  rows 300000
+fold 6 replay extra_trees      full   8.35  degraded  12.35  crit  10.35  train    36.2s  rows 300000
+fold 6 replay hist_gbm         full   7.12  degraded  11.55  crit   9.33  train   116.4s  rows 1359144
+fold 6 replay mlp              full   7.03  degraded  11.09  crit   9.06  train    16.1s  rows 1359144
+fold 6 replay mdn              full   6.82  degraded  11.20  crit   9.01  train    19.3s  rows 1359144
+fold 6 replay zone_classifier  full   6.90  degraded  11.46  crit   9.18  train    28.5s  rows 1359144
+fold 6 replay jepa             full   7.63  degraded  11.56  crit   9.60  train    34.8s  rows 1359144
+[
+ {
+  "algo": "mlp",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 8.13,
+  "val_degraded_m": 13.439,
+  "criterion": 10.784,
+  "within_5m": 0.496,
+  "train_s": 20.2
+ },
+ {
+  "algo": "mdn",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 8.1,
+  "val_degraded_m": 13.691,
+  "criterion": 10.895,
+  "within_5m": 0.494,
+  "train_s": 255.8
+ },
+ {
+  "algo": "hist_gbm",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 8.246,
+  "val_degraded_m": 13.791,
+  "criterion": 11.018,
+  "within_5m": 0.483,
+  "train_s": 827.433
+ },
+ {
+  "algo": "zone_classifier",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 8.257,
+  "val_degraded_m": 13.815,
+  "criterion": 11.036,
+  "within_5m": 0.487,
+  "train_s": 59.133
+ },
+ {
+  "algo": "jepa",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 8.571,
+  "val_degraded_m": 13.661,
+  "criterion": 11.116,
+  "within_5m": 0.468,
+  "train_s": 39.4
+ },
+ {
+  "algo": "extra_trees",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 9.463,
+  "val_degraded_m": 14.426,
+  "criterion": 11.945,
+  "within_5m": 0.43,
+  "train_s": 245.933
+ },
+ {
+  "algo": "random_forest",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 9.61,
+  "val_degraded_m": 14.54,
+  "criterion": 12.075,
+  "within_5m": 0.429,
+  "train_s": 305.0
+ },
+ {
+  "algo": "knn",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 10.416,
+  "val_degraded_m": 15.358,
+  "criterion": 12.887,
+  "within_5m": 0.4,
+  "train_s": 0.0
+ },
+ {
+  "algo": "decision_tree",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 10.869,
+  "val_degraded_m": 15.7,
+  "criterion": 13.284,
+  "within_5m": 0.39,
+  "train_s": 48.0
+ },
+ {
+  "algo": "ridge",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 10.907,
+  "val_degraded_m": 16.846,
+  "criterion": 13.877,
+  "within_5m": 0.273,
+  "train_s": 0.633
+ },
+ {
+  "algo": "linear_svr",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 10.786,
+  "val_degraded_m": 17.105,
+  "criterion": 13.945,
+  "within_5m": 0.331,
+  "train_s": 106.067
+ },
+ {
+  "algo": "zero",
+  "mode": "live",
+  "folds": 3,
+  "val_full_m": 13.691,
+  "val_degraded_m": 20.624,
+  "criterion": 17.158,
+  "within_5m": 0.314,
+  "train_s": 0.0
+ },
+ {
+  "algo": "mdn",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 6.892,
+  "val_degraded_m": 11.283,
+  "criterion": 9.088,
+  "within_5m": 0.585,
+  "train_s": 18.533
+ },
+ {
+  "algo": "mlp",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 7.071,
+  "val_degraded_m": 11.24,
+  "criterion": 9.156,
+  "within_5m": 0.582,
+  "train_s": 15.233
+ },
+ {
+  "algo": "zone_classifier",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 7.009,
+  "val_degraded_m": 11.571,
+  "criterion": 9.29,
+  "within_5m": 0.579,
+  "train_s": 26.7
+ },
+ {
+  "algo": "hist_gbm",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 7.242,
+  "val_degraded_m": 11.674,
+  "criterion": 9.458,
+  "within_5m": 0.571,
+  "train_s": 103.4
+ },
+ {
+  "algo": "jepa",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 7.693,
+  "val_degraded_m": 11.669,
+  "criterion": 9.681,
+  "within_5m": 0.542,
+  "train_s": 32.533
+ },
+ {
+  "algo": "extra_trees",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 8.631,
+  "val_degraded_m": 12.454,
+  "criterion": 10.542,
+  "within_5m": 0.512,
+  "train_s": 27.367
+ },
+ {
+  "algo": "random_forest",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 8.615,
+  "val_degraded_m": 12.506,
+  "criterion": 10.561,
+  "within_5m": 0.515,
+  "train_s": 50.8
+ },
+ {
+  "algo": "knn",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 9.448,
+  "val_degraded_m": 13.204,
+  "criterion": 11.326,
+  "within_5m": 0.481,
+  "train_s": 0.0
+ },
+ {
+  "algo": "decision_tree",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 9.527,
+  "val_degraded_m": 13.547,
+  "criterion": 11.537,
+  "within_5m": 0.468,
+  "train_s": 46.267
+ },
+ {
+  "algo": "ridge",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 9.607,
+  "val_degraded_m": 15.252,
+  "criterion": 12.43,
+  "within_5m": 0.365,
+  "train_s": 0.667
+ },
+ {
+  "algo": "linear_svr",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 9.417,
+  "val_degraded_m": 15.969,
+  "criterion": 12.693,
+  "within_5m": 0.423,
+  "train_s": 115.067
+ },
+ {
+  "algo": "zero",
+  "mode": "replay",
+  "folds": 3,
+  "val_full_m": 11.635,
+  "val_degraded_m": 18.934,
+  "criterion": 15.285,
+  "within_5m": 0.393,
+  "train_s": 0.0
+ }
+]

@@ -476,3 +476,37 @@ def test_tactical_changes_cover_every_change_with_moved_players_and_ignore_blips
     live = tactical_changes(I, until=first["available_at"] - 1)  # live: just before its after-window has elapsed
     assert first["id"] not in {c["id"] for tm in "AB" for c in live[tm]}
     assert all(c["available_at"] <= first["available_at"] - 1 for tm in "AB" for c in live[tm])
+
+
+def _zoo_checkpoint(n_in, test="M3"):
+    import torch
+    torch.manual_seed(0)
+    return {"arch": "zoo_top3", "n_in": n_in, "mode": "live", "fold": 0, "train": ["M1", "M2"], "test": test,
+            "feat_version": 3, "calibration": None,
+            "members": {k: hm.make_zoo_net(k, n_in).state_dict() for k in ("mlp", "mdn", "zone")}}
+
+
+def test_top3_ensemble_predicts_a_finite_correction_and_spread_for_every_row():
+    X = np.random.default_rng(0).normal(size=(50, 66)).astype(np.float32)
+    mu, sig = hm.HiddenModel(_zoo_checkpoint(66)).raw(X)
+    assert mu.shape == (50, 2) and sig.shape == (50,)
+    assert np.isfinite(mu).all() and (sig > 0).all()
+    # the zone classifier's expected cell centre can never leave its grid
+    assert np.abs(hm.zoo_centres()).max() < hm.ZOO_ZONE_R
+
+
+def test_blend_of_ensembles_loads_members_relative_to_itself_and_keeps_the_held_out_match(tmp_path):
+    import torch
+    from backend.reconstruction.benchmark import check_held_out
+    for tag in ("a", "b"):
+        (tmp_path / tag).mkdir()
+        torch.save(_zoo_checkpoint(66), tmp_path / tag / "hidden_live_fold0.pt")
+    (tmp_path / "blend").mkdir()
+    torch.save({"arch": "ensemble", "members": ["../a/hidden_live_fold0.pt", "../b/hidden_live_fold0.pt"], "mode": "live",
+                "fold": 0, "train": ["M1", "M2"], "test": "M3", "feat_version": 3, "calibration": None},
+               tmp_path / "blend" / "hidden_live_fold0.pt")
+    m = hm.load_hidden(tmp_path / "blend" / "hidden_live_fold0.pt")
+    assert len(m.members) == 2 and all(x.arch == "zoo_top3" for x in m.members)
+    check_held_out(m.ck, "M3")
+    mu, sig = m.raw(np.zeros((4, 66), np.float32))
+    assert mu.shape == (4, 2) and np.isfinite(sig).all()

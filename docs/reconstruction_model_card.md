@@ -1,4 +1,6 @@
-# Model card: hidden-player reconstruction `r13_mlp_aug_ens3`
+# Model card: hidden-player reconstruction `r16_blend` (current) / `r13_mlp_aug_ens3`
+
+> **16 October 2026:** production is now `r16_blend`, an equal blend of `r13_mlp_aug_ens3` (described below) and `r16_top3`. `r16_top3` is an MLP, a mixture density network and a zone classifier, the three best of 11 algorithms screened. The blend is better on every gate: DFL held-out live 8.04 m (was 8.10), replay 6.61 m (was 6.66); GSR 6.66 / 3.00 m; SkillCorner 7.61 / 2.67 m. Calibration is unchanged. Checkpoints are in `cv/weights/recon/r16_blend/`; each refers to its two member files by relative path. Evidence: `docs/reconstruction_evaluation.md` §12. The rest of this card describes the `r13_mlp_aug_ens3` member, which is unchanged.
 
 | | |
 |---|---|

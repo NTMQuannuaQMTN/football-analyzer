@@ -1,0 +1,37 @@
+[
+ {
+  "source": "cv_2016_08_14_18_00_arsenal_3_4_liverpool_h1_1440_2040.json",
+  "output": "data/cv_r13_2016_08_14_18_00_arsenal_3_4_liverpool_h1_1440_2040.json",
+  "hidden_player_seconds": 8849,
+  "observed_player_seconds": 4373,
+  "source_sha256": "bf9601024efb45ca23fdd4f72f51d802900d1320e44ef590af4622e03212149b"
+ },
+ {
+  "source": "cv_skillcorner_epl_2440_h1.json",
+  "output": "data/cv_r13_skillcorner_epl_2440_h1.json",
+  "hidden_player_seconds": 38771,
+  "observed_player_seconds": 23137,
+  "source_sha256": "9105bca09f86189c074ec1db8c569446de601440dd945973b2b92d520a82517d"
+ },
+ {
+  "source": "cv_skillcorner_epl_2440_h2.json",
+  "output": "data/cv_r13_skillcorner_epl_2440_h2.json",
+  "hidden_player_seconds": 39275,
+  "observed_player_seconds": 25493,
+  "source_sha256": "802f00bbb0f0b888b9b892d487d318d02beceb57b942116a201e0f9eb8981ffb"
+ },
+ {
+  "source": "cv_skillcorner_epl_4039_h1.json",
+  "output": "data/cv_r13_skillcorner_epl_4039_h1.json",
+  "hidden_player_seconds": 37675,
+  "observed_player_seconds": 25810,
+  "source_sha256": "2659cc56ae558489da7abc7bf83301920a00d669df01d51fd220d34eea49fa7a"
+ },
+ {
+  "source": "cv_skillcorner_epl_4039_h2.json",
+  "output": "data/cv_r13_skillcorner_epl_4039_h2.json",
+  "hidden_player_seconds": 36213,
+  "observed_player_seconds": 23441,
+  "source_sha256": "5643d6afc2764357f3f44e5da8e50442ed4dd3ec2d3160bd0ef4696b3ba91def"
+ }
+]

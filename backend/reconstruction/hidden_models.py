@@ -125,6 +125,44 @@ def make_gru(n_in, mode, hidden=64):
     return GRUCtx()
 
 
+# ----------------------------------------------------------------------------- top-3 ensemble (algo_zoo screening)
+ZOO_MDN_K, ZOO_ZONE_M, ZOO_ZONE_R = 3, 4.0, 40.0
+ZOO_OUT = {"mlp": 2, "mdn": ZOO_MDN_K * 5, "zone": int(2 * ZOO_ZONE_R / ZOO_ZONE_M) ** 2}
+
+
+def make_zoo_net(kind, n_in):
+    """Same body as backend.reconstruction.algo_zoo._mlp; output head per member kind."""
+    from torch import nn
+    return nn.Sequential(nn.Linear(n_in, 256), nn.ReLU(), nn.Linear(256, 256), nn.ReLU(), nn.Linear(256, 128), nn.ReLU(),
+                         nn.Linear(128, ZOO_OUT[kind]))
+
+
+def zoo_centres():
+    nb = int(2 * ZOO_ZONE_R / ZOO_ZONE_M)
+    return np.array([[(i + 0.5) * ZOO_ZONE_M - ZOO_ZONE_R, (k + 0.5) * ZOO_ZONE_M - ZOO_ZONE_R]
+                     for i in range(nb) for k in range(nb)], np.float32) / 20
+
+
+def zoo_member_predict(kind, net, x):
+    """torch output -> (mean correction in /20 units (n, 2), variance in (/20)^2 units (n,) or None)."""
+    import torch
+    o = net(x)
+    if kind == "mlp":
+        return o, None
+    if kind == "mdn":
+        o = o.view(-1, ZOO_MDN_K, 5)
+        w = torch.softmax(o[..., 0], -1)
+        mu, s = o[..., 1:3], torch.exp(o[..., 3:5].clamp(-6, 3))
+        mean = (w[..., None] * mu).sum(1)
+        var = (w[..., None] * (s ** 2 + mu ** 2)).sum(1) - mean ** 2
+        return mean, var.sum(-1)
+    c = torch.from_numpy(zoo_centres())
+    p = torch.softmax(o, -1)
+    mean = p @ c
+    var = (p @ (c ** 2)) - mean ** 2
+    return mean, var.sum(-1)
+
+
 # ----------------------------------------------------------------------------- loading / prediction
 class HiddenModel:
     """Uniform predict(): corr (n, 2) metres in own frame, sigma (n,) raw scale, then calibrated r80 / p5."""
@@ -143,6 +181,13 @@ class HiddenModel:
             self.net = make_model(ck["n_in"])
         elif self.arch == "gru_ctx":
             self.net = make_gru(ck["n_in"], ck["mode"], ck.get("hidden", 64))
+        elif self.arch == "zoo_top3":
+            self.zoo = {}
+            for kind, state in ck["members"].items():
+                net = make_zoo_net(kind, ck["n_in"])
+                net.load_state_dict(state)
+                net.eval()
+                self.zoo[kind] = net
         if self.net is not None:
             self.net.load_state_dict(ck["state"])
             self.net.eval()
@@ -175,6 +220,22 @@ class HiddenModel:
             mus = np.stack([o[0] for o in outs])
             sig2 = np.mean([o[1] ** 2 for o in outs], 0) + (mus.var(0).sum(1) / 400)
             return mus.mean(0), np.sqrt(sig2)
+        if self.arch == "zoo_top3":
+            # mean of the members' corrections; sigma^2 = mean of the probabilistic members' predictive variances
+            # + the spread between members (then calibrated empirically like every other model)
+            means, sig = [], []
+            with torch.no_grad():
+                for k in range(0, len(X), 8192):
+                    x = torch.from_numpy(X[k:k + 8192])
+                    outs = {kind: zoo_member_predict(kind, net, x) for kind, net in self.zoo.items()}
+                    mus = torch.stack([o[0] for o in outs.values()])
+                    var = torch.stack([o[1] for o in outs.values() if o[1] is not None]).mean(0)
+                    spread = mus.var(0, unbiased=False).sum(-1)
+                    means.append(mus.mean(0).numpy())
+                    sig.append(torch.sqrt(var + spread).numpy())
+            if not means:
+                return np.zeros((0, 2)), np.zeros(0)
+            return np.concatenate(means) * 20, np.concatenate(sig)
         mus, sigs = [], []
         with torch.no_grad():
             for k in range(0, len(X), 8192):

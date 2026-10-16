@@ -334,3 +334,62 @@ At realistic video identity quality the error more than doubles and replay's adv
 **Formation shifts under reconstruction.** On DFL, 9 shifts were found on the reconstruction. 6 of them coincide with a true shift (±3 min), but only 3 name the same new formation, and visibility reliability does not separate right from wrong. When most of the team is estimated (observed share < 0.5), the moment is now titled "possible switch to …" with confidence capped at 0.5.
 
 Updated rating after these fixes: model accuracy 3/5 (positions unchanged; uncertainty better calibrated); specification alignment 3.5/5 (live causality, identity evaluation and detector validation added).
+
+## 12. Algorithm screening and the promoted blend (16 October 2026)
+
+**Question.** Which learning algorithm predicts hidden players' positions best? The top three would then be used in the model.
+
+**Protocol.**
+- All algorithms get the same inputs and target:
+  - inputs are the v3 row features (66 live / 75 replay), with the degraded-context augmentation;
+  - the target is the correction to the team-shape prior, in the team's own frame.
+- They are scored on the time-blocked validation tail of the *training* matches of folds 0, 3 and 6. No test match is read during screening.
+- The criterion is the mean of full-context and degraded-context validation error, as for every earlier selection.
+- Code: `backend/reconstruction/algo_zoo.py`. Results: `data/eval/recon_benchmark/algo_zoo/screen_fold{0,3,6}.json`.
+- Gaussian processes and kernel SVMs were left out because they do not scale to about 1.3 M training rows.
+- kNN, the forests and linear SVR were trained on a capped sample of 150k–400k rows.
+
+| Rank | Algorithm | Live val. full / degraded (m) | Replay val. full / degraded (m) | Criterion (mean) | ≤ 5 m live / replay |
+|---:|---|---:|---:|---:|---:|
+| 1 | MLP (regression) | 8.13 / 13.44 | 7.07 / 11.24 | 9.97 | 49.6% / 58.2% |
+| 2 | Mixture density network (probabilistic) | 8.10 / 13.69 | 6.89 / 11.28 | 9.99 | 49.4% / 58.5% |
+| 3 | Zone classifier (4 m cells, expected position) | 8.26 / 13.81 | 7.01 / 11.57 | 10.16 | 48.7% / 57.9% |
+| 4 | Histogram gradient boosting | 8.25 / 13.79 | 7.24 / 11.67 | 10.24 | 48.3% / 57.1% |
+| 5 | JEPA-style self-supervised encoder + head | 8.57 / 13.66 | 7.69 / 11.67 | 10.40 | 46.8% / 54.2% |
+| 6 | Extra trees | 9.46 / 14.43 | 8.63 / 12.45 | 11.24 | 43.0% / 51.2% |
+| 7 | Random forest | 9.61 / 14.54 | 8.62 / 12.51 | 11.32 | 42.9% / 51.5% |
+| 8 | k-nearest neighbours | 10.42 / 15.36 | 9.45 / 13.20 | 12.11 | 40.0% / 48.1% |
+| 9 | Decision tree | 10.87 / 15.70 | 9.53 / 13.55 | 12.41 | 39.0% / 46.8% |
+| 10 | Ridge regression | 10.91 / 16.85 | 9.61 / 15.25 | 13.15 | 27.3% / 36.5% |
+| 11 | Linear SVR | 10.79 / 17.11 | 9.42 / 15.97 | 13.32 | 33.1% / 42.3% |
+| – | Prior only (no correction) | 13.69 / 20.62 | 11.63 / 18.93 | 16.22 | 31.4% / 39.3% |
+
+**The top 3 as one model: `r16_top3`** (`train_top3.py`, `hidden_models` arch `zoo_top3`).
+- The MLP, MDN and zone classifier are trained per fold and on all 7 matches.
+- The correction is the mean of the three members.
+- Sigma combines the MDN's and the zone classifier's predictive variances with the spread between members. It is then calibrated on the validation tail, as for every model.
+- On its own, `r16_top3` was **not** promoted. It ties production on validation (10.82 / 9.10 vs 10.73 / 9.10). It is worse on the DFL live and degraded tests and better on GSR and SkillCorner replay, so it fails the non-inferiority gate.
+
+**Blend: `r16_blend`** (`build_blend.py`).
+- An equal blend of production (`r13_mlp_aug_ens3`, a 3-seed MLP) and `r16_top3`.
+- Each fold's blend combines the two models of that same fold, so the held-out match is never seen by either member.
+- It is recalibrated on the same validation tail.
+- It was selected on validation (criterion 10.71 / 9.03 vs production 10.73 / 9.10) and only then scored on the tests:
+
+| Test (lower is better) | Production `r13_mlp_aug_ens3` | `r16_top3` | **`r16_blend`** |
+|---|---:|---:|---:|
+| DFL 7-fold held-out, live (+speed) | 8.10 m | 8.13 m | **8.04 m** |
+| DFL 7-fold held-out, replay (+speed) | 6.66 m | 6.66 m | **6.61 m** |
+| r80 coverage, DFL live / replay | 0.799 / 0.803 | 0.799 / 0.792 | 0.800 / 0.794 |
+| DFL degraded test, live / replay | 6.18 / 5.43 m | 6.26 / 5.46 m | **6.16 / 5.38 m** (wins 7/7 folds in both modes) |
+| GSR re-entries (direct truth), live / replay | 6.74 / 3.06 m | 6.67 / 3.02 m | **6.66 / 3.00 m** |
+| SkillCorner re-entries (proxy truth), live / replay | 7.64 / 2.73 m | 7.72 / 2.70 m | **7.61 / 2.67 m** |
+| SkillCorner r80 coverage, live / replay | 0.748 / 0.787 | 0.747 / 0.769 | 0.749 / 0.777 |
+
+**Decision.**
+- `r16_blend` is better than production on every promotion gate, so it is now production (`inference.PRODUCTION_DIR = "recon/r16_blend"`).
+- The gains are small: 0.03–0.07 m. The gap between our model and the next tier of algorithms (trees, kNN, linear) is much larger, 1–3 m.
+- Calibration is unchanged within noise. Replay P(err ≤ 5 m) on SkillCorner is still over-confident in its worst bin: a gap of 0.13 (production: 0.17).
+- The SkillCorner exports now take their "uncertainty validated" numbers from `sc_uncertainty_<model>.json`, measured for the exported model. Before, they were hard-coded.
+- All exports were re-inferred with the blend. Their file names and app ids are unchanged, and the previous files are in `data/_prev_exports_r13/`.
+- To roll back: `RECON_PRODUCTION=recon/r13_mlp_aug_ens3:foldfinal`.

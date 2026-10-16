@@ -35,6 +35,10 @@ RESTART_KIND = {"throw_in": "Throw-in", "free_kick": "Free kick", "goal_kick": "
                 "goal": "Goal · kick-off", "penalty": "Penalty"}
 
 
+def methods_learned(methods):
+    return [m for m in methods.split(",") if m != "base"]
+
+
 def restart_kind(label):
     """'throw_in_for' -> 'Throw-in'; '' -> None."""
     if not label:
@@ -164,6 +168,24 @@ def sc_clips():
                 yield "skillcorner", clip
 
 
+def uncertainty_record(rows, method):
+    """What the exports may claim about the uncertainty of `method` on SkillCorner re-entries: 80%-radius coverage and
+    the worst gap between predicted and observed P(err <= 5 m) over probability bins with >= 200 rows."""
+    out = {"basis": f"SkillCorner A-League re-entries (proxy truth = provider detections), model {method}",
+           "applies_to": "estimated players only; measured positions remain unverified"}
+    for mode in ("live", "replay"):
+        r = [x for x in rows if x["mode"] == mode and f"err:{method}" in x]
+        if not r:
+            return None
+        e, p5, r80 = (np.array([x[f"{k}:{method}"] for x in r]) for k in ("err", "p5", "r80"))
+        b = np.digitize(p5, [0.2, 0.4, 0.6, 0.8])
+        gap = max(abs(p5[b == k].mean() - (e[b == k] <= 5).mean()) for k in range(5) if (b == k).sum() >= 200)
+        out[f"{mode}_r80_coverage"] = round(float((e <= r80).mean()), 3)
+        out[f"{mode}_p5_max_bin_gap"] = round(float(gap), 3)
+        out[f"{mode}_n"] = len(r)
+    return out
+
+
 def flank_check():
     """Convention check (no model error involved): own-frame y of right- vs left-sided players when detected."""
     out = {"right": [], "left": []}
@@ -190,6 +212,10 @@ if __name__ == "__main__":
     s = summarize(rows)
     (OUT / f"{a.name}_summary.json").write_text(json.dumps(s, indent=1))
     (OUT / f"{a.name}_rows.json").write_text(json.dumps(rows))
+    for m in methods_learned(a.methods):
+        rec = uncertainty_record(rows, m)
+        if rec:
+            (OUT / f"sc_uncertainty_{m}.json").write_text(json.dumps(rec, indent=1))
     for mode, res in s.items():
         print(f"\n{mode}: n={res['n']} halves={res['clips']} matches={len(res['games'])}")
         for nm, v in res["methods"].items():

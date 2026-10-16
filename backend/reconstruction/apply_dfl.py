@@ -6,6 +6,8 @@ the pin clock lag is fitted over the whole half, which would give the live view 
 data/dfl_<code>_<tag>_h<half>.json beside the originals (never overwritten) and a metrics log.
 
     .venv/bin/python -m backend.reconstruction.apply_dfl --model r13_mlp_ens3 --tag r13
+--file-tag keeps an existing export's file name (and app id) while recording the new session, e.g.
+    .venv/bin/python -m backend.reconstruction.apply_dfl --model r16_blend --tag r16 --file-tag r13
 """
 import argparse
 import json
@@ -33,7 +35,7 @@ def hidden_metrics(data, mode):
             "r80_coverage": round(float((e <= rad)[np.isfinite(rad)].mean()), 3) if np.isfinite(rad).any() else None}
 
 
-def main(model, tag):
+def main(model, tag, file_tag=None):
     dfl_match.PIN_MODE = "off"
     weights = ROOT / "cv" / "weights" / "recon" / model
     log = []
@@ -44,7 +46,7 @@ def main(model, tag):
             src.update(reconstruction_model=model, reconstruction_session=tag, reconstruction_fold=f"fold{i}",
                        event_pins="disabled (whole-half lag fit would leak future information into live)",
                        held_out_checked=True)
-            path = DATA / f"dfl_{mid.split('-')[-1]}_{tag}_h{half}.json"
+            path = DATA / f"dfl_{mid.split('-')[-1]}_{file_tag or tag}_h{half}.json"
             tmp = path.with_suffix(".tmp")
             tmp.write_text(json.dumps(out, separators=(",", ":")))
             tmp.replace(path)
@@ -64,5 +66,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--tag", required=True)
+    ap.add_argument("--file-tag", default=None)
     a = ap.parse_args()
-    main(a.model, a.tag)
+    main(a.model, a.tag, a.file_tag)
