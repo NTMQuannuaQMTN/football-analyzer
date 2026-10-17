@@ -3,6 +3,10 @@ __pycache__/
 frontend/node_modules/
 frontend/.next/
 data/*.json
+# shipped with the deployment (DFL open data, CC BY 4.0): one full match + match facts
+!data/dfl_J03WMX_r13_h1.json
+!data/dfl_J03WMX_r13_h2.json
+!data/dfl_info.json
 cv/out/
 cv/weights/
 data/soccernet/

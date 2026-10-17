@@ -592,10 +592,9 @@ def get_intel(seed: int = 7, source=_DEFAULT) -> MatchIntelligence:
             key = (*identity, version)
             if key in _cache:
                 return _cache[key]
-            value = None
-            if src is None:  # synthetic: the shipped precomputed analysis when it was built by this code
-                from backend import precomputed
-                value = precomputed.load(seed)
+            # the shipped precomputed analysis, when it was built by this code (and, for a file, from this file)
+            from backend import precomputed
+            value = precomputed.load(seed) if src is None else precomputed.load_file(src)
             value = value or MatchIntelligence(seed, src)
             after = Path(src).stat() if src else None
             if stamp and (after.st_mtime_ns, after.st_size, after.st_ino) != version:

@@ -28,12 +28,23 @@ def code_digest() -> str:
     return h.hexdigest()
 
 
-def path(seed: int) -> Path:
-    return DIR / f"intel_seed{seed}.pkl.gz"
+def path(seed) -> Path:
+    """seed: the synthetic match with this seed; a str: the analysis of that match file."""
+    return DIR / (f"intel_seed{seed}.pkl.gz" if isinstance(seed, int) else f"intel_{Path(seed).stem}.pkl.gz")
 
 
-def load(seed: int, digest: str = None):
-    """The precomputed MatchIntelligence for this seed, or None (missing, unreadable, or built by other code)."""
+def file_digest(src) -> str:
+    """Code digest + the match file's content: a re-exported file never gets the old analysis."""
+    return hashlib.sha256((code_digest() + hashlib.sha256(Path(src).read_bytes()).hexdigest()).encode()).hexdigest()
+
+
+def load_file(src):
+    """The precomputed MatchIntelligence for this match file, or None."""
+    return load(str(src), file_digest(src)) if path(str(src)).exists() else None
+
+
+def load(seed, digest: str = None):
+    """The precomputed MatchIntelligence for this seed (or file), or None (missing, unreadable, or built by other code)."""
     p = path(seed)
     if not p.exists():
         return None
@@ -45,12 +56,12 @@ def load(seed: int, digest: str = None):
     return rec["intel"] if rec.get("digest") == (digest or code_digest()) else None
 
 
-def save(seed: int, intel) -> Path:
+def save(seed, intel, digest: str = None) -> Path:
     DIR.mkdir(parents=True, exist_ok=True)
     p = path(seed)
     tmp = p.with_suffix(".tmp")
     with gzip.open(tmp, "wb", compresslevel=6) as f:
-        pickle.dump({"digest": code_digest(), "seed": seed, "intel": intel}, f, protocol=5)
+        pickle.dump({"digest": digest or code_digest(), "seed": seed, "intel": intel}, f, protocol=5)
     tmp.replace(p)
     return p
 
@@ -69,6 +80,10 @@ def fresh(seed: int) -> bool:
     return load(seed) is not None
 
 
+# match files shipped with the deployment (git-tracked, CC BY 4.0): their analysis is precomputed too
+SHIPPED_FILES = ["data/dfl_J03WMX_r13_h1.json", "data/dfl_J03WMX_r13_h2.json"]
+
+
 if __name__ == "__main__":
     import argparse
     import time
@@ -78,11 +93,13 @@ if __name__ == "__main__":
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--if-stale", action="store_true", help="only rebuild when the shipped file does not match the code")
     a = ap.parse_args()
-    if a.if_stale and fresh(a.seed):
-        print(f"{path(a.seed).relative_to(ROOT)} is up to date")
-    else:
+    jobs = [(a.seed, None)] + [(str((ROOT / f).resolve()), f) for f in SHIPPED_FILES if (ROOT / f).exists()]
+    for key, src in jobs:
+        if a.if_stale and (fresh(key) if src is None else load_file(key) is not None):
+            print(f"{path(key).relative_to(ROOT)} is up to date")
+            continue
         t0 = time.time()
-        I = MatchIntelligence(a.seed, None)
+        I = MatchIntelligence(a.seed, key) if src else MatchIntelligence(a.seed, None)
         warm(I)
-        p = save(a.seed, I)
+        p = save(key, I, file_digest(key) if src else None)
         print(f"wrote {p.relative_to(ROOT)} ({p.stat().st_size / 1e6:.1f} MB) in {time.time() - t0:.0f}s")

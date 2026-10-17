@@ -1,0 +1,51 @@
+{
+ "DFL-MAT-J03WMX": {
+  "date": "2023-05-27",
+  "season": "2022/2023",
+  "matchday": "34",
+  "result": "1:2",
+  "competition": "Bundesliga"
+ },
+ "DFL-MAT-J03WN1": {
+  "date": "2023-05-27",
+  "season": "2022/2023",
+  "matchday": "34",
+  "result": "3:0",
+  "competition": "Bundesliga"
+ },
+ "DFL-MAT-J03WOH": {
+  "date": "2022-08-26",
+  "season": "2022/2023",
+  "matchday": "6",
+  "result": "4:0",
+  "competition": "2. Bundesliga"
+ },
+ "DFL-MAT-J03WOY": {
+  "date": "2022-09-10",
+  "season": "2022/2023",
+  "matchday": "8",
+  "result": "3:1",
+  "competition": "2. Bundesliga"
+ },
+ "DFL-MAT-J03WPY": {
+  "date": "2022-10-15",
+  "season": "2022/2023",
+  "matchday": "12",
+  "result": "0:1",
+  "competition": "2. Bundesliga"
+ },
+ "DFL-MAT-J03WQQ": {
+  "date": "2022-11-05",
+  "season": "2022/2023",
+  "matchday": "15",
+  "result": "1:0",
+  "competition": "2. Bundesliga"
+ },
+ "DFL-MAT-J03WR9": {
+  "date": "2022-11-11",
+  "season": "2022/2023",
+  "matchday": "17",
+  "result": "1:2",
+  "competition": "2. Bundesliga"
+ }
+}

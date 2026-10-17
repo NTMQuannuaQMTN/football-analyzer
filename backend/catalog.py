@@ -77,8 +77,9 @@ def file_meta(path) -> dict:
 
 def _dfl_info(mid: str) -> dict:
     f = glob.glob(str(DATA / "dfl" / f"DFL_02_01_matchinformation_*_{mid}.xml"))
-    if not f:
-        return {}
+    if not f:  # deployment: the raw DFL files are not shipped; data/dfl_info.json holds the same match facts
+        side = DATA / "dfl_info.json"
+        return (json.loads(side.read_text()).get(mid) or {}) if side.exists() else {}
     g = ET.parse(f[0]).getroot().find(".//General")
     return {"date": (g.get("KickoffTime") or "")[:10], "season": g.get("Season"), "matchday": g.get("MatchDay"),
             "result": g.get("Result"), "competition": g.get("CompetitionName")}
@@ -205,8 +206,8 @@ def superseded(m) -> bool:
     SHOW_SUPERSEDED=1. The live match is never hidden."""
     if m["id"] == LIVE_MATCH:
         return False
-    if m["kind"] == "synthetic":  # the whole EPL test match replaces it when present (still reachable by URL)
-        return any((e["info"] or {}).get("test_match") for e in _catalog_static())
+    if m["kind"] == "synthetic":  # a real full match replaces it in the lobby when present (still reachable by URL)
+        return any(e["kind"] != "synthetic" for e in _catalog_static())
     p = next(iter(m["parts"].values()))
     src = file_meta(p)["meta"].get("source") or {}
     if src.get("session") == "seven-hour" or "trial7h" in Path(p).name:
@@ -280,8 +281,9 @@ def lobby():
             s, e = src.get("start", 0), src.get("end", 0)
             score_note = "score is for this clip" if card["score_known"] else "score N/A"
             card["note"] = f"{int(s // 60)}:{int(s % 60):02d}–{int(e // 60)}:{int(e % 60):02d} of half {src.get('half', 1)}; {score_note}"
-        elif m["kind"] == "tracking" and len(m["parts"]) < 2:
-            card["note"] = "Only one half available"
+        elif m["kind"] == "tracking":
+            card["note"] = ("Only one half available. " if len(m["parts"]) < 2 else "") + \
+                "Data: DFL / IDSSE open data (Bassek et al., Sci Data 2025), CC BY 4.0"
         cards.append(card)
     live = [c for c in cards if c["status"] == "live"]
     past = sorted((c for c in cards if c["status"] != "live"), key=lambda c: c.get("date") or "", reverse=True)
