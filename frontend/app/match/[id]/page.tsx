@@ -185,7 +185,7 @@ export default function MatchPage({ params }: { params: Promise<{ id: string }> 
     <main className="min-h-screen bg-[#060a13] text-slate-100">
       <header className="h-14 flex items-center gap-4 px-6 border-b border-white/10 bg-gradient-to-r from-[#0b1222] to-[#060a13]">
         <Link href="/" className="text-sm text-slate-400 hover:text-white">← Lobby</Link>
-        <span className="font-black tracking-widest text-lime-300">MATCH INSIGHTS</span>
+        <span className="font-black tracking-widest text-lime-300">MATCHSIGHT AI</span>
         <span className="text-[11px] uppercase tracking-widest text-slate-500">Highlights & analysis</span>
       </header>
 

@@ -65,7 +65,7 @@ export default function Lobby() {
   return (
     <main className="min-h-screen bg-[#060a13] text-slate-100">
       <header className="h-14 flex items-center gap-4 px-6 border-b border-white/10 bg-gradient-to-r from-[#0b1222] to-[#060a13]">
-        <span className="font-black tracking-widest text-lime-300">MATCH INSIGHTS</span>
+        <span className="font-black tracking-widest text-lime-300">MATCHSIGHT AI</span>
         <span className="text-[11px] uppercase tracking-widest text-slate-500">Lobby</span>
       </header>
       <div className="max-w-6xl mx-auto px-6 py-6 space-y-8">

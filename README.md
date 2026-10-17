@@ -1,4 +1,4 @@
-# Synthetic Match Insights Engine — Premier League Studio
+# MatchSight AI: Hidden Match Reconstruction & Tactical Intelligence
 
 Football is a sequence of changing states, tactical decisions, consequences and turning points. This engine reconstructs that story from synthetic tracking and event data and explains **what happened → what changed → what it caused → why it mattered**.
 

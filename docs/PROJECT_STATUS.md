@@ -1,4 +1,4 @@
-# Project status: Match Insights Engine
+# Project status: MatchSight AI
 
 Purpose of this file: give a reviewer (human or AI model) enough context to decide **what to improve next**. It describes what the repo does, how it is built, what has been measured, and what is weak. All numbers come from files in `data/eval/` or from runs noted below. Nothing here is estimated.
 

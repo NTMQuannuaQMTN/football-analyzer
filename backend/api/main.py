@@ -72,7 +72,7 @@ class CdnCache:
         await self.app(scope, receive, send_with_cache)
 
 
-app = FastAPI(title="Synthetic Match Insights Engine", version="0.2.0")
+app = FastAPI(title="MatchSight AI: Hidden Match Reconstruction & Tactical Intelligence", version="0.2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(CdnCache)

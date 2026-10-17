@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Match Insights Engine",
-  description: "Synthetic Match Insights Engine — Premier League Studio",
+  title: "MatchSight AI",
+  description: "MatchSight AI: Hidden Match Reconstruction & Tactical Intelligence",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -235,7 +235,7 @@ function Studio({ data, match, part, startT, momentId }: { data: MatchBundle } &
             ))}
           </div>
         )}
-        <div className={`${data.parts && data.parts.length > 1 ? "" : "ml-auto "}text-[11px] uppercase tracking-widest text-slate-500`}>Match Insights Engine</div>
+        <div className={`${data.parts && data.parts.length > 1 ? "" : "ml-auto "}text-[11px] uppercase tracking-widest text-slate-500`}>MatchSight AI</div>
       </header>
 
       <div className="flex-1 min-h-0 flex">
