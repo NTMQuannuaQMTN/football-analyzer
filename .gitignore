@@ -27,3 +27,4 @@ runs/
 
 # local backups of previous exports (never committed; large)
 data/_prev_exports_*/
+data/eplfull/

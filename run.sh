@@ -24,6 +24,8 @@ NEW_API=$(free_port "$API_PORT"); NEW_WEB=$(free_port "$WEB_PORT")
 [ "$NEW_WEB" != "$WEB_PORT" ] && echo "Web port $WEB_PORT is used by another program; using $NEW_WEB"
 API_PORT=$NEW_API; WEB_PORT=$NEW_WEB
 
+# refresh the shipped synthetic-match analysis if the code changed (data/precomputed; commit it so the deploy loads it)
+(.venv/bin/python -m backend.precomputed --if-stale >/dev/null 2>&1 &)
 .venv/bin/uvicorn backend.api.main:app --port "$API_PORT" &
 API=$!
 trap 'kill $API 2>/dev/null || true' EXIT

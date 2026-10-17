@@ -2,6 +2,8 @@
 
   real tracking   data/dfl_<match>_h1.json + _h2.json (backend/reconstruction/dfl_match.py), one match, two halves
   computer vision data/cv_*.json (cv/build_match.py), a clip of a broadcast
+  EPL test match  data/epl_<match>_h1.json + _h2.json: a whole EPL broadcast (SoccerNet video, local only under its NDA)
+                  run through our own CV + hidden-player model; when present it replaces the synthetic match in the lobby
   synthetic       the scripted simulator (a test match with exact ground truth; not meant to look like real football)
 LIVE: one recorded real match (LIVE_MATCH, DFL tracking) is replayed as a live feed: its clock runs in real time from
 LIVE_STARTED_MIN minutes before the server started, through the 1st half into the 2nd. Labelled as a replay.
@@ -51,9 +53,16 @@ def video_details(meta):
 
 @lru_cache(maxsize=4)
 def _synthetic_meta(seed):
-    """A lobby card needs simulator facts, not two reconstruction passes."""
-    raw = generate_match(seed)
-    return raw["meta"]
+    """A lobby card needs simulator facts, not two reconstruction passes (the shipped precomputed analysis already
+    holds them; otherwise only the simulator runs)."""
+    pre = precomputed_meta(seed)
+    return pre if pre is not None else generate_match(seed)["meta"]
+
+
+def precomputed_meta(seed):
+    from backend import precomputed
+    I = precomputed.load(seed)
+    return I.raw_meta if I is not None and hasattr(I, "raw_meta") else None
 
 
 @lru_cache(maxsize=128)
@@ -111,6 +120,17 @@ def _catalog_static() -> tuple:
         if file_meta(p)['meta'].get('source',{}).get('experimental'):details['label']='Experimental reconstruction · EPL'
         out.append({"id": "cv-" + Path(p).stem[3:].replace("_", "-")[:60], "kind": "computer_vision",
                     "label": details["label"], "parts": {"clip": p}, "info": details})
+    # whole EPL match, both halves of the broadcast through our own CV (cv/build_match.py + apply_exports re-inference)
+    epl = {}
+    for p in sorted(glob.glob(str(DATA / "epl_*_h[12].json"))):
+        key, half = Path(p).stem.rsplit("_", 1)
+        epl.setdefault(key, {})[half] = p
+    for key, parts in epl.items():
+        details = video_details(file_meta(parts[next(iter(parts))])["meta"])
+        out.append({"id": key.replace("_", "-"), "kind": "computer_vision",
+                    "label": "Test match · EPL broadcast video · our CV, hidden players estimated",
+                    "parts": {h: parts[h] for h in sorted(parts)},
+                    "info": {**details, "full_match": True, "test_match": True}})
     out.append({"id": f"sim-{LIVE_SEED}", "kind": "synthetic", "label": "Synthetic test match · scripted simulator",
                 "parts": {"full": None}, "info": {"competition": "Synthetic test league"}})
     return tuple(out)
@@ -181,10 +201,12 @@ def _teams(meta):
 
 def superseded(m) -> bool:
     """A catalogued file replaced by a newer version of the same match: earlier experimental candidates (seven-hour
-    session), and originals for which a re-inferred r13 export exists. Still reachable by URL; listed only with
+    session), originals for which a re-inferred r13 export exists, and the synthetic match once the EPL test match exists. Still reachable by URL; listed only with
     SHOW_SUPERSEDED=1. The live match is never hidden."""
-    if m["id"] == LIVE_MATCH or m["kind"] == "synthetic":
+    if m["id"] == LIVE_MATCH:
         return False
+    if m["kind"] == "synthetic":  # the whole EPL test match replaces it when present (still reachable by URL)
+        return any((e["info"] or {}).get("test_match") for e in _catalog_static())
     p = next(iter(m["parts"].values()))
     src = file_meta(p)["meta"].get("source") or {}
     if src.get("session") == "seven-hour" or "trial7h" in Path(p).name:
@@ -235,7 +257,15 @@ def lobby():
                 "status": "finished", "competition": m["info"].get("competition") or src.get("competition"),
                 "date": m["info"].get("date"), "season": m["info"].get("season"), "matchday": m["info"].get("matchday"),
                 "parts": [{"id": h, "label": PART_LABEL.get(h, h)} for h in m["parts"]]}
-        if m["kind"] == "computer_vision" and m["info"].get("full_match"):
+        if m["info"].get("test_match"):
+            shares = [(v["meta"].get("source") or {}).get("observed_share") for v in metas.values()]
+            shares = [x for x in shares if x is not None]
+            card["note"] = ("Whole match from the broadcast video through our own CV"
+                            + (f" ({round(100 * sum(shares) / len(shares))}% of player-seconds detected)" if shares else "")
+                            + "; replays and close-ups excluded, every other position is a model estimate. Player identities "
+                              "are role-based guesses from the lineup, not shirt numbers. Events: SoccerNet action labels. "
+                              "No reference tracking exists, so positional accuracy cannot be measured on this match")
+        elif m["kind"] == "computer_vision" and m["info"].get("full_match"):
             share = src.get("observed_share")
             card["note"] = (f"Full match from broadcast detections ({round(share * 100)}% of player-seconds detected in the 1st half); "
                             "every other position is a model estimate. Events: provider CV, not an official feed")
@@ -258,11 +288,27 @@ def lobby():
     return live + past  # live first, then newest past match first
 
 
+_summaries = {}
+
+
 def match_summary(mid):
-    """Whole-match analysis: every part summarised, then combined (stats summed, possession by time on the ball)."""
+    """Whole-match analysis, cached for finished matches until a part's file changes (a live match changes every
+    minute and is always recomputed)."""
     m = entry(mid)
     if m is None:
         raise KeyError(mid)
+    if live_clock(mid) is not None:
+        return _match_summary(mid, m)
+    key = (mid, tuple((p, os.stat(p).st_mtime_ns) if p else (None, None) for p in m["parts"].values()))
+    if key not in _summaries:
+        if len(_summaries) > 32:
+            _summaries.clear()
+        _summaries[key] = _match_summary(mid, m)
+    return _summaries[key]
+
+
+def _match_summary(mid, m):
+    """Whole-match analysis: every part summarised, then combined (stats summed, possession by time on the ball)."""
     live = live_clock(mid) is not None
     parts = []
     for h in m["parts"]:

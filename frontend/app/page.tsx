@@ -49,10 +49,15 @@ export default function Lobby() {
   const [cards, setCards] = useState<LobbyCard[] | null>(null);
   const [err, setErr] = useState<string | null>(null);
   useEffect(() => {
-    const load = () => loadLobby().then(setCards).catch((e) => setErr(String(e)));
+    let id: ReturnType<typeof setInterval> | undefined;
+    const load = () => loadLobby().then((c) => {
+      setCards(c);
+      // refresh the live minute / score only while a match is live (every poll is a server call)
+      if (c.some((x) => x.status === "live")) id ??= setInterval(load, 15000);
+      else if (id) { clearInterval(id); id = undefined; }
+    }).catch((e) => setErr(String(e)));
     load();
-    const id = setInterval(load, 15000); // live minute / score
-    return () => clearInterval(id);
+    return () => { if (id) clearInterval(id); };
   }, []);
   if (err && !cards) return <div className="p-8 text-rose-300">Could not reach the intelligence API at {API}. Start the backend first.<br />{err}</div>;
   const live = (cards ?? []).filter((c) => c.status === "live");

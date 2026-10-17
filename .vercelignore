@@ -20,3 +20,5 @@ data/_prev_exports_*/
 data/eval/recon_benchmark/
 data/eval/real/
 backend/reconstruction/algo_zoo.py
+data/epl_*.json
+data/eplfull/

@@ -64,7 +64,7 @@ def clip_from_export(d):
             "anchors": anchors, "role_basis": "provider role acronyms" if acr else "lineup slot (cv.clip_eval.coarse_roles)"}
 
 
-def apply(src, models, model_name, tag, file_tag=None):
+def apply(src, models, model_name, tag, file_tag=None, out_path=None):
     d = json.loads((DATA / src).read_text())
     sha = hashlib.sha256((DATA / src).read_bytes()).hexdigest()
     clip = clip_from_export(d)
@@ -102,7 +102,7 @@ def apply(src, models, model_name, tag, file_tag=None):
     src_meta.pop("error_vs_truth", None)
     out["meta"] = dict(d["meta"], source=src_meta)
     name = src.removeprefix("cv_")
-    path = DATA / f"cv_{file_tag or tag}_{name}"
+    path = Path(out_path) if out_path else DATA / f"cv_{file_tag or tag}_{name}"
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(out, separators=(",", ":")))
     tmp.replace(path)

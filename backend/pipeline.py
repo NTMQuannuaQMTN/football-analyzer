@@ -69,6 +69,7 @@ class MatchIntelligence:
         self.source = source
         # INGEST: synthetic simulator, or any file in the same contract (e.g. cv/build_match.py output)
         raw = json.load(open(source)) if source else generate_match(seed)
+        self.raw_meta = dict(raw["meta"])  # as ingested (the lobby card reads it)
         # ground truth, when the match has it, is what we analyse ("truth"); the camera estimate ("vod") is kept to
         # compare against, and is what a match without ground truth (CV from video) has to rely on
         self.view = (raw["meta"].get("view") or "cv") if source else os.getenv("VIEW", "truth")
@@ -591,7 +592,11 @@ def get_intel(seed: int = 7, source=_DEFAULT) -> MatchIntelligence:
             key = (*identity, version)
             if key in _cache:
                 return _cache[key]
-            value = MatchIntelligence(seed, src)
+            value = None
+            if src is None:  # synthetic: the shipped precomputed analysis when it was built by this code
+                from backend import precomputed
+                value = precomputed.load(seed)
+            value = value or MatchIntelligence(seed, src)
             after = Path(src).stat() if src else None
             if stamp and (after.st_mtime_ns, after.st_size, after.st_ino) != version:
                 continue  # Never label a changed file as the version read earlier.

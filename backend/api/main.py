@@ -35,9 +35,47 @@ class StripApiPrefix:
         await self.app(scope, receive, send)
 
 
+class CdnCache:
+    """Let the CDN (Vercel edge) answer repeat GETs about finished matches without running the function: their analysis
+    only changes with a new deployment, which purges the CDN cache. A live match (or the lobby while one is live)
+    changes every minute and is never cached; /health is never cached."""
+    LONG = "public, max-age=0, s-maxage=86400, stale-while-revalidate=86400"
+    SHORT = "public, max-age=0, s-maxage=15"
+
+    def __init__(self, app):
+        self.app = app
+
+    def policy(self, scope):
+        from urllib.parse import parse_qs
+        path = scope.get("path", "")
+        if path.startswith(API_PREFIX + "/"):
+            path = path[len(API_PREFIX):]
+        if path in ("/health", "/match/stream") or not (path.startswith("/match") or path == "/evaluation"):
+            return None
+        if path == "/matches":
+            return self.SHORT if catalog.live_clock(catalog.LIVE_MATCH) is not None else self.LONG
+        q = parse_qs(scope.get("query_string", b"").decode())
+        mid = path.split("/", 2)[2] if path.startswith("/matches/") else (q.get("match") or [None])[0]
+        if mid is None:  # the default match: MATCH_FILE, else the synthetic match (never live)
+            return self.LONG
+        return None if catalog.live_clock(mid) is not None else self.LONG
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http" or scope.get("method") != "GET":
+            return await self.app(scope, receive, send)
+        policy = self.policy(scope)
+
+        async def send_with_cache(message):
+            if policy and message["type"] == "http.response.start" and message.get("status") == 200:
+                message = dict(message, headers=list(message.get("headers", [])) + [(b"cache-control", policy.encode())])
+            await send(message)
+        await self.app(scope, receive, send_with_cache)
+
+
 app = FastAPI(title="Synthetic Match Insights Engine", version="0.2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(CdnCache)
 app.add_middleware(StripApiPrefix)
 
 

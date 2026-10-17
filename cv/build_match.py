@@ -257,7 +257,7 @@ def unscale(c):
     return np.array([c[0] / LSCALE, c[1], c[2]])
 
 
-def build(run_dir: Path, a_team: str, output_path=None, recon_fold=None, recon_weights=None, sampling='legacy_mean',association='legacy',track_namespace='shot'):
+def build(run_dir: Path, a_team: str, output_path=None, recon_fold=None, recon_weights=None, sampling='legacy_mean',association='legacy',track_namespace='shot',mirror=False):
     # argparse supplies numeric folds as strings; inference otherwise interprets
     # "0" as a literal checkpoint tag and silently falls back to smoothing.
     if recon_fold is not None and str(recon_fold).isdecimal():
@@ -266,6 +266,12 @@ def build(run_dir: Path, a_team: str, output_path=None, recon_fold=None, recon_w
     game, half, start, end = run["game"], run["half"], run["start"], run["end"]
     caption = json.loads((game_dir(game) / "Labels-caption.json").read_text())
     rows = [json.loads(l) for l in open(run_dir / "detections.jsonl")]
+    if mirror:
+        # teams change ends at half-time: rotate the pitch 180 degrees so the same team (A) keeps attacking +x
+        for r in rows:
+            for d in r["dets"]:
+                if d.get("px") is not None:
+                    d["px"], d["py"] = L - d["px"], W - d["py"]
     namespace_basis=run.get('track_id_namespace','legacy reset-local IDs')
     if track_namespace=='shot' and namespace_basis!='shot-qualified-v1':
         rows=qualify_rows(rows)
@@ -723,7 +729,8 @@ if __name__ == "__main__":
     ap.add_argument("--recon-weights",help="isolated candidate checkpoint directory")
     ap.add_argument('--sampling',choices=['legacy_mean','nearest'],default='legacy_mean')
     ap.add_argument('--association',choices=['legacy','stable_track'],default='legacy',help='Stable anonymous track aliases; does not verify shirt identity')
+    ap.add_argument("--mirror", action="store_true", help="rotate the pitch 180 degrees (second half: keep team A attacking +x)")
     ap.add_argument('--track-namespace',choices=['shot','legacy'],default='shot',help='Separate reset-local IDs across camera gaps using cached flags; legacy reproduces the former unsafe grouping')
     a = ap.parse_args()
     rd = Path(a.run_dir) if a.run_dir else max(OUT.glob("*/run.json"), key=lambda p: p.stat().st_mtime).parent
-    build(rd, a.a_team, a.out, a.recon_fold, a.recon_weights,a.sampling,a.association,a.track_namespace)
+    build(rd, a.a_team, a.out, a.recon_fold, a.recon_weights,a.sampling,a.association,a.track_namespace,a.mirror)

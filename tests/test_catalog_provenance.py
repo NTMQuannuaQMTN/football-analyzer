@@ -50,6 +50,7 @@ def test_synthetic_lobby_does_not_build_reconstruction(monkeypatch):
         raise AssertionError('Lobby should not build full match intelligence')
     monkeypatch.setattr(catalog, 'generate_match', record)
     monkeypatch.setattr(catalog, 'intel', unexpected)
+    monkeypatch.setattr(catalog, 'precomputed_meta', lambda seed: None)  # no shipped analysis: simulator only
     monkeypatch.setattr(catalog, '_catalog_static', lambda: ({'id': 'sim-7', 'kind': 'synthetic', 'label': 'Synthetic', 'parts': {'full': None}, 'info': {}},))
     catalog._synthetic_meta.cache_clear()
     first = catalog.lobby()[0]
@@ -58,3 +59,27 @@ def test_synthetic_lobby_does_not_build_reconstruction(monkeypatch):
     assert first['score'] == generated[0]['final_score'] == second['score']
     assert first['score_known'] is True
     catalog._synthetic_meta.cache_clear()
+
+
+def test_precomputed_synthetic_analysis_is_used_only_when_built_by_this_code(tmp_path, monkeypatch):
+    from backend import precomputed
+    monkeypatch.setattr(precomputed, 'DIR', tmp_path)
+    marker = {'built': 'by this code'}
+    precomputed.save(3, marker)
+    assert precomputed.load(3) == marker
+    assert precomputed.load(3, digest='other code') is None  # stale file: ignored, the match is rebuilt
+    assert precomputed.load(4) is None
+
+
+def test_cdn_caches_finished_matches_but_never_a_live_one(monkeypatch):
+    from backend.api.main import CdnCache
+    c = CdnCache(None)
+    req = lambda path, q=b"": {"path": path, "query_string": q}
+    monkeypatch.setattr(catalog, 'live_clock', lambda mid: 600.0 if mid == 'live-1' else None)
+    monkeypatch.setattr(catalog, 'LIVE_MATCH', 'live-1')
+    assert c.policy(req('/api/match/frames', b'match=sim-7')) == CdnCache.LONG
+    assert c.policy(req('/matches/sim-7')) == CdnCache.LONG
+    assert c.policy(req('/match/frames', b'match=live-1')) is None
+    assert c.policy(req('/matches/live-1')) is None
+    assert c.policy(req('/matches')) == CdnCache.SHORT  # lobby while a match is live
+    assert c.policy(req('/health')) is None and c.policy(req('/match/stream')) is None
